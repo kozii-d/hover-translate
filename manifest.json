@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "HoverTranslate",
+  "version": "1.0",
+  "description": "Это расширение для добавляет возможность мгновенного перевода слов в субтитрах видео. Вы можете легко получить перевод, просто наводя курсор на интересующее слово, что делает просмотр иностранных видео более доступным и понятным.",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["./extension/scripts/content-script.js"],
+      "css": ["./extension/styles/styles.css"]
+    }
+  ],
+  "icons": {
+    "16": "./extension/icons/hoverTranslateIcon_16px.png",
+    "32": "./extension/icons/hoverTranslateIcon_32px.png",
+    "48": "./extension/icons/hoverTranslateIcon_48px.png",
+    "128": "./extension/icons/hoverTranslateIcon_128px.png"
+  }
+}
