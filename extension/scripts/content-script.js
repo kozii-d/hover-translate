@@ -1,5 +1,3 @@
-// todo: auto-stop video with auto-generated captions
-
 // youtube elements
 const playButton = document.querySelector(".ytp-play-button");
 const video = document.querySelector("video");
@@ -159,11 +157,31 @@ function playVideoHandle() {
   wasPausedByUser = false;
 }
 
+// for auto-generated captions
+function updateCaptionWindowSize() {
+  const segments = document.querySelectorAll(".ytp-caption-segment");
+  let maxWidth = 0;
+
+  segments.forEach(segment => {
+    const rect = segment.getBoundingClientRect();
+    maxWidth = Math.max(maxWidth, rect.width);
+  });
+
+  const captionWindow = document.querySelector(".caption-window");
+  if (captionWindow) {
+    captionWindow.style.width = `${maxWidth}px`;
+  }
+}
+
 function observeMutations() {
   const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
       mutation.addedNodes.forEach(node => {
-        node.querySelectorAll && node.querySelectorAll(".ytp-caption-segment").forEach(splitCaptionIntoSpans);
+
+        if (node.querySelectorAll) {
+          node.querySelectorAll(".ytp-caption-segment").forEach(splitCaptionIntoSpans);
+          updateCaptionWindowSize();
+        }
 
         // for auto-generated captions
         if (node.nodeType === Node.TEXT_NODE) {
