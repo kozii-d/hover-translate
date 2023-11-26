@@ -1,3 +1,16 @@
+// consts
+const TRANSLATION_URL = "http://localhost:4000/translate";
+const TOOLTIP_CLASS = "custom-tooltip";
+const TOOLTIP_WORD_CLASS = "custom-tooltip-word";
+const TOOLTIP_ACTIVE = "active";
+const SPAN_TAG = "SPAN";
+
+// youtube classes
+const CAPTION_WINDOW_CONTAINER = "ytp-caption-window-container";
+const CAPTION_WINDOW = "caption-window";
+const CAPTION_SEGMENT = "ytp-caption-segment";
+
+
 // youtube elements
 const playButton = document.querySelector(".ytp-play-button");
 const video = document.querySelector("video");
@@ -6,14 +19,18 @@ const video = document.querySelector("video");
 let currentAbortController = null;
 let wasPausedByUser = false;
 
+/**
+ * Translates a word to the specified target language.
+ * @param {string} word - The word to translate.
+ * @param {string} targetLanguage - The language to translate the word to.
+ * @returns {Promise<Array<string>>} The translations of the word.
+ */
 async function translateWord(word, targetLanguage = "ru") {
-  const url = "http://localhost:4000/translate";
-
   currentAbortController = new AbortController();
   const { signal } = currentAbortController;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(TRANSLATION_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +51,7 @@ async function translateWord(word, targetLanguage = "ru") {
       // eslint-disable-next-line no-console
       console.log("Fetch aborted");
     } else {
-      console.error("Translation error:", e);
+      throw new Error(`Translation error: ${e}`);
     }
     return [];
   } finally {
@@ -44,12 +61,12 @@ async function translateWord(word, targetLanguage = "ru") {
 }
 
 function deleteActiveTooltip() {
-  document.querySelectorAll(".custom-tooltip").forEach(tooltip => tooltip.remove());
+  document.querySelectorAll(`.${TOOLTIP_CLASS}`).forEach(tooltip => tooltip.remove());
 }
 
 function isCaptionWindowInUpperHalf() {
-  const containerRect = document.querySelector(".ytp-caption-window-container").getBoundingClientRect();
-  const captionWindowRect = document.querySelector(".caption-window").getBoundingClientRect();
+  const containerRect = document.querySelector(`.${CAPTION_WINDOW_CONTAINER}`).getBoundingClientRect();
+  const captionWindowRect = document.querySelector(`.${CAPTION_WINDOW}`).getBoundingClientRect();
 
   const containerCenterY = containerRect.top + (containerRect.height / 2);
 
@@ -61,19 +78,19 @@ async function showTooltip(wordElement) {
   const word = wordElement.textContent.trim();
   const translations = await translateWord(word);
 
-  const subtitlesContainer = document.querySelector(".caption-window");
+  const subtitlesContainer = document.querySelector(`.${CAPTION_WINDOW}`);
 
   if (!subtitlesContainer || !translations.length) {
     return;
   }
 
   const tooltip = document.createElement("div");
-  tooltip.className = "custom-tooltip";
+  tooltip.className = TOOLTIP_CLASS;
   tooltip.textContent = translations.join(", ");
 
   tooltip.style.visibility = "hidden";
 
-  wordElement.setAttribute("data-tooltip", "active");
+  wordElement.setAttribute("data-tooltip", TOOLTIP_ACTIVE);
 
   document.body.appendChild(tooltip);
 
@@ -99,16 +116,20 @@ function positionTooltip(wordElement, tooltip, subtitlesContainer) {
   tooltip.style.visibility = "visible";
 }
 
+function isSpanElement(element) {
+  return element.tagName === SPAN_TAG;
+}
+
 function handleWordMouseEnter(event) {
-  if (event.target.tagName === "SPAN") {
+  if (isSpanElement(event.target)) {
     showTooltip(event.target);
   }
 }
 
 function handleWordMouseLeave(event) {
-  if (event.target.tagName === "SPAN") {
+  if (isSpanElement(event.target)) {
     deleteActiveTooltip();
-    if (document.body.contains(event.target) && event.target.getAttribute("data-tooltip") === "active") {
+    if (document.body.contains(event.target) && event.target.getAttribute("data-tooltip") === TOOLTIP_ACTIVE) {
       event.target.removeAttribute("data-tooltip");
     }
     if (currentAbortController) {
@@ -131,7 +152,7 @@ function splitCaptionIntoSpans(captionSegment) {
   words.forEach(word => {
     const wordSpan = document.createElement("span");
 
-    wordSpan.classList.add("custom-tooltip-word");
+    wordSpan.classList.add(TOOLTIP_WORD_CLASS);
 
     wordSpan.textContent = word + " ";
     wordSpan.addEventListener("mouseenter", handleWordMouseEnter);
@@ -159,7 +180,7 @@ function playVideoHandle() {
 
 // for auto-generated captions
 function updateCaptionWindowSize() {
-  const segments = document.querySelectorAll(".ytp-caption-segment");
+  const segments = document.querySelectorAll(`.${CAPTION_SEGMENT}`);
   let maxWidth = 0;
 
   segments.forEach(segment => {
@@ -167,7 +188,7 @@ function updateCaptionWindowSize() {
     maxWidth = Math.max(maxWidth, rect.width);
   });
 
-  const captionWindow = document.querySelector(".caption-window");
+  const captionWindow = document.querySelector(`.${CAPTION_WINDOW}`);
   if (captionWindow) {
     captionWindow.style.width = `${maxWidth}px`;
   }
@@ -179,26 +200,26 @@ function observeMutations() {
       mutation.addedNodes.forEach(node => {
 
         if (node.querySelectorAll) {
-          node.querySelectorAll(".ytp-caption-segment").forEach(splitCaptionIntoSpans);
+          node.querySelectorAll(`.${CAPTION_SEGMENT}`).forEach(splitCaptionIntoSpans);
           updateCaptionWindowSize();
         }
 
         // for auto-generated captions
         if (node.nodeType === Node.TEXT_NODE) {
           const captionSegment = node.parentElement;
-          if (captionSegment && captionSegment.classList.contains("ytp-caption-segment")) {
+          if (captionSegment && captionSegment.classList.contains(CAPTION_SEGMENT)) {
             splitCaptionIntoSpans(captionSegment);
           }
         }
 
 
-        if (node.classList && node.classList.contains("caption-window")) {
+        if (node.classList && node.classList.contains(CAPTION_WINDOW)) {
           node.addEventListener("mouseenter", stopVideoHandle);
           node.addEventListener("mouseleave", playVideoHandle);
         }
       });
       mutation.removedNodes.forEach(node => {
-        if (node.classList && node.classList.contains("caption-window")) {
+        if (node.classList && node.classList.contains(CAPTION_WINDOW)) {
           node.removeEventListener("mouseenter", stopVideoHandle);
           node.removeEventListener("mouseleave", playVideoHandle);
           deleteActiveTooltip();
@@ -208,7 +229,7 @@ function observeMutations() {
   });
 
   // Start observing changes in DOM
-  const captionContainer = document.querySelector(".ytp-caption-window-container");
+  const captionContainer = document.querySelector(`.${CAPTION_WINDOW_CONTAINER}`);
   if (captionContainer) {
     observer.observe(captionContainer, {
       childList: true,

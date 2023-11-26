@@ -1,7 +1,8 @@
 module.exports = {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
   "extends": "eslint:recommended",
   "overrides": [
@@ -40,5 +41,6 @@ module.exports = {
     ],
     "object-curly-spacing": [1, "always"],
     "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-import-assign": "off"
   }
 };
