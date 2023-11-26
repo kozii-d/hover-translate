@@ -6,6 +6,7 @@ const video = document.querySelector("video");
 
 // globals
 let currentAbortController = null;
+let wasPausedByUser = false;
 
 async function translateWord(word, targetLanguage = "ru") {
   const url = "http://localhost:4000/translate";
@@ -143,15 +144,19 @@ function splitCaptionIntoSpans(captionSegment) {
 }
 
 function stopVideoHandle() {
+  wasPausedByUser = video.paused;
   if (!video.paused) {
     playButton.click();
   }
 }
 
 function playVideoHandle() {
-  if (video.paused) {
+  if (video.paused && !wasPausedByUser) {
     playButton.click();
   }
+
+  // reset flag
+  wasPausedByUser = false;
 }
 
 function observeMutations() {
