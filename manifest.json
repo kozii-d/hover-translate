@@ -7,10 +7,16 @@
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
-      "js": ["./extension/dist/bundle.js"],
+      "js": ["./extension/dist/content.bundle.js"],
       "css": ["./extension/src/styles.css"]
     }
   ],
+  "background": {
+    "service_worker": "./extension/dist/background.bundle.js"
+  },
+  "action": {
+    "default_popup": "./popup/dist/index.html"
+  },
   "icons": {
     "16": "./extension/icons/hoverTranslateIcon_16px.png",
     "32": "./extension/icons/hoverTranslateIcon_32px.png",

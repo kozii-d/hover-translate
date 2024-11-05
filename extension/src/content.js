@@ -1,5 +1,5 @@
 // consts
-const TRANSLATION_URL = "http://localhost:4000/translate";
+const TRANSLATION_URL = "http://localhost:4000/translate"; // fixme: to env
 const TOOLTIP_CLASS = "custom-tooltip";
 const TOOLTIP_WORD_CLASS = "custom-tooltip-word";
 const TOOLTIP_ACTIVE = "active";
@@ -19,13 +19,35 @@ const video = document.querySelector("video");
 let currentAbortController = null;
 let wasPausedByUser = false;
 
+let sourceLanguageCode = "auto";
+let targetLanguageCode = "en-US";
+
+function initializeLanguages() {
+  chrome.storage.sync.get(["sourceLanguageCode", "targetLanguageCode"], (result) => {
+    sourceLanguageCode = result.sourceLanguageCode || "auto";
+    targetLanguageCode = result.targetLanguageCode || "en-US";
+  });
+}
+
+function checkStorageChanges() {
+  chrome.storage.onChanged.addListener((changes, namespace) => {
+    if (namespace === "sync") {
+      if (changes.sourceLanguageCode) {
+        sourceLanguageCode = changes.sourceLanguageCode.newValue;
+      }
+      if (changes.targetLanguageCode) {
+        targetLanguageCode = changes.targetLanguageCode.newValue;
+      }
+    }
+  });
+}
+
 /**
- * Translates a word to the specified target language.
- * @param {string} word - The word to translate.
- * @param {string} targetLanguage - The language to translate the word to.
- * @returns {Promise<Array<string>>} The translations of the word.
+ * Translates text to the specified target language.
+ * @param {string} text - The text to translate.
+ * @returns {Promise<string>} - The translated text.
  */
-async function translateWord(word, targetLanguage = "ru") {
+async function translateText(text, ) {
   currentAbortController = new AbortController();
   const { signal } = currentAbortController;
 
@@ -36,16 +58,16 @@ async function translateWord(word, targetLanguage = "ru") {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        input: word,
-        sourceLocale: "en",
-        targetLocale: targetLanguage,
+        input: text,
+        sourceLocale: sourceLanguageCode,
+        targetLocale: targetLanguageCode,
       }),
       signal
     });
 
-    const { translations } = await response.json();
+    const { text: translatedText } = await response.json();
 
-    return translations;
+    return translatedText;
   } catch (e) {
     if (e?.name === "AbortError") {
       // eslint-disable-next-line no-console
@@ -53,7 +75,7 @@ async function translateWord(word, targetLanguage = "ru") {
     } else {
       throw new Error(`Translation error: ${e}`);
     }
-    return [];
+    return "";
   } finally {
     deleteActiveTooltip();
     currentAbortController = null;
@@ -76,17 +98,17 @@ function isCaptionWindowInUpperHalf() {
 
 async function showTooltip(wordElement) {
   const word = wordElement.textContent.trim();
-  const translations = await translateWord(word);
+  const translatedText = await translateText(word);
 
   const subtitlesContainer = document.querySelector(`.${CAPTION_WINDOW}`);
 
-  if (!subtitlesContainer || !translations.length) {
+  if (!subtitlesContainer || !translatedText) {
     return;
   }
 
   const tooltip = document.createElement("div");
   tooltip.className = TOOLTIP_CLASS;
-  tooltip.textContent = translations.join(", ");
+  tooltip.textContent = translatedText;
 
   tooltip.style.visibility = "hidden";
 
@@ -242,4 +264,6 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", observeMutations);
 } else {
   observeMutations();
+  initializeLanguages();
+  checkStorageChanges();
 }
