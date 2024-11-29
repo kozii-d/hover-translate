@@ -47,7 +47,7 @@ export const Settings = (props: FormikProps<SettingsFormValues>) => {
     const fetchLanguagesData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get<LanguageResponse>("http://localhost:4000/languages");
+        const response = await axios.get<LanguageResponse>(`${__API_URL__}/translation/languages`);
         setSourceLanguages(response.data.sourceLanguages);
         setTargetLanguages(response.data.targetLanguages);
       } catch (error) {

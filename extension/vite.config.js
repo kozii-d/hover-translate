@@ -1,5 +1,10 @@
 import { defineConfig } from "vite";
 
+import dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+
 export default defineConfig({
   root: "src",
   build: {
@@ -16,5 +21,8 @@ export default defineConfig({
         }
       }
     },
+  },
+  define: {
+    __API_URL__: JSON.stringify(process.env.API_URL),
   },
 });

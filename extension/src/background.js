@@ -7,7 +7,7 @@ async function initializeLanguages() {
 
   try {
     // available languages for deepl
-    const response = await fetch("http://localhost:4000/languages"); // fixme: url to env
+    const response = await fetch(`${__API_URL__}/translation/languages`);
     const data = await response.json();
 
     if (!data || !Array.isArray(data.targetLanguages)) {
