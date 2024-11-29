@@ -1,5 +1,5 @@
 // consts
-const TRANSLATION_URL = "http://localhost:4000/translate"; // fixme: to env
+const TRANSLATION_URL = `${__API_URL__}/translation/translate`;
 const TOOLTIP_CLASS = "custom-tooltip";
 const TOOLTIP_WORD_CLASS = "custom-tooltip-word";
 const TOOLTIP_ACTIVE = "active";
@@ -9,7 +9,6 @@ const SPAN_TAG = "SPAN";
 const CAPTION_WINDOW_CONTAINER = "ytp-caption-window-container";
 const CAPTION_WINDOW = "caption-window";
 const CAPTION_SEGMENT = "ytp-caption-segment";
-
 
 // youtube elements
 const playButton = document.querySelector(".ytp-play-button");
