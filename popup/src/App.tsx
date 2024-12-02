@@ -9,25 +9,26 @@ import {Settings} from "./Settings.tsx";
 export interface SettingsFormValues {
   sourceLanguageCode: string;
   targetLanguageCode: string;
+  autoPause: boolean;
 }
 
 function App() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const [initialValues, setInitialValues] = useState({ sourceLanguageCode: "", targetLanguageCode: "" });
+  const [initialValues, setInitialValues] = useState({ sourceLanguageCode: "", targetLanguageCode: "", autoPause: false });
 
   const theme = useMemo(() => {
     return createTheme({ palette: { mode: mode } });
   }, [mode]);
 
   const setInitialLanguages = useCallback(() => {
-    chrome.storage.sync.get(["sourceLanguageCode", "targetLanguageCode"], (result) => {
-      const sourceLanguageCode = result.sourceLanguageCode || "auto";
-      const targetLanguageCode = result.targetLanguageCode || "en-US";
+    chrome.storage.sync.get(["settings"], (result) => {
+      const { settings } = result;
 
-      setInitialValues({
-        sourceLanguageCode,
-        targetLanguageCode,
-      });
+      if (!settings) {
+        return;
+      }
+
+      setInitialValues(settings);
     });
   }, []);
 
@@ -49,8 +50,7 @@ function App() {
 
   const handleSubmit = (values: SettingsFormValues) => {
     chrome.storage.sync.set({
-      sourceLanguageCode: values.sourceLanguageCode,
-      targetLanguageCode: values.targetLanguageCode,
+      settings: values,
     }, () => {
       setInitialLanguages();
     });
