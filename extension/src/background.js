@@ -2,9 +2,7 @@ function getUserLanguage() {
   return chrome.i18n.getUILanguage();
 }
 
-async function initializeLanguages() {
-  const userLanguage = getUserLanguage();
-
+async function getInitialSettings() {
   try {
     // available languages for deepl
     const response = await fetch(`${__API_URL__}/translation/languages`);
@@ -14,21 +12,33 @@ async function initializeLanguages() {
       throw new Error("Invalid data from server");
     }
 
+    const userLanguage = getUserLanguage();
+
     const availableTargetLanguages = data.targetLanguages.map((lang) => lang.code);
-    chrome.storage.sync.get(["sourceLanguageCode", "targetLanguageCode"], (result) => {
-      if (!result.sourceLanguageCode) {
-        chrome.storage.sync.set({ sourceLanguageCode: "auto" });
-      }
+    const targetLanguageCode = availableTargetLanguages.includes(userLanguage) ? userLanguage : "en-US";
 
-      if (!result.targetLanguageCode) {
-        const targetLanguageCode = availableTargetLanguages.includes(userLanguage) ? userLanguage : "en-US";
-        chrome.storage.sync.set({ targetLanguageCode });
-      }
-    });
-
+    return {
+      sourceLanguageCode: "auto",
+      targetLanguageCode,
+      autoPause: true,
+    };
   } catch (error) {
     console.error("Failed to fetch languages from server:", error);
+    return {
+      sourceLanguageCode: "auto",
+      targetLanguageCode: "en-US",
+      autoPause: true,
+    };
   }
+}
+
+async function initializeLanguages() {
+  chrome.storage.sync.get(["settings"], async (result) => {
+    if (!result.settings) {
+      const initialSettings = await getInitialSettings();
+      chrome.storage.sync.set({ settings: initialSettings });
+    }
+  });
 }
 
 // Event listener for when the extension is installed or updated
