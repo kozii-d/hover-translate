@@ -4,7 +4,7 @@ function getUserLanguage() {
 
 async function getInitialSettings() {
   try {
-    // available languages for deepl
+    // Available languages for deepl
     const response = await fetch(`${__API_URL__}/translation/languages`);
     const data = await response.json();
 

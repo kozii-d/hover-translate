@@ -1,6 +1,7 @@
 import { state } from "./variables.js";
 
 let userPausedVideo = false;
+let wasPausedByScript = false;
 
 export function handleVideoPause() {
   
@@ -13,6 +14,7 @@ export function handleVideoPause() {
   userPausedVideo = video.paused;
   if (!userPausedVideo) {
     video.pause();
+    wasPausedByScript = true;
   }
 }
 
@@ -23,7 +25,7 @@ export function handleVideoPlay() {
 
   if (!video) return;
 
-  if (!userPausedVideo) {
+  if (wasPausedByScript) {
     video.play();
   }
 }

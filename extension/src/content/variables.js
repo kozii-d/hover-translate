@@ -4,5 +4,6 @@ export const state = {
     targetLanguageCode: "en-US",
     autoPause: true,
   },
+  isSelecting: false,
   cacheLoaded: false,
 };
