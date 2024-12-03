@@ -25,9 +25,9 @@ export async function showTooltip(wordElement) {
   const abortController = new AbortController();
   wordElement.abortController = abortController;
 
-  deleteActiveTooltip();
-
   const translatedText = await translateText(word, abortController.signal);
+
+  deleteActiveTooltip();
 
   // Delete link to abortController after request is done
   delete wordElement.abortController;

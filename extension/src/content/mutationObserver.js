@@ -44,7 +44,7 @@ export function observeMutations() {
         subtree: true,
       });
     } else {
-      // Если контейнер не найден, повторяем попытку через некоторое время
+      // If the container is not found, try again after some time
       setTimeout(startObserving, 1000);
     }
   }
