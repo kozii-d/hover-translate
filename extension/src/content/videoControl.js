@@ -27,5 +27,6 @@ export function handleVideoPlay() {
 
   if (wasPausedByScript) {
     video.play();
+    wasPausedByScript = false;
   }
 }
