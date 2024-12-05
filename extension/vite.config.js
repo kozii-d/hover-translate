@@ -12,8 +12,8 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: [
-        "./src/content.js",
-        "./src/background.js",
+        "./src/content/content.js",
+        "./src/background/background.js",
       ],
       output: {
         entryFileNames: ({ name }) => {

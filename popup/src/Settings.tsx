@@ -52,11 +52,17 @@ export const Settings = (props: FormikProps<SettingsFormValues>) => {
     autoPauseHelpers.setError(undefined);
   };
 
+  const getLanguageName = (code: string, locale: string = "en") => {
+    const displayNames = new Intl.DisplayNames(locale, { type: "language" });
+    return displayNames.of(code);
+  };
+
   useEffect(() => {
     const fetchLanguagesData = async () => {
       setLoading(true);
       try {
         const response = await axios.get<LanguageResponse>(`${__API_URL__}/translation/languages`);
+        console.log("response", response);
         setSourceLanguages(response.data.sourceLanguages);
         setTargetLanguages(response.data.targetLanguages);
       } catch (error) {
@@ -90,7 +96,7 @@ export const Settings = (props: FormikProps<SettingsFormValues>) => {
             variant="outlined"
           >
             {targetLanguages.map((language) => (
-              <MenuItem key={language.code} value={language.code}>{language.name}</MenuItem>
+              <MenuItem key={language.code} value={language.code}>{language.name || getLanguageName(language.code)}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -106,7 +112,7 @@ export const Settings = (props: FormikProps<SettingsFormValues>) => {
           >
             <MenuItem key="auto" value="auto">Auto</MenuItem>
             {sourceLanguages.map((language) => (
-              <MenuItem key={language.code} value={language.code}>{language.name}</MenuItem>
+              <MenuItem key={language.code} value={language.code}>{language.name || getLanguageName(language.code)}</MenuItem>
             ))}
           </Select>
         </FormControl>
