@@ -3,7 +3,14 @@
   "name": "HoverTranslate",
   "version": "1.0",
   "description": "Это расширение для добавляет возможность мгновенного перевода слов в субтитрах видео. Вы можете легко получить перевод, просто наводя курсор на интересующее слово, что делает просмотр иностранных видео более доступным и понятным.",
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": ["activeTab", "storage", "scripting", "identity"],
+  "oauth2": {
+    "client_id": "67431023275-15jdkinuqmn7rc5qtbcuv59bu4e6kq8m.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
   "content_scripts": [
     {
       "matches": ["*://*.youtube.com/*"],
