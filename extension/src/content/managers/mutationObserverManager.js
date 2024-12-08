@@ -2,6 +2,7 @@ import {
   CAPTION_WINDOW_CONTAINER,
   CAPTION_SEGMENT,
   CAPTION_WINDOW,
+  TOOLTIP_WORD_CLASS
 } from "../utils/constants.js";
 
 export class MutationObserverManager {
@@ -14,6 +15,15 @@ export class MutationObserverManager {
   observeMutations = () => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
+
+        // If a new word is added to the caption window, set the word indexes and clear the selected words.
+        // Clearing is necessary for auto-generated captions
+        if (Array.from(mutation.addedNodes).some((node) => node.classList && node.classList.contains(TOOLTIP_WORD_CLASS))) {
+          this.tooltipManager.clearSelectedWords();
+          this.tooltipManager.deleteActiveTooltip();
+          this.subtitleCore.setWordsIndexes();
+        }
+
         mutation.addedNodes.forEach((node) => {
           if (node.querySelectorAll) {
             node.querySelectorAll(`.${CAPTION_SEGMENT}`).forEach((segment) => {
@@ -21,7 +31,10 @@ export class MutationObserverManager {
             });
             this.subtitleCore.updateCaptionWindowSize();
           }
+          
+          
 
+          // for auto-generated captions
           if (node.nodeType === Node.TEXT_NODE) {
             const captionSegment = node.parentElement;
             if (captionSegment && captionSegment.classList.contains(CAPTION_SEGMENT)) {
@@ -40,6 +53,7 @@ export class MutationObserverManager {
             node.removeEventListener("mouseenter", this.videoController.handleVideoPause);
             node.removeEventListener("mouseleave", this.videoController.handleVideoPlay);
             this.tooltipManager.deleteActiveTooltip();
+            this.tooltipManager.clearSelectedWords();
           }
         });
       });

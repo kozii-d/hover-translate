@@ -1,9 +1,10 @@
 import {
   TOOLTIP_CLASS,
-  TOOLTIP_ACTIVE,
   CAPTION_WINDOW,
   TOOLTIP_WORD_CLASS,
   CAPTION_SEGMENT,
+  DATA_ATTRIBUTES,
+  TOOLTIP_SELECTED_WORD_CLASS,
 } from "../utils/constants.js";
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.js";
 
@@ -11,30 +12,30 @@ export class TooltipManager {
   constructor(state, translationCore) {
     this.state = state;
     this.translationCore = translationCore;
+    this.selectedWordsNodes = new Set();
+    this.firstSelectedWordNode = null;
+    this.lastSelectedWordNode = null;
   }
 
   deleteActiveTooltip() {
     document.querySelectorAll(`.${TOOLTIP_CLASS}`).forEach((tooltip) => tooltip.remove());
   }
 
-  async showTooltip(wordElement) {
-    wordElement.setAttribute("data-tooltip", TOOLTIP_ACTIVE);
-
-    const word = wordElement.textContent.trim();
-
-    // Abort previous request if it exists
-    if (wordElement.abortController) {
-      wordElement.abortController.abort();
-    }
+  async showTooltip(targetNode) {
+    const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
+      return parseInt(a.getAttribute(DATA_ATTRIBUTES.INDEX), 10) - parseInt(b.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+    });
+    const words = sortedWordNodes.map((wordNode) => wordNode.textContent.trim());
+    const textToTranslate = words.join(" ");
 
     // Create a new AbortController for this element
     const abortController = new AbortController();
-    wordElement.abortController = abortController;
+    targetNode.abortController = abortController;
 
-    const translatedText = await this.translationCore.translateText(word, abortController.signal);
+    const translatedText = await this.translationCore.translateText(textToTranslate, abortController.signal);
 
     // Delete link to abortController after request is done
-    delete wordElement.abortController;
+    delete targetNode.abortController;
 
     const subtitlesContainer = document.querySelector(`.${CAPTION_WINDOW}`);
 
@@ -44,7 +45,7 @@ export class TooltipManager {
 
     this.deleteActiveTooltip();
 
-    if (wordElement.getAttribute("data-tooltip") !== TOOLTIP_ACTIVE || !subtitlesContainer.contains(wordElement)) {
+    if (!subtitlesContainer.contains(targetNode)) {
       return;
     }
 
@@ -57,7 +58,7 @@ export class TooltipManager {
     document.body.appendChild(tooltip);
 
     this.styleTooltip(tooltip);
-    this.positionTooltip(wordElement, tooltip, subtitlesContainer);
+    this.positionTooltip(this.firstSelectedWordNode, tooltip, subtitlesContainer);
   }
 
   styleTooltip(tooltip) {
@@ -70,27 +71,77 @@ export class TooltipManager {
     tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
   }
 
-  positionTooltip(wordElement, tooltip, subtitlesContainer) {
-    const rectWord = wordElement.getBoundingClientRect();
-    const tooltipHeight = tooltip.offsetHeight;
-    let topPosition;
+  positionTooltip(anchorWordNode, tooltip, subtitlesContainer) {
+    tooltip.style.visibility = "hidden";
+    tooltip.style.top = "0px";
+    tooltip.style.left = "0px";
+
+    const rectAnchorWord = anchorWordNode.getBoundingClientRect();
+    tooltip.style.left = `${rectAnchorWord.left + window.scrollX}px`;
 
     const rectSubtitlesContainer = subtitlesContainer.getBoundingClientRect();
 
+    const tooltipHeight = tooltip.offsetHeight;
+
+    let topPosition;
     if (isCaptionWindowInUpperHalf()) {
       topPosition = rectSubtitlesContainer.bottom + 5 + window.scrollY;
     } else {
       topPosition = rectSubtitlesContainer.top - tooltipHeight - 5 + window.scrollY;
     }
-
     tooltip.style.top = `${topPosition}px`;
-    tooltip.style.left = `${rectWord.left + window.scrollX}px`;
     tooltip.style.visibility = "visible";
   }
+
+  updateSelectedWords = (selectedNode) => {
+    const selectedWordIndex = parseInt(selectedNode.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+
+    if (this.firstSelectedWordNode) {
+      const firstWordIndex = parseInt(this.firstSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+      if (selectedWordIndex < firstWordIndex) {
+        this.firstSelectedWordNode = selectedNode;
+      }
+    } else {
+      this.firstSelectedWordNode = selectedNode;
+    }
+
+    if (this.lastSelectedWordNode) {
+      const lastWordIndex = parseInt(this.lastSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+      if (selectedWordIndex > lastWordIndex) {
+        this.lastSelectedWordNode = selectedNode;
+      }
+    } else {
+      this.lastSelectedWordNode = selectedNode;
+    }
+
+    const words = document.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
+
+    words.forEach((word) => {
+      const wordIndex = parseInt(word.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+      const firstWordIndex = parseInt(this.firstSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+      const lastWordIndex = parseInt(this.lastSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
+
+      if (wordIndex >= firstWordIndex && wordIndex <= lastWordIndex) {
+        this.selectedWordsNodes.add(word);
+        word.classList.add(TOOLTIP_SELECTED_WORD_CLASS);
+      }
+    });
+  };
+
+  clearSelectedWords = () => {
+    this.firstSelectedWordNode = null;
+    this.lastSelectedWordNode = null;
+    this.selectedWordsNodes.forEach((word) => word.classList.remove(TOOLTIP_SELECTED_WORD_CLASS));
+    this.selectedWordsNodes.clear();
+  };
 
   handleWordMouseEnter = (event) => {
     const target = event.target;
     if (target.classList.contains(TOOLTIP_WORD_CLASS)) {
+      if (!this.selectedWordsNodes.has(target)) {
+        this.updateSelectedWords(target);
+      }
+
       this.showTooltip(target);
     }
   };
@@ -104,7 +155,10 @@ export class TooltipManager {
         delete target.abortController;
       }
 
-      target.removeAttribute("data-tooltip");
+      if (!this.state.isSelecting) {
+        this.clearSelectedWords();
+      }
+
       this.deleteActiveTooltip();
     }
   };

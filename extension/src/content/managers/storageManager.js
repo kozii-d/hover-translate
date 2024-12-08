@@ -1,6 +1,7 @@
 export class StorageManager {
   constructor(state) {
     this.state = state;
+    chrome.storage.local.clear();
   }
 
   initializeLanguages() {
