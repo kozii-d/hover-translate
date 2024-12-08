@@ -1,9 +1,16 @@
-import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW } from "../utils/constants.js";
+import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW, DATA_ATTRIBUTES } from "../utils/constants.js";
 
 export class SubtitleCore {
   constructor(tooltipManager) {
     this.tooltipManager = tooltipManager;
   }
+  
+  setWordsIndexes = () => {
+    const allWords = document.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
+    allWords.forEach((word, index) => {
+      word.setAttribute(DATA_ATTRIBUTES.INDEX, String(index));
+    });
+  };
 
   splitCaptionIntoSpans(captionSegment) {
     const text = captionSegment.textContent.trim();

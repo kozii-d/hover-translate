@@ -6,7 +6,6 @@ export class StateManager {
       autoPause: true,
     };
     this.isSelecting = false;
-    this.isMouseOverCaption = false;
     this.cacheLoaded = false;
   }
 }

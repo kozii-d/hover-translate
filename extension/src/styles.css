@@ -12,3 +12,7 @@
 .custom-tooltip-word:hover {
     background-color: #808080;
 }
+
+.custom-tooltip-word-selected {
+    background-color: #808080;
+}
