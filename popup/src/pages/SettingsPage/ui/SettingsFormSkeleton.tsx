@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 
-export const SettingsSkeleton = () => {
+export const SettingsFormSkeleton = () => {
   return (
     <Box>
       <Skeleton variant="text" sx={{ fontSize: '1.25rem' }} />

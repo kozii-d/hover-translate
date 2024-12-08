@@ -12,8 +12,8 @@ import Switch from "@mui/material/Switch";
 import {FormikProps, useField} from "formik";
 import {ChangeEvent, useEffect, useState} from "react";
 import axios from "axios";
-import {SettingsSkeleton} from "./SettingsSkeleton.tsx";
-import {SettingsFormValues} from "./App.tsx";
+import {SettingsFormSkeleton} from "./SettingsFormSkeleton.tsx";
+import {SettingsFormValues} from "../model/types/schema.ts";
 
 
 export interface Language {
@@ -26,7 +26,7 @@ interface LanguageResponse {
   sourceLanguages: Language[];
 }
 
-export const Settings = (props: FormikProps<SettingsFormValues>) => {
+export const SettingsForm = (props: FormikProps<SettingsFormValues>) => {
   const { handleSubmit, dirty, isValid } = props;
 
   const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
@@ -62,7 +62,6 @@ export const Settings = (props: FormikProps<SettingsFormValues>) => {
       setLoading(true);
       try {
         const response = await axios.get<LanguageResponse>(`${__API_URL__}/translation/languages`);
-        console.log("response", response);
         setSourceLanguages(response.data.sourceLanguages);
         setTargetLanguages(response.data.targetLanguages);
       } catch (error) {
@@ -76,7 +75,7 @@ export const Settings = (props: FormikProps<SettingsFormValues>) => {
   }, []);
 
   if (loading) {
-    return <SettingsSkeleton />;
+    return <SettingsFormSkeleton />;
   }
 
   return (
