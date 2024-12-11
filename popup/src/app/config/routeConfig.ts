@@ -1,12 +1,12 @@
 import {FC, ReactNode} from "react";
 
 import { RouterPath } from "./routerPath";
-import {SettingsPage, SettingsFormSkeleton} from "@/pages/SettingsPage";
+import {SettingsPage} from "@/pages/SettingsPage";
+import {LoginPage} from "@/pages/LoginPage";
 
 export interface RouteConfig {
   path: string,
   element: FC,
-  skeleton?: FC,
   guards?: FC<{ children: ReactNode }>[]
 }
 
@@ -14,6 +14,9 @@ export const routeConfig: RouteConfig[] = [
   {
     path: RouterPath.settings,
     element: SettingsPage,
-    skeleton: SettingsFormSkeleton
   },
+  {
+    path: RouterPath.login,
+    element: LoginPage,
+  }
 ];

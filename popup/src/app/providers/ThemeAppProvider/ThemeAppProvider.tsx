@@ -1,10 +1,12 @@
 import {FC, ReactNode, useEffect, useMemo, useState} from "react";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from "@mui/material/CssBaseline";
+import {AppProvider} from "@toolpad/core";
 
 interface ThemeAppProviderProps {
   children: ReactNode;
 }
+
 export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
@@ -26,7 +28,9 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {children}
+      <AppProvider theme={theme} >
+        {children}
+      </AppProvider>
     </ThemeProvider>
   );
 };
