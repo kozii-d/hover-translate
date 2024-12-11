@@ -2,13 +2,13 @@
   "manifest_version": 3,
   "name": "HoverTranslate",
   "version": "1.0",
-  "description": "Это расширение для добавляет возможность мгновенного перевода слов в субтитрах видео. Вы можете легко получить перевод, просто наводя курсор на интересующее слово, что делает просмотр иностранных видео более доступным и понятным.",
+  "description": "Это расширение для добавляет возможность мгновенного перевода слов в субтитрах видео.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvqK2CGDB0eRIXs5zwZUYOp5szkdbPgxpMdBGyWhlcOh0TDAeACmKFGSloPxJXDOBc8mGNB7e8CCLltbKphaYhqn7wqr9m5r2Q0FHxsWT/cLyOQ5UlroGVYD+GGVFTKLephZeqonXxjdGYeKW6XQ+5AFuIQsC7lYoQyMKuxf32Z3vpDeQ8SxyCq2yNgAc11KQkNKx6FLDZT5baK61IhKxL2hFbyqpuDDOSYnJyP5/TsBCZSHQBej2LaTrlL+GJlE9yHTSwUVAdJeKrBGhaRGsAi1k9fBKZ5y8ZxkQP3TJhRmhxvYuM/rhHW328pXfcEUAUSnAn0Lqk+sQfI+BTN/vrwIDAQAB",
   "permissions": ["activeTab", "storage", "scripting", "identity"],
   "oauth2": {
-    "client_id": "67431023275-15jdkinuqmn7rc5qtbcuv59bu4e6kq8m.apps.googleusercontent.com",
+    "client_id": "67431023275-3nresa6s25t492krt3u8b3uvvqc0ujkb.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email",
-      "https://www.googleapis.com/auth/userinfo.profile"
+      "openid"
     ]
   },
   "content_scripts": [

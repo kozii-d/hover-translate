@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,28 +9,26 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import {FormikProps, useField} from "formik";
-import {ChangeEvent, useEffect, useState} from "react";
-import axios from "axios";
-import {SettingsFormSkeleton} from "./SettingsFormSkeleton.tsx";
-import {SettingsFormValues} from "../model/types/schema.ts";
+import {ChangeEvent, FC} from "react";
 
+import {Language, SettingsFormValues} from "../model/types/schema.ts";
+import {SettingsFormSkeleton} from "@/pages/SettingsPage/ui/SettingsFormSkeleton.tsx";
 
-export interface Language {
-  code: string;
-  name: string;
-}
-
-interface LanguageResponse {
-  targetLanguages: Language[];
+interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
+  targetLanguages: Language[];
+  loading: boolean;
 }
 
-export const SettingsForm = (props: FormikProps<SettingsFormValues>) => {
-  const { handleSubmit, dirty, isValid } = props;
-
-  const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
-  const [targetLanguages, setTargetLanguages] = useState<Language[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+export const SettingsForm: FC<SettingsFormProps> = (props) => {
+  const {
+    handleSubmit,
+    dirty,
+    isValid,
+    sourceLanguages,
+    targetLanguages,
+    loading
+  } = props;
 
   const [targetLanguageCodeField, targetLanguageCodeMeta, targetLanguageCodeHelpers] = useField<string>("targetLanguageCode");
   const [sourceLanguageCodeField, sourceLanguageCodeMeta, sourceLanguageCodeHelpers] = useField<string>("sourceLanguageCode");
@@ -57,32 +54,12 @@ export const SettingsForm = (props: FormikProps<SettingsFormValues>) => {
     return displayNames.of(code);
   };
 
-  useEffect(() => {
-    const fetchLanguagesData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get<LanguageResponse>(`${__API_URL__}/translation/languages`);
-        setSourceLanguages(response.data.sourceLanguages);
-        setTargetLanguages(response.data.targetLanguages);
-      } catch (error) {
-        console.error("Failed to fetch source languages", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchLanguagesData();
-  }, []);
-
   if (loading) {
-    return <SettingsFormSkeleton />;
+    return <SettingsFormSkeleton/>;
   }
 
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
-        Settings
-      </Typography>
       <Stack spacing={2}>
         <FormControl fullWidth error={Boolean(targetLanguageCodeMeta.error && targetLanguageCodeMeta.touched)}>
           <InputLabel id="target-label">Target language</InputLabel>

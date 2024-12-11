@@ -5,13 +5,13 @@ export class KeyboardManager {
 
   initializeKeyboardListeners() {
     document.addEventListener("keydown", (event) => {
-      if (event.altKey) {
+      if (event.shiftKey) {
         this.state.isSelecting = true;
       }
     });
 
     document.addEventListener("keyup", (event) => {
-      if (!event.altKey) {
+      if (!event.shiftKey) {
         this.state.isSelecting = false;
       }
     });
