@@ -1,10 +1,10 @@
-import { TRANSLATION_URL } from "../utils/constants.js";
 import QuickLRU from "quick-lru";
 
 export class TranslationCore {
-  constructor(state) {
+  constructor(state, tokenManager) {
     this.state = state;
     this.translationCache = new QuickLRU({ maxSize: 3000 });
+    this.tokenManager = tokenManager;
   }
 
   async loadTranslationCache() {
@@ -37,11 +37,8 @@ export class TranslationCore {
     }
 
     try {
-      const response = await fetch(TRANSLATION_URL, {
+      const { text: translatedText } = await this.fetchToApi("/translation/translate", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           input: text,
           sourceLocale: this.state.settings.sourceLanguageCode,
@@ -50,26 +47,45 @@ export class TranslationCore {
         signal,
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const { text: translatedText } = await response.json();
-
       this.translationCache.set(cacheKey, translatedText);
       this.saveTranslationCache();
 
       return translatedText;
-    } catch (e) {
-      if (e?.name === "AbortError") {
+    } catch (error) {
+      if (error?.name === "AbortError") {
         // eslint-disable-next-line no-console
         console.log("Fetch aborted");
       } else {
-        console.error(`Translation error: ${e}`);
+        throw error;
       }
       return "";
     } finally {
       this.state.currentAbortController = null;
     }
   }
+
+  fetchToApi = async (path, options, attempt = 1) => {
+    const MAX_ATTEMPTS = 3;
+    const idTokenData = await this.tokenManager.getIdTokenFromStorage();
+
+    const config = {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (idTokenData && idTokenData.idToken && !this.tokenManager.checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
+      config.headers.Authorization = `Bearer ${idTokenData.idToken}`;
+    } else {
+      if (attempt > MAX_ATTEMPTS) {
+        throw new Error("Exceeded maximum attempts to restore the ID token.");
+      }
+      await this.tokenManager.sendMessageForRestoreIdToken();
+      return this.fetchToApi(path, options, attempt + 1);
+    }
+
+    const response = await fetch(`${__API_URL__}${path}`, config);
+    return response.json();
+  };
 }

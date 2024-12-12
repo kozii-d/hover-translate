@@ -34,8 +34,7 @@ export const getIdToken = async (option: { interactive: boolean; }) => {
         {url: authUrl, interactive},
         (redirectUrl) => {
           if (chrome.runtime.lastError || !redirectUrl) {
-            console.error("Failed to get redirect URL:", chrome.runtime.lastError);
-            return reject(new Error("Authorization failed: Unable to complete OAuth flow."));
+            return reject(new Error(chrome.runtime.lastError?.message || "Authorization failed: Unable to complete OAuth flow."));
           }
 
           const urlParams = new URLSearchParams(new URL(redirectUrl).hash.slice(1));
@@ -54,7 +53,6 @@ export const getIdToken = async (option: { interactive: boolean; }) => {
       );
     });
   } catch (error) {
-    console.error("Sign-in failed:", error);
     throw error;
   }
 };
@@ -63,8 +61,7 @@ export const saveIdTokenToStorage = async (idTokenData: IdTokenData) => {
   return new Promise<void>((resolve, reject) => {
     chrome.storage.local.set({ idTokenData }, () => {
       if (chrome.runtime.lastError) {
-        console.error("Failed to save token and user profile in storage:", chrome.runtime.lastError);
-        reject(new Error("Failed to save token and user profile in storage."));
+        reject(new Error(chrome.runtime.lastError?.message || "Failed to save token and user profile in storage."));
       } else {
         resolve();
       }
@@ -74,12 +71,16 @@ export const saveIdTokenToStorage = async (idTokenData: IdTokenData) => {
 
 export const getIdTokenFromStorage = async () => {
   return new Promise<IdTokenData | undefined>((resolve, reject) => {
-    chrome.storage.local.get(["idTokenData"], (result) => {
+    chrome.storage.local.get("idTokenData", (result) => {
       if (chrome.runtime.lastError) {
-        console.error("Failed to get token from storage:", chrome.runtime.lastError);
-        return reject(new Error("Failed to get token from storage."));
+        return reject(new Error(chrome.runtime.lastError.message || "Failed to get token from storage."));
       }
       const { idTokenData } = result;
+
+      if (!idTokenData) {
+        return resolve(null);
+      }
+
       resolve(idTokenData);
     });
   });
@@ -89,8 +90,7 @@ export const removeIdTokenFromStorage = async () => {
   return new Promise<void>((resolve, reject) => {
     chrome.storage.local.remove("idTokenData", () => {
       if (chrome.runtime.lastError) {
-        console.error("Failed to remove token from storage:", chrome.runtime.lastError);
-        reject(new Error("Failed to remove token from sync storage."));
+        reject(new Error(chrome.runtime.lastError?.message || "Failed to remove token from sync storage."));
       } else {
         resolve();
       }
@@ -108,6 +108,7 @@ export const restoreToken = async () => {
     return saveIdTokenToStorage(idTokenData);
   } catch (error) {
     console.error("Failed to resolve token:", error);
+    removeIdTokenFromStorage();
     window.location.hash = `#${RouterPath.login}`;
   }
 };

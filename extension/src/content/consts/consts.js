@@ -1,6 +1,3 @@
-// URLs
-export const TRANSLATION_URL = `${__API_URL__}/translation/translate`;
-
 // CSS classes
 export const TOOLTIP_CLASS = "custom-tooltip";
 export const TOOLTIP_WORD_CLASS = "custom-tooltip-word";

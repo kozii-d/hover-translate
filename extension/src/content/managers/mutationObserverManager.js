@@ -3,7 +3,7 @@ import {
   CAPTION_SEGMENT,
   CAPTION_WINDOW,
   TOOLTIP_WORD_CLASS
-} from "../utils/constants.js";
+} from "../consts/consts.js";
 
 export class MutationObserverManager {
   constructor(subtitleCore, videoController, tooltipManager) {

@@ -1,0 +1,125 @@
+import { jwtDecode } from "jwt-decode";
+
+export class TokenManager {
+  static GOOGLE_AUTH_BASE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
+  static GOOGLE_ISSUER = "https://accounts.google.com";
+
+  constructor() {
+    this.initialize();
+  }
+
+  initialize() {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      if (message.action === "restoreIdToken") {
+        this.restoreToken()
+          .then(() => sendResponse({ success: true }))
+          .catch((error) => sendResponse({ success: false, error: error?.message || "Unknown error" }));
+      }
+      return true;
+    });
+  }
+
+  checkIsTokenExpired = (tokenExp) => {
+    const currentTime = Math.floor(Date.now() / 1000);
+    return  tokenExp < currentTime;
+  };
+
+  getIdToken = async (option) => {
+    const { interactive } = option;
+
+    const manifest = chrome.runtime.getManifest();
+    const clientId = manifest.oauth2.client_id;
+    const scopes = manifest.oauth2.scopes;
+    const redirectUri = chrome.identity.getRedirectURL();
+    const nonce = self.crypto.randomUUID();
+
+    const authUrl = `${TokenManager.GOOGLE_AUTH_BASE_URL}?` +
+        `client_id=${encodeURIComponent(clientId)}&` +
+        "response_type=id_token&" +
+        `nonce=${encodeURIComponent(nonce)}&` +
+        `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+        `scope=${encodeURIComponent(scopes.join(" "))}`;
+
+    return new Promise((resolve, reject) => {
+      chrome.identity.launchWebAuthFlow(
+        { url: authUrl, interactive },
+        (redirectUrl) => {
+          if (chrome.runtime.lastError || !redirectUrl) {
+            console.error("Failed to get redirect URL:", chrome.runtime.lastError);
+            return reject(new Error("Authorization failed: Unable to complete OAuth flow."));
+          }
+
+          const urlParams = new URLSearchParams(new URL(redirectUrl).hash.slice(1));
+          const idToken = urlParams.get("id_token");
+
+          if (!idToken) return reject(new Error("Authorization failed: No ID Token in redirect URL."));
+
+          const idTokenPayload = jwtDecode(idToken);
+
+          if (idTokenPayload.iss !== TokenManager.GOOGLE_ISSUER) return reject(new Error("Authorization failed: Invalid issuer in ID Token"));
+          if (idTokenPayload.aud !== clientId) return reject(new Error("Authorization failed: Invalid audience in ID Token"));
+          if (idTokenPayload.nonce !== nonce) return reject(new Error("Authorization failed: Invalid nonce in ID Token"));
+
+          return resolve({ idToken, idTokenPayload });
+        }
+      );
+    });
+  };
+
+  getIdTokenFromStorage = async () => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.get("idTokenData", (result) => {
+        if (chrome.runtime.lastError) {
+          console.error("Failed to get token from storage:", chrome.runtime.lastError);
+          return reject(new Error(chrome.runtime.lastError.message ||  "Failed to get token from storage."));
+        }
+        const { idTokenData } = result;
+
+        if (!idTokenData) {
+          return resolve(null);
+        }
+
+        resolve(idTokenData);
+      });
+    });
+  };
+  saveIdTokenToStorage = async (idTokenData) => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.set({ idTokenData }, () => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError?.message || "Failed to save token and user profile in storage."));
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+
+  removeIdTokenFromStorage = async () => {
+    return new Promise((resolve, reject) => {
+      chrome.storage.local.remove("idTokenData", () => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError?.message || "Failed to remove token from sync storage."));
+        } else {
+          resolve();
+        }
+      });
+    });
+  };
+
+  restoreToken = async () => {
+    try {
+      const idTokenData = await this.getIdToken({ interactive: false });
+      if (!idTokenData) {
+        chrome.action.openPopup();
+        return;
+      }
+      return this.saveIdTokenToStorage(idTokenData);
+    } catch (error) {
+      this.removeIdTokenFromStorage();
+      chrome.action.openPopup();
+      throw error;
+    }
+  };
+}

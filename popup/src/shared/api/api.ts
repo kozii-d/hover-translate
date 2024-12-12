@@ -1,5 +1,5 @@
 import axios from "axios";
-import {checkIsTokenExpired, getIdTokenFromStorage} from "@/shared/lib/helpers/idToken.ts";
+import {checkIsTokenExpired, getIdTokenFromStorage, restoreToken} from "@/shared/lib/helpers/idToken.ts";
 
 export const api = axios.create({
   baseURL: __API_URL__,
@@ -14,6 +14,9 @@ api.interceptors.request.use(async (config) => {
 
   if (idTokenData && idTokenData.idToken && !checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
     config.headers.Authorization = `Bearer ${idTokenData.idToken}`;
+  } else {
+    await restoreToken();
+    throw new Error("Authorization failed: No ID Token in storage.");
   }
 
   return config;

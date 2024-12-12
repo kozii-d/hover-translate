@@ -5,7 +5,7 @@ import {
   CAPTION_SEGMENT,
   DATA_ATTRIBUTES,
   TOOLTIP_SELECTED_WORD_CLASS,
-} from "../utils/constants.js";
+} from "../consts/consts.js";
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.js";
 
 export class TooltipManager {
