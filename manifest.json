@@ -8,6 +8,8 @@
   "oauth2": {
     "client_id": "67431023275-3nresa6s25t492krt3u8b3uvvqc0ujkb.apps.googleusercontent.com",
     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
       "openid"
     ]
   },
@@ -15,7 +17,7 @@
     {
       "matches": ["*://*.youtube.com/*"],
       "js": ["./extension/dist/content.bundle.js"],
-      "css": ["./extension/src/styles.css"]
+      "css": ["./extension/src/content/styles.css"]
     }
   ],
   "background": {

@@ -1,4 +1,4 @@
-import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW, DATA_ATTRIBUTES } from "../utils/constants.js";
+import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW, DATA_ATTRIBUTES } from "../consts/consts.js";
 
 export class SubtitleCore {
   constructor(tooltipManager) {

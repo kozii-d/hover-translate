@@ -1,4 +1,4 @@
-import { CAPTION_WINDOW_CONTAINER, CAPTION_WINDOW } from "./constants.js";
+import { CAPTION_WINDOW_CONTAINER, CAPTION_WINDOW } from "../consts/consts.js";
 
 export function isCaptionWindowInUpperHalf() {
   const container = document.querySelector(`.${CAPTION_WINDOW_CONTAINER}`);
