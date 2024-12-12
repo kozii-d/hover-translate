@@ -8,11 +8,11 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
-import {FormikProps, useField} from "formik";
-import {ChangeEvent, FC} from "react";
+import { FormikProps, useField } from "formik";
+import { ChangeEvent, FC } from "react";
 
-import {Language, SettingsFormValues} from "../model/types/schema.ts";
-import {SettingsFormSkeleton} from "@/pages/SettingsPage/ui/SettingsFormSkeleton.tsx";
+import { Language, SettingsFormValues } from "../model/types/schema.ts";
+import { SettingsFormSkeleton } from "@/pages/SettingsPage/ui/SettingsFormSkeleton.tsx";
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];

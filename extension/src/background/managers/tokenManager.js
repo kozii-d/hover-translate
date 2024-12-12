@@ -15,6 +15,10 @@ export class TokenManager {
           .then(() => sendResponse({ success: true }))
           .catch((error) => sendResponse({ success: false, error: error?.message || "Unknown error" }));
       }
+      if (message.action === "openPopup") {
+        chrome.action.openPopup()
+          .then(() => sendResponse({ success: true }));
+      }
       return true;
     });
   }
