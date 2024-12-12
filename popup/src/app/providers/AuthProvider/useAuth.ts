@@ -1,5 +1,5 @@
-import {useContext} from "react";
-import {AuthenticationContext} from "@toolpad/core/AppProvider";
+import { useContext } from "react";
+import { AuthenticationContext } from "@toolpad/core/AppProvider";
 
 export const useAuth = () => {
   const authentication = useContext(AuthenticationContext);

@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "watch": "vite build --watch",
     "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "preview": "vite preview"
   },
   "dependencies": {

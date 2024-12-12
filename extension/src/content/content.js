@@ -14,7 +14,7 @@ async function main() {
     const storageManager = new StorageManager(state);
     const tokenManager = new TokenManager();
     const translationCore = new TranslationCore(state, tokenManager);
-    const tooltipManager = new TooltipManager(state, translationCore);
+    const tooltipManager = new TooltipManager(state, translationCore, tokenManager);
     const subtitleCore = new SubtitleCore(tooltipManager);
     const videoController = new VideoController(state);
     const mutationObserverManager = new MutationObserverManager(subtitleCore, videoController, tooltipManager);

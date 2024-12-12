@@ -1,10 +1,10 @@
-import {Formik} from "formik";
-import {SettingsForm} from "./SettingsForm.tsx";
-import {FC, useCallback, useEffect, useState} from "react";
-import {Language, LanguageResponse, SettingsFormValues} from "../model/types/schema.ts";
-import {PageContainer} from '@toolpad/core/PageContainer';
-import { Account } from '@toolpad/core/Account';
-import {api} from "@/shared/api/api.ts";
+import { Formik } from "formik";
+import { SettingsForm } from "./SettingsForm.tsx";
+import { FC, useCallback, useEffect, useState } from "react";
+import { Language, LanguageResponse, SettingsFormValues } from "../model/types/schema.ts";
+import { PageContainer } from "@toolpad/core/PageContainer";
+import { Account } from "@toolpad/core/Account";
+import { api } from "@/shared/api/api.ts";
 
 export const SettingsPage: FC = () => {
   const [initialValues, setInitialValues] = useState({ sourceLanguageCode: "", targetLanguageCode: "", autoPause: false });
@@ -41,7 +41,7 @@ export const SettingsPage: FC = () => {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchLanguagesData();
   }, []);
@@ -57,20 +57,20 @@ export const SettingsPage: FC = () => {
 
   return (
     <PageContainer title="Settings" slots={{ toolbar: Account }}>
-       <Formik
-         enableReinitialize
-         onSubmit={handleSubmit}
-         initialValues={initialValues}
-       >
-         {props => (
-           <SettingsForm
-             {...props}
-             sourceLanguages={sourceLanguages}
-             targetLanguages={targetLanguages}
-             loading={loading}
-           />
-         )}
-       </Formik>
+      <Formik
+        enableReinitialize
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+      >
+        {props => (
+          <SettingsForm
+            {...props}
+            sourceLanguages={sourceLanguages}
+            targetLanguages={targetLanguages}
+            loading={loading}
+          />
+        )}
+      </Formik>
     </PageContainer>
-  )
-}
+  );
+};

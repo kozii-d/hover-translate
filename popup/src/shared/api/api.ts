@@ -1,5 +1,5 @@
 import axios from "axios";
-import {checkIsTokenExpired, getIdTokenFromStorage, restoreToken} from "@/shared/lib/helpers/idToken.ts";
+import { checkIsTokenExpired, getIdTokenFromStorage, restoreToken } from "@/shared/lib/helpers/idToken.ts";
 
 export const api = axios.create({
   baseURL: __API_URL__,

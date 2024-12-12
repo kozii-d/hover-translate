@@ -6,8 +6,8 @@ import Container from "@mui/material/Container";
 export const PageSkeleton = () => {
   return (
     <Container sx={{
-      paddingTop: '16px',
-      paddingBottom: '16px'
+      paddingTop: "16px",
+      paddingBottom: "16px"
     }}>
       <Box>
         <Stack spacing={2}>
@@ -19,5 +19,5 @@ export const PageSkeleton = () => {
         </Stack>
       </Box>
     </Container>
-  )
-}
+  );
+};

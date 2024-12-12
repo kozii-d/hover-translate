@@ -55,7 +55,13 @@ export class LanguageManager {
       },
     };
 
-    if (idTokenData && idTokenData.idToken && !this.tokenManager.checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
+    // If the ID token is not available, open the popup to authenticate the user
+    if (!idTokenData || !idTokenData?.idToken || !idTokenData?.idTokenPayload) {
+      chrome.action.openPopup();
+      return;
+    }
+
+    if (!this.tokenManager.checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
       config.headers.Authorization = `Bearer ${idTokenData.idToken}`;
     } else {
       if (attempt > MAX_ATTEMPTS) {

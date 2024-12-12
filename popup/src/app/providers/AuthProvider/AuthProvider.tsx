@@ -1,17 +1,16 @@
-import {FC, ReactNode, useCallback, useEffect, useMemo, useState} from "react";
-import {AuthenticationContext, type Session, SessionContext,} from '@toolpad/core/AppProvider';
-import {RouterPath} from "@/app/config/routerPath.ts";
-import {useNavigate} from "react-router";
-import {PageSkeleton} from "@/shared/ui/Skeletons/PageSkeleton.tsx";
-import {jwtDecode} from "jwt-decode";
+import { FC, ReactNode, useCallback, useMemo, useState } from "react";
+import { AuthenticationContext, type Session, SessionContext, } from "@toolpad/core/AppProvider";
+import { RouterPath } from "@/app/config/routerPath.ts";
+import { useNavigate } from "react-router";
 import {
-  checkIsTokenExpired,
   getIdToken,
-  getIdTokenFromStorage, removeIdTokenFromStorage, restoreToken,
+  getIdTokenFromStorage,
+  removeIdTokenFromStorage,
   saveIdTokenToStorage
 } from "@/shared/lib/helpers/idToken.ts";
-import {authApi} from "@/shared/api/api.ts";
-import {GoogleTokenPayload} from "@/shared/types/google.ts";
+import { authApi } from "@/shared/api/api.ts";
+import { GoogleTokenPayload } from "@/shared/types/google.ts";
+import { UserSessionContext } from "@/app/providers/AuthProvider/useUserSession.ts";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -20,7 +19,6 @@ interface AuthProviderProps {
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [authLoading, setAuthLoading] = useState(false);
-  const [userLoading, setUserLoading] = useState(false);
   const navigate = useNavigate();
 
   const setUserSession = useCallback((idTokenPayload: GoogleTokenPayload) => {
@@ -30,7 +28,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       image: idTokenPayload.picture,
     };
 
-    setSession({user});
+    setSession({ user });
   }, []);
 
   const signIn = useCallback(async () => {
@@ -75,45 +73,15 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     return {
       signIn,
       signOut,
-    }
-  }, [signIn, signOut]);
-
-  useEffect(() => {
-    const checkToken = async () => {
-      setUserLoading(true);
-      try {
-        const idTokenData = await getIdTokenFromStorage();
-
-        if (!idTokenData || !idTokenData.idToken) {
-          return restoreToken();
-        }
-
-        const idTokenPayload = jwtDecode<GoogleTokenPayload>(idTokenData.idToken);
-        if (checkIsTokenExpired(idTokenPayload.exp)) {
-          return restoreToken();
-        }
-        setUserSession(idTokenPayload);
-      } catch (error) {
-        console.error("Failed to check token:", error);
-        restoreToken();
-      } finally {
-        setUserLoading(false);
-      }
     };
-
-    checkToken();
-  }, [setUserSession]);
-
-  if (userLoading) {
-    return (
-      <PageSkeleton/>
-    )
-  }
+  }, [signIn, signOut]);
 
   return (
     <AuthenticationContext.Provider value={authentication}>
       <SessionContext.Provider value={session}>
-        {children}
+        <UserSessionContext.Provider value={{ session, setSession }}>
+          {children}
+        </UserSessionContext.Provider>
       </SessionContext.Provider>
     </AuthenticationContext.Provider>
   );

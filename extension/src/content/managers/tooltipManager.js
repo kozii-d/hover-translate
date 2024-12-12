@@ -9,9 +9,10 @@ import {
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.js";
 
 export class TooltipManager {
-  constructor(state, translationCore) {
+  constructor(state, translationCore, tokenManager) {
     this.state = state;
     this.translationCore = translationCore;
+    this.tokenManager = tokenManager;
     this.selectedWordsNodes = new Set();
     this.firstSelectedWordNode = null;
     this.lastSelectedWordNode = null;
@@ -22,6 +23,13 @@ export class TooltipManager {
   }
 
   async showTooltip(targetNode) {
+    // If the user is not logged in, open the popup
+    const idTokenData = await this.tokenManager.getIdTokenFromStorage();
+    if (!idTokenData) {
+      this.tokenManager.sendMessage("openPopup");
+      return;
+    }
+
     const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
       return parseInt(a.getAttribute(DATA_ATTRIBUTES.INDEX), 10) - parseInt(b.getAttribute(DATA_ATTRIBUTES.INDEX), 10);
     });

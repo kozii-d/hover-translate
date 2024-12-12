@@ -1,6 +1,6 @@
 import { RouteConfig } from "../../config/routeConfig";
 import { Routes, Route } from "react-router";
-import { useMemo} from "react";
+import { useMemo } from "react";
 
 interface RouterAppProviderProps {
   routes: RouteConfig[];

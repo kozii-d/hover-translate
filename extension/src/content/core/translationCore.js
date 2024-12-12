@@ -75,13 +75,17 @@ export class TranslationCore {
       },
     };
 
-    if (idTokenData && idTokenData.idToken && !this.tokenManager.checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
+    if (!idTokenData || !idTokenData?.idToken || !idTokenData?.idTokenPayload) {
+      this.tokenManager.sendMessage("openPopup");
+      return;
+    }
+    if (!this.tokenManager.checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
       config.headers.Authorization = `Bearer ${idTokenData.idToken}`;
     } else {
       if (attempt > MAX_ATTEMPTS) {
         throw new Error("Exceeded maximum attempts to restore the ID token.");
       }
-      await this.tokenManager.sendMessageForRestoreIdToken();
+      await this.tokenManager.sendMessage("restoreIdToken");
       return this.fetchToApi(path, options, attempt + 1);
     }
 

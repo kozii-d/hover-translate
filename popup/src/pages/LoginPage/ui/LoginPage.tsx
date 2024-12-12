@@ -1,10 +1,10 @@
-import {FC} from "react";
-import { SignInPage, type AuthProvider } from '@toolpad/core/SignInPage';
+import { FC } from "react";
+import { SignInPage, type AuthProvider } from "@toolpad/core/SignInPage";
 
-import {useAuth} from "@/app/providers/AuthProvider/useAuth.ts";
+import { useAuth } from "@/app/providers/AuthProvider/useAuth.ts";
 
 const providers: AuthProvider[] = [
-  { id: 'google', name: 'Google' },
+  { id: "google", name: "Google" },
 ];
 
 export const LoginPage: FC = () => {
@@ -14,7 +14,7 @@ export const LoginPage: FC = () => {
     <SignInPage
       signIn={auth.signIn}
       providers={providers}
-      sx={{ paddingTop: "60px", paddingBottom: "60px"}}
+      sx={{ paddingTop: "60px", paddingBottom: "60px" }}
     />
   );
 };
