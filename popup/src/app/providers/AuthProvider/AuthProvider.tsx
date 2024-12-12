@@ -8,7 +8,7 @@ import {
   removeIdTokenFromStorage,
   saveIdTokenToStorage
 } from "@/shared/lib/helpers/idToken.ts";
-import { authApi } from "@/shared/api/api.ts";
+import { api } from "@/shared/api/api.ts";
 import { GoogleTokenPayload } from "@/shared/types/google.ts";
 import { UserSessionContext } from "@/app/providers/AuthProvider/useUserSession.ts";
 
@@ -37,9 +37,10 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     try {
       const idTokenData = await getIdToken({ interactive: true });
 
-      await authApi.post("/login", { idToken: idTokenData.idToken });
-
       await saveIdTokenToStorage(idTokenData);
+      await api.post("/auth/login")
+        .catch(() => removeIdTokenFromStorage());
+
       setUserSession(idTokenData.idTokenPayload);
       navigate(RouterPath.settings);
     } catch (error) {
@@ -57,7 +58,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       const idTokenData = await getIdTokenFromStorage();
 
       if (idTokenData) {
-        await authApi.post("/logout", { idToken: idTokenData.idToken });
+        
+        await api.post("/auth/logout");
         await removeIdTokenFromStorage();
       }
       setSession(null);

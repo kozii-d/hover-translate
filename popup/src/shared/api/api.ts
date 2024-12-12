@@ -21,11 +21,3 @@ api.interceptors.request.use(async (config) => {
 
   return config;
 }, Promise.reject);
-
-export const authApi = axios.create({
-  baseURL: __API_URL__ + "/auth",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-});
