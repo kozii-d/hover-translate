@@ -59,7 +59,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
       if (idTokenData) {
         
-        await api.post("/auth/logout");
+        api.post("/auth/logout");
         await removeIdTokenFromStorage();
       }
       setSession(null);
