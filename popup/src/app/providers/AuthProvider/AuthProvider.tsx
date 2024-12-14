@@ -58,9 +58,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
       const idTokenData = await getIdTokenFromStorage();
 
       if (idTokenData) {
-        
-        api.post("/auth/logout");
-        await removeIdTokenFromStorage();
+
+        await api.post("/auth/logout").finally(removeIdTokenFromStorage);
       }
       setSession(null);
       navigate(RouterPath.login);
