@@ -5,13 +5,10 @@ import { Language, LanguageResponse, SettingsFormValues } from "../model/types/s
 import { api } from "@/shared/api/api.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
+import { initialFormValues } from "../model/consts/initialValues.ts";
 
 export const SettingsPage: FC = () => {
-  const [initialValues, setInitialValues] = useState<SettingsFormValues>({
-    sourceLanguageCode: "",
-    targetLanguageCode: "",
-    autoPause: false
-  });
+  const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);
 
   const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
   const [targetLanguages, setTargetLanguages] = useState<Language[]>([]);

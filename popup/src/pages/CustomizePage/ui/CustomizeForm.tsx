@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import { FormikProps, useField } from "formik";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 import { CustomizeFormValues } from "../model/types/schema.ts";
 import { CustomizeFormSkeleton } from "./CustomizeFormSkeleton.tsx";
@@ -20,6 +20,7 @@ import {
   FONT_SIZE_ITEMS
 } from "../model/consts/menuItems.ts";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
+import { initialFormValues } from "../model/consts/initialValues.ts";
 
 interface CustomizeFormProps extends FormikProps<CustomizeFormValues> {
   loading: boolean;
@@ -30,7 +31,8 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
     handleSubmit,
     dirty,
     isValid,
-    loading
+    loading,
+    setFormikState
   } = props;
 
   const [useYouTubeSettingsField, , useYouTubeSettingsHelpers] = useField<boolean>("useYouTubeSettings");
@@ -42,6 +44,30 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
     useYouTubeSettingsHelpers.setError(undefined);
   };
 
+  const saveButton = useMemo(() => {
+    return (
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => handleSubmit()}
+        fullWidth
+        disabled={!dirty || !isValid}
+      >
+        Save
+      </Button>
+    );
+  }, [dirty, handleSubmit, isValid]);
+
+  const resetFormToDefault = () => {
+    setFormikState((state) => {
+      return {
+        ...state,
+        values: initialFormValues
+      };
+    });
+    handleSubmit();
+  };
+
   if (loading) {
     return <CustomizeFormSkeleton/>;
   }
@@ -49,6 +75,7 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
   return (
     <Box>
       <Stack spacing={2}>
+        {saveButton}
         <FormControl fullWidth>
           <FormControlLabel
             control={
@@ -71,14 +98,14 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
         <SettingsSelect name="backgroundOpacity" label="Background opacity" options={BACKGROUND_OPACITY_ITEMS} disabled={isDisabled} />
         <SettingsSelect name="characterEdgeStyle" label="Character edge style" options={CHARACTER_EDGE_STYLE_ITEMS} disabled={isDisabled} />
         <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleSubmit()}
+          variant="outlined"
+          color="error"
+          onClick={() => resetFormToDefault()}
           fullWidth
-          disabled={!dirty || !isValid}
         >
-          Save
+          Reset to default
         </Button>
+        {saveButton}
       </Stack>
     </Box>
   );

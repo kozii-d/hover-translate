@@ -4,18 +4,10 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { CustomizeFormValues } from "../model/types/schema.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
+import { initialFormValues } from "../model/consts/initialValues.ts";
 
 export const CustomizePage: FC = () => {
-  const [initialValues, setInitialValues] = useState<CustomizeFormValues>({
-    useYouTubeSettings: true,
-    fontFamily: "auto",
-    fontColor: "auto",
-    fontSize: "auto",
-    backgroundColor: "auto",
-    backgroundOpacity: "auto",
-    characterEdgeStyle: "auto",
-    fontOpacity: "auto"
-  });
+  const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -44,7 +36,7 @@ export const CustomizePage: FC = () => {
   }, [set, setInitialSettings]);
 
   return (
-    <Page title="Cusomize">
+    <Page title="Cusomize tooltip">
       <Formik
         enableReinitialize
         onSubmit={handleSubmit}

@@ -11,6 +11,7 @@ import { FC, useMemo } from "react";
 import { Language, SettingsFormValues } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
+import { initialFormValues } from "../model/consts/initialValues.ts";
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
@@ -23,9 +24,10 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     handleSubmit,
     dirty,
     isValid,
+    setFormikState,
     sourceLanguages,
     targetLanguages,
-    loading
+    loading,
   } = props;
 
   const [autoPauseField, , autoPauseHelpers] = useField<boolean>("autoPause");
@@ -56,6 +58,30 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     return result;
   }, [sourceLanguages]);
 
+  const resetFormToDefault = () => {
+    const userLanguage = chrome.i18n.getUILanguage();
+    const availableTargetLanguages = targetLanguages.map((lang) => lang.code);
+    const isUserLanguageAvailable = availableTargetLanguages.includes(userLanguage);
+
+    setFormikState((state) => {
+      if (isUserLanguageAvailable) {
+        return {
+          ...state,
+          values: {
+            ...initialFormValues,
+            targetLanguageCode: userLanguage
+          }
+        };
+      }
+
+      return {
+        ...state,
+        values: initialFormValues
+      };
+    });
+    handleSubmit();
+  };
+
   if (loading) {
     return <SettingsFormSkeleton/>;
   }
@@ -79,6 +105,14 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
             Automatically pause the video when hovering over subtitles
           </FormHelperText>
         </FormControl>
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={() => resetFormToDefault()}
+          fullWidth
+        >
+          Reset to default
+        </Button>
         <Button
           variant="contained"
           color="primary"
