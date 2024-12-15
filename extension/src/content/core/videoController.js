@@ -17,7 +17,7 @@ export class VideoController {
       video.pause();
       this.wasPausedByScript = true;
     }
-  }
+  };
 
   handleVideoPlay = () => {
     if (this.state.settings.autoPause === false) return;
@@ -30,5 +30,5 @@ export class VideoController {
       video.play();
       this.wasPausedByScript = false;
     }
-  }
+  };
 }

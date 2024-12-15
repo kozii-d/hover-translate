@@ -3,12 +3,16 @@ export class StorageManager {
     this.state = state;
   }
 
-  initializeLanguages() {
-    chrome.storage.sync.get(["settings"], (result) => {
-      const { settings } = result;
+  initializeSettings() {
+    chrome.storage.sync.get(["settings", "customize"], (result) => {
+      const { settings, customize } = result;
 
       if (settings) {
         this.state.settings = settings;
+      }
+
+      if (customize) {
+        this.state.customize = customize;
       }
     });
   }
@@ -18,6 +22,9 @@ export class StorageManager {
       if (namespace === "sync") {
         if (changes.settings) {
           this.state.settings = changes.settings.newValue;
+        }
+        if (changes.customize) {
+          this.state.customize = changes.customize.newValue;
         }
       }
     });

@@ -1,4 +1,4 @@
-import {MenuItemType} from "@/shared/types/types.ts";
+import { MenuItemType } from "@/shared/types/types.ts";
 
 export const FONT_FAMILY_ITEMS: MenuItemType[] = [
   { value: "auto", label: "Auto" },
