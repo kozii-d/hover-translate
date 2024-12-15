@@ -21,7 +21,7 @@ async function main() {
     const keyboardManager = new KeyboardManager(state);
 
     await translationCore.loadTranslationCache();
-    storageManager.initializeLanguages();
+    storageManager.initializeSettings();
     storageManager.checkStorageChanges();
     mutationObserverManager.observeMutations();
     keyboardManager.initializeKeyboardListeners();

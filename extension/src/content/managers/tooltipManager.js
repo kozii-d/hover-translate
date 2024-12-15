@@ -1,3 +1,6 @@
+import rgba from "color-rgba";
+import alpha from "color-alpha";
+
 import {
   TOOLTIP_CLASS,
   CAPTION_WINDOW,
@@ -5,6 +8,7 @@ import {
   CAPTION_SEGMENT,
   DATA_ATTRIBUTES,
   TOOLTIP_SELECTED_WORD_CLASS,
+  TOOLTIP_SETTINGS,
 } from "../consts/consts.js";
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.js";
 
@@ -73,10 +77,48 @@ export class TooltipManager {
     const captionSegment = document.querySelector(`.${CAPTION_SEGMENT}`);
     const youtubeSubtitleContainerStyles = window.getComputedStyle(captionSegment);
 
+    if (this.state.customize.useYouTubeSettings) {
+      tooltip.style.fontFamily = youtubeSubtitleContainerStyles.fontFamily;
+      tooltip.style.color = youtubeSubtitleContainerStyles.color;
+      tooltip.style.fontSize = youtubeSubtitleContainerStyles.fontSize;
+      tooltip.style.fontVariant = youtubeSubtitleContainerStyles.fontVariant;
+      tooltip.style.background = youtubeSubtitleContainerStyles.background;
+      tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
+      return;
+    }
+
+    const { fontFamily, fontColor, fontOpacity, fontSize, backgroundColor, backgroundOpacity, characterEdgeStyle } = this.state.customize;
+
+
+    if (this.state.customize.fontFamily === "small-capitals") {
+      tooltip.style.fontFamily = TOOLTIP_SETTINGS.fontFamily[fontFamily];
+      tooltip.style.fontVariant = "small-caps";
+    } else if (fontFamily === "auto") {
+      tooltip.style.fontFamily = youtubeSubtitleContainerStyles.fontFamily;
+    } else {
+      tooltip.style.fontFamily = TOOLTIP_SETTINGS.fontFamily[fontFamily];
+    }
+
+    const newFontColor = fontColor === "auto" ? youtubeSubtitleContainerStyles.color : TOOLTIP_SETTINGS.fontColor[fontColor];
+    const [, , , ytAlpha] = rgba(youtubeSubtitleContainerStyles.color);
+    tooltip.style.color = fontOpacity === "auto" ? alpha(newFontColor, ytAlpha) : alpha(newFontColor, TOOLTIP_SETTINGS.fontOpacity[fontOpacity]);
+
+    if (fontSize === "auto") {
+      tooltip.style.fontSize = youtubeSubtitleContainerStyles.fontSize;
+    } else {
+      tooltip.style.fontSize = TOOLTIP_SETTINGS.fontSize[fontSize];
+    }
+
+    const newBackgroundColor = backgroundColor === "auto" ? youtubeSubtitleContainerStyles.backgroundColor : TOOLTIP_SETTINGS.backgroundColor[backgroundColor];
+    const [, , , ytBackgroundAlpha] = rgba(youtubeSubtitleContainerStyles.backgroundColor);
     tooltip.style.background = youtubeSubtitleContainerStyles.background;
-    tooltip.style.color = youtubeSubtitleContainerStyles.color;
-    tooltip.style.font = youtubeSubtitleContainerStyles.font;
-    tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
+    tooltip.style.backgroundColor = backgroundOpacity === "auto" ? alpha(newBackgroundColor, ytBackgroundAlpha) : alpha(newBackgroundColor, TOOLTIP_SETTINGS.backgroundOpacity[backgroundOpacity]);
+
+    if (this.state.customize.characterEdgeStyle === "auto") {
+      tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
+    } else {
+      tooltip.style.textShadow = TOOLTIP_SETTINGS.characterEdgeStyle[characterEdgeStyle];
+    }
   }
 
   positionTooltip(anchorWordNode, tooltip, subtitlesContainer) {
