@@ -36,14 +36,15 @@ export class TranslationCore {
       return this.translationCache.get(cacheKey);
     }
 
+    const queryParams = new URLSearchParams({
+      input: text,
+      sourceLocale: this.state.settings.sourceLanguageCode,
+      targetLocale: this.state.settings.targetLanguageCode,
+    }).toString();
+
     try {
-      const { text: translatedText } = await this.fetchToApi("/translation/translate", {
-        method: "POST",
-        body: JSON.stringify({
-          input: text,
-          sourceLocale: this.state.settings.sourceLanguageCode,
-          targetLocale: this.state.settings.targetLanguageCode,
-        }),
+      const { text: translatedText } = await this.fetchToApi(`/translation/translate?${queryParams}`, {
+        method: "GET",
         signal,
       });
 
