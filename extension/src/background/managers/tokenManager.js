@@ -49,8 +49,7 @@ export class TokenManager {
         { url: authUrl, interactive },
         (redirectUrl) => {
           if (chrome.runtime.lastError || !redirectUrl) {
-            console.error("Failed to get redirect URL:", chrome.runtime.lastError);
-            return reject(new Error("Authorization failed: Unable to complete OAuth flow."));
+            return reject(new Error(chrome.runtime.lastError?.message || "Failed to get redirect URL."));
           }
 
           const urlParams = new URLSearchParams(new URL(redirectUrl).hash.slice(1));
@@ -74,7 +73,6 @@ export class TokenManager {
     return new Promise((resolve, reject) => {
       chrome.storage.local.get("idTokenData", (result) => {
         if (chrome.runtime.lastError) {
-          console.error("Failed to get token from storage:", chrome.runtime.lastError);
           return reject(new Error(chrome.runtime.lastError.message ||  "Failed to get token from storage."));
         }
         const { idTokenData } = result;

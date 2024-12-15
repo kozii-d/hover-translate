@@ -4,6 +4,7 @@ import { RouterPath } from "./routerPath";
 import { SettingsPage } from "@/pages/SettingsPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { AuthGuard } from "../guards/AuthGuard.tsx";
+import { CustomizePage } from "@/pages/CustomizePage";
 
 export interface RouteConfig {
   path: string,
@@ -13,12 +14,22 @@ export interface RouteConfig {
 
 export const routeConfig: RouteConfig[] = [
   {
+    path: RouterPath.login,
+    element: LoginPage,
+  },
+  {
     path: RouterPath.settings,
     element: SettingsPage,
     guards: [AuthGuard]
   },
   {
-    path: RouterPath.login,
-    element: LoginPage,
+    path: RouterPath.customize,
+    element: CustomizePage,
+    guards: [AuthGuard]
+  },
+  {
+    path: RouterPath.dictionary,
+    element: SettingsPage,
+    guards: [AuthGuard]
   }
 ];

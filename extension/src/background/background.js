@@ -1,10 +1,10 @@
-import { LanguageManager } from "./managers/languageManager.js";
+import { SettingsManager } from "./managers/settingsManager.js";
 import { TokenManager } from "./managers/tokenManager.js";
 
 const main = () => {
   try {
-    const tokenManager = new TokenManager();
-    new LanguageManager(tokenManager);
+    new TokenManager();
+    new SettingsManager();
   } catch (error) {
     console.error(error);
   }

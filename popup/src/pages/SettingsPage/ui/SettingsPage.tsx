@@ -2,36 +2,46 @@ import { Formik } from "formik";
 import { SettingsForm } from "./SettingsForm.tsx";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Language, LanguageResponse, SettingsFormValues } from "../model/types/schema.ts";
-import { PageContainer } from "@toolpad/core/PageContainer";
-import { Account } from "@toolpad/core/Account";
 import { api } from "@/shared/api/api.ts";
+import { Page } from "@/shared/ui/Page/Page.tsx";
+import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 
 export const SettingsPage: FC = () => {
-  const [initialValues, setInitialValues] = useState({ sourceLanguageCode: "", targetLanguageCode: "", autoPause: false });
+  const [initialValues, setInitialValues] = useState<SettingsFormValues>({
+    sourceLanguageCode: "",
+    targetLanguageCode: "",
+    autoPause: false
+  });
 
   const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
   const [targetLanguages, setTargetLanguages] = useState<Language[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingLanguages, setLoadingLanguages] = useState<boolean>(false);
+  const [loadingSettings, setLoadingSettings] = useState<boolean>(false);
+  const loading = loadingLanguages || loadingSettings;
+  
+  const { set, get } = useStorage();
 
-  const setInitialLanguages = useCallback(() => {
-    chrome.storage.sync.get(["settings"], (result) => {
-      const { settings } = result;
-
-      if (!settings) {
-        return;
+  const setInitialSettings = useCallback(async () => {
+    setLoadingSettings(true);
+    try {
+      const settings = await get<SettingsFormValues>("settings");
+      if (settings) {
+        setInitialValues(settings);
       }
-
-      setInitialValues(settings);
-    });
-  }, []);
+    } catch (error) {
+      console.error("Failed to get settings:", error);
+    } finally {
+      setLoadingSettings(false);
+    }
+  }, [get]);
 
   useEffect(() => {
-    setInitialLanguages();
-  }, [setInitialLanguages]);
+    setInitialSettings();
+  }, [setInitialSettings]);
 
   useEffect(() => {
     const fetchLanguagesData = async () => {
-      setLoading(true);
+      setLoadingLanguages(true);
       try {
         const response = await api.get<LanguageResponse>("/translation/languages");
         setSourceLanguages(response.data.sourceLanguages);
@@ -39,24 +49,19 @@ export const SettingsPage: FC = () => {
       } catch (error) {
         console.error("Failed to fetch source languages", error);
       } finally {
-        setLoading(false);
+        setLoadingLanguages(false);
       }
     };
 
     fetchLanguagesData();
   }, []);
 
-
-  const handleSubmit = (values: SettingsFormValues) => {
-    chrome.storage.sync.set({
-      settings: values,
-    }, () => {
-      setInitialLanguages();
-    });
-  };
+  const handleSubmit = useCallback((values: SettingsFormValues) => {
+    return set<SettingsFormValues>("settings", values).then(setInitialSettings);
+  }, [set, setInitialSettings]);
 
   return (
-    <PageContainer title="Settings" slots={{ toolbar: Account }}>
+    <Page title="Settings">
       <Formik
         enableReinitialize
         onSubmit={handleSubmit}
@@ -71,6 +76,6 @@ export const SettingsPage: FC = () => {
           />
         )}
       </Formik>
-    </PageContainer>
+    </Page>
   );
 };
