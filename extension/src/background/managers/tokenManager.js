@@ -4,7 +4,8 @@ export class TokenManager {
   static GOOGLE_AUTH_BASE_URL = "https://accounts.google.com/o/oauth2/v2/auth";
   static GOOGLE_ISSUER = "https://accounts.google.com";
 
-  constructor() {
+  constructor(storageManager) {
+    this.storageManager = storageManager;
     this.initialize();
   }
 
@@ -70,44 +71,14 @@ export class TokenManager {
   };
 
   getIdTokenFromStorage = async () => {
-    return new Promise((resolve, reject) => {
-      chrome.storage.local.get("idTokenData", (result) => {
-        if (chrome.runtime.lastError) {
-          return reject(new Error(chrome.runtime.lastError.message ||  "Failed to get token from storage."));
-        }
-        const { idTokenData } = result;
-
-        if (!idTokenData) {
-          return resolve(null);
-        }
-
-        resolve(idTokenData);
-      });
-    });
+    return this.storageManager.get("idTokenData", "local");
   };
   saveIdTokenToStorage = async (idTokenData) => {
-    return new Promise((resolve, reject) => {
-      chrome.storage.local.set({ idTokenData }, () => {
-        if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError?.message || "Failed to save token and user profile in storage."));
-        } else {
-          resolve();
-        }
-      });
-    });
+    return this.storageManager.set("idTokenData", idTokenData, "local");
   };
 
-
   removeIdTokenFromStorage = async () => {
-    return new Promise((resolve, reject) => {
-      chrome.storage.local.remove("idTokenData", () => {
-        if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError?.message || "Failed to remove token from sync storage."));
-        } else {
-          resolve();
-        }
-      });
-    });
+    return this.storageManager.remove("idTokenData", "local");
   };
 
   restoreToken = async () => {

@@ -1,5 +1,6 @@
 export class SettingsManager {
-  constructor() {
+  constructor(storageManager) {
+    this.storageManager = storageManager;
     this.initialize();
   }
 
@@ -98,14 +99,16 @@ export class SettingsManager {
   };
 
   async initializeSettings() {
-    chrome.storage.sync.get(["settings", "customize"], async (result) => {
-      if (!result.settings) {
+    this.storageManager.get("settings", "sync").then(async (settings) => {
+      if (!settings) {
         const initialSettings = await this.getInitialSettings();
-        chrome.storage.sync.set({ settings: initialSettings });
+        this.storageManager.set("settings", initialSettings, "sync");
       }
+    });
 
-      if (!result.customize) {
-        chrome.storage.sync.set({ customize: this.initialCustomize });
+    this.storageManager.get("customize", "sync").then((customize) => {
+      if (!customize) {
+        this.storageManager.set("customize", this.initialCustomize, "sync");
       }
     });
   }

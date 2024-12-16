@@ -1,12 +1,17 @@
 import { useCallback } from "react";
 
 export const useStorage = () => {
-  const get = useCallback(<T = unknown>(key: string) => {
+  const get = useCallback(<T = unknown>(key: string | null, area: "sync" | "local") => {
     return new Promise<T | null>((resolve, reject) => {
-      chrome.storage.sync.get(key, (result) => {
+      chrome.storage[area].get(key, (result) => {
         if (chrome.runtime.lastError) {
-          return reject(new Error(chrome.runtime.lastError.message || "Failed to get data from storage."));
+          return reject(new Error(chrome.runtime.lastError.message || `Failed to get ${key || "data"} from ${area} storage.`));
         }
+
+        if (key === null) {
+          return resolve(result as T);
+        }
+
         const data = result[key];
 
         if (!data) {
@@ -18,11 +23,11 @@ export const useStorage = () => {
     });
   }, []);
 
-  const set = useCallback(<T = unknown>(key: string, value: T) => {
+  const set = useCallback(<T = unknown>(key: string, value: T, area: "sync" | "local") => {
     return new Promise<void>((resolve, reject) => {
-      chrome.storage.sync.set({ [key]: value }, () => {
+      chrome.storage[area].set({ [key]: value }, () => {
         if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError?.message || "Failed to save data in storage."));
+          reject(new Error(chrome.runtime.lastError?.message || `Failed to save ${key} in ${area} storage.`));
         } else {
           resolve();
         }

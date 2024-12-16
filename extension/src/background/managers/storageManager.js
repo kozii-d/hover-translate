@@ -1,10 +1,4 @@
 export class StorageManager {
-  constructor(state) {
-    this.state = state;
-    this.initializeSettings();
-    this.checkStorageChanges();
-  }
-
   /**
    * @template T
    * @param key {string | null}
@@ -61,29 +55,11 @@ export class StorageManager {
     return new Promise((resolve, reject) => {
       chrome.storage[area].remove(key, () => {
         if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError?.message || `Failed to remove ${key} ${area} from storage.`));
+          reject(new Error(chrome.runtime.lastError?.message || `Failed to remove ${key} from ${area} storage.`));
         } else {
           resolve();
         }
       });
-    });
-  }
-
-  initializeSettings() {
-    this.get("settings", "sync").then((settings) => this.state.settings = settings);
-    this.get("customize", "sync").then((customize) => this.state.customize = customize);
-  }
-
-  checkStorageChanges() {
-    chrome.storage.onChanged.addListener((changes, namespace) => {
-      if (namespace === "sync") {
-        if (changes.settings) {
-          this.state.settings = changes.settings.newValue;
-        }
-        if (changes.customize) {
-          this.state.customize = changes.customize.newValue;
-        }
-      }
     });
   }
 }

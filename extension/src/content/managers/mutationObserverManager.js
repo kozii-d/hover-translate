@@ -10,6 +10,8 @@ export class MutationObserverManager {
     this.subtitleCore = subtitleCore;
     this.videoController = videoController;
     this.tooltipManager = tooltipManager;
+
+    this.observeMutations();
   }
 
   observeMutations = () => {

@@ -8,23 +8,17 @@ import { MutationObserverManager } from "./managers/mutationObserverManager.js";
 import { KeyboardManager } from "./managers/keyboardManager.js";
 import { TokenManager } from "./managers/tokenManager.js";
 
-async function main() {
+function main() {
   try {
     const state = new StateManager();
     const storageManager = new StorageManager(state);
-    const tokenManager = new TokenManager();
-    const translationCore = new TranslationCore(state, tokenManager);
+    const tokenManager = new TokenManager(storageManager);
+    const translationCore = new TranslationCore(state, tokenManager, storageManager);
     const tooltipManager = new TooltipManager(state, translationCore, tokenManager);
     const subtitleCore = new SubtitleCore(tooltipManager);
     const videoController = new VideoController(state);
-    const mutationObserverManager = new MutationObserverManager(subtitleCore, videoController, tooltipManager);
-    const keyboardManager = new KeyboardManager(state);
-
-    await translationCore.loadTranslationCache();
-    storageManager.initializeSettings();
-    storageManager.checkStorageChanges();
-    mutationObserverManager.observeMutations();
-    keyboardManager.initializeKeyboardListeners();
+    new MutationObserverManager(subtitleCore, videoController, tooltipManager);
+    new KeyboardManager(state);
   } catch (error) {
     console.error(error);
   }
