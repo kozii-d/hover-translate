@@ -13,10 +13,11 @@ import {
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.js";
 
 export class TooltipManager {
-  constructor(state, translationCore, tokenManager) {
+  constructor(state, translationCore, tokenManager, storageManager) {
     this.state = state;
     this.translationCore = translationCore;
     this.tokenManager = tokenManager;
+    this.storageManager = storageManager;
     this.selectedWordsNodes = new Set();
     this.firstSelectedWordNode = null;
     this.lastSelectedWordNode = null;
@@ -44,14 +45,14 @@ export class TooltipManager {
     const abortController = new AbortController();
     targetNode.abortController = abortController;
 
-    const translatedText = await this.translationCore.translateText(textToTranslate, abortController.signal);
+    const translatedData = await this.translationCore.translateText(textToTranslate, abortController.signal);
 
     // Delete link to abortController after request is done
     delete targetNode.abortController;
 
     const subtitlesContainer = document.querySelector(`.${CAPTION_WINDOW}`);
 
-    if (!subtitlesContainer || !translatedText) {
+    if (!subtitlesContainer || !translatedData.translatedText) {
       return;
     }
 
@@ -63,7 +64,7 @@ export class TooltipManager {
 
     const tooltip = document.createElement("div");
     tooltip.className = TOOLTIP_CLASS;
-    tooltip.textContent = translatedText;
+    tooltip.textContent = translatedData.translatedText;
 
     tooltip.style.visibility = "hidden";
 
@@ -213,9 +214,29 @@ export class TooltipManager {
     }
   };
 
-  handleWordClick = (event) => {
-    if (event.target.classList.contains(TOOLTIP_WORD_CLASS)) {
-      navigator.clipboard.writeText(event.target.textContent.trim());
-    }
+  isSameTranslationData = (translationData1, translationData2) => {
+    return translationData1.detectedLanguageCode === translationData2.detectedLanguageCode &&
+      translationData1.translatedText === translationData2.translatedText &&
+      translationData1.originalText === translationData2.originalText &&
+      translationData1.targetLanguage === translationData2.targetLanguage;
+  };
+
+  handleWordClick = () => {
+    this.storageManager.get("savedTranslations", "local").then((savedTranslations) => {
+      const savedTranslationsArray = savedTranslations || [];
+
+      const newTranslationData = {
+        ...this.translationCore.currentTranslationData,
+        timestamp: Date.now(),
+      };
+
+      // Remove the current translation from the saved translations array to avoid duplicates
+      const filteredTranslations = savedTranslationsArray.filter((translation) => {
+        return !this.isSameTranslationData(translation, newTranslationData);
+      });
+
+      filteredTranslations.unshift(newTranslationData);
+      this.storageManager.set("savedTranslations", filteredTranslations, "local");
+    });
   };
 }

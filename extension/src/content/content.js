@@ -14,7 +14,7 @@ function main() {
     const storageManager = new StorageManager(state);
     const tokenManager = new TokenManager(storageManager);
     const translationCore = new TranslationCore(state, tokenManager, storageManager);
-    const tooltipManager = new TooltipManager(state, translationCore, tokenManager);
+    const tooltipManager = new TooltipManager(state, translationCore, tokenManager, storageManager);
     const subtitleCore = new SubtitleCore(tooltipManager);
     const videoController = new VideoController(state);
     new MutationObserverManager(subtitleCore, videoController, tooltipManager);

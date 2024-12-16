@@ -6,14 +6,14 @@ export class TranslationCore {
     this.translationCache = new QuickLRU({ maxSize: 3000 });
     this.tokenManager = tokenManager;
     this.storageManager = storageManager;
+    this.currentTranslationData = null;
 
     this.loadTranslationCache();
   }
 
   async loadTranslationCache() {
     return this.storageManager.get("translationCache", "local").then((translationCache) => {
-      const entries = translationCache.entries || [];
-      entries.forEach(([key, value]) => {
+      (translationCache || []).forEach(({ key, value }) => {
         this.translationCache.set(key, value);
       });
       this.state.cacheLoaded = true;
@@ -21,9 +21,8 @@ export class TranslationCore {
   }
 
   saveTranslationCache() {
-    // Convert the Map to an array of entries before saving
-    const entries = Array.from(this.translationCache.entries());
-    this.storageManager.set("translationCache", { entries }, "local");
+    const newCacheArray = Array.from(this.translationCache.entries(), ([key, value]) => ({ key, value }));
+    this.storageManager.set("translationCache", newCacheArray, "local");
   }
 
   async translateText(text, signal) {
@@ -31,25 +30,34 @@ export class TranslationCore {
     const cacheKey = `${normalizedText}_${this.state.settings.sourceLanguageCode}_${this.state.settings.targetLanguageCode}`;
 
     if (this.translationCache.has(cacheKey)) {
-      return this.translationCache.get(cacheKey);
+      const cachedData = this.translationCache.get(cacheKey);
+      this.currentTranslationData = cachedData;
+      return cachedData;
     }
 
     const queryParams = new URLSearchParams({
       input: text,
-      sourceLocale: this.state.settings.sourceLanguageCode,
-      targetLocale: this.state.settings.targetLanguageCode,
+      sourceLanguageCode: this.state.settings.sourceLanguageCode,
+      targetLanguageCode: this.state.settings.targetLanguageCode,
     }).toString();
 
     try {
-      const { translatedText } = await this.fetchToApi(`/translation/translate?${queryParams}`, {
+      const translatedData = await this.fetchToApi(`/translation/translate?${queryParams}`, {
         method: "GET",
         signal,
       });
 
-      this.translationCache.set(cacheKey, translatedText);
+      this.currentTranslationData = {
+        sourceLanguageCode: translatedData.detectedLanguageCode,
+        targetLanguageCode: this.state.settings.targetLanguageCode,
+        translatedText: translatedData.translatedText,
+        originalText: text,
+      };
+
+      this.translationCache.set(cacheKey, this.currentTranslationData);
       this.saveTranslationCache();
 
-      return translatedText;
+      return translatedData;
     } catch (error) {
       if (error?.name === "AbortError") {
         // eslint-disable-next-line no-console
@@ -89,6 +97,11 @@ export class TranslationCore {
     }
 
     const response = await fetch(`${__API_URL__}${path}`, config);
+
+    if (!response.ok) {
+      throw new Error(`Fetch failed with status ${response.status}: ${response.statusText}`);
+    }
+
     return response.json();
   };
 }
