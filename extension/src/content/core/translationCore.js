@@ -1,31 +1,29 @@
 import QuickLRU from "quick-lru";
 
 export class TranslationCore {
-  constructor(state, tokenManager) {
+  constructor(state, tokenManager, storageManager) {
     this.state = state;
     this.translationCache = new QuickLRU({ maxSize: 3000 });
     this.tokenManager = tokenManager;
+    this.storageManager = storageManager;
+
+    this.loadTranslationCache();
   }
 
   async loadTranslationCache() {
-    return new Promise((resolve) => {
-      chrome.storage.local.get("translationCache", (result) => {
-        if (result.translationCache) {
-          const entries = result.translationCache.entries || [];
-          entries.forEach(([key, value]) => {
-            this.translationCache.set(key, value);
-          });
-        }
-        this.state.cacheLoaded = true;
-        resolve();
+    return this.storageManager.get("translationCache", "local").then((translationCache) => {
+      const entries = translationCache.entries || [];
+      entries.forEach(([key, value]) => {
+        this.translationCache.set(key, value);
       });
+      this.state.cacheLoaded = true;
     });
   }
 
   saveTranslationCache() {
     // Convert the Map to an array of entries before saving
     const entries = Array.from(this.translationCache.entries());
-    chrome.storage.local.set({ translationCache: { entries } });
+    this.storageManager.set("translationCache", { entries }, "local");
   }
 
   async translateText(text, signal) {

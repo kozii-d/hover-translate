@@ -21,7 +21,7 @@ export const SettingsPage: FC = () => {
   const setInitialSettings = useCallback(async () => {
     setLoadingSettings(true);
     try {
-      const settings = await get<SettingsFormValues>("settings");
+      const settings = await get<SettingsFormValues>("settings", "sync");
       if (settings) {
         setInitialValues(settings);
       }
@@ -54,7 +54,7 @@ export const SettingsPage: FC = () => {
   }, []);
 
   const handleSubmit = useCallback((values: SettingsFormValues) => {
-    return set<SettingsFormValues>("settings", values).then(setInitialSettings);
+    return set<SettingsFormValues>("settings", values, "sync").then(setInitialSettings);
   }, [set, setInitialSettings]);
 
   return (

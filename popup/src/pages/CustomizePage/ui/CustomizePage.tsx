@@ -16,7 +16,7 @@ export const CustomizePage: FC = () => {
   const setInitialSettings = useCallback(async () => {
     setLoading(true);
     try {
-      const customize = await get<CustomizeFormValues>("customize");
+      const customize = await get<CustomizeFormValues>("customize", "sync");
       if (customize) {
         setInitialValues(customize);
       }
@@ -32,7 +32,7 @@ export const CustomizePage: FC = () => {
   }, [setInitialSettings]);
 
   const handleSubmit = useCallback(async (values: CustomizeFormValues) => {
-    return set<CustomizeFormValues>("customize", values).then(setInitialSettings);
+    return set<CustomizeFormValues>("customize", values, "sync").then(setInitialSettings);
   }, [set, setInitialSettings]);
 
   return (

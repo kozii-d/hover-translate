@@ -1,6 +1,7 @@
 export class KeyboardManager {
   constructor(state) {
     this.state = state;
+    this.initializeKeyboardListeners();
   }
 
   initializeKeyboardListeners() {

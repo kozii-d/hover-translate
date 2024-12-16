@@ -1,4 +1,7 @@
 export class TokenManager {
+  constructor(storageManager) {
+    this.storageManager = storageManager;
+  }
   sendMessage = async (action) => {
     return new Promise((resolve, reject) => {
       chrome.runtime.sendMessage({ action }, (response) => {
@@ -19,19 +22,6 @@ export class TokenManager {
   };
 
   getIdTokenFromStorage = async () => {
-    return new Promise((resolve, reject) => {
-      chrome.storage.local.get("idTokenData", (result) => {
-        if (chrome.runtime.lastError) {
-          return reject(new Error(chrome.runtime.lastError?.message || "Failed to get token from storage."));
-        }
-        const { idTokenData } = result;
-
-        if (!idTokenData) {
-          return resolve(null);
-        }
-
-        resolve(idTokenData);
-      });
-    });
+    return this.storageManager.get("idTokenData", "local");
   };
 }
