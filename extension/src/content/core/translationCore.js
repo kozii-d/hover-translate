@@ -43,7 +43,7 @@ export class TranslationCore {
     }).toString();
 
     try {
-      const { text: translatedText } = await this.fetchToApi(`/translation/translate?${queryParams}`, {
+      const { translatedText } = await this.fetchToApi(`/translation/translate?${queryParams}`, {
         method: "GET",
         signal,
       });
