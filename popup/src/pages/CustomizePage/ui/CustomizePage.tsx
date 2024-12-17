@@ -36,7 +36,7 @@ export const CustomizePage: FC = () => {
   }, [set, setInitialSettings]);
 
   return (
-    <Page title="Cusomize tooltip">
+    <Page title="Customize tooltip">
       <Formik
         enableReinitialize
         onSubmit={handleSubmit}
