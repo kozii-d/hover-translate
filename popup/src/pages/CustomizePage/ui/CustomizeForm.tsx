@@ -21,6 +21,7 @@ import {
 } from "../model/consts/menuItems.ts";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
+import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 
 interface CustomizeFormProps extends FormikProps<CustomizeFormValues> {
   loading: boolean;
@@ -97,14 +98,21 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
         <SettingsSelect name="backgroundColor" label="Background color" options={BACKGROUND_COLOR_ITEMS} disabled={isDisabled} />
         <SettingsSelect name="backgroundOpacity" label="Background opacity" options={BACKGROUND_OPACITY_ITEMS} disabled={isDisabled} />
         <SettingsSelect name="characterEdgeStyle" label="Character edge style" options={CHARACTER_EDGE_STYLE_ITEMS} disabled={isDisabled} />
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={() => resetFormToDefault()}
-          fullWidth
-        >
-          Reset to default
-        </Button>
+        <ConfirmationModal
+          trigger={(
+            <Button
+              variant="text"
+              color="error"
+              fullWidth
+            >
+              Reset to default
+            </Button>
+          )}
+          title="Reset to default customize settings?"
+          description="This will reset all customize settings to their default values."
+          actionText="Reset"
+          onConfirm={resetFormToDefault}
+        />
         {saveButton}
       </Stack>
     </Box>

@@ -1,7 +1,6 @@
 import { SyntheticEvent } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
 import { useLocation, useNavigate } from "react-router";
 import { RouterPath } from "@/app/config/routerPath.ts";
 
@@ -24,12 +23,14 @@ export const NavTabs = () => {
   };
   
   return (
-    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-      <Tabs value={location.pathname} onChange={handleChange}>
-        {TABS.map((tab) => (
-          <Tab key={tab.value} label={tab.label} value={tab.value} />
-        ))}
-      </Tabs>
-    </Box>
+    <Tabs
+      value={location.pathname}
+      onChange={handleChange}
+      sx={{ borderBottom: 1, borderColor: "divider", marginBottom: "16px" }}
+    >
+      {TABS.map((tab) => (
+        <Tab key={tab.value} label={tab.label} value={tab.value} />
+      ))}
+    </Tabs>
   );
 };

@@ -12,6 +12,7 @@ import { Language, SettingsFormValues } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
+import {ConfirmationModal} from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
@@ -105,14 +106,21 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
             Automatically pause the video when hovering over subtitles
           </FormHelperText>
         </FormControl>
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={() => resetFormToDefault()}
-          fullWidth
-        >
-          Reset to default
-        </Button>
+        <ConfirmationModal
+          trigger={(
+            <Button
+              variant="text"
+              color="error"
+              fullWidth
+            >
+              Reset to default
+            </Button>
+          )}
+          title="Reset to default settings?"
+          description="This will reset all settings to their default values."
+          actionText="Reset"
+          onConfirm={resetFormToDefault}
+        />
         <Button
           variant="contained"
           color="primary"
@@ -122,6 +130,7 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
         >
           Save
         </Button>
+
       </Stack>
     </Box>
   );

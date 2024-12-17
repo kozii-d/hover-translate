@@ -5,6 +5,7 @@ import { SettingsPage } from "@/pages/SettingsPage";
 import { LoginPage } from "@/pages/LoginPage";
 import { AuthGuard } from "../guards/AuthGuard.tsx";
 import { CustomizePage } from "@/pages/CustomizePage";
+import { DictionaryPage } from "@/pages/DictionaryPage";
 
 export interface RouteConfig {
   path: string,
@@ -29,7 +30,7 @@ export const routeConfig: RouteConfig[] = [
   },
   {
     path: RouterPath.dictionary,
-    element: SettingsPage,
+    element: DictionaryPage,
     guards: [AuthGuard]
   }
 ];
