@@ -221,7 +221,28 @@ export class TooltipManager {
       translationData1.targetLanguage === translationData2.targetLanguage;
   };
 
-  handleWordClick = () => {
+  saveTranslation = async (attempt = 1) => {
+    const MAX_ATTEMPTS = 3;
+    if (attempt > MAX_ATTEMPTS) {
+      throw new Error(`Failed to save translation after ${MAX_ATTEMPTS} attempts.`);
+    }
+
+    if (!this.translationCore.currentTranslationData) {
+      return;
+    }
+
+    const idTokenData = await this.tokenManager.getIdTokenFromStorage();
+
+    if (!idTokenData || !idTokenData?.idToken || !idTokenData?.idTokenPayload) {
+      this.tokenManager.sendMessage("openPopup");
+      return;
+    }
+
+    if (this.tokenManager.checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {
+      await this.tokenManager.sendMessage("restoreIdToken");
+      return this.saveTranslation(attempt + 1);
+    }
+
     this.storageManager.get("savedTranslations", "local").then((savedTranslations) => {
       const savedTranslationsArray = savedTranslations || [];
 
@@ -239,4 +260,6 @@ export class TooltipManager {
       this.storageManager.set("savedTranslations", filteredTranslations, "local");
     });
   };
+
+  handleWordClick = () => this.saveTranslation();
 }
