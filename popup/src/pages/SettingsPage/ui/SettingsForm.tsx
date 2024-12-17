@@ -12,7 +12,7 @@ import { Language, SettingsFormValues } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
-import {ConfirmationModal} from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
+import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
