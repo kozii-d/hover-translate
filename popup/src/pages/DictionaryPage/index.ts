@@ -1,0 +1,1 @@
+export { DictionaryPage } from "./ui/DictionaryPage.tsx";

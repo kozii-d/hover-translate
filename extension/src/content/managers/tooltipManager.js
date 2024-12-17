@@ -214,7 +214,7 @@ export class TooltipManager {
     }
   };
 
-  isSameTranslationData = (translationData1, translationData2) => {
+  isSameSavedTranslation = (translationData1, translationData2) => {
     return translationData1.detectedLanguageCode === translationData2.detectedLanguageCode &&
       translationData1.translatedText === translationData2.translatedText &&
       translationData1.originalText === translationData2.originalText &&
@@ -246,17 +246,18 @@ export class TooltipManager {
     this.storageManager.get("savedTranslations", "local").then((savedTranslations) => {
       const savedTranslationsArray = savedTranslations || [];
 
-      const newTranslationData = {
+      const newSavedTranslation = {
+        id: crypto.randomUUID(),
         ...this.translationCore.currentTranslationData,
         timestamp: Date.now(),
       };
 
       // Remove the current translation from the saved translations array to avoid duplicates
       const filteredTranslations = savedTranslationsArray.filter((translation) => {
-        return !this.isSameTranslationData(translation, newTranslationData);
+        return !this.isSameSavedTranslation(translation, newSavedTranslation);
       });
 
-      filteredTranslations.unshift(newTranslationData);
+      filteredTranslations.unshift(newSavedTranslation);
       this.storageManager.set("savedTranslations", filteredTranslations, "local");
     });
   };

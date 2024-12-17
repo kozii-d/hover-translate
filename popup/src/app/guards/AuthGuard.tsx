@@ -11,9 +11,12 @@ interface AuthGuardProps {
   children: ReactNode;
 }
 
+const MAX_ATTEMPT_COUNT = 3;
+
 export const AuthGuard = ({ children }: AuthGuardProps) => {
   const [userLoading, setUserLoading] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
+  const [attemptCount, setAttemptCount] = useState(0);
   const navigate = useNavigate();
   const { setSession } = useUserSession();
 
@@ -28,7 +31,12 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
 
         const idTokenPayload = jwtDecode<GoogleTokenPayload>(idTokenData.idToken);
         if (checkIsTokenExpired(idTokenPayload.exp)) {
-          return restoreToken();
+          if (attemptCount < MAX_ATTEMPT_COUNT) {
+            await restoreToken();
+            return setAttemptCount((prev) => prev + 1);
+          } else {
+            return navigate(RouterPath.login);
+          }
         }
 
         setSession({
@@ -40,15 +48,21 @@ export const AuthGuard = ({ children }: AuthGuardProps) => {
         });
         setIsAuth(true);
       } catch (error) {
+        if (attemptCount < MAX_ATTEMPT_COUNT) {
+          await restoreToken();
+          setAttemptCount((prev) => prev + 1);
+          return;
+        } else {
+          navigate(RouterPath.login);
+        }
         console.error("Failed to check token:", error);
-        restoreToken();
       } finally {
         setUserLoading(false);
       }
     };
 
     checkToken();
-  }, [navigate, setSession]);
+  }, [attemptCount, navigate, setSession]);
 
   if (!isAuth || userLoading) {
     return (
