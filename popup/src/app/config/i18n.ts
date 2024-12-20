@@ -4,6 +4,11 @@ import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
+import "dayjs/locale/en";
+import "dayjs/locale/uk";
+import "dayjs/locale/ru";
+import dayjs from "dayjs";
+
 const languageDetector = new LanguageDetector();
 
 languageDetector.addDetector({
@@ -20,8 +25,8 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
-    debug: true,
-    // defaultNS: "messages",
+    supportedLngs: ["en", "uk", "ru"],
+    nonExplicitSupportedLngs: true,
     ns: ["messages", "modals", "settings", "customization", "dictionary"],
     backend: {
       loadPath: chrome.runtime.getURL("/_locales/{{lng}}/{{ns}}.json"),
@@ -36,5 +41,8 @@ i18n
     }
   });
 
+i18n.on("languageChanged", (lang) => {
+  dayjs.locale(lang);
+});
 
 export default i18n;
