@@ -10,6 +10,8 @@ import { chunkTranslationsByDay } from "../lib/helpers/chunkTranslationsByDay.ts
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 import { DictionaryPageSkeleton } from "./DictionaryPageSkeleton.tsx";
+import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
+import { useTranslation } from "react-i18next";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
@@ -17,6 +19,7 @@ export const DictionaryPage: FC = () => {
   const [allTranslations, setAllTranslations] = useState<Translation[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const { t } = useTranslation("dictionary");
 
   const translationsToShow = useMemo(() => {
     return allTranslations.slice(0, page * MAX_TRANSLATIONS_PER_PAGE);
@@ -77,9 +80,9 @@ export const DictionaryPage: FC = () => {
   }
 
   return (
-    <Page title="Dictionary">
+    <Page title={t("pageTitle")}>
       <Stack direction="column">
-        {chunkedTranslationByDay.map((translations) => {
+        {chunkedTranslationByDay.length ? chunkedTranslationByDay.map((translations) => {
           return (
             <Fragment key={translations[0].timestamp}>
               <Typography color="textSecondary" align="center">
@@ -97,7 +100,7 @@ export const DictionaryPage: FC = () => {
               })}
             </Fragment>
           );
-        })}
+        }) : <EmptyState />}
         <Stack spacing={2}>
           {allTranslations.length > 0 ? (
             <ConfirmationModal
@@ -105,13 +108,14 @@ export const DictionaryPage: FC = () => {
                 <Button
                   variant="text"
                   color="error"
+                  title={t("actions.clearAll.tooltip")}
                 >
-                  Clear all
+                  {t("actions.clearAll.text")}
                 </Button>
               )}
-              title="Clear all translations?"
-              description="This will remove all translations from the dictionary."
-              actionText="Clear"
+              title={t("modals.clearAll.title")}
+              description={t("modals.clearAll.description")}
+              actionText={t("modals.clearAll.action")}
               onConfirm={clearAllTranslations}
             />
           ) : null}
@@ -120,8 +124,9 @@ export const DictionaryPage: FC = () => {
               variant="contained"
               color="primary"
               onClick={showNextPage}
+              title={t("actions.showMore.tooltip")}
             >
-              Show more
+              {t("actions.showMore.text")}
             </Button>
           )}
         </Stack>

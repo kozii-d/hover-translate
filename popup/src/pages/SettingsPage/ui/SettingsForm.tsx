@@ -13,6 +13,7 @@ import { SettingsFormSkeleton } from "./SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
+import { useTranslation } from "react-i18next";
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
@@ -30,6 +31,8 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     targetLanguages,
     loading,
   } = props;
+
+  const { t } = useTranslation("settings");
 
   const [autoPauseField, , autoPauseHelpers] = useField<boolean>("autoPause");
 
@@ -90,9 +93,19 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
   return (
     <Box>
       <Stack spacing={2}>
-        <SettingsSelect name="targetLanguageCode" label="Target language" options={targetOptions} />
-        <SettingsSelect name="sourceLanguageCode" label="Source language" options={sourceOptions} />
-        <FormControl fullWidth>
+        <SettingsSelect
+          name="targetLanguageCode"
+          label={t("fields.targetLanguageCode.label")}
+          tooltip={t("fields.targetLanguageCode.tooltip")}
+          options={targetOptions}
+        />
+        <SettingsSelect
+          name="sourceLanguageCode"
+          label={t("fields.sourceLanguageCode.label")}
+          tooltip={t("fields.sourceLanguageCode.tooltip")}
+          options={sourceOptions}
+        />
+        <FormControl fullWidth title={t("fields.autoPause.tooltip")}>
           <FormControlLabel
             control={
               <Switch
@@ -100,10 +113,10 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
                 onChange={(_, checked) => handleChangeAutoPause(checked)}
               />
             }
-            label="Auto pause"
+            label={t("fields.autoPause.label")}
           />
           <FormHelperText>
-            Automatically pause the video when hovering over subtitles
+            {t("fields.autoPause.helperText")}
           </FormHelperText>
         </FormControl>
         <ConfirmationModal
@@ -112,13 +125,14 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
               variant="text"
               color="error"
               fullWidth
+              title={t("actions.reset.tooltip")}
             >
-              Reset to default
+              {t("actions.reset.text")}
             </Button>
           )}
-          title="Reset to default settings?"
-          description="This will reset all settings to their default values."
-          actionText="Reset"
+          title={t("modals.reset.title")}
+          description={t("modals.reset.description")}
+          actionText={t("modals.reset.action")}
           onConfirm={resetFormToDefault}
         />
         <Button
@@ -127,8 +141,9 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
           onClick={() => handleSubmit()}
           fullWidth
           disabled={!dirty || !isValid}
+          title={dirty ? t("actions.save.tooltip") : t("actions.save.disabledTooltip")}
         >
-          Save
+          {t("actions.save.text")}
         </Button>
 
       </Stack>

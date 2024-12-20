@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import { useTranslation } from "react-i18next";
 
 interface ConfirmationModalProps {
   title: string;
@@ -15,7 +16,11 @@ interface ConfirmationModalProps {
 
 export const ConfirmationModal: FC<ConfirmationModalProps> = (props) => {
   const { title, description, actionText, trigger, onConfirm } = props;
+  
+  const { t } = useTranslation("modals");
+
   const [open, setOpen] = useState(false);
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -49,8 +54,8 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = (props) => {
               {description}
             </Typography>
             <Stack direction="row" spacing={2} justifyContent="end">
-              <Button size="small" onClick={handleClose}>Close</Button>
-              <Button size="small" variant="contained" color="primary" onClick={onConfirm}>{actionText || "Confirm"}</Button>
+              <Button size="small" onClick={handleClose}>{t("confirmation.actions.close.text")}</Button>
+              <Button size="small" variant="contained" color="primary" onClick={onConfirm}>{actionText || t("confirmation.actions.confirm.text")}</Button>
             </Stack>
           </Stack>
         </Box>

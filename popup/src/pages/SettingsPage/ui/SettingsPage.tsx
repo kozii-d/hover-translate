@@ -6,6 +6,7 @@ import { api } from "@/shared/api/api.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
+import { useTranslation } from "react-i18next";
 
 export const SettingsPage: FC = () => {
   const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);
@@ -15,7 +16,9 @@ export const SettingsPage: FC = () => {
   const [loadingLanguages, setLoadingLanguages] = useState<boolean>(false);
   const [loadingSettings, setLoadingSettings] = useState<boolean>(false);
   const loading = loadingLanguages || loadingSettings;
-  
+
+  const { t } = useTranslation("settings");
+
   const { set, get } = useStorage();
 
   const setInitialSettings = useCallback(async () => {
@@ -58,7 +61,7 @@ export const SettingsPage: FC = () => {
   }, [set, setInitialSettings]);
 
   return (
-    <Page title="Settings">
+    <Page title={t("pageTitle")}>
       <Formik
         enableReinitialize
         onSubmit={handleSubmit}

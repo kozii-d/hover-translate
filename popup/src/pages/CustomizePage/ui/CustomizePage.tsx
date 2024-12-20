@@ -5,11 +5,14 @@ import { CustomizeFormValues } from "../model/types/schema.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
+import { useTranslation } from "react-i18next";
 
 export const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  const { t } = useTranslation("customization");
 
   const { set, get } = useStorage();
 
@@ -36,7 +39,7 @@ export const CustomizePage: FC = () => {
   }, [set, setInitialSettings]);
 
   return (
-    <Page title="Customize tooltip">
+    <Page title={t("pageTitle")}>
       <Formik
         enableReinitialize
         onSubmit={handleSubmit}

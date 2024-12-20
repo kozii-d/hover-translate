@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Customization",
+  "tabLabel": "Customization",
+  "actions": {
+    "save": {
+      "text": "Save",
+      "tooltip": "Save customization settings",
+      "disabledTooltip": "No changes to save"
+    },
+    "reset": {
+      "text": "Reset",
+      "tooltip": "Reset customization settings"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Use YouTube settings",
+      "tooltip": "Use YouTube settings for translation tooltips",
+      "helperText": "Use the same appearance settings for translation tooltips as the subtitle settings on YouTube"
+    },
+    "fontFamily": {
+      "label": "Font family",
+      "tooltip": "The font family to use for translation tooltips"
+    },
+    "fontSize": {
+      "label": "Font size",
+      "tooltip": "The font size to use for translation tooltips"
+    },
+    "fontColor": {
+      "label": "Font color",
+      "tooltip": "The font color to use for translation tooltips"
+    },
+    "fontOpacity": {
+      "label": "Font opacity",
+      "tooltip": "The opacity level of the font for translation tooltips"
+    },
+    "backgroundColor": {
+      "label": "Background color",
+      "tooltip": "The background color for the translation tooltips"
+    },
+    "backgroundOpacity": {
+      "label": "Background opacity",
+      "tooltip": "The opacity level of the background for translation tooltips"
+    },
+    "characterEdgeStyle": {
+      "label": "Character edge style",
+      "tooltip": "The edge style of characters for translation tooltips"
+    }
+},
+  "modals": {
+    "reset": {
+      "title": "Reset to default customization settings?",
+      "description": "This will restore all customization settings to their default values.",
+      "action": "Reset"
+    }
+  }
+}
