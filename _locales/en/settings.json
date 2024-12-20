@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Settings",
+  "tabLabel": "Settings",
+  "actions": {
+    "save": {
+      "text": "Save",
+      "tooltip": "Save settings",
+      "disabledTooltip": "No changes to save"
+    },
+    "reset": {
+      "text": "Reset to default",
+      "tooltip": "Reset to default settings"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+        "label": "Target language",
+        "tooltip": "The language to which the text will be translated"
+    },
+    "sourceLanguageCode": {
+        "label": "Source language",
+        "tooltip": "The language from which the text will be translated"
+    },
+    "autoPause": {
+        "label": "Auto-pause",
+        "tooltip": "Automatically pause the video when hovering over subtitles",
+        "helperText": "Automatically pause the video when hovering over subtitles"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Reset to default settings?",
+      "description": "This will restore all settings to their default values.",
+      "action": "Reset"
+    }
+  }
+}

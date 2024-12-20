@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Dictionary",
+  "tabLabel": "Dictionary",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Delete translation"
+    },
+    "clearAll": {
+      "text": "Clear all",
+      "tooltip": "Clear all translation"
+    },
+    "showMore": {
+      "text": "Show more",
+      "tooltip": "Show more translations"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Clear all translations?",
+      "description": "This will delete all transactions permanently.",
+      "action": "Clear"
+    }
+  },
+  "emptyState": {
+    "title": "Dictionary is empty",
+    "description": "Click on a word or phrase in the subtitles to save them to the dictionary"
+  }
+}

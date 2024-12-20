@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "HoverTranslate",
+  "name": "HoverTranslate for YouTube",
   "version": "1.0",
-  "description": "Это расширение для добавляет возможность мгновенного перевода слов в субтитрах видео.",
+  "default_locale": "en",
+  "description": "__MSG_description__",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvqK2CGDB0eRIXs5zwZUYOp5szkdbPgxpMdBGyWhlcOh0TDAeACmKFGSloPxJXDOBc8mGNB7e8CCLltbKphaYhqn7wqr9m5r2Q0FHxsWT/cLyOQ5UlroGVYD+GGVFTKLephZeqonXxjdGYeKW6XQ+5AFuIQsC7lYoQyMKuxf32Z3vpDeQ8SxyCq2yNgAc11KQkNKx6FLDZT5baK61IhKxL2hFbyqpuDDOSYnJyP5/TsBCZSHQBej2LaTrlL+GJlE9yHTSwUVAdJeKrBGhaRGsAi1k9fBKZ5y8ZxkQP3TJhRmhxvYuM/rhHW328pXfcEUAUSnAn0Lqk+sQfI+BTN/vrwIDAQAB",
   "permissions": ["activeTab", "storage", "scripting", "identity"],
   "oauth2": {
@@ -15,6 +16,7 @@
   },
   "content_scripts": [
     {
+      "all_frames": true,
       "matches": ["*://*.youtube.com/*"],
       "js": ["./extension/dist/content.bundle.js"],
       "css": ["./extension/src/content/styles.css"]
@@ -23,13 +25,19 @@
   "background": {
     "service_worker": "./extension/dist/background.bundle.js"
   },
+  "web_accessible_resources": [
+    {
+      "resources": ["*.*"],
+        "matches": ["<all_urls>"]
+    }
+  ],
   "action": {
     "default_popup": "./popup/dist/index.html"
   },
   "icons": {
-    "16": "./extension/icons/hoverTranslateIcon_16px.png",
-    "32": "./extension/icons/hoverTranslateIcon_32px.png",
-    "48": "./extension/icons/hoverTranslateIcon_48px.png",
-    "128": "./extension/icons/hoverTranslateIcon_128px.png"
+    "16": "./assets/icons/logo_16.png",
+    "32": "./assets/icons/logo_32.png",
+    "48": "./assets/icons/logo_48.png",
+    "128": "./assets/icons/logo_128.png"
   }
 }
