@@ -10,7 +10,6 @@ interface Tab {
   value: (typeof RouterPath)[keyof typeof RouterPath];
 }
 
-
 export const NavTabs = () => {
   const location = useLocation();
   const navigate = useNavigate();

@@ -58,7 +58,7 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
         disabled={!dirty || !isValid}
         title={dirty ? t("actions.save.tooltip") : t("actions.save.disabledTooltip")}
       >
-        Save
+        {t("actions.save.text")}
       </Button>
     );
   }, [dirty, handleSubmit, isValid, t]);
