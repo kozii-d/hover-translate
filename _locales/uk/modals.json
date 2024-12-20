@@ -1,0 +1,12 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Закрити"
+      },
+      "confirm": {
+        "text": "Підтвердити"
+      }
+    }
+  }
+}
