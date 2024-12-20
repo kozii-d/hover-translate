@@ -14,6 +14,7 @@ import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 import { useTranslation } from "react-i18next";
+import { InlineBanner } from "@/shared/ui/InlineBanner/InlineBanner.tsx";
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
@@ -119,6 +120,7 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
             {t("fields.autoPause.helperText")}
           </FormHelperText>
         </FormControl>
+        <InlineBanner message={t("tips.multipleSelection")} type="info"/>
         <ConfirmationModal
           trigger={(
             <Button

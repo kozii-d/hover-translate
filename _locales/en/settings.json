@@ -33,5 +33,8 @@
       "description": "This will restore all settings to their default values.",
       "action": "Reset"
     }
+  },
+  "tips": {
+    "multipleSelection": "For multiple word selection, hold Shift and hover over the words you need."
   }
 }
