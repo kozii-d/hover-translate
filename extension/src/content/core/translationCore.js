@@ -27,6 +27,11 @@ export class TranslationCore {
 
   async translateText(text, signal) {
     const normalizedText = text.trim().toLowerCase();
+
+    if (!normalizedText) {
+      return "";
+    }
+
     const cacheKey = `${normalizedText}_${this.state.settings.sourceLanguageCode}_${this.state.settings.targetLanguageCode}`;
 
     if (this.translationCache.has(cacheKey)) {
