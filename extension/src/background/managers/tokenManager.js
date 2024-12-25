@@ -38,12 +38,20 @@ export class TokenManager {
     const redirectUri = chrome.identity.getRedirectURL();
     const nonce = self.crypto.randomUUID();
 
-    const authUrl = `${TokenManager.GOOGLE_AUTH_BASE_URL}?` +
+    let authUrl = `${TokenManager.GOOGLE_AUTH_BASE_URL}?` +
         `client_id=${encodeURIComponent(clientId)}&` +
         "response_type=id_token&" +
         `nonce=${encodeURIComponent(nonce)}&` +
         `redirect_uri=${encodeURIComponent(redirectUri)}&` +
         `scope=${encodeURIComponent(scopes.join(" "))}`;
+
+    const idTokenData = await this.getIdTokenFromStorage();
+
+    const email = idTokenData?.idTokenPayload?.email || "";
+
+    if (email) {
+      authUrl += `&login_hint=${encodeURIComponent(email)}`;
+    }
 
     return new Promise((resolve, reject) => {
       chrome.identity.launchWebAuthFlow(

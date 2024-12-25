@@ -21,12 +21,20 @@ export const getIdToken = async (option: { interactive: boolean; }) => {
   const redirectUri = chrome.identity.getRedirectURL();
   const nonce = self.crypto.randomUUID();
 
-  const authUrl = `${GOOGLE_AUTH_BASE_URL}?` +
+  let authUrl = `${GOOGLE_AUTH_BASE_URL}?` +
     `client_id=${encodeURIComponent(clientId)}&` +
     "response_type=id_token&" +
     `nonce=${encodeURIComponent(nonce)}&` +
     `redirect_uri=${encodeURIComponent(redirectUri)}&` +
     `scope=${encodeURIComponent(scopes.join(" "))}`;
+
+  const idTokenData = await getIdTokenFromStorage();
+
+  const email = idTokenData?.idTokenPayload?.email || "";
+
+  if (email) {
+    authUrl += `&login_hint=${encodeURIComponent(email)}`;
+  }
 
   return new Promise<{ idToken: string; idTokenPayload: GoogleTokenPayload }>((resolve, reject) => {
     chrome.identity.launchWebAuthFlow(
