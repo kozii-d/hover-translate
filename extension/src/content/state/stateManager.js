@@ -5,7 +5,7 @@ export class StateManager {
       targetLanguageCode: "en-US",
       autoPause: true,
     };
-    this.customize = {
+    this.tooltipTheme = {
       useYouTubeSettings: true,
       fontFamily: "auto",
       fontColor: "auto",
