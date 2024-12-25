@@ -12,8 +12,8 @@ interface PageProps {
 
 export const Page: FC<PageProps> = ({ children, title }) => {
   return (
-    <PageContainer title={title} slots={
-      { toolbar: () => {
+    <PageContainer title={title} slots={{ 
+      toolbar: () => {
         return (
           <Stack direction="row" spacing={2} alignItems="center">
             <LangSelector />
@@ -21,8 +21,7 @@ export const Page: FC<PageProps> = ({ children, title }) => {
           </Stack>
         );
       } 
-      }
-    }
+    }}
     >
       <NavTabs />
       {children}
