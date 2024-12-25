@@ -12,7 +12,7 @@ export const CustomizePage: FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { t } = useTranslation("customization");
+  const { t } = useTranslation("customize");
 
   const { set, get } = useStorage();
 

@@ -37,7 +37,7 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
     setFormikState
   } = props;
 
-  const { t } = useTranslation("customization");
+  const { t } = useTranslation("customize");
 
   const [useYouTubeSettingsField, , useYouTubeSettingsHelpers] = useField<boolean>("useYouTubeSettings");
 
