@@ -10,7 +10,7 @@ export class SettingsManager {
     autoPause: true,
   };
 
-  initialCustomize = {
+  initialTooltipTheme = {
     useYouTubeSettings: true,
     fontFamily: "auto",
     fontColor: "auto",
@@ -106,9 +106,9 @@ export class SettingsManager {
       }
     });
 
-    this.storageManager.get("customize", "sync").then((customize) => {
-      if (!customize) {
-        this.storageManager.set("customize", this.initialCustomize, "sync");
+    this.storageManager.get("tooltipTheme", "sync").then((tooltipTheme) => {
+      if (!tooltipTheme) {
+        this.storageManager.set("tooltipTheme", this.initialTooltipTheme, "sync");
       }
     });
   }

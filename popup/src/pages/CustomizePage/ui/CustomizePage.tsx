@@ -19,12 +19,12 @@ export const CustomizePage: FC = () => {
   const setInitialSettings = useCallback(async () => {
     setLoading(true);
     try {
-      const customize = await get<CustomizeFormValues>("customize", "sync");
-      if (customize) {
-        setInitialValues(customize);
+      const tooltipTheme = await get<CustomizeFormValues>("tooltipTheme", "sync");
+      if (tooltipTheme) {
+        setInitialValues(tooltipTheme);
       }
     } catch (error) {
-      console.error("Failed to get customize settings:", error);
+      console.error("Failed to get tooltipTheme:", error);
     } finally {
       setLoading(false);
     }
@@ -35,7 +35,7 @@ export const CustomizePage: FC = () => {
   }, [setInitialSettings]);
 
   const handleSubmit = useCallback(async (values: CustomizeFormValues) => {
-    return set<CustomizeFormValues>("customize", values, "sync").then(setInitialSettings);
+    return set<CustomizeFormValues>("tooltipTheme", values, "sync").then(setInitialSettings);
   }, [set, setInitialSettings]);
 
   return (

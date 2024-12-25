@@ -71,7 +71,7 @@ export class StorageManager {
 
   initializeSettings() {
     this.get("settings", "sync").then((settings) => this.state.settings = settings);
-    this.get("customize", "sync").then((customize) => this.state.customize = customize);
+    this.get("tooltipTheme", "sync").then((tooltipTheme) => this.state.tooltipTheme = tooltipTheme);
   }
 
   checkStorageChanges() {
@@ -80,8 +80,8 @@ export class StorageManager {
         if (changes.settings) {
           this.state.settings = changes.settings.newValue;
         }
-        if (changes.customize) {
-          this.state.customize = changes.customize.newValue;
+        if (changes.tooltipTheme) {
+          this.state.tooltipTheme = changes.tooltipTheme.newValue;
         }
       }
     });
