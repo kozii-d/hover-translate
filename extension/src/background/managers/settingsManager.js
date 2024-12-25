@@ -22,9 +22,12 @@ export class SettingsManager {
   };
 
   initialize() {
-    // Event listener for when the extension is installed or updated
-    chrome.runtime.onInstalled.addListener(() => {
-      this.initializeSettings();
+    chrome.runtime.onInstalled.addListener((details) => {
+      if (details.reason === "install") {
+        this.initializeSettings();
+      } else if (details.reason === "update") {
+        this.storageManager.set("updatedAt", Date.now(), "sync");
+      }
     });
   }
 
@@ -99,17 +102,10 @@ export class SettingsManager {
   };
 
   async initializeSettings() {
-    this.storageManager.get("settings", "sync").then(async (settings) => {
-      if (!settings) {
-        const initialSettings = await this.getInitialSettings();
-        this.storageManager.set("settings", initialSettings, "sync");
-      }
-    });
-
-    this.storageManager.get("tooltipTheme", "sync").then((tooltipTheme) => {
-      if (!tooltipTheme) {
-        this.storageManager.set("tooltipTheme", this.initialTooltipTheme, "sync");
-      }
-    });
+    this.storageManager.set("installedAt", Date.now(), "sync");
+    this.storageManager.set("updatedAt", Date.now(), "sync");
+    const initialSettings = await this.getInitialSettings();
+    this.storageManager.set("settings", initialSettings, "sync");
+    this.storageManager.set("tooltipTheme", this.initialTooltipTheme, "sync");
   }
 }
