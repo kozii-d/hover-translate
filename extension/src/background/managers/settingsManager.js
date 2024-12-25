@@ -48,8 +48,9 @@ export class SettingsManager {
         this.initializeSettings();
         this.initializeTooltipTheme();
 
-        this.storageManager.set("installedAt", Date.now(), "sync");
-        this.storageManager.set("updatedAt", Date.now(), "sync");
+        const currentTime = Date.now();
+        this.storageManager.set("installedAt", currentTime, "sync");
+        this.storageManager.set("updatedAt", currentTime, "sync");
 
         chrome.action.openPopup();
       } else if (details.reason === "update") {
