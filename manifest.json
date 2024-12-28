@@ -23,7 +23,7 @@
     }
   ],
   "background": {
-    "service_worker": "./extension/dist/background.bundle.js"
+    "service_worker": "./extensionV2/dist/background.bundle.js"
   },
   "web_accessible_resources": [
     {
