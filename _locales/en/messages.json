@@ -1,5 +1,8 @@
 {
   "description": {
     "message": "Translate words in video subtitles instantly! Just hover over a word or phrase to see its translation."
+  },
+  "translationSaved": {
+    "message": "Translation saved"
   }
 }
