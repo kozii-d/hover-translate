@@ -1,5 +1,6 @@
 // CSS classes
 export const TOOLTIP_CLASS = "custom-tooltip";
+export const NOTIFICATION_TOOLTIP_CLASS = "custom-notification-tooltip";
 export const TOOLTIP_WORD_CLASS = "custom-tooltip-word";
 export const TOOLTIP_SELECTED_WORD_CLASS = "custom-tooltip-word-selected";
 

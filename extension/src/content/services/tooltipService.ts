@@ -8,7 +8,7 @@ import {
   CAPTION_SEGMENT,
   DATA_ATTRIBUTES,
   TOOLTIP_SELECTED_WORD_CLASS,
-  TOOLTIP_SETTINGS,
+  TOOLTIP_SETTINGS, NOTIFICATION_TOOLTIP_CLASS,
 } from "../consts/consts.ts";
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.ts";
 import { TranslationCore } from "../core/translationCore";
@@ -37,13 +37,13 @@ export class TooltipService {
     this.lastSelectedWordNode = null;
   }
 
-  deleteActiveTooltip() {
+  public deleteActiveTooltip() {
     document
       .querySelectorAll(`.${TOOLTIP_CLASS}`)
       .forEach((tooltip) => tooltip.remove());
   }
 
-  async showTooltip(targetNode: AbortableElement) {
+  private async showTooltip(targetNode: AbortableElement) {
     const idToken = await this.tokenService.getIdTokenFromStorage();
 
     if (!idToken) return;
@@ -88,7 +88,43 @@ export class TooltipService {
     this.positionTooltip(this.firstSelectedWordNode, tooltip, subtitlesContainer);
   }
 
-  styleTooltip(tooltip: HTMLDivElement) {
+  private async showNotificationTooltip(text: string) {
+    const previousTooltip = document.querySelector<HTMLElement>(`.${NOTIFICATION_TOOLTIP_CLASS}`);
+    if (previousTooltip) {
+      previousTooltip.remove();
+    }
+
+    const tooltip = document.createElement("div");
+    tooltip.className = NOTIFICATION_TOOLTIP_CLASS;
+    tooltip.textContent = text;
+
+    tooltip.style.visibility = "hidden";
+
+    document.body.appendChild(tooltip);
+
+    this.styleTooltip(tooltip);
+    this.positionNotificationTooltip(tooltip);
+
+    setTimeout(() => {
+      tooltip.remove();
+    }, 3000);
+  }
+
+  private positionNotificationTooltip(tooltip: HTMLDivElement) {
+    const video = document.querySelector("video");
+
+    if (!video) return;
+
+    const rectVideo = video.getBoundingClientRect();
+
+    tooltip.style.position = "absolute";
+    tooltip.style.left = `${rectVideo.left + 65}px`;
+    tooltip.style.top = `${rectVideo.top + 40}px`;
+
+    tooltip.style.visibility = "visible";
+  }
+
+  private styleTooltip(tooltip: HTMLDivElement) {
     const captionSegment = document.querySelector<HTMLElement>(`.${CAPTION_SEGMENT}`);
     if (!captionSegment) return;
 
@@ -153,7 +189,7 @@ export class TooltipService {
     }
   }
 
-  positionTooltip(
+  private positionTooltip(
     anchorWordNode: HTMLElement,
     tooltip: HTMLDivElement,
     subtitlesContainer: HTMLElement
@@ -179,7 +215,7 @@ export class TooltipService {
     tooltip.style.visibility = "visible";
   }
 
-  updateSelectedWords = (selectedNode: HTMLElement) => {
+  private updateSelectedWords = (selectedNode: HTMLElement) => {
     const selectedWordIndex = parseInt(selectedNode.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
 
     if (this.firstSelectedWordNode) {
@@ -215,7 +251,7 @@ export class TooltipService {
     });
   };
 
-  clearSelectedWords = () => {
+  public clearSelectedWords = () => {
     this.firstSelectedWordNode = null;
     this.lastSelectedWordNode = null;
     this.selectedWordsNodes.forEach((word) => word.classList.remove(TOOLTIP_SELECTED_WORD_CLASS));
@@ -287,5 +323,6 @@ export class TooltipService {
     filteredTranslations.unshift(newSavedTranslation);
 
     await this.storageService.set("savedTranslations", filteredTranslations, "local");
+    this.showNotificationTooltip(chrome.i18n.getMessage("translationSaved"));
   };
 }
