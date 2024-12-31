@@ -107,7 +107,7 @@ export class TooltipService {
 
     setTimeout(() => {
       tooltip.remove();
-    }, 3000);
+    }, 2000);
   }
 
   private positionNotificationTooltip(tooltip: HTMLDivElement) {
