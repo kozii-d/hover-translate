@@ -56,7 +56,7 @@ export class MutationObserverService {
 
     if (hasNewWord) {
       this.tooltipService.clearSelectedWords();
-      this.tooltipService.deleteActiveTooltip();
+      // this.tooltipService.deleteActiveTooltip();
       this.subtitleCore.setWordsIndexes();
     }
   }
