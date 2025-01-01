@@ -7,7 +7,7 @@
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvqK2CGDB0eRIXs5zwZUYOp5szkdbPgxpMdBGyWhlcOh0TDAeACmKFGSloPxJXDOBc8mGNB7e8CCLltbKphaYhqn7wqr9m5r2Q0FHxsWT/cLyOQ5UlroGVYD+GGVFTKLephZeqonXxjdGYeKW6XQ+5AFuIQsC7lYoQyMKuxf32Z3vpDeQ8SxyCq2yNgAc11KQkNKx6FLDZT5baK61IhKxL2hFbyqpuDDOSYnJyP5/TsBCZSHQBej2LaTrlL+GJlE9yHTSwUVAdJeKrBGhaRGsAi1k9fBKZ5y8ZxkQP3TJhRmhxvYuM/rhHW328pXfcEUAUSnAn0Lqk+sQfI+BTN/vrwIDAQAB",
   "permissions": ["activeTab", "storage", "scripting", "identity"],
   "oauth2": {
-    "client_id": "67431023275-3nresa6s25t492krt3u8b3uvvqc0ujkb.apps.googleusercontent.com",
+    "client_id": "381144952112-nq9esu7nbp1n32osoki5fkr0nvj2c58o.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
