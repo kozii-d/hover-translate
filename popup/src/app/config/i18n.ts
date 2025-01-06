@@ -27,7 +27,7 @@ i18n
     fallbackLng: "en",
     supportedLngs: ["en", "uk", "ru"],
     nonExplicitSupportedLngs: true,
-    ns: ["messages", "modals", "settings", "customize", "dictionary"],
+    ns: ["messages", "modals", "settings", "customize", "dictionary", "common"],
     backend: {
       loadPath: chrome.runtime.getURL("/_locales/{{lng}}/{{ns}}.json"),
     },
