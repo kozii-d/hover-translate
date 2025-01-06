@@ -9,7 +9,7 @@ export const LangSelector: FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation("common");
   const supportedLanguages = useMemo(() => {
     return (i18n.options.supportedLngs || []).filter((lang: string) => lang !== "cimode");
   }, [i18n.options.supportedLngs]);
@@ -36,7 +36,7 @@ export const LangSelector: FC = () => {
 
   return (
     <Fragment>
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={handleClick} title={t("tooltips.languageSelector")}>
         <LanguageIcon />
       </IconButton>
       <Menu

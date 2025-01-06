@@ -90,8 +90,7 @@ export class SettingsService {
 
   private async getInitialSettings(): Promise<Settings> {
     try {
-      const data = await this.apiService.fetchData<{ targetLanguages: { code: string }[] }>("/translation/languages1");
-
+      const data = await this.apiService.fetchData<{ targetLanguages: { code: string }[] }>("/translation/languages");
       if (!data || !Array.isArray(data.targetLanguages)) {
         throw new Error("Invalid data from server");
       }
