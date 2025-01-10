@@ -82,7 +82,9 @@ export class TooltipService {
 
     tooltip.style.visibility = "hidden";
 
-    document.body.appendChild(tooltip);
+    const container = document.fullscreenElement ? document.fullscreenElement : document.body;
+
+    container.appendChild(tooltip);
 
     this.styleTooltip(tooltip);
     this.positionTooltip(this.firstSelectedWordNode, tooltip, subtitlesContainer);
@@ -100,7 +102,9 @@ export class TooltipService {
 
     tooltip.style.visibility = "hidden";
 
-    document.body.appendChild(tooltip);
+    const container = document.fullscreenElement ? document.fullscreenElement : document.body;
+
+    container.appendChild(tooltip);
 
     this.styleTooltip(tooltip);
     this.positionNotificationTooltip(tooltip);

@@ -10,6 +10,7 @@ import { TooltipService } from "./tooltipService.ts";
 
 export class MutationObserverService {
   private observer: MutationObserver;
+  private urlObserver?: MutationObserver;
 
   constructor(
     private readonly subtitleCore: SubtitleCore,
@@ -19,6 +20,10 @@ export class MutationObserverService {
     this.observer = new MutationObserver(this.handleMutations);
 
     this.startObserving();
+
+    this.initVisibilityListener();
+
+    this.initUrlObserver();
   }
 
   /**
@@ -113,16 +118,63 @@ export class MutationObserverService {
    * Starts observing the caption container.
    * If the container is not found, retries in 1 second.
    */
-  private startObserving(): void {
+  private startObserving(retryCount = 5): void {
+    this.stopObserving();
+
     const captionContainer = document.querySelector(`.${CAPTION_WINDOW_CONTAINER}`);
     if (captionContainer) {
       this.observer.observe(captionContainer, {
         childList: true,
         subtree: true,
       });
-    } else {
-      // Повторяем попытку через 1 секунду, если контейнера ещё нет
-      setTimeout(() => this.startObserving(), 1000);
+      // eslint-disable-next-line no-console
+      console.log("[MutationObserverService] Observing started");
+    } else if (retryCount > 0) {
+      // eslint-disable-next-line no-console
+      console.log("[MutationObserverService] No container, retrying...");
+      setTimeout(() => this.startObserving(retryCount - 1), 1000);
     }
+  }
+
+  private stopObserving(): void {
+    this.observer.disconnect();
+  }
+
+  private initVisibilityListener(): void {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        // eslint-disable-next-line no-console
+        console.log("[MutationObserverService] Tab is visible, reinit observer");
+        this.startObserving();
+      }
+    });
+  }
+
+  /**
+   * A «hacky» way to watch for URL changes by observing <title> changes.
+   */
+  private initUrlObserver(): void {
+    const titleElement = document.querySelector("title");
+    if (!titleElement) {
+      // eslint-disable-next-line no-console
+      console.log("[MutationObserverService] <title> not found, no URL observer");
+      return;
+    }
+
+    let oldHref = document.location.href;
+
+    this.urlObserver = new MutationObserver(() => {
+      const newHref = document.location.href;
+      if (oldHref !== newHref) {
+        oldHref = newHref;
+        // eslint-disable-next-line no-console
+        console.log("[MutationObserverService] URL changed, reinit observer");
+        this.startObserving();
+      }
+    });
+
+    // Observe childList of titleElement, because <title> text changes
+    // when the «route» is changed or a new video is loaded
+    this.urlObserver.observe(titleElement, { childList: true });
   }
 }
