@@ -4,8 +4,17 @@
     font-size: 24px;
     color: #fff;
     padding: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 1000;
+    z-index: 1000000000;
+    pointer-events: none;
+}
+
+.custom-notification-tooltip {
+    position: absolute;
+    background-color: rgba(8, 8, 8, 0.75);
+    font-size: 24px;
+    color: #fff;
+    padding: 5px;
+    z-index: 1000000000;
     pointer-events: none;
 }
 
