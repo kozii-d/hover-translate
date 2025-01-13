@@ -1,20 +1,20 @@
 import { SettingsMigrationsService } from "./settingsMigrationsService.ts";
 import { TooltipThemeMigrationsService } from "./tooltipThemeMigrationsService.ts";
-import { ApiService } from "../../common/services/apiService.ts";
 import { StorageService } from "../../common/services/storageService.ts";
 
 import { defaultSettings, defaultTooltipTheme } from "../../common/consts/defaultValues.ts";
 import type { Settings, TooltipTheme } from "../../common/types/settings.ts";
+import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
 
 export class SettingsService {
   static readonly SETTINGS_VERSION = 1;
   static readonly TOOLTIP_THEME_VERSION = 1;
 
   constructor(
+    private readonly translator: BaseTranslator,
     private readonly storageService: StorageService = new StorageService(),
     private readonly settingsMigrationsService: SettingsMigrationsService = new SettingsMigrationsService(),
     private readonly tooltipThemeMigrationsService: TooltipThemeMigrationsService = new TooltipThemeMigrationsService(),
-    private readonly apiService: ApiService = new ApiService(),
   ) {
     this.setUpChromeEventListeners();
   }
@@ -90,13 +90,10 @@ export class SettingsService {
 
   private async getInitialSettings(): Promise<Settings> {
     try {
-      const data = await this.apiService.fetchData<{ targetLanguages: { code: string }[] }>("/translation/languages");
-      if (!data || !Array.isArray(data.targetLanguages)) {
-        throw new Error("Invalid data from server");
-      }
+      const availableLanguages = await this.translator.getAvailableLanguages();
 
       const userLanguage = this.getUserLanguage();
-      const availableTargetLanguages = data.targetLanguages.map((lang) => lang.code);
+      const availableTargetLanguages = availableLanguages.targetLanguages.map((lang) => lang.code);
 
       const targetLanguageCode = availableTargetLanguages.includes(userLanguage)
         ? userLanguage

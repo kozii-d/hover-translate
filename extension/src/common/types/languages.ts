@@ -1,9 +1,3 @@
-export interface SettingsFormValues {
-  sourceLanguageCode: string;
-  targetLanguageCode: string;
-  autoPause: boolean;
-}
-
 export interface Language {
   code: string;
   name: string;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { checkIsTokenExpired, getIdTokenFromStorage, restoreToken } from "@/shared/lib/helpers/idToken.ts";
 
-export const api = axios.create({
+export const htApi = axios.create({
   baseURL: __API_URL__,
   headers: {
     "Content-Type": "application/json",
@@ -9,7 +9,7 @@ export const api = axios.create({
   },
 });
 
-api.interceptors.request.use(async (config) => {
+htApi.interceptors.request.use(async (config) => {
   const idTokenData = await getIdTokenFromStorage();
 
   if (idTokenData && idTokenData.idToken && !checkIsTokenExpired(idTokenData.idTokenPayload.exp)) {

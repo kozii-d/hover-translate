@@ -14,11 +14,11 @@
   },
   "fields": {
     "targetLanguageCode": {
-        "label": "Target language",
+        "label": "Translate to",
         "tooltip": "The language to which the text will be translated"
     },
     "sourceLanguageCode": {
-        "label": "Source language",
+        "label": "Translate from",
         "tooltip": "The language from which the text will be translated"
     },
     "autoPause": {

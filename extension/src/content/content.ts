@@ -4,10 +4,11 @@ import { TooltipService } from "./services/tooltipService.ts";
 import { VideoController } from "./core/videoController.ts";
 import { MutationObserverService } from "./services/mutationObserverService.ts";
 import { KeyboardService } from "./services/keyboardService.ts";
+import { GoogleTranslator } from "../common/translators/google/google.ts";
 
 function main() {
   try {
-    const translationCore = new TranslationCore();
+    const translationCore = new TranslationCore(new GoogleTranslator());
     const tooltipService = new TooltipService(translationCore);
     const subtitleCore = new SubtitleCore(tooltipService);
     const videoController = new VideoController();

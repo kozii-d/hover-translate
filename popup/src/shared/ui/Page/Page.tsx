@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { PageContainer } from "@toolpad/core/PageContainer";
-import { Account } from "@toolpad/core/Account";
+// import { Account } from "@toolpad/core/Account";
 import { NavTabs } from "@/widgets/NavTabs";
 import Stack from "@mui/material/Stack";
 import { LangSelector } from "@/widgets/LangSelector";
@@ -17,7 +17,7 @@ export const Page: FC<PageProps> = ({ children, title }) => {
         return (
           <Stack direction="row" spacing={2} alignItems="center">
             <LangSelector />
-            <Account />
+            {/*<Account />*/}
           </Stack>
         );
       } 
