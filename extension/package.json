@@ -27,6 +27,7 @@
     "color-alpha": "^2.0.0",
     "color-rgba": "^3.0.0",
     "jwt-decode": "^4.0.0",
+    "ky": "^1.7.4",
     "quick-lru": "^7.0.0"
   }
 }
