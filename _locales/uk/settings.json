@@ -14,11 +14,11 @@
   },
   "fields": {
     "targetLanguageCode": {
-      "label": "Цільова мова",
+      "label": "Перекласти на",
       "tooltip": "Мова, на яку буде перекладено текст"
     },
     "sourceLanguageCode": {
-      "label": "Мова оригіналу",
+      "label": "Перекласти з",
       "tooltip": "Мова, з якої буде перекладено текст"
     },
     "autoPause": {
