@@ -4,8 +4,8 @@ import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
 
 export class MessageService {
   constructor(
-    // private readonly tokenService: TokenService = new TokenService(),
     private readonly translator: BaseTranslator
+    // private readonly tokenService: TokenService = new TokenService(),
   ) {
     this.setupMessageListeners();
   }
