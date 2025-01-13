@@ -23,25 +23,7 @@ export class TokenService {
 
   constructor(
     private readonly storageService: StorageService = new StorageService(),
-  ) {
-    this.setupMessageListeners();
-  }
-
-  private setupMessageListeners(): void {
-    chrome.runtime.onMessage.addListener((message,_ , sendResponse) => {
-      if (message.action === "restoreIdToken") {
-        this.restoreToken()
-          .then(() => sendResponse({ success: true }))
-          .catch((error) => sendResponse({ success: false, error: error?.message || "Unknown error" }));
-      }
-      if (message.action === "openPopup") {
-        chrome.action.openPopup()
-          .then(() => sendResponse({ success: true }))
-          .catch(() => sendResponse({ success: false }));
-      }
-      return true;
-    });
-  }
+  ) {}
 
   private buildAuthUrl(
     clientId: string,
@@ -116,7 +98,7 @@ export class TokenService {
     return this.storageService.remove("idTokenData", "local");
   }
 
-  private async restoreToken(): Promise<void> {
+  public async restoreToken(): Promise<void> {
     try {
       const idTokenData = await this.requestIdToken({ interactive: false });
       if (!idTokenData) {

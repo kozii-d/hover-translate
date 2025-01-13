@@ -12,7 +12,6 @@ import {
 } from "../consts/consts.ts";
 import { isCaptionWindowInUpperHalf } from "../utils/domUtils.ts";
 import { TranslationCore } from "../core/translationCore";
-import { TokenService } from "./tokenService.ts";
 import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
 import { TranslationData } from "../../common/types/translations.ts";
@@ -28,7 +27,6 @@ export class TooltipService {
 
   constructor(
     private readonly translationCore: TranslationCore,
-    private readonly tokenService: TokenService = new TokenService(),
     private readonly storageService: StorageService = new StorageService(),
   )
   {
@@ -44,10 +42,6 @@ export class TooltipService {
   }
 
   private async showTooltip(targetNode: AbortableElement) {
-    const idToken = await this.tokenService.getIdTokenFromStorage();
-
-    if (!idToken) return;
-
     const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
       const aIndex = parseInt(a.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
       const bIndex = parseInt(b.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
@@ -302,10 +296,6 @@ export class TooltipService {
   private saveTranslation = async () => {
     const currentData = this.translationCore.currentTranslationData;
     if (!currentData) return;
-
-    const idToken = await this.tokenService.getIdTokenFromStorage();
-
-    if (!idToken) return;
 
     const savedTranslations = await this.storageService.get<TranslationData[]>("savedTranslations", "local");
     const savedTranslationsArray = savedTranslations || [];

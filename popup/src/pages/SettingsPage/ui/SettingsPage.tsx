@@ -1,8 +1,7 @@
 import { Formik } from "formik";
 import { SettingsForm } from "./SettingsForm.tsx";
 import { FC, useCallback, useEffect, useState } from "react";
-import { Language, LanguageResponse, SettingsFormValues } from "../model/types/schema.ts";
-import { api } from "@/shared/api/api.ts";
+import { Language, AvailableLanguages, SettingsFormValues } from "../model/types/schema.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
@@ -43,9 +42,10 @@ export const SettingsPage: FC = () => {
     const fetchLanguagesData = async () => {
       setLoadingLanguages(true);
       try {
-        const response = await api.get<LanguageResponse>("/translation/languages");
-        setSourceLanguages(response.data.sourceLanguages);
-        setTargetLanguages(response.data.targetLanguages);
+        chrome.runtime.sendMessage({ action: "getAvailableLanguages" }, (response: { availableLanguages: AvailableLanguages } ) => {
+          setSourceLanguages(response.availableLanguages.sourceLanguages);
+          setTargetLanguages(response.availableLanguages.targetLanguages);
+        });
       } catch (error) {
         console.error("Failed to fetch source languages", error);
       } finally {

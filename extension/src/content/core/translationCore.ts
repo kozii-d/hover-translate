@@ -1,29 +1,22 @@
 import QuickLRU from "quick-lru";
 import { state } from "../state/stateManager.ts";
 import { StorageService } from "../../common/services/storageService.ts";
-import { TokenService } from "../services/tokenService.ts";
 import { TranslationCacheData } from "../../common/types/translations.ts";
-import { ApiService } from "../../common/services/apiService.ts";
+import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
 
 type TranslationCache = QuickLRU<string, TranslationCacheData>;
 
 type TranslationCacheFromStorage = { key: string; value: TranslationCacheData }[];
-
-interface TranslateApiResponse {
-  detectedLanguageCode: string;
-  translatedText: string;
-}
 
 export class TranslationCore {
   private translationCache: TranslationCache;
   public currentTranslationData: TranslationCacheData | null;
 
   constructor(
-    private readonly tokenService: TokenService = new TokenService(),
+    private readonly translator: BaseTranslator,
     private readonly storageService: StorageService = new StorageService(),
-    private readonly api: ApiService = new ApiService(),
   ) {
-    this.translationCache = new QuickLRU<string, TranslationCacheData>({ maxSize: 3000 });
+    this.translationCache = new QuickLRU<string, TranslationCacheData>({ maxSize: 5000 });
     this.currentTranslationData = null;
 
     this.loadTranslationCache();
@@ -61,22 +54,17 @@ export class TranslationCore {
       return cachedData;
     }
 
-    const queryParams = new URLSearchParams({
-      input: text,
-      sourceLanguageCode: state.settings.sourceLanguageCode,
-      targetLanguageCode: state.settings.targetLanguageCode,
-    }).toString();
-
     try {
-      const translatedData = await this.fetchWithAuth<TranslateApiResponse>(
-        `/translation/translate?${queryParams}`,
-        { signal }
+      const translatedData = await this.translator.translate(
+        text,
+        state.settings.sourceLanguageCode,
+        state.settings.targetLanguageCode,
+        signal
       );
 
       if (!translatedData) {
         return null;
       }
-
 
       const result: TranslationCacheData = {
         sourceLanguageCode: translatedData.detectedLanguageCode,
@@ -100,24 +88,4 @@ export class TranslationCore {
       }
     }
   }
-
-  private fetchWithAuth = async <T>(
-    path: string,
-    options: RequestInit = {}
-  ): Promise<T | null> => {
-    const idToken = await this.tokenService.getIdTokenFromStorage();
-
-    if (!idToken) return null;
-
-    const headers = {
-      ...options.headers,
-      Authorization: `Bearer ${idToken}`,
-      "Content-Type": "application/json",
-    };
-
-    return this.api.fetchData(path, {
-      ...options,
-      headers,
-    });
-  };
 }
