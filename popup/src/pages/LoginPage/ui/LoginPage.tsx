@@ -7,7 +7,7 @@ const providers: AuthProvider[] = [
   { id: "google", name: "Google" },
 ];
 
-export const LoginPage: FC = () => {
+const LoginPage: FC = () => {
   const auth = useAuth();
 
   return (
@@ -18,3 +18,5 @@ export const LoginPage: FC = () => {
     />
   );
 };
+
+export default LoginPage;

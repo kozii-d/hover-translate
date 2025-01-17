@@ -1,1 +1,1 @@
-export { CustomizePage } from "./ui/CustomizePage.tsx";
+export { CustomizePageAsync as CustomizePage } from "./ui/CustomizePage.async.tsx";

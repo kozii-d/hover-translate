@@ -7,7 +7,7 @@ import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
 
-export const SettingsPage: FC = () => {
+const SettingsPage: FC = () => {
   const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);
 
   const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
@@ -79,3 +79,5 @@ export const SettingsPage: FC = () => {
     </Page>
   );
 };
+
+export default SettingsPage;

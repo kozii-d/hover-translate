@@ -1,1 +1,1 @@
-export { DictionaryPage } from "./ui/DictionaryPage.tsx";
+export { DictionaryPageAsync as DictionaryPage } from "./ui/DictionaryPage.async.tsx";
