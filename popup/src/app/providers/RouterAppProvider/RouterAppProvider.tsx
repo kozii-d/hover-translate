@@ -1,6 +1,7 @@
 import { RouteConfig } from "../../config/routeConfig";
 import { Routes, Route } from "react-router";
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
+import { PageSkeleton } from "@/shared/ui/Skeletons/PageSkeleton.tsx";
 
 interface RouterAppProviderProps {
   routes: RouteConfig[];
@@ -20,6 +21,8 @@ export const RouterAppProvider = (props: RouterAppProviderProps) => {
           wrappedElement
         );
       }
+      
+      wrappedElement = <Suspense fallback={<PageSkeleton/>}>{wrappedElement}</Suspense>;
 
       return (
         <Route key={index} path={path} element={wrappedElement} />

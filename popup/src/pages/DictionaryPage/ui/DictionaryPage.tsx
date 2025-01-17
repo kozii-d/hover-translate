@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
-export const DictionaryPage: FC = () => {
+const DictionaryPage: FC = () => {
   const [allTranslations, setAllTranslations] = useState<Translation[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -134,3 +134,5 @@ export const DictionaryPage: FC = () => {
     </Page>
   );
 };
+
+export default DictionaryPage;

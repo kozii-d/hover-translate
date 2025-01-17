@@ -7,7 +7,7 @@ import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
 
-export const CustomizePage: FC = () => {
+const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -55,3 +55,5 @@ export const CustomizePage: FC = () => {
     </Page>
   );
 };
+
+export default CustomizePage;
