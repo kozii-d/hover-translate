@@ -1,4 +1,4 @@
-# HoverTranslate for YouTube
+# HoverTranslate for YouTube Subtitles
 
 [![Chrome rate](https://img.shields.io/chrome-web-store/rating/jbddomeagbjjdoaehkdffdhifdhnmfic?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic)
 
