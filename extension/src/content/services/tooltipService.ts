@@ -256,7 +256,7 @@ export class TooltipService {
     this.selectedWordsNodes.clear();
   };
 
-  public handleWordMouseEnter = (event: MouseEvent) => {
+  public handleWordMouseEnter = (event: PointerEvent) => {
     const target = event.target as AbortableElement;
     if (target.classList.contains(TOOLTIP_WORD_CLASS)) {
       if (!this.selectedWordsNodes.has(target)) {
@@ -267,7 +267,7 @@ export class TooltipService {
     }
   };
 
-  public handleWordMouseLeave = (event: MouseEvent) => {
+  public handleWordMouseLeave = (event: PointerEvent) => {
     const target = event.target as AbortableElement;
     if (target.classList.contains(TOOLTIP_WORD_CLASS)) {
       // Cancel the request if it's still pending
@@ -276,15 +276,13 @@ export class TooltipService {
         delete target.abortController;
       }
 
-      if (!state.isSelecting) {
+      if (!event.shiftKey) {
         this.clearSelectedWords();
       }
 
       this.deleteActiveTooltip();
     }
   };
-
-  public handleWordClick = () => this.saveTranslation();
 
   private isSameSavedTranslation = (translationData1: TranslationData, translationData2: TranslationData) => {
     return translationData1.sourceLanguageCode === translationData2.sourceLanguageCode &&
@@ -293,7 +291,7 @@ export class TooltipService {
       translationData1.targetLanguageCode === translationData2.targetLanguageCode;
   };
 
-  private saveTranslation = async () => {
+  public saveTranslation = async () => {
     const currentData = this.translationCore.currentTranslationData;
     if (!currentData) return;
 

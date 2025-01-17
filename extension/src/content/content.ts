@@ -3,7 +3,6 @@ import { SubtitleCore } from "./core/subtitleCore.ts";
 import { TooltipService } from "./services/tooltipService.ts";
 import { VideoController } from "./core/videoController.ts";
 import { MutationObserverService } from "./services/mutationObserverService.ts";
-import { KeyboardService } from "./services/keyboardService.ts";
 import { GoogleTranslator } from "../common/translators/google/google.ts";
 
 function main() {
@@ -13,7 +12,6 @@ function main() {
     const subtitleCore = new SubtitleCore(tooltipService);
     const videoController = new VideoController();
     new MutationObserverService(subtitleCore, videoController, tooltipService);
-    new KeyboardService();
   } catch (error) {
     console.error(error);
   }
