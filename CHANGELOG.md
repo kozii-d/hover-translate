@@ -2,11 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.2] - 2025-01-13
+## [1.0.2] - 2025-01-17
 
 ### Changed
 - Requests for translations are now sent directly to the Google Translate API from the client instead of my API server.
 - Reduced the size of the extension bundle. Exclude unnecessary files.
+
+### Fixed
+- Fixed saving the translation to the dictionary when dragging subtitles
 
 ### Removed
 -  Authentication logic.

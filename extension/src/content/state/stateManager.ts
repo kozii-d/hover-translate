@@ -5,7 +5,6 @@ import { StorageService } from "../../common/services/storageService.ts";
 class StateManager {
   public settings: Settings;
   public tooltipTheme: TooltipTheme;
-  public isSelecting: boolean;
   public cacheLoaded: boolean;
   
   constructor(
@@ -13,7 +12,6 @@ class StateManager {
   ) {
     this.settings = defaultSettings;
     this.tooltipTheme = defaultTooltipTheme;
-    this.isSelecting = false;
     this.cacheLoaded = false;
 
     this.initializeSettings();

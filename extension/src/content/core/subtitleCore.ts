@@ -24,9 +24,37 @@ export class SubtitleCore {
       const wordSpan = document.createElement("span");
       wordSpan.classList.add(TOOLTIP_WORD_CLASS);
       wordSpan.textContent = word + " ";
-      wordSpan.addEventListener("mouseenter", this.tooltipService.handleWordMouseEnter);
-      wordSpan.addEventListener("mouseleave", this.tooltipService.handleWordMouseLeave);
-      wordSpan.addEventListener("click", this.tooltipService.handleWordClick);
+      wordSpan.addEventListener("pointerenter", this.tooltipService.handleWordMouseEnter);
+      wordSpan.addEventListener("pointerleave", this.tooltipService.handleWordMouseLeave);
+      let isDrag = false;
+      let startX = 0;
+      let startY = 0;
+      const DRAG_THRESHOLD = 5;
+
+      wordSpan.addEventListener("pointerdown", (e: PointerEvent) => {
+        // Save the initial coordinates and reset the "drag" flag
+        isDrag = false;
+        startX = e.clientX;
+        startY = e.clientY;
+      });
+
+      wordSpan.addEventListener("pointermove", (e: PointerEvent) => {
+        // If the cursor has moved further than the threshold, set the "drag" flag
+        const diffX = Math.abs(e.clientX - startX);
+        const diffY = Math.abs(e.clientY - startY);
+
+        if (diffX > DRAG_THRESHOLD || diffY > DRAG_THRESHOLD) {
+          isDrag = true;
+        }
+      });
+
+      wordSpan.addEventListener("pointerup", () => {
+        // If the user is dragging the subtitles, don't save the translation
+        if (!isDrag) {
+          this.tooltipService.saveTranslation();
+        }
+      });
+
       fragment.appendChild(wordSpan);
     });
 
