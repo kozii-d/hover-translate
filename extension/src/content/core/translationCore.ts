@@ -37,7 +37,7 @@ export class TranslationCore {
   }
 
   async translateText(text: string, signal?: AbortSignal): Promise<TranslationCacheData | null> {
-    const normalizedText = text.trim().toLowerCase();
+    const normalizedText = text.trim();
 
     if (!normalizedText) {
       return null;
@@ -56,7 +56,7 @@ export class TranslationCore {
 
     try {
       const translatedData = await this.translator.translate(
-        text,
+        normalizedText,
         state.settings.sourceLanguageCode,
         state.settings.targetLanguageCode,
         signal
