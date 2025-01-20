@@ -27,3 +27,7 @@ Download from [Chrome Wb Store](https://chromewebstore.google.com/detail/jbddome
 
 # Change Log
 - [Change Log](https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md)
+
+# Acknowledgement and References
+- [XTranslate](https://github.com/ixrock/XTranslate)
+- [MouseTooltipTranslator](https://github.com/ttop32/MouseTooltipTranslator)
