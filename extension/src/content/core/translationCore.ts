@@ -43,6 +43,7 @@ export class TranslationCore {
       return null;
     }
 
+    // todo: add a translator name to the cache key
     const cacheKey = `${normalizedText}_${state.settings.sourceLanguageCode}_${state.settings.targetLanguageCode}`;
 
     if (this.translationCache.has(cacheKey)) {
@@ -71,6 +72,10 @@ export class TranslationCore {
         targetLanguageCode: state.settings.targetLanguageCode,
         translatedText: translatedData.translatedText,
         originalText: text,
+        dictionary: translatedData.dictionary,
+        transliteration: translatedData.transliteration,
+        transcription: translatedData.transcription,
+        translatorName: this.translator.name,
       };
 
       this.currentTranslationData = result;

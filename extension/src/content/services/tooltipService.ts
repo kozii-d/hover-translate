@@ -300,10 +300,7 @@ export class TooltipService {
 
     const newSavedTranslation: TranslationData  = {
       id: crypto.randomUUID(),
-      originalText: currentData.originalText,
-      sourceLanguageCode: currentData.sourceLanguageCode,
-      targetLanguageCode: currentData.targetLanguageCode,
-      translatedText: currentData.translatedText,
+      ...currentData,
       timestamp: Date.now(),
     };
 
