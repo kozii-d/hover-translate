@@ -2,7 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.2] - 2025-01-17
+## [1.0.2] - 2025-01-20
+
+### Added
+- Added the ability to export saved translations from the dictionary in JSON and CSV format.
 
 ### Changed
 - Requests for translations are now sent directly to the Google Translate API from the client instead of my API server.
