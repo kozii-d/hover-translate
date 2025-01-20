@@ -23,6 +23,7 @@ Download from [Chrome Wb Store](https://chromewebstore.google.com/detail/jbddome
 - Auto-Pause Video: Videos are automatically paused when you hover over subtitles, so you can focus on the translation.
 - Works with Auto-Generated Subtitles: Translate even when subtitles are auto-generated.
 - Save Words and Phrases: Like a word or expression? Save it to your dictionary list with a single click.
+- Export Dictionary: Export your saved translations from the dictionary in JSON and CSV format.
 - Customizable Appearance: The translation tooltip adjusts to match your YouTube subtitle settings, or you can customize it to your preference. 
 
 # Change Log
