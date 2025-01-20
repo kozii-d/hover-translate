@@ -17,6 +17,10 @@ export class HtApiTranslator extends BaseTranslator {
   ) {
     super();
   }
+
+  get name() {
+    return "HtApi";
+  }
   
   public async translate(
     text: string,

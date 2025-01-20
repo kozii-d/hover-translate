@@ -3,9 +3,14 @@ import { AvailableLanguages } from "../types/languages.ts";
 interface TranslatedData {
   detectedLanguageCode: string;
   translatedText: string;
+  dictionary?: string;
+  transliteration?: string;
+  transcription?: string;
 }
 
 export abstract class BaseTranslator {
+  abstract get name(): string;
+
   abstract translate(
     text: string,
     sourceLanguageCode: string,
