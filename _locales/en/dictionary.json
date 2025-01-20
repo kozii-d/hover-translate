@@ -12,6 +12,17 @@
     "showMore": {
       "text": "Show more",
       "tooltip": "Show more translations"
+    },
+    "export": {
+      "tooltip": "Export translations"
+    },
+    "exportJSON": {
+      "text": "Export JSON",
+      "tooltip": "Export translations to JSON"
+    },
+    "exportCSV": {
+      "text": "Export CSV",
+      "tooltip": "Export translations to CSV"
     }
   },
   "modals": {

@@ -40,13 +40,10 @@ export const LangSelector: FC = () => {
         <LanguageIcon />
       </IconButton>
       <Menu
-        id="basic-menu"
+        id="lang-selector-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
       >
         {supportedLanguages.map((lang: string) => (
           <MenuItem 

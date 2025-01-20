@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { DictionaryPageSkeleton } from "./DictionaryPageSkeleton.tsx";
 import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
 import { useTranslation } from "react-i18next";
+import { ExportData } from "@/features/ExportTranslations";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
@@ -80,7 +81,7 @@ const DictionaryPage: FC = () => {
   }
 
   return (
-    <Page title={t("pageTitle")}>
+    <Page title={t("pageTitle")} additionalAction={<ExportData />}>
       <Stack direction="column">
         {chunkedTranslationByDay.length ? chunkedTranslationByDay.map((translations) => {
           return (
