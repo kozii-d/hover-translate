@@ -22,12 +22,13 @@ export class GoogleTranslator extends BaseTranslator {
     const params = new URLSearchParams([
       ["client", "gtx"],
       ["q", text],
-      ["sl", sourceLanguageCode],
-      ["tl", targetLanguageCode],
+      ["sl", sourceLanguageCode], // sl: source language
+      ["tl", targetLanguageCode], // tl: target language
+      ["hl", targetLanguageCode], // hl: dictionary header language
       ["dj", "1"], // dj: 1 is for json response
       ["dt", "t"], // dt: t is for translation
-      // ["dt", "rm"], // dt: rm is for transliteration
       // ["dt", "bd"], // dt: bd is for dictionary
+      // ["dt", "rm"], // dt: rm is for transliteration
       // ["dt", "rw"], // dt: rw is for related words
       // ["dt", "qca"], // dt: qca is for spelling correction
     ]);
