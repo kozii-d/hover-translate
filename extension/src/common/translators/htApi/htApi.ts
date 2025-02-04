@@ -21,6 +21,10 @@ export class HtApiTranslator extends BaseTranslator {
   get name() {
     return "HtApi";
   }
+
+  get key() {
+    return "ht-api";
+  }
   
   public async translate(
     text: string,

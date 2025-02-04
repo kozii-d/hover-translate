@@ -10,6 +10,7 @@ interface TranslatedData {
 
 export abstract class BaseTranslator {
   abstract get name(): string;
+  abstract get key(): string;
 
   abstract translate(
     text: string,

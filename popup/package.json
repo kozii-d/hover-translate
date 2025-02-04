@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "watch": "vite build --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,7 +17,7 @@
     "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.10",
     "@toolpad/core": "^0.10.0",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "formik": "^2.4.6",
     "i18next": "^24.2.0",

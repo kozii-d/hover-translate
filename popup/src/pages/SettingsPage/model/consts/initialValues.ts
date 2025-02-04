@@ -4,4 +4,5 @@ export const initialFormValues: SettingsFormValues = {
   sourceLanguageCode: "auto",
   targetLanguageCode: "en",
   autoPause: true,
+  translator: "google"
 };

@@ -8,7 +8,9 @@
     "build:dev": "rm -rf dist && tsc && vite build --mode=development --config=vite.background.config.ts && vite build --mode=development --config=vite.content.config.ts",
     "watch:background": "vite build --mode=development --watch --config=vite.background.config.ts",
     "watch:content": "vite build --mode=development --watch --config=vite.content.config.ts",
-    "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"npm run watch:background\" \"npm run watch:content\""
+    "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"npm run watch:background\" \"npm run watch:content\"",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "lint:fix": "eslint '**/*.{ts,tsx}' --fix"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

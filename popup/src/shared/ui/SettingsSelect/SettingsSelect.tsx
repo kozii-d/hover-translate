@@ -1,5 +1,4 @@
-import { FC } from "react";
-import { useField } from "formik";
+import { FC, memo } from "react";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -7,35 +6,32 @@ import MenuItem from "@mui/material/MenuItem";
 import { MenuItemType } from "../../types/types.ts";
 
 interface SettingsSelectProps {
-  name: string;
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  error?: boolean;
   label: string;
   tooltip?: string;
   options: MenuItemType[];
   disabled?: boolean;
 }
 
-export const SettingsSelect: FC<SettingsSelectProps> = (props) => {
-  const { name, options, label, tooltip, disabled } = props;
-  const [field, meta, helpers] = useField<string>(name);
-
-  const handleChange = (value: string) => {
-    helpers.setValue(value);
-    helpers.setError(undefined);
-  };
+export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
+  const { id, value, onChange, error, options, label, tooltip, disabled } = props;
 
   const renderMenuItem = (item: MenuItemType) => (
     <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
   );
-  
+
   return (
-    <FormControl fullWidth error={Boolean(meta.error && meta.touched)} title={tooltip || label}>
-      <InputLabel id={`${name}-label`}>{label}</InputLabel>
+    <FormControl fullWidth error={error} title={tooltip || label}>
+      <InputLabel id={`${id}-label`}>{label}</InputLabel>
       <Select
         labelId="font-family-label"
-        id={name}
+        id={id}
         label={label}
-        value={field.value}
-        onChange={(event) => handleChange(event.target.value)}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         variant="outlined"
         disabled={disabled}
       >
@@ -43,4 +39,4 @@ export const SettingsSelect: FC<SettingsSelectProps> = (props) => {
       </Select>
     </FormControl>
   );
-};
+});

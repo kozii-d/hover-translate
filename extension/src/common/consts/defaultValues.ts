@@ -3,6 +3,7 @@ import { Settings, TooltipTheme } from "../types/settings.ts";
 export const defaultSettings: Settings = {
   sourceLanguageCode: "auto",
   targetLanguageCode: "en",
+  translator: "google",
   autoPause: true,
 };
 

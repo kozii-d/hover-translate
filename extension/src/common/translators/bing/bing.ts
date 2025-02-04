@@ -3,7 +3,7 @@ import ky from "ky";
 import { jwtDecode } from "jwt-decode";
 import {
   BingAvailableLanguagesResponse,
-  BingDictionaryResponse,
+  // BingDictionaryResponse,
   BingTokenPayload,
   BingTranslationResponse,
   TokenData
@@ -15,18 +15,18 @@ export class BingTranslator extends BaseTranslator {
 
   private tokenData: TokenData | null = null;
 
-  private partOfSpeechMap = {
-    ADJ:	"Adjectives",
-    ADV:	"Adverbs",
-    CONJ:	"Conjunctions",
-    DET:	"Determiners",
-    MODAL:	"Verbs",
-    NOUN:	"Nouns",
-    PREP:	"Prepositions",
-    PRON:	"Pronouns",
-    VERB:	"Verbs",
-    OTHER:	"Other",
-  };
+  // private partOfSpeechMap = {
+  //   ADJ:	"Adjectives",
+  //   ADV:	"Adverbs",
+  //   CONJ:	"Conjunctions",
+  //   DET:	"Determiners",
+  //   MODAL:	"Verbs",
+  //   NOUN:	"Nouns",
+  //   PREP:	"Prepositions",
+  //   PRON:	"Pronouns",
+  //   VERB:	"Verbs",
+  //   OTHER:	"Other",
+  // };
 
   private api = ky.create({
     prefixUrl: this.apiUrl,
@@ -54,6 +54,10 @@ export class BingTranslator extends BaseTranslator {
 
   get name() {
     return "Bing";
+  }
+
+  get key() {
+    return "bing";
   }
 
   private async getToken() {
@@ -97,34 +101,34 @@ export class BingTranslator extends BaseTranslator {
     };
   }
 
-  private async dictionaryRequest(
-    text: string,
-    sourceLanguageCode: string,
-    targetLanguageCode: string,
-    signal?: AbortSignal
-  ): Promise<string> {
-    const response = await this.api.post<BingDictionaryResponse>("dictionary/lookup", {
-      body: JSON.stringify([{ Text: text }]),
-      searchParams: {
-        "from": sourceLanguageCode,
-        "to": targetLanguageCode,
-      },
-      signal,
-    });
-
-    const [data] = await response.json();
-    const translations = data.translations;
-
-    const groupedDictionary = Object.groupBy(translations, (item) => item.posTag);
-
-    return Object.entries(groupedDictionary).reduce((acc, entry) => {
-      const [posTag, dictTranslation] = entry;
-      const words = dictTranslation?.map((dictEntry) => dictEntry.displayTarget).join(", ") || "";
-      const dictLine = `${this.partOfSpeechMap[posTag as keyof typeof this.partOfSpeechMap]}: ${words};\n`;
-      acc += dictLine;
-      return acc;
-    }, "");
-  }
+  // private async dictionaryRequest(
+  //   text: string,
+  //   sourceLanguageCode: string,
+  //   targetLanguageCode: string,
+  //   signal?: AbortSignal
+  // ): Promise<string> {
+  //   const response = await this.api.post<BingDictionaryResponse>("dictionary/lookup", {
+  //     body: JSON.stringify([{ Text: text }]),
+  //     searchParams: {
+  //       "from": sourceLanguageCode,
+  //       "to": targetLanguageCode,
+  //     },
+  //     signal,
+  //   });
+  //
+  //   const [data] = await response.json();
+  //   const translations = data.translations;
+  //
+  //   const groupedDictionary = Object.groupBy(translations, (item) => item.posTag);
+  //
+  //   return Object.entries(groupedDictionary).reduce((acc, entry) => {
+  //     const [posTag, dictTranslation] = entry;
+  //     const words = dictTranslation?.map((dictEntry) => dictEntry.displayTarget).join(", ") || "";
+  //     const dictLine = `${this.partOfSpeechMap[posTag as keyof typeof this.partOfSpeechMap]}: ${words};\n`;
+  //     acc += dictLine;
+  //     return acc;
+  //   }, "");
+  // }
 
   public async getAvailableLanguages() {
     const response = await this.api.get<BingAvailableLanguagesResponse>("languages", {
@@ -152,11 +156,11 @@ export class BingTranslator extends BaseTranslator {
     signal?: AbortSignal
   ) {
     const translation = await this.translationRequest(text, sourceLanguageCode, targetLanguageCode, signal);
-    const dictionary = await this.dictionaryRequest(text, translation.detectedLanguageCode, targetLanguageCode, signal);
+    // const dictionary = await this.dictionaryRequest(text, translation.detectedLanguageCode, targetLanguageCode, signal);
 
     return {
       ...translation,
-      dictionary,
+      // dictionary,
     };
   }
 }

@@ -4,10 +4,10 @@ type SettingsMigration = (oldSettings: Settings) => Settings;
 
 export class SettingsMigrationsService {
   private readonly settingsMigrations: Record<number, SettingsMigration> = {
-    // 2: (oldSettings) => ({
-    //   ...oldSettings,
-    //   newFeatureEnabled: true,
-    // }),
+    2: (oldSettings) => ({
+      ...oldSettings,
+      translator: "google",
+    }),
   };
 
   /*
