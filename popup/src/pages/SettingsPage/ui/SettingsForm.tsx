@@ -15,6 +15,12 @@ import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 import { useTranslation } from "react-i18next";
 import { InlineBanner } from "@/shared/ui/InlineBanner/InlineBanner.tsx";
+import { MenuItemType } from "@/shared/types/types.ts";
+
+const TRANSLATORS_OPTIONS: MenuItemType[]  = [
+  { value: "google", label: "Google" },
+  { value: "bing", label: "Bing" },
+];
 
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
@@ -158,10 +164,7 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
           value={translatorField.value}
           onChange={handleChangeTranslator}
           error={Boolean(translatorMeta.error && translatorMeta.touched)}
-          options={[
-            { value: "google", label: "Google" },
-            { value: "bing", label: "Bing" },
-          ]}
+          options={TRANSLATORS_OPTIONS}
         />
         <FormControl fullWidth title={t("fields.autoPause.tooltip")}>
           <FormControlLabel
