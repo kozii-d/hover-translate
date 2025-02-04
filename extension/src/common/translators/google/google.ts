@@ -10,6 +10,10 @@ export class GoogleTranslator extends BaseTranslator {
     return "Google";
   }
 
+  get key() {
+    return "google";
+  }
+
   public async translate(
     text: string,
     sourceLanguageCode: string,

@@ -2,6 +2,7 @@ export interface Settings {
   sourceLanguageCode: string;
   targetLanguageCode: string;
   autoPause: boolean;
+  translator: "google" | "bing";
 }
 
 export interface TooltipTheme {

@@ -6,7 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import { FormikProps, useField } from "formik";
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 
 import { CustomizeFormValues } from "../model/types/schema.ts";
 import { CustomizeFormSkeleton } from "./CustomizeFormSkeleton.tsx";
@@ -40,9 +40,54 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
   const { t } = useTranslation("customize");
 
   const [useYouTubeSettingsField, , useYouTubeSettingsHelpers] = useField<boolean>("useYouTubeSettings");
-
+  
   const isDisabled = useYouTubeSettingsField.value;
- 
+  
+  const [fontFamilyField, fontFamilyMeta, fontFamilyHelpers] = useField<string>("fontFamily");
+  const [fontSizeField, fontSizeMeta, fontSizeHelpers] = useField<string>("fontSize");
+  const [fontColorField, fontColorMeta, fontColorHelpers] = useField<string>("fontColor");
+  const [fontOpacityField, fontOpacityMeta, fontOpacityHelpers] = useField<string>("fontOpacity");
+  const [backgroundColorField, backgroundColorMeta, backgroundColorHelpers] = useField<string>("backgroundColor");
+  const [backgroundOpacityField, backgroundOpacityMeta, backgroundOpacityHelpers] = useField<string>("backgroundOpacity");
+  const [characterEdgeStyleField, characterEdgeStyleMeta, characterEdgeStyleHelpers] = useField<string>("characterEdgeStyle");
+
+  const handleChangeFontFamily = useCallback((value: string) => {
+    fontFamilyHelpers.setValue(value);
+    fontFamilyHelpers.setError(undefined);
+  }, [fontFamilyHelpers]);
+  
+  const handleChangeFontSize = useCallback((value: string) => {
+    fontSizeHelpers.setValue(value);
+    fontSizeHelpers.setError(undefined);
+  }, [fontSizeHelpers]);
+  
+  const handleChangeFontColor = useCallback((value: string) => {
+    fontColorHelpers.setValue(value);
+    fontColorHelpers.setError(undefined);
+  }, [fontColorHelpers]);
+  
+  const handleChangeFontOpacity = useCallback((value: string) => {
+    fontOpacityHelpers.setValue(value);
+    fontOpacityHelpers.setError(undefined);
+  }, [fontOpacityHelpers]);
+  
+  const handleChangeBackgroundColor = useCallback((value: string) => {
+    backgroundColorHelpers.setValue(value);
+    backgroundColorHelpers.setError(undefined);
+  }, [backgroundColorHelpers]);
+  
+  const handleChangeBackgroundOpacity = useCallback((value: string) => {
+    backgroundOpacityHelpers.setValue(value);
+    backgroundOpacityHelpers.setError(undefined);
+  }, [backgroundOpacityHelpers]);
+  
+  const handleChangeCharacterEdgeStyle = useCallback((value: string) => {
+    characterEdgeStyleHelpers.setValue(value);
+    characterEdgeStyleHelpers.setError(undefined);
+  }, [characterEdgeStyleHelpers]);
+
+
+
   const handleChangeUseYouTubeSettings = (value: boolean) => {
     useYouTubeSettingsHelpers.setValue(value);
     useYouTubeSettingsHelpers.setError(undefined);
@@ -96,51 +141,72 @@ export const CustomizeForm: FC<CustomizeFormProps> = (props) => {
           </FormHelperText>
         </FormControl>
         <SettingsSelect
-          name="fontFamily"
+          id="fontFamily"
           label={t("fields.fontFamily.label")}
           tooltip={t("fields.fontFamily.tooltip")}
+          value={fontFamilyField.value}
+          onChange={handleChangeFontFamily}
+          error={Boolean(fontFamilyMeta.error && fontFamilyMeta.touched)}
           options={FONT_FAMILY_ITEMS}
           disabled={isDisabled}
         />
         <SettingsSelect
-          name="fontSize"
+          id="fontSize"
           label={t("fields.fontSize.label")}
           tooltip={t("fields.fontSize.tooltip")}
+          value={fontSizeField.value}
+          onChange={handleChangeFontSize}
+          error={Boolean(fontSizeMeta.error && fontSizeMeta.touched)}
           options={FONT_SIZE_ITEMS}
           disabled={isDisabled}
         />
         <SettingsSelect
-          name="fontColor"
+          id="fontColor"
           label={t("fields.fontColor.label")}
           tooltip={t("fields.fontColor.tooltip")}
+          value={fontColorField.value}
+          onChange={handleChangeFontColor}
+          error={Boolean(fontColorMeta.error && fontColorMeta.touched)}
           options={FONT_COLOR_ITEMS}
           disabled={isDisabled}
         />
         <SettingsSelect
-          name="fontOpacity"
+          id="fontOpacity"
           label={t("fields.fontOpacity.label")}
           tooltip={t("fields.fontOpacity.tooltip")}
+          value={fontOpacityField.value}
+          onChange={handleChangeFontOpacity}
+          error={Boolean(fontOpacityMeta.error && fontOpacityMeta.touched)}
           options={FONT_OPACITY_ITEMS}
           disabled={isDisabled}
         />
         <SettingsSelect
-          name="backgroundColor"
+          id="backgroundColor"
           label={t("fields.backgroundColor.label")}
           tooltip={t("fields.backgroundColor.tooltip")}
+          value={backgroundColorField.value}
+          onChange={handleChangeBackgroundColor}
+          error={Boolean(backgroundColorMeta.error && backgroundColorMeta.touched)}
           options={BACKGROUND_COLOR_ITEMS}
           disabled={isDisabled}
         />
         <SettingsSelect
-          name="backgroundOpacity"
+          id="backgroundOpacity"
           label={t("fields.backgroundOpacity.label")}
           tooltip={t("fields.backgroundOpacity.tooltip")}
+          value={backgroundOpacityField.value}
+          onChange={handleChangeBackgroundOpacity}
+          error={Boolean(backgroundOpacityMeta.error && backgroundOpacityMeta.touched)}
           options={BACKGROUND_OPACITY_ITEMS}
           disabled={isDisabled}
         />
         <SettingsSelect
-          name="characterEdgeStyle"
+          id="characterEdgeStyle"
           label={t("fields.characterEdgeStyle.label")}
           tooltip={t("fields.characterEdgeStyle.tooltip")}
+          value={characterEdgeStyleField.value}
+          onChange={handleChangeCharacterEdgeStyle}
+          error={Boolean(characterEdgeStyleMeta.error && characterEdgeStyleMeta.touched)}
           options={CHARACTER_EDGE_STYLE_ITEMS}
           disabled={isDisabled}
         />

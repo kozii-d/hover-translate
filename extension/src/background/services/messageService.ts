@@ -1,10 +1,9 @@
 // import { TokenService } from "./tokenService.ts";
 
-import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
+import { TranslatorFactory } from "../../common/translators/TranslatorFactory.ts";
 
 export class MessageService {
   constructor(
-    private readonly translator: BaseTranslator
     // private readonly tokenService: TokenService = new TokenService(),
   ) {
     this.setupMessageListeners();
@@ -17,6 +16,7 @@ export class MessageService {
       //     .then(() => sendResponse({ success: true }))
       //     .catch((error) => sendResponse({ success: false, error: error?.message || "Unknown error" }));
       // }
+
       if (message.action === "openPopup") {
         chrome.action.openPopup()
           .then(() => sendResponse({ success: true }))
@@ -24,7 +24,8 @@ export class MessageService {
       }
       
       if (message.action === "getAvailableLanguages") {
-        this.translator.getAvailableLanguages().then((availableLanguages) => {
+        const translator = TranslatorFactory.create(message.value);
+        translator.getAvailableLanguages().then((availableLanguages) => {
           sendResponse({ availableLanguages });
         });
       }

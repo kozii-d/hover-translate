@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import { SettingsForm } from "./SettingsForm.tsx";
 import { FC, useCallback, useEffect, useState } from "react";
-import { Language, AvailableLanguages, SettingsFormValues } from "../model/types/schema.ts";
+import { Language, AvailableLanguages, SettingsFormValues, Translator } from "../model/types/schema.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
@@ -20,41 +20,45 @@ const SettingsPage: FC = () => {
 
   const { set, get } = useStorage();
 
+  const fetchAvailableLanguages = useCallback(async (translator: Translator) => {
+    setLoadingLanguages(true);
+    try {
+      const availableLanguages = await new Promise<AvailableLanguages>((resolve) => {
+        chrome.runtime.sendMessage({ action: "getAvailableLanguages", value: translator },
+          (response: { availableLanguages: AvailableLanguages } ) => {
+            resolve(response.availableLanguages);
+          });
+      });
+      setSourceLanguages(availableLanguages.sourceLanguages);
+      setTargetLanguages(availableLanguages.targetLanguages);
+
+      return availableLanguages;
+    } catch (error) {
+      console.error("Failed to fetch source languages", error);
+      throw error;
+    } finally {
+      setLoadingLanguages(false);
+    }
+  }, []);
+
   const setInitialSettings = useCallback(async () => {
     setLoadingSettings(true);
     try {
       const settings = await get<SettingsFormValues>("settings", "sync");
       if (settings) {
         setInitialValues(settings);
+        await fetchAvailableLanguages(settings.translator);
       }
     } catch (error) {
       console.error("Failed to get settings:", error);
     } finally {
       setLoadingSettings(false);
     }
-  }, [get]);
+  }, [fetchAvailableLanguages, get]);
 
   useEffect(() => {
     setInitialSettings();
   }, [setInitialSettings]);
-
-  useEffect(() => {
-    const fetchLanguagesData = async () => {
-      setLoadingLanguages(true);
-      try {
-        chrome.runtime.sendMessage({ action: "getAvailableLanguages" }, (response: { availableLanguages: AvailableLanguages } ) => {
-          setSourceLanguages(response.availableLanguages.sourceLanguages);
-          setTargetLanguages(response.availableLanguages.targetLanguages);
-        });
-      } catch (error) {
-        console.error("Failed to fetch source languages", error);
-      } finally {
-        setLoadingLanguages(false);
-      }
-    };
-
-    fetchLanguagesData();
-  }, []);
 
   const handleSubmit = useCallback((values: SettingsFormValues) => {
     return set<SettingsFormValues>("settings", values, "sync").then(setInitialSettings);
@@ -72,6 +76,7 @@ const SettingsPage: FC = () => {
             {...props}
             sourceLanguages={sourceLanguages}
             targetLanguages={targetLanguages}
+            fetchAvailableLanguages={fetchAvailableLanguages}
             loading={loading}
           />
         )}

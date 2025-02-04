@@ -6,9 +6,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import { FormikProps, useField } from "formik";
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 
-import { Language, SettingsFormValues } from "../model/types/schema.ts";
+import { AvailableLanguages, Language, SettingsFormValues, Translator } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
@@ -19,6 +19,7 @@ import { InlineBanner } from "@/shared/ui/InlineBanner/InlineBanner.tsx";
 interface SettingsFormProps extends FormikProps<SettingsFormValues> {
   sourceLanguages: Language[];
   targetLanguages: Language[];
+  fetchAvailableLanguages: (translator: Translator) => Promise<AvailableLanguages>;
   loading: boolean;
 }
 
@@ -30,12 +31,50 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     setFormikState,
     sourceLanguages,
     targetLanguages,
+    fetchAvailableLanguages,
     loading,
   } = props;
 
   const { t } = useTranslation("settings");
 
+  const [targetLanguageCodeField, targetLanguageCodeMeta, targetLanguageCodeHelpers] = useField<string>("targetLanguageCode");
+  const [sourceLanguageCodeField, sourceLanguageCodeMeta, sourceLanguageCodeHelpers] = useField<string>("sourceLanguageCode");
+  const [translatorField, translatorMeta, translatorHelpers] = useField<string>("translator");
   const [autoPauseField, , autoPauseHelpers] = useField<boolean>("autoPause");
+
+  const handleChangeTargetLanguageCode = useCallback((value: string) => {
+    targetLanguageCodeHelpers.setValue(value);
+    targetLanguageCodeHelpers.setError(undefined);
+  }, [targetLanguageCodeHelpers]);
+
+  const handleChangeSourceLanguageCode = useCallback((value: string) => {
+    sourceLanguageCodeHelpers.setValue(value);
+    sourceLanguageCodeHelpers.setError(undefined);
+  }, [sourceLanguageCodeHelpers]);
+
+  const checkSelectedLanguages = useCallback((availableLanguages: AvailableLanguages) => {
+    if (sourceLanguageCodeField.value !== "auto") {
+      const sourceLanguagesCodes = availableLanguages.sourceLanguages.map((lang) => lang.code);
+
+      if (!sourceLanguagesCodes.includes(sourceLanguageCodeField.value)) {
+        sourceLanguageCodeHelpers.setValue("auto");
+      }
+    }
+
+    const targetLanguagesCodes = availableLanguages.targetLanguages.map((lang) => lang.code);
+    const userLanguage = chrome.i18n.getUILanguage();
+
+    if (!targetLanguagesCodes.includes(targetLanguageCodeField.value)) {
+      const newTargetLanguage = targetLanguagesCodes.includes(userLanguage) ? userLanguage : "en";
+      targetLanguageCodeHelpers.setValue(newTargetLanguage);
+    }
+  }, [sourceLanguageCodeField.value, sourceLanguageCodeHelpers, targetLanguageCodeField.value, targetLanguageCodeHelpers]);
+
+  const handleChangeTranslator = useCallback((value: string) => {
+    translatorHelpers.setValue(value);
+    fetchAvailableLanguages(value as Translator).then(checkSelectedLanguages);
+    translatorHelpers.setError(undefined);
+  }, [translatorHelpers, fetchAvailableLanguages, checkSelectedLanguages]);
 
   const handleChangeAutoPause = (value: boolean) => {
     autoPauseHelpers.setValue(value);
@@ -95,16 +134,34 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     <Box>
       <Stack spacing={2}>
         <SettingsSelect
-          name="targetLanguageCode"
+          id="targetLanguageCode"
           label={t("fields.targetLanguageCode.label")}
           tooltip={t("fields.targetLanguageCode.tooltip")}
+          value={targetLanguageCodeField.value}
+          error={Boolean(targetLanguageCodeMeta.error && targetLanguageCodeMeta.touched)}
+          onChange={handleChangeTargetLanguageCode}
           options={targetOptions}
         />
         <SettingsSelect
-          name="sourceLanguageCode"
+          id="sourceLanguageCode"
           label={t("fields.sourceLanguageCode.label")}
           tooltip={t("fields.sourceLanguageCode.tooltip")}
+          value={sourceLanguageCodeField.value}
+          error={Boolean(sourceLanguageCodeMeta.error && sourceLanguageCodeMeta.touched)}
+          onChange={handleChangeSourceLanguageCode}
           options={sourceOptions}
+        />
+        <SettingsSelect
+          id="translator"
+          label={t("fields.translator.label")}
+          tooltip={t("fields.translator.tooltip")}
+          value={translatorField.value}
+          onChange={handleChangeTranslator}
+          error={Boolean(translatorMeta.error && translatorMeta.touched)}
+          options={[
+            { value: "google", label: "Google" },
+            { value: "bing", label: "Bing" },
+          ]}
         />
         <FormControl fullWidth title={t("fields.autoPause.tooltip")}>
           <FormControlLabel

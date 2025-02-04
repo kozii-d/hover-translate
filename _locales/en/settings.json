@@ -21,6 +21,10 @@
         "label": "Translate from",
         "tooltip": "The language from which the text will be translated"
     },
+    "translator": {
+        "label": "Translator",
+        "tooltip": "The translator to use for translations"
+    },
     "autoPause": {
         "label": "Auto-pause",
         "tooltip": "Automatically pause the video when hovering over subtitles",

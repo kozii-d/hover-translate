@@ -1,17 +1,15 @@
 import { SettingsMigrationsService } from "./settingsMigrationsService.ts";
 import { TooltipThemeMigrationsService } from "./tooltipThemeMigrationsService.ts";
 import { StorageService } from "../../common/services/storageService.ts";
-
 import { defaultSettings, defaultTooltipTheme } from "../../common/consts/defaultValues.ts";
 import type { Settings, TooltipTheme } from "../../common/types/settings.ts";
-import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
+import { TranslatorFactory } from "../../common/translators/TranslatorFactory.ts";
 
 export class SettingsService {
-  static readonly SETTINGS_VERSION = 1;
+  static readonly SETTINGS_VERSION = 2;
   static readonly TOOLTIP_THEME_VERSION = 1;
 
   constructor(
-    private readonly translator: BaseTranslator,
     private readonly storageService: StorageService = new StorageService(),
     private readonly settingsMigrationsService: SettingsMigrationsService = new SettingsMigrationsService(),
     private readonly tooltipThemeMigrationsService: TooltipThemeMigrationsService = new TooltipThemeMigrationsService(),
@@ -90,7 +88,8 @@ export class SettingsService {
 
   private async getInitialSettings(): Promise<Settings> {
     try {
-      const availableLanguages = await this.translator.getAvailableLanguages();
+      const translator = TranslatorFactory.create(defaultSettings.translator);
+      const availableLanguages = await translator.getAvailableLanguages();
 
       const userLanguage = this.getUserLanguage();
       const availableTargetLanguages = availableLanguages.targetLanguages.map((lang) => lang.code);
