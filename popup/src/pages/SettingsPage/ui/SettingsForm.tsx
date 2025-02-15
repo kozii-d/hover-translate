@@ -139,6 +139,16 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
   return (
     <Box>
       <Stack spacing={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleSubmit()}
+          fullWidth
+          disabled={!dirty || !isValid}
+          title={dirty ? t("actions.save.tooltip") : t("actions.save.disabledTooltip")}
+        >
+          {t("actions.save.text")}
+        </Button>
         <SettingsSelect
           id="targetLanguageCode"
           label={t("fields.targetLanguageCode.label")}
@@ -207,7 +217,6 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
         >
           {t("actions.save.text")}
         </Button>
-
       </Stack>
     </Box>
   );

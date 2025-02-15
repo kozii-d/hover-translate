@@ -10,6 +10,7 @@ import "dayjs/locale/ru";
 import dayjs from "dayjs";
 
 const languageDetector = new LanguageDetector();
+const baseUrl = chrome.runtime.getURL("/");
 
 languageDetector.addDetector({
   name: "detectUILanguage",
@@ -29,7 +30,7 @@ i18n
     nonExplicitSupportedLngs: true,
     ns: ["messages", "modals", "settings", "customize", "dictionary", "common"],
     backend: {
-      loadPath: chrome.runtime.getURL("/_locales/{{lng}}/{{ns}}.json"),
+      loadPath: `${baseUrl}_locales/{{lng}}/{{ns}}.json`,
     },
     detection: {
       lookupLocalStorage: "hoverTranslatePopupLanguage",
