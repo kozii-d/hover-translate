@@ -5,7 +5,7 @@ If you’re learning a new language and watching videos in a foreign language wi
 Key Features:
 	•	Instant Hover Translation: Hover your mouse over a word in the subtitles, and see its translation right away.
 	•	Phrase and Sentence Translation: Select multiple words while holding Shift to translate an entire phrase.
-	•	Supports 190+ Languages: Translate from any language to your native one.
+	•	Supports 130+ Languages: Translate from any language to your native one.
 	•	Auto Language Detection: The extension automatically detects the subtitle language.
 	•	Translator selection: the ability to choose between Google Translate and Bing Translator.
 	•	Auto-Pause Video: Videos are automatically paused when you hover over subtitles, so you can focus on the translation.
