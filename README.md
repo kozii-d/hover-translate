@@ -18,7 +18,7 @@ Download from [Chrome Wb Store](https://chromewebstore.google.com/detail/jbddome
 
 - Instant Hover Translation: Hover your mouse over a word in the subtitles, and see its translation right away.
 - Phrase and Sentence Translation: Select multiple words while holding Shift to translate an entire phrase.
-- Supports 190+ Languages: Translate from any language to your native one.
+- Supports 130+ Languages: Translate from any language to your native one.
 - Auto Language Detection: The extension automatically detects the subtitle language.
 - Auto-Pause Video: Videos are automatically paused when you hover over subtitles, so you can focus on the translation.
 - Works with Auto-Generated Subtitles: Translate even when subtitles are auto-generated.
