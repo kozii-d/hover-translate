@@ -9,7 +9,7 @@ try {
   const outputName = `${name}-${version}.zip`;
 
   const exclude = "*.DS_Store";
-  const command = `zip -vr ../${outputName} manifest.json _locales assets extension/dist popup/dist -x "${exclude}"`;
+  const command = `zip -vr ../${outputName} manifest.json _locales assets/icons extension/dist popup/dist -x "${exclude}"`;
 
   console.log(`Running: ${command}`);
   execSync(command, { stdio: "inherit" });
