@@ -5,6 +5,8 @@ export const defaultSettings: Settings = {
   targetLanguageCode: "en",
   translator: "google",
   autoPause: true,
+  useDictionary: true,
+  alwaysMultipleSelection: false,
 };
 
 export const defaultTooltipTheme: TooltipTheme = {

@@ -8,6 +8,11 @@ export class SettingsMigrationsService {
       ...oldSettings,
       translator: "google",
     }),
+    3: (oldSettings) => ({
+      ...oldSettings,
+      useDictionary: true,
+      alwaysMultipleSelection: false,
+    }),
   };
 
   /*
