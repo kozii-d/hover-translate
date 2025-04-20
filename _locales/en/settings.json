@@ -39,6 +39,11 @@
         "label": "Always enable multiple selection",
         "tooltip": "Enable multiple word selection without holding Shift",
         "helperText": "When enabled, you can select multiple words without holding Shift"
+    },
+    "showNotifications": {
+        "label": "Show notifications",
+        "tooltip": "Show notifications when words are saved to dictionary or copied to clipboard",
+        "helperText": "When disabled, no notifications will appear when words are saved or copied"
     }
   },
   "modals": {

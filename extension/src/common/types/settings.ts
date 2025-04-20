@@ -5,6 +5,7 @@ export interface Settings {
   translator: "google" | "bing";
   useDictionary: boolean;
   alwaysMultipleSelection: boolean;
+  showNotifications: boolean;
 }
 
 export interface TooltipTheme {

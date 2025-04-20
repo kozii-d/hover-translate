@@ -12,6 +12,7 @@ export class SettingsMigrationsService {
       ...oldSettings,
       useDictionary: true,
       alwaysMultipleSelection: false,
+      showNotifications: true,
     }),
   };
 

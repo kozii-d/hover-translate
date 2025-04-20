@@ -47,8 +47,9 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
   const [sourceLanguageCodeField, sourceLanguageCodeMeta, sourceLanguageCodeHelpers] = useField<string>("sourceLanguageCode");
   const [translatorField, translatorMeta, translatorHelpers] = useField<string>("translator");
   const [autoPauseField, , autoPauseHelpers] = useField<boolean>("autoPause");
-  const [useDictionaryField, , useDictionaryHelpers] = useField<boolean>("useDictionary");
   const [alwaysMultipleSelectionField, , alwaysMultipleSelectionHelpers] = useField<boolean>("alwaysMultipleSelection");
+  const [useDictionaryField, , useDictionaryHelpers] = useField<boolean>("useDictionary");
+  const [showNotificationsField, , showNotificationsHelpers] = useField<boolean>("showNotifications");
 
   const handleChangeTargetLanguageCode = useCallback((value: string) => {
     targetLanguageCodeHelpers.setValue(value);
@@ -89,14 +90,19 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     autoPauseHelpers.setError(undefined);
   };
 
+  const handleChangeAlwaysMultipleSelection = (value: boolean) => {
+    alwaysMultipleSelectionHelpers.setValue(value);
+    alwaysMultipleSelectionHelpers.setError(undefined);
+  };
+
   const handleChangeUseDictionary = (value: boolean) => {
     useDictionaryHelpers.setValue(value);
     useDictionaryHelpers.setError(undefined);
   };
 
-  const handleChangeAlwaysMultipleSelection = (value: boolean) => {
-    alwaysMultipleSelectionHelpers.setValue(value);
-    alwaysMultipleSelectionHelpers.setError(undefined);
+  const handleChangeShowNotifications = (value: boolean) => {
+    showNotificationsHelpers.setValue(value);
+    showNotificationsHelpers.setError(undefined);
   };
 
   const getLanguageName = (code: string, locale: string = "en") => {
@@ -203,6 +209,20 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
             {t("fields.autoPause.helperText")}
           </FormHelperText>
         </FormControl>
+        <FormControl fullWidth title={t("fields.alwaysMultipleSelection.tooltip")}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={alwaysMultipleSelectionField.value}
+                onChange={(_, checked) => handleChangeAlwaysMultipleSelection(checked)}
+              />
+            }
+            label={t("fields.alwaysMultipleSelection.label")}
+          />
+          <FormHelperText>
+            {t("fields.alwaysMultipleSelection.helperText")}
+          </FormHelperText>
+        </FormControl>
         <FormControl fullWidth title={t("fields.useDictionary.tooltip")}>
           <FormControlLabel
             control={
@@ -217,18 +237,18 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
             {t("fields.useDictionary.helperText")}
           </FormHelperText>
         </FormControl>
-        <FormControl fullWidth title={t("fields.alwaysMultipleSelection.tooltip")}>
+        <FormControl fullWidth title={t("fields.showNotifications.tooltip")}>
           <FormControlLabel
             control={
               <Switch
-                checked={alwaysMultipleSelectionField.value}
-                onChange={(_, checked) => handleChangeAlwaysMultipleSelection(checked)}
+                checked={showNotificationsField.value}
+                onChange={(_, checked) => handleChangeShowNotifications(checked)}
               />
             }
-            label={t("fields.alwaysMultipleSelection.label")}
+            label={t("fields.showNotifications.label")}
           />
           <FormHelperText>
-            {t("fields.alwaysMultipleSelection.helperText")}
+            {t("fields.showNotifications.helperText")}
           </FormHelperText>
         </FormControl>
         <ConfirmationModal
