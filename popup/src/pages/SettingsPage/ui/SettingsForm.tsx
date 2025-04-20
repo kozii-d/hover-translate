@@ -47,6 +47,8 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
   const [sourceLanguageCodeField, sourceLanguageCodeMeta, sourceLanguageCodeHelpers] = useField<string>("sourceLanguageCode");
   const [translatorField, translatorMeta, translatorHelpers] = useField<string>("translator");
   const [autoPauseField, , autoPauseHelpers] = useField<boolean>("autoPause");
+  const [useDictionaryField, , useDictionaryHelpers] = useField<boolean>("useDictionary");
+  const [alwaysMultipleSelectionField, , alwaysMultipleSelectionHelpers] = useField<boolean>("alwaysMultipleSelection");
 
   const handleChangeTargetLanguageCode = useCallback((value: string) => {
     targetLanguageCodeHelpers.setValue(value);
@@ -85,6 +87,16 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
   const handleChangeAutoPause = (value: boolean) => {
     autoPauseHelpers.setValue(value);
     autoPauseHelpers.setError(undefined);
+  };
+
+  const handleChangeUseDictionary = (value: boolean) => {
+    useDictionaryHelpers.setValue(value);
+    useDictionaryHelpers.setError(undefined);
+  };
+
+  const handleChangeAlwaysMultipleSelection = (value: boolean) => {
+    alwaysMultipleSelectionHelpers.setValue(value);
+    alwaysMultipleSelectionHelpers.setError(undefined);
   };
 
   const getLanguageName = (code: string, locale: string = "en") => {
@@ -176,6 +188,7 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
           error={Boolean(translatorMeta.error && translatorMeta.touched)}
           options={TRANSLATORS_OPTIONS}
         />
+        <InlineBanner message={t("tips.multipleSelection")} type="info"/>
         <FormControl fullWidth title={t("fields.autoPause.tooltip")}>
           <FormControlLabel
             control={
@@ -190,7 +203,34 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
             {t("fields.autoPause.helperText")}
           </FormHelperText>
         </FormControl>
-        <InlineBanner message={t("tips.multipleSelection")} type="info"/>
+        <FormControl fullWidth title={t("fields.useDictionary.tooltip")}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={useDictionaryField.value}
+                onChange={(_, checked) => handleChangeUseDictionary(checked)}
+              />
+            }
+            label={t("fields.useDictionary.label")}
+          />
+          <FormHelperText>
+            {t("fields.useDictionary.helperText")}
+          </FormHelperText>
+        </FormControl>
+        <FormControl fullWidth title={t("fields.alwaysMultipleSelection.tooltip")}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={alwaysMultipleSelectionField.value}
+                onChange={(_, checked) => handleChangeAlwaysMultipleSelection(checked)}
+              />
+            }
+            label={t("fields.alwaysMultipleSelection.label")}
+          />
+          <FormHelperText>
+            {t("fields.alwaysMultipleSelection.helperText")}
+          </FormHelperText>
+        </FormControl>
         <ConfirmationModal
           trigger={(
             <Button

@@ -4,5 +4,8 @@
   },
   "translationSaved": {
     "message": "Перевод сохранен"
+  },
+  "originalTextCopied": {
+    "message": "Оригинальный текст скопирован"
   }
 }

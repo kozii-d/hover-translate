@@ -3,6 +3,8 @@ export interface Settings {
   targetLanguageCode: string;
   autoPause: boolean;
   translator: "google" | "bing";
+  useDictionary: boolean;
+  alwaysMultipleSelection: boolean;
 }
 
 export interface TooltipTheme {

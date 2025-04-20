@@ -29,6 +29,16 @@
         "label": "Auto-pause",
         "tooltip": "Automatically pause the video when hovering over subtitles",
         "helperText": "Automatically pause the video when hovering over subtitles"
+    },
+    "useDictionary": {
+        "label": "Save words to dictionary",
+        "tooltip": "Save words to dictionary when clicking on them",
+        "helperText": "When disabled, clicking on words will copy them to clipboard instead of saving to dictionary"
+    },
+    "alwaysMultipleSelection": {
+        "label": "Always enable multiple selection",
+        "tooltip": "Enable multiple word selection without holding Shift",
+        "helperText": "When enabled, you can select multiple words without holding Shift"
     }
   },
   "modals": {
@@ -39,6 +49,6 @@
     }
   },
   "tips": {
-    "multipleSelection": "For multiple word selection, hold Shift and hover over the words you need."
+    "multipleSelection": "For multiple word selection, hold Shift and hover over the words you need. Or enable 'Always enable multiple selection' setting."
   }
 }

@@ -4,5 +4,8 @@
   },
   "translationSaved": {
     "message": "Translation saved"
+  },
+  "originalTextCopied": {
+    "message": "Original text copied"
   }
 }

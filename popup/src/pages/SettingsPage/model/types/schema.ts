@@ -5,6 +5,8 @@ export interface SettingsFormValues {
   targetLanguageCode: string;
   autoPause: boolean;
   translator: Translator;
+  useDictionary: boolean;
+  alwaysMultipleSelection: boolean;
 }
 
 export interface Language {

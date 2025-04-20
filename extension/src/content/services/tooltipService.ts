@@ -276,7 +276,7 @@ export class TooltipService {
         delete target.abortController;
       }
 
-      if (!event.shiftKey) {
+      if (!event.shiftKey && !state.settings.alwaysMultipleSelection) {
         this.clearSelectedWords();
       }
 
@@ -291,7 +291,7 @@ export class TooltipService {
       translationData1.targetLanguageCode === translationData2.targetLanguageCode;
   };
 
-  public saveTranslation = async () => {
+  public saveTranslationToDictionary = async () => {
     const currentData = this.translationCore.currentTranslationData;
     if (!currentData) return;
 
@@ -313,5 +313,15 @@ export class TooltipService {
 
     await this.storageService.set("savedTranslations", filteredTranslations, "local");
     this.showNotificationTooltip(chrome.i18n.getMessage("translationSaved"));
+  };
+
+  public saveOriginalTextToClipboard = async () => {
+    const currentData = this.translationCore.currentTranslationData;
+    if (!currentData) return;
+
+    const textToCopy = currentData.originalText;
+    if (!textToCopy) return;
+    await navigator.clipboard.writeText(textToCopy);
+    this.showNotificationTooltip(chrome.i18n.getMessage("originalTextCopied"));
   };
 }

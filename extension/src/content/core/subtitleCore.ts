@@ -1,5 +1,6 @@
 import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW, DATA_ATTRIBUTES } from "../consts/consts.ts";
 import { TooltipService } from "../services/tooltipService.ts";
+import { state } from "../state/stateManager.ts";
 
 export class SubtitleCore {
   constructor(
@@ -49,9 +50,13 @@ export class SubtitleCore {
       });
 
       wordSpan.addEventListener("pointerup", () => {
-        // If the user is dragging the subtitles, don't save the translation
+        // If the user is dragging the subtitles, don't save the translation or copy the text
         if (!isDrag) {
-          this.tooltipService.saveTranslation();
+          if (state.settings.useDictionary) {
+            this.tooltipService.saveTranslationToDictionary();
+          } else {
+            this.tooltipService.saveOriginalTextToClipboard();
+          }
         }
       });
 
