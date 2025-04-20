@@ -7,6 +7,7 @@ export interface SettingsFormValues {
   translator: Translator;
   useDictionary: boolean;
   alwaysMultipleSelection: boolean;
+  showNotifications: boolean;
 }
 
 export interface Language {

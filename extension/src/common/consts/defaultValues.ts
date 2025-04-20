@@ -7,6 +7,7 @@ export const defaultSettings: Settings = {
   autoPause: true,
   useDictionary: true,
   alwaysMultipleSelection: false,
+  showNotifications: true,
 };
 
 export const defaultTooltipTheme: TooltipTheme = {

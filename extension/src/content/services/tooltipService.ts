@@ -85,6 +85,8 @@ export class TooltipService {
   }
 
   private async showNotificationTooltip(text: string) {
+    if (!state.settings.showNotifications) return;
+
     const previousTooltip = document.querySelector<HTMLElement>(`.${NOTIFICATION_TOOLTIP_CLASS}`);
     if (previousTooltip) {
       previousTooltip.remove();

@@ -7,4 +7,5 @@ export const initialFormValues: SettingsFormValues = {
   translator: "google",
   useDictionary: true,
   alwaysMultipleSelection: false,
+  showNotifications: true,
 };
