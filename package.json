@@ -4,9 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "zip": "node archive.js"
+    "zip": "node archive.js",
+    "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green,yellow\" \"cd extension && npm run watch:content\" \"cd extension && npm run watch:background\" \"cd popup && npm run watch\"",
+    "build": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build\" \"cd popup && npm run build\"",
+    "build:dev": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build:dev\" \"cd popup && npm run build\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
