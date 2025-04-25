@@ -85,8 +85,9 @@ export class MutationObserverService {
 
       // If it's a caption window, add events for pause/play
       if (node.classList.contains(CAPTION_WINDOW)) {
-        node.addEventListener("mouseenter", this.videoController.handleVideoPause);
-        node.addEventListener("mouseleave", this.videoController.handleVideoPlay);
+        node.addEventListener("pointerenter", this.videoController.handleVideoPause);
+        node.addEventListener("pointerleave", this.videoController.handleVideoPlay);
+        node.addEventListener("pointerleave", this.subtitleCore.handlePointerLeaveOnCaptionWindow);
       }
     }
 
@@ -107,8 +108,9 @@ export class MutationObserverService {
   private handleRemovedNode(node: Node): void {
     // If it's a caption window, remove events and delete tooltips
     if (node instanceof Element && node.classList.contains(CAPTION_WINDOW)) {
-      node.removeEventListener("mouseenter", this.videoController.handleVideoPause);
-      node.removeEventListener("mouseleave", this.videoController.handleVideoPlay);
+      node.removeEventListener("pointerenter", this.videoController.handleVideoPause);
+      node.removeEventListener("pointerleave", this.videoController.handleVideoPlay);
+      node.removeEventListener("pointerleave", this.subtitleCore.handlePointerLeaveOnCaptionWindow);
       this.tooltipService.deleteActiveTooltip();
       this.tooltipService.clearSelectedWords();
     }
