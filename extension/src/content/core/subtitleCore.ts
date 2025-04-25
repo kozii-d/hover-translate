@@ -83,4 +83,11 @@ export class SubtitleCore {
       captionWindow.style.width = `${maxWidth}px`;
     }
   }
+
+  public handlePointerLeaveOnCaptionWindow = ((event: Event) => {
+    const pointerEvent = event as PointerEvent;
+    if (state.settings.alwaysMultipleSelection && !pointerEvent.shiftKey) {
+      this.tooltipService.clearSelectedWords();
+    }
+  }) as EventListener;
 }
