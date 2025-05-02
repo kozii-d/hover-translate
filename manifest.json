@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "HoverTranslate for YouTube Subtitles",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "default_locale": "en",
   "description": "__MSG_description__",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvqK2CGDB0eRIXs5zwZUYOp5szkdbPgxpMdBGyWhlcOh0TDAeACmKFGSloPxJXDOBc8mGNB7e8CCLltbKphaYhqn7wqr9m5r2Q0FHxsWT/cLyOQ5UlroGVYD+GGVFTKLephZeqonXxjdGYeKW6XQ+5AFuIQsC7lYoQyMKuxf32Z3vpDeQ8SxyCq2yNgAc11KQkNKx6FLDZT5baK61IhKxL2hFbyqpuDDOSYnJyP5/TsBCZSHQBej2LaTrlL+GJlE9yHTSwUVAdJeKrBGhaRGsAi1k9fBKZ5y8ZxkQP3TJhRmhxvYuM/rhHW328pXfcEUAUSnAn0Lqk+sQfI+BTN/vrwIDAQAB",
@@ -10,12 +10,12 @@
     {
       "all_frames": true,
       "matches": ["*://*.youtube.com/*"],
-      "js": ["./extension/dist/content.bundle.js"],
-      "css": ["./extension/dist/styles.css"]
+      "js": ["extension/dist/content.bundle.js"],
+      "css": ["extension/dist/styles.css"]
     }
   ],
   "background": {
-    "service_worker": "./extension/dist/background.bundle.js"
+    "service_worker": "extension/dist/background.bundle.js"
   },
   "web_accessible_resources": [
     {
@@ -24,12 +24,12 @@
     }
   ],
   "action": {
-    "default_popup": "./popup/dist/index.html"
+    "default_popup": "popup/dist/index.html"
   },
   "icons": {
-    "16": "./assets/icons/logo_16.png",
-    "32": "./assets/icons/logo_32.png",
-    "48": "./assets/icons/logo_48.png",
-    "128": "./assets/icons/logo_128.png"
+    "16": "assets/icons/logo_16.png",
+    "32": "assets/icons/logo_32.png",
+    "48": "assets/icons/logo_48.png",
+    "128": "assets/icons/logo_128.png"
   }
 }

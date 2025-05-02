@@ -1,6 +1,7 @@
 # HoverTranslate for YouTube Subtitles
 
 [![Chrome rate](https://img.shields.io/chrome-web-store/rating/jbddomeagbjjdoaehkdffdhifdhnmfic?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic)
+[![Chrome users](https://img.shields.io/chrome-web-store/users/jbddomeagbjjdoaehkdffdhifdhnmfic?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic)
 
 Translate words in video subtitles instantly! Just hover over a word or phrase to see its translation.
 
