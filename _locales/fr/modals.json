@@ -1,0 +1,12 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Fermer"
+      },
+      "confirm": {
+        "text": "Confirmer"
+      }
+    }
+  }
+}

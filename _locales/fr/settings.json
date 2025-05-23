@@ -1,0 +1,59 @@
+{
+  "pageTitle": "Paramètres",
+  "tabLabel": "Paramètres",
+  "actions": {
+    "save": {
+      "text": "Enregistrer",
+      "tooltip": "Enregistrer les paramètres",
+      "disabledTooltip": "Aucune modification à enregistrer"
+    },
+    "reset": {
+      "text": "Rétablir par défaut",
+      "tooltip": "Rétablir les paramètres par défaut"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Traduire vers",
+      "tooltip": "La langue vers laquelle le texte sera traduit"
+    },
+    "sourceLanguageCode": {
+      "label": "Traduire depuis",
+      "tooltip": "La langue depuis laquelle le texte sera traduit"
+    },
+    "translator": {
+      "label": "Traducteur",
+      "tooltip": "Le traducteur à utiliser pour les traductions"
+    },
+    "autoPause": {
+      "label": "Pause automatique",
+      "tooltip": "Mettre automatiquement en pause la vidéo lors du survol des sous-titres",
+      "helperText": "Mettre automatiquement en pause la vidéo lors du survol des sous-titres"
+    },
+    "useDictionary": {
+      "label": "Enregistrer les mots dans le dictionnaire",
+      "tooltip": "Enregistrer les mots dans le dictionnaire en cliquant dessus",
+      "helperText": "Lorsque désactivé, cliquer sur les mots les copiera dans le presse-papiers au lieu de les enregistrer dans le dictionnaire"
+    },
+    "alwaysMultipleSelection": {
+      "label": "Toujours activer la sélection multiple",
+      "tooltip": "Activer la sélection multiple de mots sans maintenir Shift",
+      "helperText": "Lorsque activé, vous pouvez sélectionner plusieurs mots sans maintenir Shift"
+    },
+    "showNotifications": {
+      "label": "Afficher les notifications",
+      "tooltip": "Afficher les notifications lorsque les mots sont enregistrés dans le dictionnaire ou copiés dans le presse-papiers",
+      "helperText": "Lorsque désactivé, aucune notification n'apparaîtra quand les mots seront enregistrés ou copiés"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Rétablir les paramètres par défaut ?",
+      "description": "Cela restaurera tous les paramètres à leurs valeurs par défaut.",
+      "action": "Rétablir"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Pour la sélection multiple de mots, maintenez Shift et survolez les mots dont vous avez besoin. Ou activez le paramètre 'Toujours activer la sélection multiple'."
+  }
+}

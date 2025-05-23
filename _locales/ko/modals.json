@@ -1,0 +1,12 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "닫기"
+      },
+      "confirm": {
+        "text": "확인"
+      }
+    }
+  }
+}

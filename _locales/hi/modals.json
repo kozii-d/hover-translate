@@ -1,0 +1,12 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "बंद करें"
+      },
+      "confirm": {
+        "text": "पुष्टि करें"
+      }
+    }
+  }
+}

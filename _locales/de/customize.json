@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Anpassen",
+  "tabLabel": "Anpassen",
+  "actions": {
+    "save": {
+      "text": "Speichern",
+      "tooltip": "Anpassungseinstellungen speichern",
+      "disabledTooltip": "Keine Änderungen zum Speichern"
+    },
+    "reset": {
+      "text": "Zurücksetzen",
+      "tooltip": "Anpassungseinstellungen zurücksetzen"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "YouTube-Einstellungen verwenden",
+      "tooltip": "YouTube-Einstellungen für Übersetzungs-Tooltips verwenden",
+      "helperText": "Dieselben Darstellungseinstellungen für Übersetzungs-Tooltips verwenden wie die Untertitel-Einstellungen auf YouTube"
+    },
+    "fontFamily": {
+      "label": "Schriftart",
+      "tooltip": "Die Schriftart für Übersetzungs-Tooltips"
+    },
+    "fontSize": {
+      "label": "Schriftgröße",
+      "tooltip": "Die Schriftgröße für Übersetzungs-Tooltips"
+    },
+    "fontColor": {
+      "label": "Schriftfarbe",
+      "tooltip": "Die Schriftfarbe für Übersetzungs-Tooltips"
+    },
+    "fontOpacity": {
+      "label": "Schrift-Deckkraft",
+      "tooltip": "Die Deckkraft der Schrift für Übersetzungs-Tooltips"
+    },
+    "backgroundColor": {
+      "label": "Hintergrundfarbe",
+      "tooltip": "Die Hintergrundfarbe für Übersetzungs-Tooltips"
+    },
+    "backgroundOpacity": {
+      "label": "Hintergrund-Deckkraft",
+      "tooltip": "Die Deckkraft des Hintergrunds für Übersetzungs-Tooltips"
+    },
+    "characterEdgeStyle": {
+      "label": "Zeichen-Randstil",
+      "tooltip": "Der Randstil der Zeichen für Übersetzungs-Tooltips"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Auf Standard-Anpassungseinstellungen zurücksetzen?",
+      "description": "Dies wird alle Anpassungseinstellungen auf ihre Standardwerte zurücksetzen.",
+      "action": "Zurücksetzen"
+    }
+  }
+}

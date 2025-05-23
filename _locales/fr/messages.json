@@ -1,0 +1,14 @@
+{
+  "name": {
+    "message": "HoverTranslate - Traducteur de Sous-titres YouTube et Outil de Construction de Vocabulaire"
+  },
+  "description": {
+    "message": "Construisez du vocabulaire en regardant YouTube ! Traduisez instantanément les mots dans les sous-titres en les survolant. Parfait pour les apprenants de langues."
+  },
+  "translationSaved": {
+    "message": "Traduction enregistrée"
+  },
+  "originalTextCopied": {
+    "message": "Texte original copié"
+  }
+}

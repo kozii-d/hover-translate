@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Personnaliser",
+  "tabLabel": "Personnaliser",
+  "actions": {
+    "save": {
+      "text": "Enregistrer",
+      "tooltip": "Enregistrer les paramètres de personnalisation",
+      "disabledTooltip": "Aucune modification à enregistrer"
+    },
+    "reset": {
+      "text": "Réinitialiser",
+      "tooltip": "Réinitialiser les paramètres de personnalisation"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Utiliser les paramètres YouTube",
+      "tooltip": "Utiliser les paramètres YouTube pour les infobulles de traduction",
+      "helperText": "Utiliser les mêmes paramètres d'apparence pour les infobulles de traduction que les paramètres de sous-titres sur YouTube"
+    },
+    "fontFamily": {
+      "label": "Famille de police",
+      "tooltip": "La famille de police à utiliser pour les infobulles de traduction"
+    },
+    "fontSize": {
+      "label": "Taille de police",
+      "tooltip": "La taille de police à utiliser pour les infobulles de traduction"
+    },
+    "fontColor": {
+      "label": "Couleur de police",
+      "tooltip": "La couleur de police à utiliser pour les infobulles de traduction"
+    },
+    "fontOpacity": {
+      "label": "Opacité de police",
+      "tooltip": "Le niveau d'opacité de la police pour les infobulles de traduction"
+    },
+    "backgroundColor": {
+      "label": "Couleur d'arrière-plan",
+      "tooltip": "La couleur d'arrière-plan pour les infobulles de traduction"
+    },
+    "backgroundOpacity": {
+      "label": "Opacité d'arrière-plan",
+      "tooltip": "Le niveau d'opacité de l'arrière-plan pour les infobulles de traduction"
+    },
+    "characterEdgeStyle": {
+      "label": "Style de bordure des caractères",
+      "tooltip": "Le style de bordure des caractères pour les infobulles de traduction"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Réinitialiser les paramètres de personnalisation par défaut ?",
+      "description": "Cela restaurera tous les paramètres de personnalisation à leurs valeurs par défaut.",
+      "action": "Réinitialiser"
+    }
+  }
+}

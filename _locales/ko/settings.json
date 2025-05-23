@@ -1,0 +1,59 @@
+{
+  "pageTitle": "설정",
+  "tabLabel": "설정",
+  "actions": {
+    "save": {
+      "text": "저장",
+      "tooltip": "설정 저장",
+      "disabledTooltip": "저장할 변경사항이 없습니다"
+    },
+    "reset": {
+      "text": "기본값으로 재설정",
+      "tooltip": "기본 설정으로 재설정"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "번역 대상 언어",
+      "tooltip": "텍스트가 번역될 언어"
+    },
+    "sourceLanguageCode": {
+      "label": "번역 원본 언어",
+      "tooltip": "텍스트가 번역될 원본 언어"
+    },
+    "translator": {
+      "label": "번역기",
+      "tooltip": "번역에 사용할 번역기"
+    },
+    "autoPause": {
+      "label": "자동 일시정지",
+      "tooltip": "자막에 마우스를 올릴 때 동영상을 자동으로 일시정지",
+      "helperText": "자막에 마우스를 올릴 때 동영상을 자동으로 일시정지합니다"
+    },
+    "useDictionary": {
+      "label": "사전에 단어 저장",
+      "tooltip": "단어를 클릭할 때 사전에 저장",
+      "helperText": "비활성화하면 단어를 클릭할 때 사전에 저장하는 대신 클립보드에 복사됩니다"
+    },
+    "alwaysMultipleSelection": {
+      "label": "항상 다중 선택 활성화",
+      "tooltip": "Shift 키를 누르지 않고도 여러 단어를 선택 가능",
+      "helperText": "활성화하면 Shift 키를 누르지 않고도 여러 단어를 선택할 수 있습니다"
+    },
+    "showNotifications": {
+      "label": "알림 표시",
+      "tooltip": "단어가 사전에 저장되거나 클립보드에 복사될 때 알림 표시",
+      "helperText": "비활성화하면 단어가 저장되거나 복사될 때 알림이 표시되지 않습니다"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "기본 설정으로 재설정하시겠습니까?",
+      "description": "모든 설정이 기본값으로 복원됩니다.",
+      "action": "재설정"
+    }
+  },
+  "tips": {
+    "multipleSelection": "여러 단어를 선택하려면 Shift 키를 누른 상태에서 필요한 단어들에 마우스를 올리세요. 또는 '항상 다중 선택 활성화' 설정을 켜세요."
+  }
+}

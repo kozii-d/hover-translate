@@ -1,0 +1,57 @@
+{
+  "pageTitle": "カスタマイズ",
+  "tabLabel": "カスタマイズ",
+  "actions": {
+    "save": {
+      "text": "保存",
+      "tooltip": "カスタマイズ設定を保存",
+      "disabledTooltip": "保存する変更がありません"
+    },
+    "reset": {
+      "text": "リセット",
+      "tooltip": "カスタマイズ設定をリセット"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "YouTube設定を使用",
+      "tooltip": "翻訳ツールチップにYouTube設定を使用",
+      "helperText": "翻訳ツールチップの外観設定にYouTubeの字幕設定と同じものを使用します"
+    },
+    "fontFamily": {
+      "label": "フォントファミリー",
+      "tooltip": "翻訳ツールチップに使用するフォントファミリー"
+    },
+    "fontSize": {
+      "label": "フォントサイズ",
+      "tooltip": "翻訳ツールチップに使用するフォントサイズ"
+    },
+    "fontColor": {
+      "label": "フォント色",
+      "tooltip": "翻訳ツールチップに使用するフォント色"
+    },
+    "fontOpacity": {
+      "label": "フォント透明度",
+      "tooltip": "翻訳ツールチップのフォント透明度レベル"
+    },
+    "backgroundColor": {
+      "label": "背景色",
+      "tooltip": "翻訳ツールチップの背景色"
+    },
+    "backgroundOpacity": {
+      "label": "背景透明度",
+      "tooltip": "翻訳ツールチップの背景透明度レベル"
+    },
+    "characterEdgeStyle": {
+      "label": "文字縁取りスタイル",
+      "tooltip": "翻訳ツールチップの文字縁取りスタイル"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "デフォルトのカスタマイズ設定に戻しますか？",
+      "description": "すべてのカスタマイズ設定をデフォルト値に復元します。",
+      "action": "リセット"
+    }
+  }
+}

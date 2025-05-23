@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Personalizar",
+  "tabLabel": "Personalizar",
+  "actions": {
+    "save": {
+      "text": "Guardar",
+      "tooltip": "Guardar configuración de personalización",
+      "disabledTooltip": "No hay cambios para guardar"
+    },
+    "reset": {
+      "text": "Restablecer",
+      "tooltip": "Restablecer configuración de personalización"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Usar configuración de YouTube",
+      "tooltip": "Usar la configuración de YouTube para los tooltips de traducción",
+      "helperText": "Usar la misma configuración de apariencia para los tooltips de traducción que la configuración de subtítulos en YouTube"
+    },
+    "fontFamily": {
+      "label": "Familia de fuente",
+      "tooltip": "La familia de fuente a usar para los tooltips de traducción"
+    },
+    "fontSize": {
+      "label": "Tamaño de fuente",
+      "tooltip": "El tamaño de fuente a usar para los tooltips de traducción"
+    },
+    "fontColor": {
+      "label": "Color de fuente",
+      "tooltip": "El color de fuente a usar para los tooltips de traducción"
+    },
+    "fontOpacity": {
+      "label": "Opacidad de fuente",
+      "tooltip": "El nivel de opacidad de la fuente para los tooltips de traducción"
+    },
+    "backgroundColor": {
+      "label": "Color de fondo",
+      "tooltip": "El color de fondo para los tooltips de traducción"
+    },
+    "backgroundOpacity": {
+      "label": "Opacidad de fondo",
+      "tooltip": "El nivel de opacidad del fondo para los tooltips de traducción"
+    },
+    "characterEdgeStyle": {
+      "label": "Estilo de borde de caracteres",
+      "tooltip": "El estilo de borde de los caracteres para los tooltips de traducción"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "¿Restablecer configuración de personalización por defecto?",
+      "description": "Esto restaurará toda la configuración de personalización a sus valores por defecto.",
+      "action": "Restablecer"
+    }
+  }
+}

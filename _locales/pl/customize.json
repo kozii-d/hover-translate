@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Dostosuj",
+  "tabLabel": "Dostosuj",
+  "actions": {
+    "save": {
+      "text": "Zapisz",
+      "tooltip": "Zapisz ustawienia dostosowania",
+      "disabledTooltip": "Brak zmian do zapisania"
+    },
+    "reset": {
+      "text": "Resetuj",
+      "tooltip": "Resetuj ustawienia dostosowania"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Użyj ustawień YouTube",
+      "tooltip": "Użyj ustawień YouTube dla podpowiedzi tłumaczeń",
+      "helperText": "Użyj tych samych ustawień wyglądu dla podpowiedzi tłumaczeń co ustawienia napisów na YouTube"
+    },
+    "fontFamily": {
+      "label": "Rodzina czcionki",
+      "tooltip": "Rodzina czcionki używana dla podpowiedzi tłumaczeń"
+    },
+    "fontSize": {
+      "label": "Rozmiar czcionki",
+      "tooltip": "Rozmiar czcionki używany dla podpowiedzi tłumaczeń"
+    },
+    "fontColor": {
+      "label": "Kolor czcionki",
+      "tooltip": "Kolor czcionki używany dla podpowiedzi tłumaczeń"
+    },
+    "fontOpacity": {
+      "label": "Przezroczystość czcionki",
+      "tooltip": "Poziom przezroczystości czcionki dla podpowiedzi tłumaczeń"
+    },
+    "backgroundColor": {
+      "label": "Kolor tła",
+      "tooltip": "Kolor tła dla podpowiedzi tłumaczeń"
+    },
+    "backgroundOpacity": {
+      "label": "Przezroczystość tła",
+      "tooltip": "Poziom przezroczystości tła dla podpowiedzi tłumaczeń"
+    },
+    "characterEdgeStyle": {
+      "label": "Styl krawędzi znaków",
+      "tooltip": "Styl krawędzi znaków dla podpowiedzi tłumaczeń"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Przywrócić domyślne ustawienia dostosowania?",
+      "description": "To przywróci wszystkie ustawienia dostosowania do ich domyślnych wartości.",
+      "action": "Resetuj"
+    }
+  }
+}

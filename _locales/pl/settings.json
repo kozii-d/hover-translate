@@ -1,0 +1,59 @@
+{
+  "pageTitle": "Ustawienia",
+  "tabLabel": "Ustawienia",
+  "actions": {
+    "save": {
+      "text": "Zapisz",
+      "tooltip": "Zapisz ustawienia",
+      "disabledTooltip": "Brak zmian do zapisania"
+    },
+    "reset": {
+      "text": "Przywróć domyślne",
+      "tooltip": "Przywróć ustawienia domyślne"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Tłumacz na",
+      "tooltip": "Język, na który zostanie przetłumaczony tekst"
+    },
+    "sourceLanguageCode": {
+      "label": "Tłumacz z",
+      "tooltip": "Język, z którego zostanie przetłumaczony tekst"
+    },
+    "translator": {
+      "label": "Tłumacz",
+      "tooltip": "Tłumacz używany do tłumaczeń"
+    },
+    "autoPause": {
+      "label": "Automatyczna pauza",
+      "tooltip": "Automatycznie wstrzymaj wideo po najechaniu na napisy",
+      "helperText": "Automatycznie wstrzymaj wideo po najechaniu na napisy"
+    },
+    "useDictionary": {
+      "label": "Zapisuj słowa do słownika",
+      "tooltip": "Zapisuj słowa do słownika po kliknięciu na nie",
+      "helperText": "Gdy wyłączone, kliknięcie słów skopiuje je do schowka zamiast zapisania do słownika"
+    },
+    "alwaysMultipleSelection": {
+      "label": "Zawsze włącz wielokrotny wybór",
+      "tooltip": "Włącz wielokrotny wybór słów bez trzymania Shift",
+      "helperText": "Gdy włączone, możesz wybierać wiele słów bez trzymania Shift"
+    },
+    "showNotifications": {
+      "label": "Pokaż powiadomienia",
+      "tooltip": "Pokazuj powiadomienia gdy słowa są zapisywane do słownika lub kopiowane do schowka",
+      "helperText": "Gdy wyłączone, żadne powiadomienia nie będą wyświetlane podczas zapisywania lub kopiowania słów"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Przywrócić ustawienia domyślne?",
+      "description": "To przywróci wszystkie ustawienia do ich domyślnych wartości.",
+      "action": "Przywróć"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Aby wybrać wiele słów, trzymaj Shift i najedź na potrzebne słowa. Lub włącz ustawienie 'Zawsze włącz wielokrotny wybór'."
+  }
+}

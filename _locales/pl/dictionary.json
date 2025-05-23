@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Słownik",
+  "tabLabel": "Słownik",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Usuń tłumaczenie"
+    },
+    "clearAll": {
+      "text": "Wyczyść wszystko",
+      "tooltip": "Wyczyść wszystkie tłumaczenia"
+    },
+    "showMore": {
+      "text": "Pokaż więcej",
+      "tooltip": "Pokaż więcej tłumaczeń"
+    },
+    "export": {
+      "tooltip": "Eksportuj tłumaczenia"
+    },
+    "exportJSON": {
+      "text": "Eksportuj JSON",
+      "tooltip": "Eksportuj tłumaczenia do JSON"
+    },
+    "exportCSV": {
+      "text": "Eksportuj CSV",
+      "tooltip": "Eksportuj tłumaczenia do CSV"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Wyczyścić wszystkie tłumaczenia?",
+      "description": "To trwale usunie wszystkie tłumaczenia.",
+      "action": "Wyczyść"
+    }
+  },
+  "emptyState": {
+    "title": "Słownik jest pusty",
+    "description": "Kliknij na słowo lub frazę w napisach, aby zapisać je do słownika"
+  }
+}

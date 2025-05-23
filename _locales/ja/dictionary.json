@@ -1,0 +1,39 @@
+{
+  "pageTitle": "辞書",
+  "tabLabel": "辞書",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "翻訳を削除"
+    },
+    "clearAll": {
+      "text": "すべてクリア",
+      "tooltip": "すべての翻訳をクリア"
+    },
+    "showMore": {
+      "text": "もっと表示",
+      "tooltip": "より多くの翻訳を表示"
+    },
+    "export": {
+      "tooltip": "翻訳をエクスポート"
+    },
+    "exportJSON": {
+      "text": "JSONエクスポート",
+      "tooltip": "翻訳をJSON形式でエクスポート"
+    },
+    "exportCSV": {
+      "text": "CSVエクスポート",
+      "tooltip": "翻訳をCSV形式でエクスポート"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "すべての翻訳をクリアしますか？",
+      "description": "すべての翻訳が完全に削除されます。",
+      "action": "クリア"
+    }
+  },
+  "emptyState": {
+    "title": "辞書は空です",
+    "description": "字幕の単語やフレーズをクリックして辞書に保存してください"
+  }
+}
