@@ -31,7 +31,7 @@ export const LangSelector: FC = () => {
 
   const getLanguageName = (langCode: string) => {
     const displayNames = new Intl.DisplayNames(["en"], { type: "language" });
-    return displayNames.of(langCode) || langCode;
+    return displayNames.of(langCode.replace("_", "-")) || langCode;
   };
 
   return (

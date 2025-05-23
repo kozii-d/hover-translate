@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.2] - Unreleased
 
+### Added
+- UI language support for: Spanish, French, German, Polish, Portuguese (Brazil), Portuguese (Portugal), Japanese, Korean, and Hindi.
+
 ### Fixed
 - Improved the logic for observing subtitles in the video player.
 

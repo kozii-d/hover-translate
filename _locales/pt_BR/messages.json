@@ -1,0 +1,14 @@
+{
+  "name": {
+    "message": "HoverTranslate - Tradutor de Legendas YouTube para Aprender Idiomas"
+  },
+  "description": {
+    "message": "Aprenda vocabulário assistindo YouTube! Traduza palavras nas legendas instantaneamente com o mouse. Ideal para estudar idiomas!"
+  },
+  "translationSaved": {
+    "message": "Tradução salva"
+  },
+  "originalTextCopied": {
+    "message": "Texto original copiado"
+  }
+}
