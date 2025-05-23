@@ -1,6 +1,9 @@
 {
+  "name": {
+    "message": "HoverTranslate - YouTube Subtitle Translator & Vocabulary Builder Tool"
+  },
   "description": {
-    "message": "Translate words in video subtitles instantly! Just hover over a word or phrase to see its translation."
+    "message": "Build vocabulary while watching YouTube! Instantly translate words in subtitles by hovering. Perfect for language learners."
   },
   "translationSaved": {
     "message": "Translation saved"

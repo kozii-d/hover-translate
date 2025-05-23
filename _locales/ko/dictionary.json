@@ -1,0 +1,39 @@
+{
+  "pageTitle": "사전",
+  "tabLabel": "사전",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "번역 삭제"
+    },
+    "clearAll": {
+      "text": "모두 지우기",
+      "tooltip": "모든 번역 지우기"
+    },
+    "showMore": {
+      "text": "더 보기",
+      "tooltip": "더 많은 번역 표시"
+    },
+    "export": {
+      "tooltip": "번역 내보내기"
+    },
+    "exportJSON": {
+      "text": "JSON 내보내기",
+      "tooltip": "번역을 JSON 형식으로 내보내기"
+    },
+    "exportCSV": {
+      "text": "CSV 내보내기",
+      "tooltip": "번역을 CSV 형식으로 내보내기"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "모든 번역을 지우시겠습니까?",
+      "description": "모든 번역이 영구적으로 삭제됩니다.",
+      "action": "지우기"
+    }
+  },
+  "emptyState": {
+    "title": "사전이 비어 있습니다",
+    "description": "자막의 단어나 구문을 클릭하여 사전에 저장하세요"
+  }
+}

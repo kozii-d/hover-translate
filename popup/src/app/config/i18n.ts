@@ -7,10 +7,20 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import "dayjs/locale/en";
 import "dayjs/locale/uk";
 import "dayjs/locale/ru";
+import "dayjs/locale/es";
+import "dayjs/locale/fr";
+import "dayjs/locale/de";
+import "dayjs/locale/pl";
+import "dayjs/locale/ja";
+import "dayjs/locale/ko";
+import "dayjs/locale/hi";
+
 import dayjs from "dayjs";
 
 const languageDetector = new LanguageDetector();
 const baseUrl = chrome.runtime.getURL("/");
+
+const supportedLanguages = ["en", "uk", "ru", "es", "fr", "de", "pl", "ja", "ko", "hi"];
 
 languageDetector.addDetector({
   name: "detectUILanguage",
@@ -26,7 +36,7 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
-    supportedLngs: ["en", "uk", "ru"],
+    supportedLngs: supportedLanguages,
     nonExplicitSupportedLngs: true,
     ns: ["messages", "modals", "settings", "customize", "dictionary", "common"],
     backend: {

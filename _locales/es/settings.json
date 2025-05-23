@@ -1,0 +1,59 @@
+{
+  "pageTitle": "Configuración",
+  "tabLabel": "Configuración",
+  "actions": {
+    "save": {
+      "text": "Guardar",
+      "tooltip": "Guardar configuración",
+      "disabledTooltip": "No hay cambios para guardar"
+    },
+    "reset": {
+      "text": "Restablecer por defecto",
+      "tooltip": "Restablecer configuración por defecto"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Traducir a",
+      "tooltip": "El idioma al que se traducirá el texto"
+    },
+    "sourceLanguageCode": {
+      "label": "Traducir desde",
+      "tooltip": "El idioma desde el que se traducirá el texto"
+    },
+    "translator": {
+      "label": "Traductor",
+      "tooltip": "El traductor a usar para las traducciones"
+    },
+    "autoPause": {
+      "label": "Pausa automática",
+      "tooltip": "Pausar automáticamente el video al pasar el cursor sobre los subtítulos",
+      "helperText": "Pausar automáticamente el video al pasar el cursor sobre los subtítulos"
+    },
+    "useDictionary": {
+      "label": "Guardar palabras en diccionario",
+      "tooltip": "Guardar palabras en el diccionario al hacer clic en ellas",
+      "helperText": "Cuando esté deshabilitado, hacer clic en las palabras las copiará al portapapeles en lugar de guardarlas en el diccionario"
+    },
+    "alwaysMultipleSelection": {
+      "label": "Activar siempre selección múltiple",
+      "tooltip": "Habilitar selección múltiple de palabras sin presionar Shift",
+      "helperText": "Cuando esté habilitado, puedes seleccionar múltiples palabras sin presionar Shift"
+    },
+    "showNotifications": {
+      "label": "Mostrar notificaciones",
+      "tooltip": "Mostrar notificaciones cuando las palabras se guarden en el diccionario o se copien al portapapeles",
+      "helperText": "Cuando esté deshabilitado, no aparecerán notificaciones cuando se guarden o copien palabras"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "¿Restablecer configuración por defecto?",
+      "description": "Esto restaurará toda la configuración a sus valores por defecto.",
+      "action": "Restablecer"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Para selección múltiple de palabras, mantén presionado Shift y pasa el cursor sobre las palabras que necesites. O habilita la configuración 'Activar siempre selección múltiple'."
+  }
+}

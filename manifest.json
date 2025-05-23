@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "HoverTranslate for YouTube Subtitles",
+  "name": "__MSG_name__",
+  "short_name": "HoverTranslate",
   "version": "1.1.2",
   "default_locale": "en",
   "description": "__MSG_description__",

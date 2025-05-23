@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Wörterbuch",
+  "tabLabel": "Wörterbuch",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Übersetzung löschen"
+    },
+    "clearAll": {
+      "text": "Alle löschen",
+      "tooltip": "Alle Übersetzungen löschen"
+    },
+    "showMore": {
+      "text": "Mehr anzeigen",
+      "tooltip": "Mehr Übersetzungen anzeigen"
+    },
+    "export": {
+      "tooltip": "Übersetzungen exportieren"
+    },
+    "exportJSON": {
+      "text": "JSON exportieren",
+      "tooltip": "Übersetzungen als JSON exportieren"
+    },
+    "exportCSV": {
+      "text": "CSV exportieren",
+      "tooltip": "Übersetzungen als CSV exportieren"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Alle Übersetzungen löschen?",
+      "description": "Dies wird alle Übersetzungen dauerhaft löschen.",
+      "action": "Löschen"
+    }
+  },
+  "emptyState": {
+    "title": "Wörterbuch ist leer",
+    "description": "Klicken Sie auf ein Wort oder eine Phrase in den Untertiteln, um sie im Wörterbuch zu speichern"
+  }
+}

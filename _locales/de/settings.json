@@ -1,0 +1,59 @@
+{
+  "pageTitle": "Einstellungen",
+  "tabLabel": "Einstellungen",
+  "actions": {
+    "save": {
+      "text": "Speichern",
+      "tooltip": "Einstellungen speichern",
+      "disabledTooltip": "Keine Änderungen zum Speichern"
+    },
+    "reset": {
+      "text": "Auf Standard zurücksetzen",
+      "tooltip": "Auf Standardeinstellungen zurücksetzen"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Übersetzen nach",
+      "tooltip": "Die Sprache, in die der Text übersetzt wird"
+    },
+    "sourceLanguageCode": {
+      "label": "Übersetzen von",
+      "tooltip": "Die Sprache, aus der der Text übersetzt wird"
+    },
+    "translator": {
+      "label": "Übersetzer",
+      "tooltip": "Der Übersetzer, der für Übersetzungen verwendet wird"
+    },
+    "autoPause": {
+      "label": "Automatisch pausieren",
+      "tooltip": "Video automatisch pausieren beim Überfahren von Untertiteln",
+      "helperText": "Video automatisch pausieren beim Überfahren von Untertiteln"
+    },
+    "useDictionary": {
+      "label": "Wörter im Wörterbuch speichern",
+      "tooltip": "Wörter beim Anklicken im Wörterbuch speichern",
+      "helperText": "Wenn deaktiviert, werden angeklickte Wörter in die Zwischenablage kopiert, anstatt im Wörterbuch gespeichert zu werden"
+    },
+    "alwaysMultipleSelection": {
+      "label": "Mehrfachauswahl immer aktivieren",
+      "tooltip": "Mehrfachauswahl von Wörtern ohne Halten der Umschalttaste aktivieren",
+      "helperText": "Wenn aktiviert, können Sie mehrere Wörter auswählen, ohne die Umschalttaste zu halten"
+    },
+    "showNotifications": {
+      "label": "Benachrichtigungen anzeigen",
+      "tooltip": "Benachrichtigungen anzeigen, wenn Wörter im Wörterbuch gespeichert oder in die Zwischenablage kopiert werden",
+      "helperText": "Wenn deaktiviert, werden keine Benachrichtigungen angezeigt, wenn Wörter gespeichert oder kopiert werden"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Auf Standardeinstellungen zurücksetzen?",
+      "description": "Dies wird alle Einstellungen auf ihre Standardwerte zurücksetzen.",
+      "action": "Zurücksetzen"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Für die Mehrfachauswahl von Wörtern halten Sie die Umschalttaste gedrückt und fahren über die gewünschten Wörter. Oder aktivieren Sie die Einstellung 'Mehrfachauswahl immer aktivieren'."
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Diccionario",
+  "tabLabel": "Diccionario",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Eliminar traducción"
+    },
+    "clearAll": {
+      "text": "Limpiar todo",
+      "tooltip": "Limpiar todas las traducciones"
+    },
+    "showMore": {
+      "text": "Mostrar más",
+      "tooltip": "Mostrar más traducciones"
+    },
+    "export": {
+      "tooltip": "Exportar traducciones"
+    },
+    "exportJSON": {
+      "text": "Exportar JSON",
+      "tooltip": "Exportar traducciones a JSON"
+    },
+    "exportCSV": {
+      "text": "Exportar CSV",
+      "tooltip": "Exportar traducciones a CSV"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "¿Limpiar todas las traducciones?",
+      "description": "Esto eliminará todas las traducciones permanentemente.",
+      "action": "Limpiar"
+    }
+  },
+  "emptyState": {
+    "title": "El diccionario está vacío",
+    "description": "Haz clic en una palabra o frase en los subtítulos para guardarla en el diccionario"
+  }
+}

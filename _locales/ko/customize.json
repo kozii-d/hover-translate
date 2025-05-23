@@ -1,0 +1,57 @@
+{
+  "pageTitle": "사용자 정의",
+  "tabLabel": "사용자 정의",
+  "actions": {
+    "save": {
+      "text": "저장",
+      "tooltip": "사용자 정의 설정 저장",
+      "disabledTooltip": "저장할 변경사항이 없습니다"
+    },
+    "reset": {
+      "text": "재설정",
+      "tooltip": "사용자 정의 설정 재설정"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "YouTube 설정 사용",
+      "tooltip": "번역 툴팁에 YouTube 설정 사용",
+      "helperText": "번역 툴팁의 외관 설정에 YouTube의 자막 설정과 동일한 설정을 사용합니다"
+    },
+    "fontFamily": {
+      "label": "글꼴 패밀리",
+      "tooltip": "번역 툴팁에 사용할 글꼴 패밀리"
+    },
+    "fontSize": {
+      "label": "글꼴 크기",
+      "tooltip": "번역 툴팁에 사용할 글꼴 크기"
+    },
+    "fontColor": {
+      "label": "글꼴 색상",
+      "tooltip": "번역 툴팁에 사용할 글꼴 색상"
+    },
+    "fontOpacity": {
+      "label": "글꼴 투명도",
+      "tooltip": "번역 툴팁의 글꼴 투명도 수준"
+    },
+    "backgroundColor": {
+      "label": "배경 색상",
+      "tooltip": "번역 툴팁의 배경 색상"
+    },
+    "backgroundOpacity": {
+      "label": "배경 투명도",
+      "tooltip": "번역 툴팁의 배경 투명도 수준"
+    },
+    "characterEdgeStyle": {
+      "label": "문자 테두리 스타일",
+      "tooltip": "번역 툴팁의 문자 테두리 스타일"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "기본 사용자 정의 설정으로 재설정하시겠습니까?",
+      "description": "모든 사용자 정의 설정이 기본값으로 복원됩니다.",
+      "action": "재설정"
+    }
+  }
+}

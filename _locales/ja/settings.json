@@ -1,0 +1,59 @@
+{
+  "pageTitle": "設定",
+  "tabLabel": "設定",
+  "actions": {
+    "save": {
+      "text": "保存",
+      "tooltip": "設定を保存",
+      "disabledTooltip": "保存する変更がありません"
+    },
+    "reset": {
+      "text": "デフォルトに戻す",
+      "tooltip": "デフォルト設定に戻す"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "翻訳先言語",
+      "tooltip": "テキストを翻訳する言語"
+    },
+    "sourceLanguageCode": {
+      "label": "翻訳元言語",
+      "tooltip": "テキストを翻訳する元の言語"
+    },
+    "translator": {
+      "label": "翻訳エンジン",
+      "tooltip": "翻訳に使用する翻訳エンジン"
+    },
+    "autoPause": {
+      "label": "自動一時停止",
+      "tooltip": "字幕にマウスを重ねた際に動画を自動的に一時停止",
+      "helperText": "字幕にマウスを重ねた際に動画を自動的に一時停止します"
+    },
+    "useDictionary": {
+      "label": "辞書に単語を保存",
+      "tooltip": "単語をクリックした際に辞書に保存",
+      "helperText": "無効にすると、単語をクリックした際に辞書に保存する代わりにクリップボードにコピーします"
+    },
+    "alwaysMultipleSelection": {
+      "label": "常に複数選択を有効化",
+      "tooltip": "Shiftキーを押さずに複数の単語を選択可能",
+      "helperText": "有効にすると、Shiftキーを押さずに複数の単語を選択できます"
+    },
+    "showNotifications": {
+      "label": "通知を表示",
+      "tooltip": "単語が辞書に保存されたりクリップボードにコピーされた際に通知を表示",
+      "helperText": "無効にすると、単語が保存やコピーされた際に通知が表示されません"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "デフォルト設定に戻しますか？",
+      "description": "すべての設定をデフォルト値に復元します。",
+      "action": "リセット"
+    }
+  },
+  "tips": {
+    "multipleSelection": "複数の単語を選択するには、Shiftキーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。"
+  }
+}
