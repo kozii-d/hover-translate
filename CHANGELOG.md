@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.2] - Unreleased
+
+### Fixed
+- Improved the logic for observing subtitles in the video player.
+
 ## [1.1.1] - 2025-05-02
 
 ### Added
