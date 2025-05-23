@@ -1,0 +1,59 @@
+{
+  "pageTitle": "Definições",
+  "tabLabel": "Definições",
+  "actions": {
+    "save": {
+      "text": "Guardar",
+      "tooltip": "Guardar definições",
+      "disabledTooltip": "Não há alterações para guardar"
+    },
+    "reset": {
+      "text": "Repor predefinições",
+      "tooltip": "Repor definições predefinidas"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Traduzir para",
+      "tooltip": "O idioma para o qual o texto será traduzido"
+    },
+    "sourceLanguageCode": {
+      "label": "Traduzir de",
+      "tooltip": "O idioma a partir do qual o texto será traduzido"
+    },
+    "translator": {
+      "label": "Tradutor",
+      "tooltip": "O tradutor a utilizar para as traduções"
+    },
+    "autoPause": {
+      "label": "Pausa automática",
+      "tooltip": "Pausar automaticamente o vídeo ao passar o rato sobre as legendas",
+      "helperText": "Pausar automaticamente o vídeo ao passar o rato sobre as legendas"
+    },
+    "useDictionary": {
+      "label": "Guardar palavras no dicionário",
+      "tooltip": "Guardar palavras no dicionário ao clicar nas mesmas",
+      "helperText": "Quando desativado, clicar nas palavras irá copiá-las para a área de transferência em vez de as guardar no dicionário"
+    },
+    "alwaysMultipleSelection": {
+      "label": "Ativar sempre seleção múltipla",
+      "tooltip": "Permitir seleção múltipla de palavras sem manter premida a tecla Shift",
+      "helperText": "Quando ativado, pode selecionar múltiplas palavras sem manter premida a tecla Shift"
+    },
+    "showNotifications": {
+      "label": "Mostrar notificações",
+      "tooltip": "Mostrar notificações quando as palavras são guardadas no dicionário ou copiadas para a área de transferência",
+      "helperText": "Quando desativado, não aparecerão notificações quando as palavras forem guardadas ou copiadas"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Repor definições predefinidas?",
+      "description": "Isto irá restaurar todas as definições para os seus valores predefinidos.",
+      "action": "Repor"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Para seleção múltipla de palavras, mantenha premida a tecla Shift e passe o rato sobre as palavras necessárias. Ou ative a definição 'Ativar sempre seleção múltipla'."
+  }
+}

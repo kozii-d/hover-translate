@@ -1,0 +1,36 @@
+HoverTranslate – Aumente o Vocabulário com Tradução de Legendas YouTube!
+
+Transforme o YouTube no seu professor de idiomas pessoal! HoverTranslate é a ferramenta definitiva para aprender idiomas com vídeos. Veja conteúdo no idioma original com legendas e compreenda cada palavra instantaneamente sem interromper a visualização.
+
+Porque é que os estudantes de idiomas escolhem HoverTranslate:
+Acabaram-se as pausas e as mudanças para dicionários! Simplesmente passe o cursor sobre qualquer palavra nas legendas do YouTube para ver traduções instantâneas. Perfeito para aumentar o vocabulário naturalmente enquanto desfruta do seu conteúdo favorito.
+
+🎯 Funcionalidades essenciais para aprendizagem eficaz:
+• Tradução instantânea ao passar o rato: Aprenda vocabulário sem esforço - passe o rato sobre qualquer palavra da legenda para ver a tradução imediatamente.
+• Tradução inteligente de frases: Aprenda expressões idiomáticas! Mantenha Shift pressionado para selecionar e traduzir frases inteiras, ou ative a seleção múltipla permanente.
+• Suporte para 130+ idiomas: Aprenda inglês, espanhol, francês, alemão, italiano ou qualquer idioma! Traduza legendas do YouTube de qualquer idioma para português.
+• Deteção automática de idioma: A extensão deteta automaticamente o idioma da legenda - comece a aprender imediatamente!
+• Escolha de tradutor: Escolha entre Google Tradutor e Bing Translator para as traduções de vocabulário mais precisas.
+• Pausa automática inteligente: Os vídeos pausam automaticamente ao passar sobre as legendas, dando-lhe tempo para aprender vocabulário novo sem perder conteúdo.
+• Suporte universal de legendas: Funciona perfeitamente com legendas manuais e geradas automaticamente no YouTube.
+• Construtor de vocabulário pessoal: Guarde palavras e frases novas no seu dicionário com um clique! Construa a sua lista pessoal de vocabulário enquanto vê.
+• Interface personalizável: As dicas de tradução adaptam-se ao seu tema YouTube ou personalize ao seu gosto.
+
+📚 Perfeito para:
+- Estudantes a aprender inglês através do YouTube
+- Profissionais a melhorar inglês para negócios
+- Estudantes universitários com conteúdo académico em inglês
+- Programadores a aprender inglês técnico
+- Entusiastas de tecnologia a seguir tutoriais
+- Qualquer pessoa a aprender idiomas através de imersão
+
+🛠️ Código aberto e comunidade:
+HoverTranslate é um projeto de código aberto:
+- GitHub: https://github.com/kozii-d/hover-translate
+- Email: hovertranslate@gmail.com
+- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+🚀 Comece a aumentar o seu vocabulário hoje!
+Comece hoje a aprender idiomas de forma mais eficaz! HoverTranslate transforma o YouTube numa ferramenta poderosa para aprender palavras e expressões novas de forma natural.
+
+Instale agora e transforme cada vídeo do YouTube numa oportunidade para aumentar o vocabulário!

@@ -1,0 +1,59 @@
+{
+  "pageTitle": "Configurações",
+  "tabLabel": "Configurações",
+  "actions": {
+    "save": {
+      "text": "Salvar",
+      "tooltip": "Salvar configurações",
+      "disabledTooltip": "Não há alterações para salvar"
+    },
+    "reset": {
+      "text": "Restaurar padrões",
+      "tooltip": "Restaurar configurações padrão"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Traduzir para",
+      "tooltip": "O idioma para o qual o texto será traduzido"
+    },
+    "sourceLanguageCode": {
+      "label": "Traduzir de",
+      "tooltip": "O idioma do qual o texto será traduzido"
+    },
+    "translator": {
+      "label": "Tradutor",
+      "tooltip": "O tradutor a ser usado para as traduções"
+    },
+    "autoPause": {
+      "label": "Pausa automática",
+      "tooltip": "Pausar automaticamente o vídeo ao passar o mouse sobre as legendas",
+      "helperText": "Pausar automaticamente o vídeo ao passar o mouse sobre as legendas"
+    },
+    "useDictionary": {
+      "label": "Salvar palavras no dicionário",
+      "tooltip": "Salvar palavras no dicionário ao clicar nelas",
+      "helperText": "Quando desabilitado, clicar nas palavras irá copiá-las para a área de transferência ao invés de salvá-las no dicionário"
+    },
+    "alwaysMultipleSelection": {
+      "label": "Sempre habilitar seleção múltipla",
+      "tooltip": "Habilitar seleção múltipla de palavras sem segurar Shift",
+      "helperText": "Quando habilitado, você pode selecionar múltiplas palavras sem segurar Shift"
+    },
+    "showNotifications": {
+      "label": "Mostrar notificações",
+      "tooltip": "Mostrar notificações quando palavras são salvas no dicionário ou copiadas para a área de transferência",
+      "helperText": "Quando desabilitado, nenhuma notificação aparecerá quando palavras forem salvas ou copiadas"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Restaurar configurações padrão?",
+      "description": "Isso irá restaurar todas as configurações para seus valores padrão.",
+      "action": "Restaurar"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Para seleção múltipla de palavras, segure Shift e passe o mouse sobre as palavras necessárias. Ou habilite a configuração 'Sempre habilitar seleção múltipla'."
+  }
+}

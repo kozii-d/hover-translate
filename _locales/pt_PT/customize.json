@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Personalizar",
+  "tabLabel": "Personalizar",
+  "actions": {
+    "save": {
+      "text": "Guardar",
+      "tooltip": "Guardar definições de personalização",
+      "disabledTooltip": "Não há alterações para guardar"
+    },
+    "reset": {
+      "text": "Repor",
+      "tooltip": "Repor definições de personalização"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Utilizar definições do YouTube",
+      "tooltip": "Utilizar as definições do YouTube para as dicas de tradução",
+      "helperText": "Utilizar as mesmas definições de aparência para as dicas de tradução que as definições de legendas no YouTube"
+    },
+    "fontFamily": {
+      "label": "Família de tipo de letra",
+      "tooltip": "A família de tipo de letra a utilizar para as dicas de tradução"
+    },
+    "fontSize": {
+      "label": "Tamanho do tipo de letra",
+      "tooltip": "O tamanho do tipo de letra a utilizar para as dicas de tradução"
+    },
+    "fontColor": {
+      "label": "Cor do tipo de letra",
+      "tooltip": "A cor do tipo de letra a utilizar para as dicas de tradução"
+    },
+    "fontOpacity": {
+      "label": "Opacidade do tipo de letra",
+      "tooltip": "O nível de opacidade do tipo de letra para as dicas de tradução"
+    },
+    "backgroundColor": {
+      "label": "Cor de fundo",
+      "tooltip": "A cor de fundo para as dicas de tradução"
+    },
+    "backgroundOpacity": {
+      "label": "Opacidade do fundo",
+      "tooltip": "O nível de opacidade do fundo para as dicas de tradução"
+    },
+    "characterEdgeStyle": {
+      "label": "Estilo de contorno dos caracteres",
+      "tooltip": "O estilo de contorno dos caracteres para as dicas de tradução"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Repor definições de personalização predefinidas?",
+      "description": "Isto irá restaurar todas as definições de personalização para os seus valores predefinidos.",
+      "action": "Repor"
+    }
+  }
+}

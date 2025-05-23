@@ -1,0 +1,57 @@
+{
+  "pageTitle": "Personalizar",
+  "tabLabel": "Personalizar",
+  "actions": {
+    "save": {
+      "text": "Salvar",
+      "tooltip": "Salvar configurações de personalização",
+      "disabledTooltip": "Não há alterações para salvar"
+    },
+    "reset": {
+      "text": "Resetar",
+      "tooltip": "Resetar configurações de personalização"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Usar configurações do YouTube",
+      "tooltip": "Usar configurações do YouTube para dicas de tradução",
+      "helperText": "Usar as mesmas configurações de aparência para dicas de tradução que as configurações de legendas no YouTube"
+    },
+    "fontFamily": {
+      "label": "Família da fonte",
+      "tooltip": "A família da fonte a ser usada para dicas de tradução"
+    },
+    "fontSize": {
+      "label": "Tamanho da fonte",
+      "tooltip": "O tamanho da fonte a ser usado para dicas de tradução"
+    },
+    "fontColor": {
+      "label": "Cor da fonte",
+      "tooltip": "A cor da fonte a ser usada para dicas de tradução"
+    },
+    "fontOpacity": {
+      "label": "Opacidade da fonte",
+      "tooltip": "O nível de opacidade da fonte para dicas de tradução"
+    },
+    "backgroundColor": {
+      "label": "Cor de fundo",
+      "tooltip": "A cor de fundo para as dicas de tradução"
+    },
+    "backgroundOpacity": {
+      "label": "Opacidade do fundo",
+      "tooltip": "O nível de opacidade do fundo para dicas de tradução"
+    },
+    "characterEdgeStyle": {
+      "label": "Estilo da borda dos caracteres",
+      "tooltip": "O estilo da borda dos caracteres para dicas de tradução"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Restaurar configurações de personalização padrão?",
+      "description": "Isso irá restaurar todas as configurações de personalização para seus valores padrão.",
+      "action": "Resetar"
+    }
+  }
+}

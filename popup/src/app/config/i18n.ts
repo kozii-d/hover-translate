@@ -14,13 +14,15 @@ import "dayjs/locale/pl";
 import "dayjs/locale/ja";
 import "dayjs/locale/ko";
 import "dayjs/locale/hi";
+import "dayjs/locale/pt";
+import "dayjs/locale/pt-br";
 
 import dayjs from "dayjs";
 
 const languageDetector = new LanguageDetector();
 const baseUrl = chrome.runtime.getURL("/");
 
-const supportedLanguages = ["en", "uk", "ru", "es", "fr", "de", "pl", "ja", "ko", "hi"];
+const supportedLanguages = ["en", "de", "es", "fr", "hi", "ja", "ko", "pl", "pt_BR", "pt_PT", "ru", "uk"];
 
 languageDetector.addDetector({
   name: "detectUILanguage",
@@ -37,7 +39,7 @@ i18n
   .init({
     fallbackLng: "en",
     supportedLngs: supportedLanguages,
-    nonExplicitSupportedLngs: true,
+    nonExplicitSupportedLngs: false,
     ns: ["messages", "modals", "settings", "customize", "dictionary", "common"],
     backend: {
       loadPath: `${baseUrl}_locales/{{lng}}/{{ns}}.json`,
@@ -53,7 +55,8 @@ i18n
   });
 
 i18n.on("languageChanged", (lang) => {
-  dayjs.locale(lang);
+  const dayjsLang = lang.toLowerCase().replace("_", "-");
+  dayjs.locale(dayjsLang);
 });
 
 export default i18n;
