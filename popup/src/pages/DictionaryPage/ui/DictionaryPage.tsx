@@ -9,7 +9,7 @@ import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationMod
 import { chunkTranslationsByDay } from "../lib/helpers/chunkTranslationsByDay.ts";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
-import { DictionaryPageSkeleton } from "./DictionaryPageSkeleton.tsx";
+import { DictionaryContentSkeleton } from "./skeletons/DictionaryContentSkeleton.tsx";
 import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
 import { useTranslation } from "react-i18next";
 import { ExportData } from "@/features/ExportTranslations";
@@ -75,7 +75,7 @@ const DictionaryPage: FC = () => {
   if (loading) {
     return (
       <Page title="Dictionary">
-        <DictionaryPageSkeleton/>
+        <DictionaryContentSkeleton/>
       </Page>
     );
   }

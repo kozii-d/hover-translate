@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
 
-export const DictionaryPageSkeleton = () => {
+export const DictionaryContentSkeleton = () => {
   return (
     <Box>
       <Stack spacing={2}>
