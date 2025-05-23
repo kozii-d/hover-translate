@@ -9,7 +9,7 @@ import { FormikProps, useField } from "formik";
 import { FC, useCallback, useMemo } from "react";
 
 import { CustomizeFormValues } from "../model/types/schema.ts";
-import { CustomizeFormSkeleton } from "./CustomizeFormSkeleton.tsx";
+import { CustomizeFormSkeleton } from "./skeletons/CustomizeFormSkeleton.tsx";
 import {
   BACKGROUND_COLOR_ITEMS,
   BACKGROUND_OPACITY_ITEMS,

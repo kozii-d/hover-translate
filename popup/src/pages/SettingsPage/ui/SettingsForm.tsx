@@ -9,7 +9,7 @@ import { FormikProps, useField } from "formik";
 import { FC, useCallback, useMemo } from "react";
 
 import { AvailableLanguages, Language, SettingsFormValues, Translator } from "../model/types/schema.ts";
-import { SettingsFormSkeleton } from "./SettingsFormSkeleton.tsx";
+import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
