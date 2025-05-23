@@ -6,7 +6,6 @@ Why Language Learners Choose HoverTranslate:
 No more pausing videos or switching to dictionaries! Simply hover over any word in YouTube subtitles to see instant translations. Perfect for building vocabulary naturally while enjoying your favorite content.
 
 🎯 Key Features for Effective Language Learning:
-
 • Instant Hover Translation: Build vocabulary effortlessly - just hover your mouse over any subtitle word to see its translation immediately.
 • Smart Phrase Translation: Learn idioms and expressions! Hold Shift to select and translate entire phrases, or enable "Always enable multiple selection" for easier phrase selection.
 • 130+ Language Support: Learn Spanish, French, Japanese, Korean, German, or any language! Translate YouTube subtitles from any language to your native one.
