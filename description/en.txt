@@ -3,8 +3,8 @@ HoverTranslate – Instant YouTube Subtitles Translation!
 If you’re learning a new language and watching videos in a foreign language with subtitles, HoverTranslate makes it easy and fast to translate unfamiliar words, phrases, or sentences. No need to pause or search in dictionaries – just hover over a word, and the translation appears instantly!
 
 Key Features:
-	•	Instant Hover Translation: Hover your mouse over a word in the subtitles, and see its translation right away.
-	•	Phrase and Sentence Translation: Select multiple words while holding Shift to translate an entire phrase.
+	•	Instant Hover Translation: Hover your mouse over a word in the subtitles and see its translation right away.
+	•	Phrase and Sentence Translation: Select multiple words while holding Shift to translate an entire phrase, or enable "Always enable multiple selection" to select phrases without holding Shift.
 	•	Supports 130+ Languages: Translate from any language to your native one.
 	•	Auto Language Detection: The extension automatically detects the subtitle language.
 	•	Translator selection: the ability to choose between Google Translate and Bing Translator.
