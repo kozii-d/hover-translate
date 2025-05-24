@@ -2,11 +2,6 @@
   "pageTitle": "Ustawienia",
   "tabLabel": "Ustawienia",
   "actions": {
-    "save": {
-      "text": "Zapisz",
-      "tooltip": "Zapisz ustawienia",
-      "disabledTooltip": "Brak zmian do zapisania"
-    },
     "reset": {
       "text": "Przywróć domyślne",
       "tooltip": "Przywróć ustawienia domyślne"

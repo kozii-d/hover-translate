@@ -2,11 +2,6 @@
   "pageTitle": "Einstellungen",
   "tabLabel": "Einstellungen",
   "actions": {
-    "save": {
-      "text": "Speichern",
-      "tooltip": "Einstellungen speichern",
-      "disabledTooltip": "Keine Änderungen zum Speichern"
-    },
     "reset": {
       "text": "Auf Standard zurücksetzen",
       "tooltip": "Auf Standardeinstellungen zurücksetzen"

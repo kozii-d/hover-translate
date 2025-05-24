@@ -2,11 +2,6 @@
   "pageTitle": "Paramètres",
   "tabLabel": "Paramètres",
   "actions": {
-    "save": {
-      "text": "Enregistrer",
-      "tooltip": "Enregistrer les paramètres",
-      "disabledTooltip": "Aucune modification à enregistrer"
-    },
     "reset": {
       "text": "Rétablir par défaut",
       "tooltip": "Rétablir les paramètres par défaut"

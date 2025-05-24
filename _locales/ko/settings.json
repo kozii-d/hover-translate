@@ -2,11 +2,6 @@
   "pageTitle": "설정",
   "tabLabel": "설정",
   "actions": {
-    "save": {
-      "text": "저장",
-      "tooltip": "설정 저장",
-      "disabledTooltip": "저장할 변경사항이 없습니다"
-    },
     "reset": {
       "text": "기본값으로 재설정",
       "tooltip": "기본 설정으로 재설정"

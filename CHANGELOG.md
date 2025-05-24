@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.3] - Unreleased
+
+### Changed
+- Enabled auto-save for Settings and Customize forms. Changes are now saved automatically without requiring a "Save" button.
+
 ## [1.1.2] - Unreleased
 
 ### Added

@@ -1,4 +1,3 @@
-import { Formik } from "formik";
 import { CustomizeForm } from "./CustomizeForm.tsx";
 import { FC, useCallback, useEffect, useState } from "react";
 import { CustomizeFormValues } from "../model/types/schema.ts";
@@ -40,18 +39,11 @@ const CustomizePage: FC = () => {
 
   return (
     <Page title={t("pageTitle")}>
-      <Formik
-        enableReinitialize
-        onSubmit={handleSubmit}
+      <CustomizeForm
         initialValues={initialValues}
-      >
-        {props => (
-          <CustomizeForm
-            {...props}
-            loading={loading}
-          />
-        )}
-      </Formik>
+        onSubmit={handleSubmit}
+        loading={loading}
+      />
     </Page>
   );
 };

@@ -2,11 +2,6 @@
   "pageTitle": "Configuración",
   "tabLabel": "Configuración",
   "actions": {
-    "save": {
-      "text": "Guardar",
-      "tooltip": "Guardar configuración",
-      "disabledTooltip": "No hay cambios para guardar"
-    },
     "reset": {
       "text": "Restablecer por defecto",
       "tooltip": "Restablecer configuración por defecto"

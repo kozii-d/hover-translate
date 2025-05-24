@@ -2,11 +2,6 @@
   "pageTitle": "Personalizar",
   "tabLabel": "Personalizar",
   "actions": {
-    "save": {
-      "text": "Guardar",
-      "tooltip": "Guardar configuración de personalización",
-      "disabledTooltip": "No hay cambios para guardar"
-    },
     "reset": {
       "text": "Restablecer",
       "tooltip": "Restablecer configuración de personalización"

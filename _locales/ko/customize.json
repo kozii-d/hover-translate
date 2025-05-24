@@ -2,11 +2,6 @@
   "pageTitle": "사용자 정의",
   "tabLabel": "사용자 정의",
   "actions": {
-    "save": {
-      "text": "저장",
-      "tooltip": "사용자 정의 설정 저장",
-      "disabledTooltip": "저장할 변경사항이 없습니다"
-    },
     "reset": {
       "text": "재설정",
       "tooltip": "사용자 정의 설정 재설정"
