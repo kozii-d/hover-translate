@@ -2,11 +2,6 @@
   "pageTitle": "カスタマイズ",
   "tabLabel": "カスタマイズ",
   "actions": {
-    "save": {
-      "text": "保存",
-      "tooltip": "カスタマイズ設定を保存",
-      "disabledTooltip": "保存する変更がありません"
-    },
     "reset": {
       "text": "リセット",
       "tooltip": "カスタマイズ設定をリセット"

@@ -2,11 +2,6 @@
   "pageTitle": "Anpassen",
   "tabLabel": "Anpassen",
   "actions": {
-    "save": {
-      "text": "Speichern",
-      "tooltip": "Anpassungseinstellungen speichern",
-      "disabledTooltip": "Keine Änderungen zum Speichern"
-    },
     "reset": {
       "text": "Zurücksetzen",
       "tooltip": "Anpassungseinstellungen zurücksetzen"

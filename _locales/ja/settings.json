@@ -2,11 +2,6 @@
   "pageTitle": "設定",
   "tabLabel": "設定",
   "actions": {
-    "save": {
-      "text": "保存",
-      "tooltip": "設定を保存",
-      "disabledTooltip": "保存する変更がありません"
-    },
     "reset": {
       "text": "デフォルトに戻す",
       "tooltip": "デフォルト設定に戻す"

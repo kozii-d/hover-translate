@@ -2,11 +2,6 @@
   "pageTitle": "Definições",
   "tabLabel": "Definições",
   "actions": {
-    "save": {
-      "text": "Guardar",
-      "tooltip": "Guardar definições",
-      "disabledTooltip": "Não há alterações para guardar"
-    },
     "reset": {
       "text": "Repor predefinições",
       "tooltip": "Repor definições predefinidas"

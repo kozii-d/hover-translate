@@ -28,6 +28,11 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = (props) => {
     ? cloneElement(trigger, { onClick: handleOpen })
     : null;
 
+  const handleConfirm = () => {
+    onConfirm();
+    handleClose();
+  };
+
   return (
     <Fragment>
       {triggerElement}
@@ -54,7 +59,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = (props) => {
             </Typography>
             <Stack direction="row" spacing={2} justifyContent="end">
               <Button size="small" onClick={handleClose}>{t("confirmation.actions.close.text")}</Button>
-              <Button size="small" variant="contained" color="primary" onClick={onConfirm}>{actionText || t("confirmation.actions.confirm.text")}</Button>
+              <Button size="small" variant="contained" color="primary" onClick={handleConfirm}>{actionText || t("confirmation.actions.confirm.text")}</Button>
             </Stack>
           </Stack>
         </Box>

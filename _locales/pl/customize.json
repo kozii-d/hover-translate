@@ -2,11 +2,6 @@
   "pageTitle": "Dostosuj",
   "tabLabel": "Dostosuj",
   "actions": {
-    "save": {
-      "text": "Zapisz",
-      "tooltip": "Zapisz ustawienia dostosowania",
-      "disabledTooltip": "Brak zmian do zapisania"
-    },
     "reset": {
       "text": "Resetuj",
       "tooltip": "Resetuj ustawienia dostosowania"

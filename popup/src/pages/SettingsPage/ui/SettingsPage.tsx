@@ -1,11 +1,10 @@
-import { Formik } from "formik";
-import { SettingsForm } from "./SettingsForm.tsx";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Language, AvailableLanguages, SettingsFormValues, Translator } from "../model/types/schema.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
+import { SettingsForm } from "./SettingsForm.tsx";
 
 const SettingsPage: FC = () => {
   const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);
@@ -60,27 +59,26 @@ const SettingsPage: FC = () => {
     setInitialSettings();
   }, [setInitialSettings]);
 
-  const handleSubmit = useCallback((values: SettingsFormValues) => {
-    return set<SettingsFormValues>("settings", values, "sync").then(setInitialSettings);
+  const handleSubmit = useCallback(async (values: SettingsFormValues) => {
+    try {
+      await set<SettingsFormValues>("settings", values, "sync");
+      setInitialValues(values);
+    } catch (error) {
+      console.error("Failed to save settings:", error);
+      await setInitialSettings();
+    }
   }, [set, setInitialSettings]);
 
   return (
     <Page title={t("pageTitle")}>
-      <Formik
-        enableReinitialize
-        onSubmit={handleSubmit}
+      <SettingsForm
         initialValues={initialValues}
-      >
-        {props => (
-          <SettingsForm
-            {...props}
-            sourceLanguages={sourceLanguages}
-            targetLanguages={targetLanguages}
-            fetchAvailableLanguages={fetchAvailableLanguages}
-            loading={loading}
-          />
-        )}
-      </Formik>
+        onSubmit={handleSubmit}
+        sourceLanguages={sourceLanguages}
+        targetLanguages={targetLanguages}
+        fetchAvailableLanguages={fetchAvailableLanguages}
+        loading={loading}
+      />
     </Page>
   );
 };

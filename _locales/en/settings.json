@@ -2,11 +2,6 @@
   "pageTitle": "Settings",
   "tabLabel": "Settings",
   "actions": {
-    "save": {
-      "text": "Save",
-      "tooltip": "Save settings",
-      "disabledTooltip": "No changes to save"
-    },
     "reset": {
       "text": "Reset to default",
       "tooltip": "Reset to default settings"
@@ -14,36 +9,36 @@
   },
   "fields": {
     "targetLanguageCode": {
-        "label": "Translate to",
-        "tooltip": "The language to which the text will be translated"
+      "label": "Translate to",
+      "tooltip": "The language to which the text will be translated"
     },
     "sourceLanguageCode": {
-        "label": "Translate from",
-        "tooltip": "The language from which the text will be translated"
+      "label": "Translate from",
+      "tooltip": "The language from which the text will be translated"
     },
     "translator": {
-        "label": "Translator",
-        "tooltip": "The translator to use for translations"
+      "label": "Translator",
+      "tooltip": "The translator to use for translations"
     },
     "autoPause": {
-        "label": "Auto-pause",
-        "tooltip": "Automatically pause the video when hovering over subtitles",
-        "helperText": "Automatically pause the video when hovering over subtitles"
+      "label": "Auto-pause",
+      "tooltip": "Automatically pause the video when hovering over subtitles",
+      "helperText": "Automatically pause the video when hovering over subtitles"
     },
     "useDictionary": {
-        "label": "Save words to dictionary",
-        "tooltip": "Save words to dictionary when clicking on them",
-        "helperText": "When disabled, clicking on words will copy them to clipboard instead of saving to dictionary"
+      "label": "Save words to dictionary",
+      "tooltip": "Save words to dictionary when clicking on them",
+      "helperText": "When disabled, clicking on words will copy them to clipboard instead of saving to dictionary"
     },
     "alwaysMultipleSelection": {
-        "label": "Always enable multiple selection",
-        "tooltip": "Enable multiple word selection without holding Shift",
-        "helperText": "When enabled, you can select multiple words without holding Shift"
+      "label": "Always enable multiple selection",
+      "tooltip": "Enable multiple word selection without holding Shift",
+      "helperText": "When enabled, you can select multiple words without holding Shift"
     },
     "showNotifications": {
-        "label": "Show notifications",
-        "tooltip": "Show notifications when words are saved to dictionary or copied to clipboard",
-        "helperText": "When disabled, no notifications will appear when words are saved or copied"
+      "label": "Show notifications",
+      "tooltip": "Show notifications when words are saved to dictionary or copied to clipboard",
+      "helperText": "When disabled, no notifications will appear when words are saved or copied"
     }
   },
   "modals": {

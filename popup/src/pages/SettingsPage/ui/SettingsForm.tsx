@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
-import { FormikProps, useField } from "formik";
-import { FC, useCallback, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
+import { useForm, Controller } from "react-hook-form";
 
 import { AvailableLanguages, Language, SettingsFormValues, Translator } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
@@ -22,88 +22,56 @@ const TRANSLATORS_OPTIONS: MenuItemType[]  = [
   { value: "bing", label: "Bing" },
 ];
 
-interface SettingsFormProps extends FormikProps<SettingsFormValues> {
+interface SettingsFormProps {
+  initialValues: SettingsFormValues;
+  onSubmit: (values: SettingsFormValues) => Promise<void>;
   sourceLanguages: Language[];
   targetLanguages: Language[];
   fetchAvailableLanguages: (translator: Translator) => Promise<AvailableLanguages>;
   loading: boolean;
 }
 
-export const SettingsForm: FC<SettingsFormProps> = (props) => {
-  const {
-    handleSubmit,
-    dirty,
-    isValid,
-    setFormikState,
-    sourceLanguages,
-    targetLanguages,
-    fetchAvailableLanguages,
-    loading,
-  } = props;
-
+export const SettingsForm: FC<SettingsFormProps> = ({
+  initialValues,
+  onSubmit,
+  sourceLanguages,
+  targetLanguages,
+  fetchAvailableLanguages,
+  loading,
+}) => {
   const { t } = useTranslation("settings");
+  const { control, handleSubmit, setValue, watch, reset } = useForm<SettingsFormValues>({
+    defaultValues: initialValues,
+  });
 
-  const [targetLanguageCodeField, targetLanguageCodeMeta, targetLanguageCodeHelpers] = useField<string>("targetLanguageCode");
-  const [sourceLanguageCodeField, sourceLanguageCodeMeta, sourceLanguageCodeHelpers] = useField<string>("sourceLanguageCode");
-  const [translatorField, translatorMeta, translatorHelpers] = useField<string>("translator");
-  const [autoPauseField, , autoPauseHelpers] = useField<boolean>("autoPause");
-  const [alwaysMultipleSelectionField, , alwaysMultipleSelectionHelpers] = useField<boolean>("alwaysMultipleSelection");
-  const [useDictionaryField, , useDictionaryHelpers] = useField<boolean>("useDictionary");
-  const [showNotificationsField, , showNotificationsHelpers] = useField<boolean>("showNotifications");
+  useEffect(() => {
+    reset(initialValues);
+  }, [initialValues, reset]);
 
-  const handleChangeTargetLanguageCode = useCallback((value: string) => {
-    targetLanguageCodeHelpers.setValue(value);
-    targetLanguageCodeHelpers.setError(undefined);
-  }, [targetLanguageCodeHelpers]);
-
-  const handleChangeSourceLanguageCode = useCallback((value: string) => {
-    sourceLanguageCodeHelpers.setValue(value);
-    sourceLanguageCodeHelpers.setError(undefined);
-  }, [sourceLanguageCodeHelpers]);
+  const watchSourceLanguageCode = watch("sourceLanguageCode");
+  const watchTargetLanguageCode = watch("targetLanguageCode");
 
   const checkSelectedLanguages = useCallback((availableLanguages: AvailableLanguages) => {
-    if (sourceLanguageCodeField.value !== "auto") {
+    if (watchSourceLanguageCode !== "auto") {
       const sourceLanguagesCodes = availableLanguages.sourceLanguages.map((lang) => lang.code);
-
-      if (!sourceLanguagesCodes.includes(sourceLanguageCodeField.value)) {
-        sourceLanguageCodeHelpers.setValue("auto");
+      if (!sourceLanguagesCodes.includes(watchSourceLanguageCode)) {
+        setValue("sourceLanguageCode", "auto", { shouldDirty: true });
       }
     }
 
     const targetLanguagesCodes = availableLanguages.targetLanguages.map((lang) => lang.code);
     const userLanguage = chrome.i18n.getUILanguage();
 
-    if (!targetLanguagesCodes.includes(targetLanguageCodeField.value)) {
+    if (!targetLanguagesCodes.includes(watchTargetLanguageCode)) {
       const newTargetLanguage = targetLanguagesCodes.includes(userLanguage) ? userLanguage : "en";
-      targetLanguageCodeHelpers.setValue(newTargetLanguage);
+      setValue("targetLanguageCode", newTargetLanguage, { shouldDirty: true });
     }
-  }, [sourceLanguageCodeField.value, sourceLanguageCodeHelpers, targetLanguageCodeField.value, targetLanguageCodeHelpers]);
+  }, [watchSourceLanguageCode, watchTargetLanguageCode, setValue]);
 
-  const handleChangeTranslator = useCallback((value: string) => {
-    translatorHelpers.setValue(value);
-    fetchAvailableLanguages(value as Translator).then(checkSelectedLanguages);
-    translatorHelpers.setError(undefined);
-  }, [translatorHelpers, fetchAvailableLanguages, checkSelectedLanguages]);
-
-  const handleChangeAutoPause = (value: boolean) => {
-    autoPauseHelpers.setValue(value);
-    autoPauseHelpers.setError(undefined);
-  };
-
-  const handleChangeAlwaysMultipleSelection = (value: boolean) => {
-    alwaysMultipleSelectionHelpers.setValue(value);
-    alwaysMultipleSelectionHelpers.setError(undefined);
-  };
-
-  const handleChangeUseDictionary = (value: boolean) => {
-    useDictionaryHelpers.setValue(value);
-    useDictionaryHelpers.setError(undefined);
-  };
-
-  const handleChangeShowNotifications = (value: boolean) => {
-    showNotificationsHelpers.setValue(value);
-    showNotificationsHelpers.setError(undefined);
-  };
+  const handleChangeSwitch = useCallback((field: keyof SettingsFormValues, value: boolean) => {
+    setValue(field, value, { shouldDirty: true });
+    handleSubmit(onSubmit)();
+  }, [onSubmit, setValue, handleSubmit]);
 
   const getLanguageName = (code: string, locale: string = "en") => {
     const displayNames = new Intl.DisplayNames(locale, { type: "language" });
@@ -126,131 +94,162 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
     return result;
   }, [sourceLanguages]);
 
-  const resetFormToDefault = () => {
+  const resetFormToDefault = useCallback(() => {
     const userLanguage = chrome.i18n.getUILanguage();
     const availableTargetLanguages = targetLanguages.map((lang) => lang.code);
     const isUserLanguageAvailable = availableTargetLanguages.includes(userLanguage);
 
-    setFormikState((state) => {
-      if (isUserLanguageAvailable) {
-        return {
-          ...state,
-          values: {
-            ...initialFormValues,
-            targetLanguageCode: userLanguage
-          }
-        };
-      }
+    const newValues = {
+      ...initialFormValues,
+      targetLanguageCode: isUserLanguageAvailable ? userLanguage : initialFormValues.targetLanguageCode
+    };
 
-      return {
-        ...state,
-        values: initialFormValues
-      };
-    });
-    handleSubmit();
-  };
+    reset(newValues);
+    onSubmit(newValues);
+  }, [onSubmit, reset, targetLanguages]);
 
   if (loading) {
     return <SettingsFormSkeleton/>;
   }
 
   return (
-    <Box>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleSubmit()}
-          fullWidth
-          disabled={!dirty || !isValid}
-          title={dirty ? t("actions.save.tooltip") : t("actions.save.disabledTooltip")}
-        >
-          {t("actions.save.text")}
-        </Button>
-        <SettingsSelect
-          id="targetLanguageCode"
-          label={t("fields.targetLanguageCode.label")}
-          tooltip={t("fields.targetLanguageCode.tooltip")}
-          value={targetLanguageCodeField.value}
-          error={Boolean(targetLanguageCodeMeta.error && targetLanguageCodeMeta.touched)}
-          onChange={handleChangeTargetLanguageCode}
-          options={targetOptions}
+        <Controller
+          name="sourceLanguageCode"
+          control={control}
+          render={({ field }) => (
+            <SettingsSelect
+              id="sourceLanguageCode"
+              label={t("fields.sourceLanguageCode.label")}
+              tooltip={t("fields.sourceLanguageCode.tooltip")}
+              value={field.value}
+              onChange={(value) => {
+                setValue("sourceLanguageCode", value, { shouldDirty: true });
+                handleSubmit(onSubmit)();
+              }}
+              options={sourceOptions}
+            />
+          )}
         />
-        <SettingsSelect
-          id="sourceLanguageCode"
-          label={t("fields.sourceLanguageCode.label")}
-          tooltip={t("fields.sourceLanguageCode.tooltip")}
-          value={sourceLanguageCodeField.value}
-          error={Boolean(sourceLanguageCodeMeta.error && sourceLanguageCodeMeta.touched)}
-          onChange={handleChangeSourceLanguageCode}
-          options={sourceOptions}
+        <Controller
+          name="targetLanguageCode"
+          control={control}
+          render={({ field }) => (
+            <SettingsSelect
+              id="targetLanguageCode"
+              label={t("fields.targetLanguageCode.label")}
+              tooltip={t("fields.targetLanguageCode.tooltip")}
+              value={field.value}
+              onChange={(value) => {
+                setValue("targetLanguageCode", value, { shouldDirty: true });
+                handleSubmit(onSubmit)();
+              }}
+              options={targetOptions}
+            />
+          )}
         />
-        <SettingsSelect
-          id="translator"
-          label={t("fields.translator.label")}
-          tooltip={t("fields.translator.tooltip")}
-          value={translatorField.value}
-          onChange={handleChangeTranslator}
-          error={Boolean(translatorMeta.error && translatorMeta.touched)}
-          options={TRANSLATORS_OPTIONS}
+        <Controller
+          name="translator"
+          control={control}
+          render={({ field }) => (
+            <SettingsSelect
+              id="translator"
+              label={t("fields.translator.label")}
+              tooltip={t("fields.translator.tooltip")}
+              value={field.value}
+              onChange={(value) => {
+                setValue("translator", value as Translator, { shouldDirty: true });
+                fetchAvailableLanguages(value as Translator).then(availableLanguages => {
+                  checkSelectedLanguages(availableLanguages);
+                  handleSubmit(onSubmit)();
+                });
+              }}
+              options={TRANSLATORS_OPTIONS}
+            />
+          )}
         />
         <InlineBanner message={t("tips.multipleSelection")} type="info"/>
-        <FormControl fullWidth title={t("fields.autoPause.tooltip")}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={autoPauseField.value}
-                onChange={(_, checked) => handleChangeAutoPause(checked)}
+        <Controller
+          name="autoPause"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth title={t("fields.autoPause.tooltip")}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={field.value}
+                    onChange={(_, checked) => handleChangeSwitch("autoPause", checked)}
+                  />
+                }
+                label={t("fields.autoPause.label")}
               />
-            }
-            label={t("fields.autoPause.label")}
-          />
-          <FormHelperText>
-            {t("fields.autoPause.helperText")}
-          </FormHelperText>
-        </FormControl>
-        <FormControl fullWidth title={t("fields.alwaysMultipleSelection.tooltip")}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={alwaysMultipleSelectionField.value}
-                onChange={(_, checked) => handleChangeAlwaysMultipleSelection(checked)}
+              <FormHelperText>
+                {t("fields.autoPause.helperText")}
+              </FormHelperText>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="alwaysMultipleSelection"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth title={t("fields.alwaysMultipleSelection.tooltip")}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={field.value}
+                    onChange={(_, checked) => handleChangeSwitch("alwaysMultipleSelection", checked)}
+                  />
+                }
+                label={t("fields.alwaysMultipleSelection.label")}
               />
-            }
-            label={t("fields.alwaysMultipleSelection.label")}
-          />
-          <FormHelperText>
-            {t("fields.alwaysMultipleSelection.helperText")}
-          </FormHelperText>
-        </FormControl>
-        <FormControl fullWidth title={t("fields.useDictionary.tooltip")}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={useDictionaryField.value}
-                onChange={(_, checked) => handleChangeUseDictionary(checked)}
+              <FormHelperText>
+                {t("fields.alwaysMultipleSelection.helperText")}
+              </FormHelperText>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="useDictionary"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth title={t("fields.useDictionary.tooltip")}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={field.value}
+                    onChange={(_, checked) => handleChangeSwitch("useDictionary", checked)}
+                  />
+                }
+                label={t("fields.useDictionary.label")}
               />
-            }
-            label={t("fields.useDictionary.label")}
-          />
-          <FormHelperText>
-            {t("fields.useDictionary.helperText")}
-          </FormHelperText>
-        </FormControl>
-        <FormControl fullWidth title={t("fields.showNotifications.tooltip")}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={showNotificationsField.value}
-                onChange={(_, checked) => handleChangeShowNotifications(checked)}
+              <FormHelperText>
+                {t("fields.useDictionary.helperText")}
+              </FormHelperText>
+            </FormControl>
+          )}
+        />
+        <Controller
+          name="showNotifications"
+          control={control}
+          render={({ field }) => (
+            <FormControl fullWidth title={t("fields.showNotifications.tooltip")}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={field.value}
+                    onChange={(_, checked) => handleChangeSwitch("showNotifications", checked)}
+                  />
+                }
+                label={t("fields.showNotifications.label")}
               />
-            }
-            label={t("fields.showNotifications.label")}
-          />
-          <FormHelperText>
-            {t("fields.showNotifications.helperText")}
-          </FormHelperText>
-        </FormControl>
+              <FormHelperText>
+                {t("fields.showNotifications.helperText")}
+              </FormHelperText>
+            </FormControl>
+          )}
+        />
         <ConfirmationModal
           trigger={(
             <Button
@@ -267,16 +266,6 @@ export const SettingsForm: FC<SettingsFormProps> = (props) => {
           actionText={t("modals.reset.action")}
           onConfirm={resetFormToDefault}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => handleSubmit()}
-          fullWidth
-          disabled={!dirty || !isValid}
-          title={dirty ? t("actions.save.tooltip") : t("actions.save.disabledTooltip")}
-        >
-          {t("actions.save.text")}
-        </Button>
       </Stack>
     </Box>
   );

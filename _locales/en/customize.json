@@ -2,11 +2,6 @@
   "pageTitle": "Customize",
   "tabLabel": "Customize",
   "actions": {
-    "save": {
-      "text": "Save",
-      "tooltip": "Save customization settings",
-      "disabledTooltip": "No changes to save"
-    },
     "reset": {
       "text": "Reset",
       "tooltip": "Reset customization settings"
@@ -46,7 +41,7 @@
       "label": "Character edge style",
       "tooltip": "The edge style of characters for translation tooltips"
     }
-},
+  },
   "modals": {
     "reset": {
       "title": "Reset to default customization settings?",
