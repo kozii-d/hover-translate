@@ -1,4 +1,4 @@
-import { RouteConfig } from "../../config/routeConfig";
+import { RouteConfig } from "../../../config/routeConfig.ts";
 import { Routes, Route } from "react-router";
 import { Suspense, useMemo } from "react";
 

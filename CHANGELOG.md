@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.3] - Unreleased
 
+### Added
+- Toast notifications for errors and warnings.
+- Warning notification when switching translators if the selected language is not supported by the new translator.
+
 ### Changed
 - Enabled auto-save for Settings and Customize forms. Changes are now saved automatically without requiring a "Save" button.
 

@@ -13,6 +13,7 @@ import { DictionaryContentSkeleton } from "./skeletons/DictionaryContentSkeleton
 import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
 import { useTranslation } from "react-i18next";
 import { ExportData } from "@/features/ExportTranslations";
+import { useNotification } from "@/app/providers/NotificationProvider";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
@@ -34,43 +35,54 @@ const DictionaryPage: FC = () => {
 
   const { set, get } = useStorage();
 
+  const notification = useNotification();
+
   const getTranslations = useCallback(async () => {
+    setLoading(true);
     try {
       const savedTranslations = await get<Translation[]>("savedTranslations", "local");
       if (savedTranslations) {
         setAllTranslations(savedTranslations);
       }
     } catch (error) {
-      console.error(error);
+      const errorMessage = "Failed to get translations";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
     } finally {
       setLoading(false);
     }
-  }, [get]);
+  }, [get, notification]);
 
-  const removeTranslationById = useCallback((id: string) => {
+  const removeTranslationById = useCallback(async (id: string) => {
     try {
       const updatedTranslations = allTranslations.filter(translation => translation.id !== id);
       setAllTranslations(updatedTranslations);
-      set<Translation[]>("savedTranslations", updatedTranslations, "local");
+      await set<Translation[]>("savedTranslations", updatedTranslations, "local");
     } catch (error) {
-      console.error(error);
+      const errorMessage = "Failed to remove translation";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
     }
-  }, [set, allTranslations]);
+  }, [allTranslations, set, notification]);
 
-  const clearAllTranslations = () => {
-    setAllTranslations([]);
-    set<Translation[]>("savedTranslations", [], "local");
-  };
+  const clearAllTranslations = useCallback(async () => {
+    try {
+      setAllTranslations([]);
+      await set<Translation[]>("savedTranslations", [], "local");
+    } catch (error) {
+      const errorMessage = "Failed to clear all translations";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
+    }
+  }, [set, notification]);
 
   const showNextPage = () => {
     setPage((prev) => prev + 1);
   };
 
   useEffect(() => {
-    setLoading(true);
-    getTranslations()
-      .finally(() => setLoading(false));
-  }, [get, getTranslations]);
+    getTranslations();
+  }, [getTranslations]);
 
   if (loading) {
     return (

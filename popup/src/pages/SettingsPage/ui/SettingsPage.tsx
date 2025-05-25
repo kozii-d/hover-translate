@@ -5,6 +5,7 @@ import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
 import { SettingsForm } from "./SettingsForm.tsx";
+import { useNotification } from "@/app/providers/NotificationProvider";
 
 const SettingsPage: FC = () => {
   const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);
@@ -18,6 +19,8 @@ const SettingsPage: FC = () => {
   const { t } = useTranslation("settings");
 
   const { set, get } = useStorage();
+
+  const notification = useNotification();
 
   const fetchAvailableLanguages = useCallback(async (translator: Translator) => {
     setLoadingLanguages(true);
@@ -33,12 +36,14 @@ const SettingsPage: FC = () => {
 
       return availableLanguages;
     } catch (error) {
-      console.error("Failed to fetch source languages", error);
+      const errorMessage = "Failed to fetch available languages";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
       throw error;
     } finally {
       setLoadingLanguages(false);
     }
-  }, []);
+  }, [notification]);
 
   const setInitialSettings = useCallback(async () => {
     setLoadingSettings(true);
@@ -49,11 +54,13 @@ const SettingsPage: FC = () => {
         await fetchAvailableLanguages(settings.translator);
       }
     } catch (error) {
-      console.error("Failed to get settings:", error);
+      const errorMessage = "Failed to get settings";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
     } finally {
       setLoadingSettings(false);
     }
-  }, [fetchAvailableLanguages, get]);
+  }, [fetchAvailableLanguages, get, notification]);
 
   useEffect(() => {
     setInitialSettings();
@@ -64,10 +71,12 @@ const SettingsPage: FC = () => {
       await set<SettingsFormValues>("settings", values, "sync");
       setInitialValues(values);
     } catch (error) {
-      console.error("Failed to save settings:", error);
-      await setInitialSettings();
+      const errorMessage = "Failed to save settings";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
+      setInitialSettings();
     }
-  }, [set, setInitialSettings]);
+  }, [notification, set, setInitialSettings]);
 
   return (
     <Page title={t("pageTitle")}>
