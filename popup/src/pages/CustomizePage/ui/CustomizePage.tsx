@@ -5,7 +5,7 @@ import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
-import { useNotification } from "@/app/providers/NotificationProvider";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
@@ -16,7 +16,7 @@ const CustomizePage: FC = () => {
 
   const { set, get } = useStorage();
 
-  const notification = useNotification();
+  const notifications = useNotifications();
 
   const setInitialSettings = useCallback(async () => {
     setLoading(true);
@@ -27,12 +27,12 @@ const CustomizePage: FC = () => {
       }
     } catch (error) {
       const errorMessage = "Failed to get tooltipTheme";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
     } finally {
       setLoading(false);
     }
-  }, [get, notification]);
+  }, [get, notifications]);
 
   useEffect(() => {
     setInitialSettings();
@@ -44,11 +44,11 @@ const CustomizePage: FC = () => {
       setInitialValues(values);
     } catch (error) {
       const errorMessage = "Failed to save tooltipTheme";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
       setInitialSettings();
     }
-  }, [notification, set, setInitialSettings]);
+  }, [notifications, set, setInitialSettings]);
 
   return (
     <Page title={t("pageTitle")}>
