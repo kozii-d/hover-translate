@@ -16,7 +16,7 @@ import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationMod
 import { useTranslation } from "react-i18next";
 import { InlineBanner } from "@/shared/ui/InlineBanner/InlineBanner.tsx";
 import { MenuItemType } from "@/shared/types/types.ts";
-import { useNotification } from "@/app/providers/NotificationProvider";
+import { useNotifications } from "@toolpad/core";
 
 const TRANSLATORS_OPTIONS: MenuItemType[]  = [
   { value: "google", label: "Google" },
@@ -45,7 +45,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     defaultValues: initialValues,
   });
 
-  const notification = useNotification();
+  const notifications = useNotifications();
 
   useEffect(() => {
     reset(initialValues);
@@ -93,7 +93,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
           translatorName: selectedTranslatorLabel,
           defaultLanguage: "'Auto'"
         });
-        notification.show(notificationMessage, { severity: "warning" });
+        notifications.show(notificationMessage, { severity: "warning", autoHideDuration: 5000 });
       }
     }
 
@@ -109,9 +109,9 @@ export const SettingsForm: FC<SettingsFormProps> = ({
         translatorName: selectedTranslatorLabel,
         defaultLanguage: getLanguageName(newTargetLanguage)
       });
-      notification.show(notificationMessage, { severity: "warning" });
+      notifications.show(notificationMessage, { severity: "warning", autoHideDuration: 5000 });
     }
-  }, [notification, setValue, sourceOptions, targetOptions, watch]);
+  }, [notifications, setValue, sourceOptions, t, targetOptions, watch]);
 
   const handleChangeSwitch = useCallback((field: keyof SettingsFormValues, value: boolean) => {
     setValue(field, value, { shouldDirty: true });

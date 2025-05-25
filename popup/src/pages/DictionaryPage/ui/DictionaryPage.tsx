@@ -13,7 +13,7 @@ import { DictionaryContentSkeleton } from "./skeletons/DictionaryContentSkeleton
 import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
 import { useTranslation } from "react-i18next";
 import { ExportData } from "@/features/ExportTranslations";
-import { useNotification } from "@/app/providers/NotificationProvider";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
@@ -35,7 +35,7 @@ const DictionaryPage: FC = () => {
 
   const { set, get } = useStorage();
 
-  const notification = useNotification();
+  const notifications = useNotifications();
 
   const getTranslations = useCallback(async () => {
     setLoading(true);
@@ -46,12 +46,12 @@ const DictionaryPage: FC = () => {
       }
     } catch (error) {
       const errorMessage = "Failed to get translations";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
     } finally {
       setLoading(false);
     }
-  }, [get, notification]);
+  }, [get, notifications]);
 
   const removeTranslationById = useCallback(async (id: string) => {
     try {
@@ -60,10 +60,10 @@ const DictionaryPage: FC = () => {
       await set<Translation[]>("savedTranslations", updatedTranslations, "local");
     } catch (error) {
       const errorMessage = "Failed to remove translation";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
     }
-  }, [allTranslations, set, notification]);
+  }, [allTranslations, set, notifications]);
 
   const clearAllTranslations = useCallback(async () => {
     try {
@@ -71,10 +71,10 @@ const DictionaryPage: FC = () => {
       await set<Translation[]>("savedTranslations", [], "local");
     } catch (error) {
       const errorMessage = "Failed to clear all translations";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
     }
-  }, [set, notification]);
+  }, [set, notifications]);
 
   const showNextPage = () => {
     setPage((prev) => prev + 1);

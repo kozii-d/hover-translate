@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { downloadFile } from "@/shared/lib/helpers/downloadFiles.ts";
 import { getCSVToExport, getJSONToExport } from "../lib/helpers/getFormattedData.ts";
 import { generateShortHash } from "@/shared/lib/helpers/generateShortHash.ts";
-import { useNotification } from "@/app/providers/NotificationProvider";
+import { useNotifications } from "@toolpad/core/useNotifications";
 
 export const ExportData: FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -15,7 +15,7 @@ export const ExportData: FC = () => {
 
   const { t } = useTranslation("dictionary");
 
-  const notification = useNotification();
+  const notifications = useNotifications();
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -31,7 +31,7 @@ export const ExportData: FC = () => {
       return `hover-translate-dictionary-${hash}`;
     } catch (error) {
       const errorMessage = "Failed to generate file name";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
       return `hover-translate-dictionary-${Date.now()}`;
     }
@@ -46,7 +46,7 @@ export const ExportData: FC = () => {
       handleClose();
     } catch (error) {
       const errorMessage = "Failed to export JSON data";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
     }
   };
@@ -60,7 +60,7 @@ export const ExportData: FC = () => {
       handleClose();
     } catch (error) {
       const errorMessage = "Failed to export CSV data";
-      notification.show(errorMessage, { severity: "error" });
+      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
       console.error(errorMessage, error);
     }
   };

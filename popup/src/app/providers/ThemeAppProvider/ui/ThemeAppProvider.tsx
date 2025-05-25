@@ -48,7 +48,7 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppProvider theme={theme} >
+      <AppProvider theme={theme}>
         {children}
       </AppProvider>
     </ThemeProvider>
