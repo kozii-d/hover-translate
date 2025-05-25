@@ -16,6 +16,7 @@ import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationMod
 import { useTranslation } from "react-i18next";
 import { InlineBanner } from "@/shared/ui/InlineBanner/InlineBanner.tsx";
 import { MenuItemType } from "@/shared/types/types.ts";
+import { useNotification } from "@/app/providers/NotificationProvider";
 
 const TRANSLATORS_OPTIONS: MenuItemType[]  = [
   { value: "google", label: "Google" },
@@ -44,18 +45,51 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     defaultValues: initialValues,
   });
 
+  const notification = useNotification();
+
   useEffect(() => {
     reset(initialValues);
   }, [initialValues, reset]);
 
-  const watchSourceLanguageCode = watch("sourceLanguageCode");
-  const watchTargetLanguageCode = watch("targetLanguageCode");
+  const getLanguageName = (code: string, locale: string = "en") => {
+    const displayNames = new Intl.DisplayNames(locale, { type: "language" });
+    return displayNames.of(code);
+  };
+
+  const sourceOptions = useMemo(() => {
+    const result = sourceLanguages.map((language) => ({
+      value: language.code,
+      label: language.name || getLanguageName(language.code) || language.code
+    }));
+    result.unshift({ value: "auto", label: "Auto" });
+    return result;
+  }, [sourceLanguages]);
+
+  const targetOptions = useMemo(() => {
+    return targetLanguages.map((language) => ({
+      value: language.code,
+      label: language.name || getLanguageName(language.code) || language.code
+    }));
+  }, [targetLanguages]);
 
   const checkSelectedLanguages = useCallback((availableLanguages: AvailableLanguages) => {
+    const watchSourceLanguageCode = watch("sourceLanguageCode");
+    const watchTargetLanguageCode = watch("targetLanguageCode");
+    const watchTranslator = watch("translator");
+
+    const selectedSourceLanguage = sourceOptions.find(langOption => langOption.value === watchSourceLanguageCode);
+    const selectedTargetLanguage = targetOptions.find(langOption => langOption.value === watchTargetLanguageCode);
+
+
+    const selectedTranslatorLabel = TRANSLATORS_OPTIONS.find(option => option.value === watchTranslator)?.label || "Unknown";
+
     if (watchSourceLanguageCode !== "auto") {
       const sourceLanguagesCodes = availableLanguages.sourceLanguages.map((lang) => lang.code);
       if (!sourceLanguagesCodes.includes(watchSourceLanguageCode)) {
         setValue("sourceLanguageCode", "auto", { shouldDirty: true });
+
+        const notificationMessage = `${selectedSourceLanguage?.label || "Unknown"} is not available as a source language for the ${selectedTranslatorLabel} translator. Switching to 'Auto'.`;
+        notification.show(notificationMessage, { severity: "warning" });
       }
     }
 
@@ -65,34 +99,16 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     if (!targetLanguagesCodes.includes(watchTargetLanguageCode)) {
       const newTargetLanguage = targetLanguagesCodes.includes(userLanguage) ? userLanguage : "en";
       setValue("targetLanguageCode", newTargetLanguage, { shouldDirty: true });
+
+      const notificationMessage = `${selectedTargetLanguage?.label || "Unknown"} is not available as a target language for the ${selectedTranslatorLabel} translator. Switching to ${getLanguageName(newTargetLanguage)}.`;
+      notification.show(notificationMessage, { severity: "warning" });
     }
-  }, [watchSourceLanguageCode, watchTargetLanguageCode, setValue]);
+  }, [notification, setValue, sourceOptions, targetOptions, watch]);
 
   const handleChangeSwitch = useCallback((field: keyof SettingsFormValues, value: boolean) => {
     setValue(field, value, { shouldDirty: true });
     handleSubmit(onSubmit)();
   }, [onSubmit, setValue, handleSubmit]);
-
-  const getLanguageName = (code: string, locale: string = "en") => {
-    const displayNames = new Intl.DisplayNames(locale, { type: "language" });
-    return displayNames.of(code);
-  };
-
-  const targetOptions = useMemo(() => {
-    return targetLanguages.map((language) => ({
-      value: language.code,
-      label: language.name || getLanguageName(language.code) || "Unknown"
-    }));
-  }, [targetLanguages]);
-
-  const sourceOptions = useMemo(() => {
-    const result = sourceLanguages.map((language) => ({
-      value: language.code,
-      label: language.name || getLanguageName(language.code) || "Unknown"
-    }));
-    result.unshift({ value: "auto", label: "Auto" });
-    return result;
-  }, [sourceLanguages]);
 
   const resetFormToDefault = useCallback(() => {
     const userLanguage = chrome.i18n.getUILanguage();

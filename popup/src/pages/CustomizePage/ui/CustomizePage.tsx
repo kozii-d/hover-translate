@@ -5,6 +5,7 @@ import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
+import { useNotification } from "@/app/providers/NotificationProvider";
 
 const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
@@ -15,6 +16,8 @@ const CustomizePage: FC = () => {
 
   const { set, get } = useStorage();
 
+  const notification = useNotification();
+
   const setInitialSettings = useCallback(async () => {
     setLoading(true);
     try {
@@ -23,19 +26,29 @@ const CustomizePage: FC = () => {
         setInitialValues(tooltipTheme);
       }
     } catch (error) {
-      console.error("Failed to get tooltipTheme:", error);
+      const errorMessage = "Failed to get tooltipTheme";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
     } finally {
       setLoading(false);
     }
-  }, [get]);
+  }, [get, notification]);
 
   useEffect(() => {
     setInitialSettings();
   }, [setInitialSettings]);
 
   const handleSubmit = useCallback(async (values: CustomizeFormValues) => {
-    return set<CustomizeFormValues>("tooltipTheme", values, "sync").then(setInitialSettings);
-  }, [set, setInitialSettings]);
+    try {
+      await set<CustomizeFormValues>("tooltipTheme", values, "sync");
+      setInitialValues(values);
+    } catch (error) {
+      const errorMessage = "Failed to save tooltipTheme";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
+      setInitialSettings();
+    }
+  }, [notification, set, setInitialSettings]);
 
   return (
     <Page title={t("pageTitle")}>

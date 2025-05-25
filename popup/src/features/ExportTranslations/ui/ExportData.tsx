@@ -7,12 +7,15 @@ import { useTranslation } from "react-i18next";
 import { downloadFile } from "@/shared/lib/helpers/downloadFiles.ts";
 import { getCSVToExport, getJSONToExport } from "../lib/helpers/getFormattedData.ts";
 import { generateShortHash } from "@/shared/lib/helpers/generateShortHash.ts";
+import { useNotification } from "@/app/providers/NotificationProvider";
 
 export const ExportData: FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const { t } = useTranslation("dictionary");
+
+  const notification = useNotification();
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,24 +26,43 @@ export const ExportData: FC = () => {
   };
   
   const getFileName = async (data: string) => {
-    const hash = await generateShortHash(data);
-    return `hover-translate-dictionary-${hash}`;
+    try {
+      const hash = await generateShortHash(data);
+      return `hover-translate-dictionary-${hash}`;
+    } catch (error) {
+      const errorMessage = "Failed to generate file name";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
+      return `hover-translate-dictionary-${Date.now()}`;
+    }
   };
 
   const exportJSON = async () => {
-    const jsonString = await getJSONToExport();
-    const fileName = await getFileName(jsonString);
+    try {
+      const jsonString = await getJSONToExport();
+      const fileName = await getFileName(jsonString);
 
-    await downloadFile(jsonString, fileName, "json");
-    handleClose();
+      await downloadFile(jsonString, fileName, "json");
+      handleClose();
+    } catch (error) {
+      const errorMessage = "Failed to export JSON data";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
+    }
   };
 
   const exportCSV = async () => {
-    const csvString = await getCSVToExport();
-    const fileName = await getFileName(csvString);
-    
-    await downloadFile(csvString, fileName, "csv");
-    handleClose();
+    try {
+      const csvString = await getCSVToExport();
+      const fileName = await getFileName(csvString);
+
+      await downloadFile(csvString, fileName, "csv");
+      handleClose();
+    } catch (error) {
+      const errorMessage = "Failed to export CSV data";
+      notification.show(errorMessage, { severity: "error" });
+      console.error(errorMessage, error);
+    }
   };
 
   return (
