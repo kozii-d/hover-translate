@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "여러 단어를 선택하려면 Shift 키를 누른 상태에서 필요한 단어들에 마우스를 올리세요. 또는 '항상 다중 선택 활성화' 설정을 켜세요."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}}은(는) {{translatorName}} 번역기의 원본 언어로 사용할 수 없습니다. {{defaultLanguage}}(으)로 전환합니다.",
+    "targetLanguageCode": "{{incorrectLanguage}}은(는) {{translatorName}} 번역기의 대상 언어로 사용할 수 없습니다. {{defaultLanguage}}(으)로 전환합니다."
   }
 }

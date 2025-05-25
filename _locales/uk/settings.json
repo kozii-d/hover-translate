@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "Для виділення кількох слів утримуйте Shift і наведіть курсор на потрібні слова. Або увімкніть налаштування 'Завжди вмикати множинне виділення'."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} недоступна як вихідна мова для перекладача {{translatorName}}. Перемикання на {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} недоступна як цільова мова для перекладача {{translatorName}}. Перемикання на {{defaultLanguage}}."
   }
 }

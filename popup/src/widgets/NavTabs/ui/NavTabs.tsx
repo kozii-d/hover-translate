@@ -29,6 +29,7 @@ export const NavTabs = () => {
     <Tabs
       value={location.pathname}
       onChange={handleChange}
+      variant="fullWidth"
       sx={{ borderBottom: 1, borderColor: "divider", marginBottom: "16px" }}
     >
       {tabs.map((tab) => (
