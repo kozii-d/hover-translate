@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "मल्टिपल शब्द सेलेक्शन के लिए, Shift दबाकर रखें और आवश्यक शब्दों पर होवर करें। या 'हमेशा मल्टिपल सेलेक्शन सक्षम करें' सेटिंग चालू करें।"
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए स्रोत भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच कर रहे हैं।",
+    "targetLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए लक्ष्य भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच कर रहे हैं।"
   }
 }

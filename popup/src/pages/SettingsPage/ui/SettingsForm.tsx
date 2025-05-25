@@ -88,7 +88,11 @@ export const SettingsForm: FC<SettingsFormProps> = ({
       if (!sourceLanguagesCodes.includes(watchSourceLanguageCode)) {
         setValue("sourceLanguageCode", "auto", { shouldDirty: true });
 
-        const notificationMessage = `${selectedSourceLanguage?.label || "Unknown"} is not available as a source language for the ${selectedTranslatorLabel} translator. Switching to 'Auto'.`;
+        const notificationMessage = t("errors.sourceLanguageCode", {
+          incorrectLanguage: selectedSourceLanguage?.label || "Unknown",
+          translatorName: selectedTranslatorLabel,
+          defaultLanguage: "'Auto'"
+        });
         notification.show(notificationMessage, { severity: "warning" });
       }
     }
@@ -100,7 +104,11 @@ export const SettingsForm: FC<SettingsFormProps> = ({
       const newTargetLanguage = targetLanguagesCodes.includes(userLanguage) ? userLanguage : "en";
       setValue("targetLanguageCode", newTargetLanguage, { shouldDirty: true });
 
-      const notificationMessage = `${selectedTargetLanguage?.label || "Unknown"} is not available as a target language for the ${selectedTranslatorLabel} translator. Switching to ${getLanguageName(newTargetLanguage)}.`;
+      const notificationMessage = t("errors.targetLanguageCode", {
+        incorrectLanguage: selectedTargetLanguage?.label || "Unknown",
+        translatorName: selectedTranslatorLabel,
+        defaultLanguage: getLanguageName(newTargetLanguage)
+      });
       notification.show(notificationMessage, { severity: "warning" });
     }
   }, [notification, setValue, sourceOptions, targetOptions, watch]);

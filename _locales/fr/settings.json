@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "Pour la sélection multiple de mots, maintenez Shift et survolez les mots dont vous avez besoin. Ou activez le paramètre 'Toujours activer la sélection multiple'."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} n'est pas disponible comme langue source pour le traducteur {{translatorName}}. Basculement vers {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} n'est pas disponible comme langue cible pour le traducteur {{translatorName}}. Basculement vers {{defaultLanguage}}."
   }
 }

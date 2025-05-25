@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "Für die Mehrfachauswahl von Wörtern halten Sie die Umschalttaste gedrückt und fahren über die gewünschten Wörter. Oder aktivieren Sie die Einstellung 'Mehrfachauswahl immer aktivieren'."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} ist als Ausgangssprache für den {{translatorName}}-Übersetzer nicht verfügbar. Wechsel zu {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} ist als Zielsprache für den {{translatorName}}-Übersetzer nicht verfügbar. Wechsel zu {{defaultLanguage}}."
   }
 }

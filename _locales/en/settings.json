@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "For multiple word selection, hold Shift and hover over the words you need. Or enable 'Always enable multiple selection' setting."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} is not available as a source language for the {{translatorName}} translator. Switching to {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} is not available as a target language for the {{translatorName}} translator. Switching to {{defaultLanguage}}."
   }
 }

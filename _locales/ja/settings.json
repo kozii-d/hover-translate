@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "複数の単語を選択するには、Shiftキーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。"
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳元言語として利用できません。{{defaultLanguage}}に切り替えます。",
+    "targetLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳先言語として利用できません。{{defaultLanguage}}に切り替えます。"
   }
 }

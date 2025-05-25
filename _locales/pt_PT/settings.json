@@ -50,5 +50,9 @@
   },
   "tips": {
     "multipleSelection": "Para seleção múltipla de palavras, mantenha premida a tecla Shift e passe o rato sobre as palavras necessárias. Ou ative a definição 'Ativar sempre seleção múltipla'."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de origem para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de destino para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}."
   }
 }
