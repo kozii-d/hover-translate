@@ -1,0 +1,34 @@
+{
+  "pageTitle": "About",
+  "tabLabel": "About",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Build vocabulary while watching YouTube!",
+      "thank-you": "Thank you for choosing my extension! ❤\uFE0F"
+    },
+    "support": {
+      "title": "Support the Project",
+      "actions": {
+        "review": "Rate us",
+        "donate": "Buy me a coffee"
+      }
+    },
+    "contacts": {
+      "title": "Get in Touch",
+      "github": "View Source Code on GitHub",
+      "reportIssues": "Report Issues on GitHub"
+
+    },
+    "tips": {
+      "title": "Quick Tips",
+      "multipleSelection": "Translate phrases: Hold Shift or enable multiple selection in Settings",
+      "saveToDictionary": "Click on words to save them to your personal dictionary",
+      "exportDictionary": "Export your vocabulary from Dictionary tab as JSON or CSV"
+    }
+  },
+  "footer": {
+    "version": "Version",
+    "changelog": "Changelog"
+  }
+}

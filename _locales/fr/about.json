@@ -1,0 +1,33 @@
+{
+  "pageTitle": "À propos",
+  "tabLabel": "À propos",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Enrichissez votre vocabulaire en regardant YouTube !",
+      "thank-you": "Merci d'avoir choisi mon extension ! ❤️"
+    },
+    "support": {
+      "title": "Soutenir le Projet",
+      "actions": {
+        "review": "Évaluez-nous",
+        "donate": "Offrez-moi un café"
+      }
+    },
+    "contacts": {
+      "title": "Nous Contacter",
+      "github": "Voir le Code Source sur GitHub",
+      "reportIssues": "Signaler des Problèmes sur GitHub"
+    },
+    "tips": {
+      "title": "Conseils Rapides",
+      "multipleSelection": "Traduire des phrases : Maintenez Shift ou activez la sélection multiple dans les Paramètres",
+      "saveToDictionary": "Cliquez sur les mots pour les sauvegarder dans votre dictionnaire personnel",
+      "exportDictionary": "Exportez votre vocabulaire depuis l'onglet Dictionnaire au format JSON ou CSV"
+    }
+  },
+  "footer": {
+    "version": "Version",
+    "changelog": "Changelog"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "pageTitle": "정보",
+  "tabLabel": "정보",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "YouTube를 보면서 어휘를 늘려보세요!",
+      "thank-you": "제 확장 프로그램을 선택해 주셔서 감사합니다! ❤️"
+    },
+    "support": {
+      "title": "프로젝트 지원하기",
+      "actions": {
+        "review": "평가하기",
+        "donate": "커피 한 잔 사주기"
+      }
+    },
+    "contacts": {
+      "title": "연락하기",
+      "github": "GitHub에서 소스 코드 보기",
+      "reportIssues": "GitHub에서 문제 신고하기"
+    },
+    "tips": {
+      "title": "빠른 팁",
+      "multipleSelection": "구문 번역: Shift를 누르거나 설정에서 다중 선택을 활성화하세요",
+      "saveToDictionary": "단어를 클릭하여 개인 사전에 저장하세요",
+      "exportDictionary": "사전 탭에서 어휘를 JSON 또는 CSV로 내보내기"
+    }
+  },
+  "footer": {
+    "version": "버전",
+    "changelog": "변경 기록"
+  }
+}

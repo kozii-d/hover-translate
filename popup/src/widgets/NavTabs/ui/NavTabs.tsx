@@ -13,12 +13,13 @@ interface Tab {
 export const NavTabs = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation(["settings", "customize", "dictionary"]);
+  const { t } = useTranslation(["settings", "customize", "dictionary", "about"]);
 
   const tabs: Tab[] = [
     { label: t("tabLabel", { ns: "settings" }), value: RouterPath.settings },
     { label: t("tabLabel", { ns: "customize" }), value: RouterPath.customize },
     { label: t("tabLabel", { ns: "dictionary" }), value: RouterPath.dictionary },
+    { label: t("tabLabel", { ns: "about" }), value: RouterPath.about },
   ];
 
   const handleChange = (_: SyntheticEvent, newPath: string) => {
@@ -29,7 +30,7 @@ export const NavTabs = () => {
     <Tabs
       value={location.pathname}
       onChange={handleChange}
-      variant="fullWidth"
+      variant="scrollable"
       sx={{ borderBottom: 1, borderColor: "divider", marginBottom: "16px" }}
     >
       {tabs.map((tab) => (

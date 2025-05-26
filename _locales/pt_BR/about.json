@@ -1,0 +1,33 @@
+{
+  "pageTitle": "Sobre",
+  "tabLabel": "Sobre",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Construa vocabulário assistindo YouTube!",
+      "thank-you": "Obrigado por escolher minha extensão! ❤️"
+    },
+    "support": {
+      "title": "Apoie o Projeto",
+      "actions": {
+        "review": "Nos avalie",
+        "donate": "Me pague um café"
+      }
+    },
+    "contacts": {
+      "title": "Entre em Contato",
+      "github": "Ver Código Fonte no GitHub",
+      "reportIssues": "Reportar Problemas no GitHub"
+    },
+    "tips": {
+      "title": "Dicas Rápidas",
+      "multipleSelection": "Traduzir frases: Segure Shift ou ative seleção múltipla nas Configurações",
+      "saveToDictionary": "Clique nas palavras para salvá-las no seu dicionário pessoal",
+      "exportDictionary": "Exporte seu vocabulário da aba Dicionário como JSON ou CSV"
+    }
+  },
+  "footer": {
+    "version": "Versão",
+    "changelog": "Changelog"
+  }
+}

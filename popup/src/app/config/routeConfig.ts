@@ -6,6 +6,7 @@ import { RouterPath } from "./routerPath";
 import { SettingsPage, SettingsPageSkeleton } from "@/pages/SettingsPage";
 import { CustomizePage, CustomizePageSkeleton } from "@/pages/CustomizePage";
 import { DictionaryPage, DictionaryPageSkeleton } from "@/pages/DictionaryPage";
+import { AboutPage, AboutPageSkeleton } from "@/pages/AboutPage";
 
 export interface RouteConfig {
   path: string,
@@ -36,5 +37,10 @@ export const routeConfig: RouteConfig[] = [
     element: DictionaryPage,
     skeleton: DictionaryPageSkeleton,
     // guards: [AuthGuard]
+  },
+  {
+    path: RouterPath.about,
+    element: AboutPage,
+    skeleton: AboutPageSkeleton,
   }
 ];

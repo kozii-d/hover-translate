@@ -1,0 +1,33 @@
+{
+  "pageTitle": "について",
+  "tabLabel": "について",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "YouTubeを見ながら語彙を増やそう！",
+      "thank-you": "私の拡張機能を選んでいただき、ありがとうございます！❤️"
+    },
+    "support": {
+      "title": "プロジェクトをサポート",
+      "actions": {
+        "review": "評価する",
+        "donate": "コーヒーをおごる"
+      }
+    },
+    "contacts": {
+      "title": "お問い合わせ",
+      "github": "GitHubでソースコードを見る",
+      "reportIssues": "GitHubで問題を報告する"
+    },
+    "tips": {
+      "title": "クイックヒント",
+      "multipleSelection": "フレーズを翻訳：Shiftキーを押すか、設定で複数選択を有効にしてください",
+      "saveToDictionary": "単語をクリックして個人辞書に保存する",
+      "exportDictionary": "辞書タブから語彙をJSONまたはCSVでエクスポートする"
+    }
+  },
+  "footer": {
+    "version": "バージョン",
+    "changelog": "更新履歴"
+  }
+}
