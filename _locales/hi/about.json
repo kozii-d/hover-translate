@@ -1,0 +1,33 @@
+{
+  "pageTitle": "के बारे में",
+  "tabLabel": "के बारे में",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "YouTube देखते समय शब्दावली बनाएं!",
+      "thank-you": "मेरा एक्सटेंशन चुनने के लिए धन्यवाद! ❤️"
+    },
+    "support": {
+      "title": "प्रोजेक्ट का समर्थन करें",
+      "actions": {
+        "review": "हमें रेट करें",
+        "donate": "मुझे एक कॉफी खरीदें"
+      }
+    },
+    "contacts": {
+      "title": "संपर्क में रहें",
+      "github": "GitHub पर सोर्स कोड देखें",
+      "reportIssues": "GitHub पर समस्याओं की रिपोर्ट करें"
+    },
+    "tips": {
+      "title": "त्वरित सुझाव",
+      "multipleSelection": "वाक्यांश अनुवाद: Shift दबाए रखें या सेटिंग्स में मल्टी सिलेक्शन सक्षम करें",
+      "saveToDictionary": "शब्दों को अपने व्यक्तिगत शब्दकोश में सहेजने के लिए उन पर क्लिक करें",
+      "exportDictionary": "डिक्शनरी टैब से अपनी शब्दावली को JSON या CSV के रूप में एक्सपोर्ट करें"
+    }
+  },
+  "footer": {
+    "version": "वर्जन",
+    "changelog": "Changelog"
+  }
+}

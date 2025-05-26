@@ -1,0 +1,33 @@
+{
+  "pageTitle": "О нас",
+  "tabLabel": "О нас",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Пополняйте словарный запас при просмотре YouTube!",
+      "thank-you": "Спасибо за использование моего расширения! ❤️"
+    },
+    "support": {
+      "title": "Поддержать проект",
+      "actions": {
+        "review": "Оценить нас",
+        "donate": "Купить мне кофе"
+      }
+    },
+    "contacts": {
+      "title": "Связаться",
+      "github": "Посмотреть исходный код на GitHub",
+      "reportIssues": "Сообщить о проблемах на GitHub"
+    },
+    "tips": {
+      "title": "Быстрые советы",
+      "multipleSelection": "Перевод фраз: Удерживайте Shift или включите множественный выбор в настройках",
+      "saveToDictionary": "Нажимайте на слова, чтобы сохранить их в личный словарь",
+      "exportDictionary": "Экспортируйте свой словарь из вкладки Словарь в формате JSON или CSV"
+    }
+  },
+  "footer": {
+    "version": "Версия",
+    "changelog": "Changelog"
+  }
+}

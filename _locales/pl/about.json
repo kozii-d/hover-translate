@@ -1,0 +1,33 @@
+{
+  "pageTitle": "O nas",
+  "tabLabel": "O nas",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Buduj słownictwo oglądając YouTube!",
+      "thank-you": "Dziękuję za wybór mojego rozszerzenia! ❤️"
+    },
+    "support": {
+      "title": "Wesprzyj Projekt",
+      "actions": {
+        "review": "Oceń nas",
+        "donate": "Postaw mi kawę"
+      }
+    },
+    "contacts": {
+      "title": "Skontaktuj się",
+      "github": "Zobacz kod źródłowy na GitHub",
+      "reportIssues": "Zgłoś problemy na GitHub"
+    },
+    "tips": {
+      "title": "Szybkie wskazówki",
+      "multipleSelection": "Tłumacz frazy: Przytrzymaj Shift lub włącz wielokrotny wybór w Ustawieniach",
+      "saveToDictionary": "Kliknij na słowa, aby zapisać je w swoim osobistym słowniku",
+      "exportDictionary": "Eksportuj swoje słownictwo z zakładki Słownik jako JSON lub CSV"
+    }
+  },
+  "footer": {
+    "version": "Wersja",
+    "changelog": "Changelog"
+  }
+}

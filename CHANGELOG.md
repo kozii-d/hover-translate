@@ -5,13 +5,14 @@ All notable changes to this project will be documented in this file.
 ## [1.1.3] - Unreleased
 
 ### Added
+- **About page** with information about the extension.
 - Toast notifications for errors and warnings.
-- Warning notification when switching translators if the selected language is not supported by the new translator.
+- Warning notification when switching translators if the new translator does not support the selected language.
 
 ### Changed
 - Enabled auto-save for Settings and Customize forms. Changes are now saved automatically without requiring a "Save" button.
 
-## [1.1.2] - Unreleased
+## [1.1.2] - 2025-05-26
 
 ### Added
 - UI language support for: Spanish, French, German, Polish, Portuguese (Brazil), Portuguese (Portugal), Japanese, Korean, and Hindi.
