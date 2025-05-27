@@ -31,9 +31,10 @@ export const SupportProject: FC = () => {
           startIcon={<CoffeeIcon/>}
           variant="outlined"
           component="a"
-          href="https://secure.wayforpay.com/donate/dd566e3caca8f"
+          href="#"
           target="_blank"
           rel="noopener noreferrer"
+          disabled
         >
           {t("blocks.support.actions.donate")}
         </Button>
