@@ -8,5 +8,34 @@
         "text": "Підтвердити"
       }
     }
+  },
+  "support": {
+    "title": "Частуйте мене кавою",
+    "description": "Дякую за підтримку HoverTranslate!\nОберіть бажану криптовалюту",
+    "footer": "Кожна кава допомагає мені покращувати HoverTranslate",
+    "actions": {
+      "showQR": {
+        "text": "Показати QR"
+      },
+      "hideQR": {
+        "text": "Сховати QR"
+      },
+      "copyAddress": {
+        "text": "Копіювати"
+      },
+      "copyAddressSuccess": {
+        "text": "Скопійовано!"
+      }
+    },
+    "labels": {
+      "address": "Адреса"
+    },
+    "notifications": {
+      "copyAddress": "Адресу скопійовано в буфер обміну!"
+    },
+    "warnings": {
+      "verifyNetwork": "Будь ласка, перевірте мережу та токен перед відправкою",
+      "bnb": "Та ж адреса, що й Ethereum - інша мережа!"
+    }
   }
 }

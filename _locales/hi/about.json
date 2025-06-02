@@ -5,13 +5,17 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "YouTube देखते समय शब्दावली बनाएं!",
-      "thank-you": "मेरा एक्सटेंशन चुनने के लिए धन्यवाद! ❤️"
+      "thank-you": "मेरा एक्सटेंशन चुनने के लिए धन्यवाद!"
     },
     "support": {
       "title": "प्रोजेक्ट का समर्थन करें",
       "actions": {
-        "review": "हमें रेट करें",
-        "donate": "मुझे एक कॉफी खरीदें"
+        "review": {
+          "text": "हमें रेट करें"
+        },
+        "donate": {
+          "text": "मुझे एक कॉफी खरीदें"
+        }
       }
     },
     "contacts": {

@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import svgr from "vite-plugin-svgr";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 
@@ -11,7 +12,7 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: resolve(__dirname, "../.env") });
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), svgr()],
   base: "./",
   define: {
     __API_URL__: JSON.stringify(process.env.API_URL),

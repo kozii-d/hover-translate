@@ -5,13 +5,17 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "YouTubeを見ながら語彙を増やそう！",
-      "thank-you": "私の拡張機能を選んでいただき、ありがとうございます！❤️"
+      "thank-you": "私の拡張機能を選んでいただき、ありがとうございます！"
     },
     "support": {
       "title": "プロジェクトをサポート",
       "actions": {
-        "review": "評価する",
-        "donate": "コーヒーをおごる"
+        "review": {
+          "text": "評価する"
+        },
+        "donate": {
+          "text": "コーヒーをおごる"
+        }
       }
     },
     "contacts": {

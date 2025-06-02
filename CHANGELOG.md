@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.3] - Unreleased
+## [1.1.4] - Unreleased
+
+### Added
+- **Support modal** with crypto wallet addresses for project donations.
+
+## [1.1.3] - 2025-05-29
 
 ### Added
 - **About page** with information about the extension.

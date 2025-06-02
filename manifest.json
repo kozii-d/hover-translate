@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_name__",
   "short_name": "HoverTranslate",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "default_locale": "en",
   "description": "__MSG_description__",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvqK2CGDB0eRIXs5zwZUYOp5szkdbPgxpMdBGyWhlcOh0TDAeACmKFGSloPxJXDOBc8mGNB7e8CCLltbKphaYhqn7wqr9m5r2Q0FHxsWT/cLyOQ5UlroGVYD+GGVFTKLephZeqonXxjdGYeKW6XQ+5AFuIQsC7lYoQyMKuxf32Z3vpDeQ8SxyCq2yNgAc11KQkNKx6FLDZT5baK61IhKxL2hFbyqpuDDOSYnJyP5/TsBCZSHQBej2LaTrlL+GJlE9yHTSwUVAdJeKrBGhaRGsAi1k9fBKZ5y8ZxkQP3TJhRmhxvYuM/rhHW328pXfcEUAUSnAn0Lqk+sQfI+BTN/vrwIDAQAB",
@@ -28,9 +28,9 @@
     "default_popup": "popup/dist/index.html"
   },
   "icons": {
-    "16": "assets/icons/logo_16.png",
-    "32": "assets/icons/logo_32.png",
-    "48": "assets/icons/logo_48.png",
-    "128": "assets/icons/logo_128.png"
+    "16": "assets/icons/logo-16.png",
+    "32": "assets/icons/logo-32.png",
+    "48": "assets/icons/logo-48.png",
+    "128": "assets/icons/logo_-28.png"
   }
 }
