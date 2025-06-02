@@ -8,5 +8,34 @@
         "text": "Подтвердить"
       }
     }
+  },
+  "support": {
+    "title": "Купить мне кофе",
+    "description": "Спасибо за поддержку HoverTranslate!\nВыберите предпочитаемую криптовалюту",
+    "footer": "Каждая чашка кофе помогает мне улучшать HoverTranslate",
+    "actions": {
+      "showQR": {
+        "text": "Показать QR"
+      },
+      "hideQR": {
+        "text": "Скрыть QR"
+      },
+      "copyAddress": {
+        "text": "Копировать"
+      },
+      "copyAddressSuccess": {
+        "text": "Скопировано!"
+      }
+    },
+    "labels": {
+      "address": "Адрес"
+    },
+    "notifications": {
+      "copyAddress": "Адрес скопирован в буфер обмена!"
+    },
+    "warnings": {
+      "verifyNetwork": "Пожалуйста, проверьте сеть и токен перед отправкой",
+      "bnb": "Тот же адрес, что и Ethereum - другая сеть!"
+    }
   }
 }

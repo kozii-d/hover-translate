@@ -8,5 +8,34 @@
         "text": "Bestätigen"
       }
     }
+  },
+  "support": {
+    "title": "Spendiere mir einen Kaffee",
+    "description": "Danke für deine Unterstützung von HoverTranslate!\nWähle deine bevorzugte Kryptowährung",
+    "footer": "Jeder Kaffee hilft mir, HoverTranslate zu verbessern",
+    "actions": {
+      "showQR": {
+        "text": "QR anzeigen"
+      },
+      "hideQR": {
+        "text": "QR ausblenden"
+      },
+      "copyAddress": {
+        "text": "Kopieren"
+      },
+      "copyAddressSuccess": {
+        "text": "Kopiert!"
+      }
+    },
+    "labels": {
+      "address": "Adresse"
+    },
+    "notifications": {
+      "copyAddress": "Adresse in die Zwischenablage kopiert!"
+    },
+    "warnings": {
+      "verifyNetwork": "Bitte überprüfe Netzwerk und Token vor dem Senden",
+      "bnb": "Gleiche Adresse wie Ethereum - anderes Netzwerk!"
+    }
   }
 }

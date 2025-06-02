@@ -5,13 +5,17 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "Розширюйте словниковий запас під час перегляду YouTube!",
-      "thank-you": "Дякую за вибір мого розширення! ❤️"
+      "thank-you": "Дякую за вибір мого розширення!"
     },
     "support": {
       "title": "Підтримати проект",
       "actions": {
-        "review": "Оцініть нас",
-        "donate": "Частуйте мене кавою"
+        "review": {
+          "text": "Оцініть нас"
+        },
+        "donate": {
+          "text": "Частуйте мене кавою"
+        }
       }
     },
     "contacts": {

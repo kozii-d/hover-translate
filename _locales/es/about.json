@@ -5,13 +5,17 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "¡Construye vocabulario mientras ves YouTube!",
-      "thank-you": "¡Gracias por elegir mi extensión! ❤️"
+      "thank-you": "¡Gracias por elegir mi extensión!"
     },
     "support": {
       "title": "Apoya el Proyecto",
       "actions": {
-        "review": "Califícanos",
-        "donate": "Cómprame un café"
+        "review": {
+          "text": "Califícanos"
+        },
+        "donate": {
+          "text": "Cómprame un café"
+        }
       }
     },
     "contacts": {

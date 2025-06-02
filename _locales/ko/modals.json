@@ -8,5 +8,34 @@
         "text": "확인"
       }
     }
+  },
+  "support": {
+    "title": "커피 한 잔 사주기",
+    "description": "HoverTranslate를 후원해 주셔서 감사합니다!\n선호하는 암호화폐를 선택하세요",
+    "footer": "모든 커피가 HoverTranslate 개선에 도움이 됩니다",
+    "actions": {
+      "showQR": {
+        "text": "QR 표시"
+      },
+      "hideQR": {
+        "text": "QR 숨기기"
+      },
+      "copyAddress": {
+        "text": "복사"
+      },
+      "copyAddressSuccess": {
+        "text": "복사됨!"
+      }
+    },
+    "labels": {
+      "address": "주소"
+    },
+    "notifications": {
+      "copyAddress": "주소가 클립보드에 복사되었습니다!"
+    },
+    "warnings": {
+      "verifyNetwork": "전송 전 네트워크와 토큰을 확인하세요",
+      "bnb": "이더리움과 동일한 주소 - 다른 네트워크!"
+    }
   }
 }

@@ -8,5 +8,34 @@
         "text": "पुष्टि करें"
       }
     }
+  },
+  "support": {
+    "title": "मुझे एक कॉफी खरीदें",
+    "description": "HoverTranslate का समर्थन करने के लिए धन्यवाद!\nअपनी पसंदीदा क्रिप्टोकरेंसी चुनें",
+    "footer": "हर कॉफी मुझे HoverTranslate को बेहतर बनाने में मदद करती है",
+    "actions": {
+      "showQR": {
+        "text": "QR दिखाएं"
+      },
+      "hideQR": {
+        "text": "QR छिपाएं"
+      },
+      "copyAddress": {
+        "text": "कॉपी करें"
+      },
+      "copyAddressSuccess": {
+        "text": "कॉपी हो गया!"
+      }
+    },
+    "labels": {
+      "address": "पता"
+    },
+    "notifications": {
+      "copyAddress": "पता क्लिपबोर्ड में कॉपी हो गया!"
+    },
+    "warnings": {
+      "verifyNetwork": "भेजने से पहले नेटवर्क और टोकन की पुष्टि करें",
+      "bnb": "Ethereum जैसा ही पता - अलग नेटवर्क!"
+    }
   }
 }

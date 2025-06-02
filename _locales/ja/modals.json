@@ -8,5 +8,34 @@
         "text": "確認"
       }
     }
+  },
+  "support": {
+    "title": "コーヒーをおごる",
+    "description": "HoverTranslateをサポートしていただきありがとうございます！\nお好きな暗号通貨をお選びください",
+    "footer": "いただいたコーヒーでHoverTranslateを改善します",
+    "actions": {
+      "showQR": {
+        "text": "QR表示"
+      },
+      "hideQR": {
+        "text": "QR非表示"
+      },
+      "copyAddress": {
+        "text": "コピー"
+      },
+      "copyAddressSuccess": {
+        "text": "コピー完了！"
+      }
+    },
+    "labels": {
+      "address": "アドレス"
+    },
+    "notifications": {
+      "copyAddress": "アドレスをクリップボードにコピーしました！"
+    },
+    "warnings": {
+      "verifyNetwork": "送信前にネットワークとトークンを確認してください",
+      "bnb": "Ethereumと同じアドレス - 異なるネットワーク！"
+    }
   }
 }

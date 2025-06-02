@@ -5,13 +5,17 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "YouTube를 보면서 어휘를 늘려보세요!",
-      "thank-you": "제 확장 프로그램을 선택해 주셔서 감사합니다! ❤️"
+      "thank-you": "제 확장 프로그램을 선택해 주셔서 감사합니다!"
     },
     "support": {
       "title": "프로젝트 지원하기",
       "actions": {
-        "review": "평가하기",
-        "donate": "커피 한 잔 사주기"
+        "review": {
+          "text": "평가하기"
+        },
+        "donate": {
+          "text": "커피 한 잔 사주기"
+        }
       }
     },
     "contacts": {
