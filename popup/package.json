@@ -28,7 +28,8 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.56.4",
     "react-i18next": "^15.2.0",
-    "react-router": "^7.0.2"
+    "react-router": "^7.0.2",
+    "webextension-polyfill": "^0.12.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -37,6 +38,7 @@
     "@types/qrcode": "^1.5.5",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
+    "@types/webextension-polyfill": "^0.12.3",
     "@vitejs/plugin-react": "^4.3.3",
     "dotenv": "^16.4.5",
     "eslint": "^9.13.0",
