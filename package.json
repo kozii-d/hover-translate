@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green,yellow\" \"cd extension && npm run watch:content\" \"cd extension && npm run watch:background\" \"cd popup && npm run watch\"",
+
     "build": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build\" \"cd popup && npm run build\"",
     "build:dev": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build:dev\" \"cd popup && npm run build\"",
 
@@ -12,15 +13,10 @@
     "setup:edge": "cp manifest.edge.json manifest.json",
     "setup:firefox": "cp manifest.firefox.json manifest.json",
 
-    "package:all": "npm run build && node archive.js",
-    "package:chrome": "npm run build && node archive.js chrome",
-    "package:edge": "npm run build && node archive.js edge",
-    "package:firefox": "npm run build && node archive.js firefox",
-
-    "release": "npm run package:all",
-    "release:chrome": "npm run package:chrome",
-    "release:edge": "npm run package:edge",
-    "release:firefox": "npm run package:firefox"
+    "release": "npm run build && node archive.js",
+    "release:chrome": "npm run build && node archive.js chrome",
+    "release:edge": "npm run build && node archive.js edge",
+    "release:firefox": "npm run build && node archive.js firefox"
   },
   "keywords": [],
   "author": "",
