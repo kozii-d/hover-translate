@@ -1,6 +1,8 @@
-node_modules
-.idea
-.DS_STORE
+node_modules/
+.idea/
+.DS_Store
 .env
-dist
+dist/
 *.tsbuildinfo
+manifest.json
+/releases/

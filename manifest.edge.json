@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_name__",
+  "short_name": "HoverTrans",
+  "version": "1.1.4",
+  "default_locale": "en",
+  "description": "__MSG_description__",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["extension/dist/content.bundle.js"],
+      "css": ["extension/dist/styles.css"]
+    }
+  ],
+  "background": {
+    "service_worker": "extension/dist/background.bundle.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["*.*"],
+        "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup/dist/index.html"
+  },
+  "icons": {
+    "16": "assets/icons/logo-16.png",
+    "32": "assets/icons/logo-32.png",
+    "48": "assets/icons/logo-48.png",
+    "128": "assets/icons/logo-128.png"
+  }
+}

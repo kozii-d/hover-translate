@@ -25,5 +25,10 @@ export default defineConfig(({ mode }) => {
     define: {
       __API_URL__: JSON.stringify(process.env.API_URL),
     },
+    resolve: {
+      alias: {
+        "chrome": "webextension-polyfill"
+      },
+    },
   };
 });

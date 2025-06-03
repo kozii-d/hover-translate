@@ -5,7 +5,12 @@
   "version": "1.1.4",
   "default_locale": "en",
   "description": "__MSG_description__",
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvqK2CGDB0eRIXs5zwZUYOp5szkdbPgxpMdBGyWhlcOh0TDAeACmKFGSloPxJXDOBc8mGNB7e8CCLltbKphaYhqn7wqr9m5r2Q0FHxsWT/cLyOQ5UlroGVYD+GGVFTKLephZeqonXxjdGYeKW6XQ+5AFuIQsC7lYoQyMKuxf32Z3vpDeQ8SxyCq2yNgAc11KQkNKx6FLDZT5baK61IhKxL2hFbyqpuDDOSYnJyP5/TsBCZSHQBej2LaTrlL+GJlE9yHTSwUVAdJeKrBGhaRGsAi1k9fBKZ5y8ZxkQP3TJhRmhxvYuM/rhHW328pXfcEUAUSnAn0Lqk+sQfI+BTN/vrwIDAQAB",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "hovertranslate@gmail.com",
+      "strict_min_version": "109.0"
+    }
+  },
   "permissions": ["storage"],
   "content_scripts": [
     {
