@@ -1,3 +1,5 @@
+import { Headers as PolyfillHeaders } from "headers-polyfill";
+(globalThis as unknown as { Headers: typeof PolyfillHeaders }).Headers = PolyfillHeaders;
 import { TranslationCore } from "./core/translationCore.ts";
 import { SubtitleCore } from "./core/subtitleCore.ts";
 import { TooltipService } from "./services/tooltipService.ts";

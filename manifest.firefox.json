@@ -21,7 +21,7 @@
     }
   ],
   "background": {
-    "service_worker": "extension/dist/background.bundle.js"
+    "scripts": ["extension/dist/background.bundle.js"]
   },
   "web_accessible_resources": [
     {

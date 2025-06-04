@@ -2,8 +2,9 @@ const fs = require("fs");
 const { execSync } = require("child_process");
 const path = require("path");
 
-// Usage: node archive.js [browser]
+// Usage: node archive.js [browser] [mode]
 const browser = process.argv[2];
+const mode = process.argv[3] || "production";
 
 const browsers = {
   chrome: {
@@ -53,7 +54,7 @@ function createArchive(browserName) {
     const name = pkg.name;
     const version = manifest.version;
     const extension = browserConfig.format;
-    const outputName = `${name}-${browserName}-${version}.${extension}`;
+    const outputName = `${name}-${browserName}-${version}-${mode}.${extension}`;
 
     // Create output directory if it doesn't exist
     if (!fs.existsSync(browserConfig.outputDir)) {
