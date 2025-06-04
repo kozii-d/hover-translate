@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.5] - Unreleased
+
+### Added
+
+- Support for Microsoft Edge and Mozilla Firefox browsers.
+
 ## [1.1.4] - Unreleased
 
 ### Added
