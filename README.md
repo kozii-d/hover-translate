@@ -10,10 +10,10 @@ Download from [Chrome Wb Store](https://chromewebstore.google.com/detail/jbddome
 # Preview
 
 ### Translate
-![Translate](assets/preview/translate.gif)
+![Translate](docs/translate.gif)
 
 ### Saving the translation to the dictionary
-![Save to dictionary](assets/preview/dictionary.gif)
+![Save to dictionary](docs/dictionary.gif)
 
 # Features
 
