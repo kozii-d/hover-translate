@@ -21,7 +21,9 @@
     "release:dev": "npm run build:dev && node archive.js dev",
     "release:chrome:dev": "npm run build:dev && node archive.js chrome dev",
     "release:edge:dev": "npm run build:dev && node archive.js edge dev",
-    "release:firefox:dev": "npm run build:dev && node archive.js firefox dev"
+    "release:firefox:dev": "npm run build:dev && node archive.js firefox dev",
+
+    "source-archive": "node create-source-archive.js"
   },
   "keywords": [],
   "author": "",
