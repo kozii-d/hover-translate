@@ -6,17 +6,22 @@ function createSourceArchive() {
   try {
     const pkg = JSON.parse(fs.readFileSync("./package.json", "utf8"));
     const version = pkg.version;
-    const outputName = `${pkg.name}-source-${version}.zip`;
-    const outputPath = path.join("./releases", outputName);
 
-    if (!fs.existsSync("./releases")) {
-      fs.mkdirSync("./releases", { recursive: true });
-      console.log(`📁 Created ./releases directory`);
+    // Create structure: releases/version/
+    const versionDir = path.join("./releases", version);
+    const outputName = `${pkg.name}-source.zip`;
+    const outputPath = path.join(versionDir, outputName);
+
+    // Create a version directory if it doesn't exist
+    if (!fs.existsSync(versionDir)) {
+      fs.mkdirSync(versionDir, { recursive: true });
+      console.log(`📁 Created version directory: ${versionDir}`);
     }
 
+    // Files and directories to EXCLUDE
     const excludePatterns = [
       "node_modules/*",
-      "*/node_modules/*", 
+      "*/node_modules/*",
       "dist/*",
       "*/dist/*",
       "releases/*",
@@ -40,17 +45,17 @@ function createSourceArchive() {
 
     console.log(`📦 Creating source archive: ${outputName}`);
     console.log(`Running: ${command}`);
-    
+
     execSync(command, { stdio: "inherit" });
 
-    console.log(`✅ Source archive created: ${outputName}`);
-    
+    console.log(`✅ Source archive created: ${path.relative('.', outputPath)}`);
+
     const stats = fs.statSync(outputPath);
     const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
     console.log(`📊 Archive size: ${fileSizeInMB} MB`);
 
-    console.log(`\n📋 Upload this file to Firefox Add-ons as source code: releases/${outputName}`);
-    
+    console.log(`\n📋 Upload this file to Firefox Add-ons as source code: ${path.relative('.', outputPath)}`);
+
   } catch (error) {
     console.error("❌ Error creating source archive:", error.message);
     process.exit(1);

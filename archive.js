@@ -9,18 +9,15 @@ const mode = process.argv[3] || "production";
 const browsers = {
   chrome: {
     manifest: "manifest.chrome.json",
-    format: "zip",
-    outputDir: "./releases"
+    format: "zip"
   },
   edge: {
     manifest: "manifest.edge.json",
-    format: "zip",
-    outputDir: "./releases"
+    format: "zip"
   },
   firefox: {
     manifest: "manifest.firefox.json",
-    format: "xpi",
-    outputDir: "./releases"
+    format: "xpi"
   }
 };
 
@@ -40,7 +37,7 @@ function createArchive(browserName) {
       throw new Error(`Manifest file not found: ${manifestFile}`);
     }
 
-    // Сохраняем оригинальный manifest.json если он существует
+    // Save the original manifest.json if it exists
     if (fs.existsSync("manifest.json")) {
       originalManifestBackup = fs.readFileSync("manifest.json", "utf8");
       console.log(`💾 Backed up existing manifest.json`);
@@ -54,15 +51,18 @@ function createArchive(browserName) {
     const name = pkg.name;
     const version = manifest.version;
     const extension = browserConfig.format;
-    const outputName = `${name}-${browserName}-${version}-${mode}.${extension}`;
 
-    // Create output directory if it doesn't exist
-    if (!fs.existsSync(browserConfig.outputDir)) {
-      fs.mkdirSync(browserConfig.outputDir, { recursive: true });
-      console.log(`📁 Created ${browserConfig.outputDir} directory`);
+    // Create structure: releases/version/
+    const versionDir = path.join("./releases", version);
+
+    // Create a version directory if it doesn't exist
+    if (!fs.existsSync(versionDir)) {
+      fs.mkdirSync(versionDir, { recursive: true });
+      console.log(`📁 Created version directory: ${versionDir}`);
     }
 
-    const outputPath = path.join(browserConfig.outputDir, outputName);
+    const outputName = `${name}-${browserName}-${mode}.${extension}`;
+    const outputPath = path.join(versionDir, outputName);
 
     const exclude = "*.DS_Store";
     const filesToInclude = "manifest.json _locales assets/icons extension/dist popup/dist";
@@ -73,7 +73,7 @@ function createArchive(browserName) {
     console.log(`Running: ${command}`);
     execSync(command, { stdio: "inherit" });
 
-    console.log(`✅ Successfully packaged as ${outputName}`);
+    console.log(`✅ Successfully packaged as ${path.relative('.', outputPath)}`);
 
     const stats = fs.statSync(outputPath);
     const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
@@ -87,6 +87,8 @@ function createArchive(browserName) {
       fs.unlinkSync("manifest.json");
       console.log(`🧹 Cleaned up temporary manifest.json`);
     }
+
+    return outputPath;
 
   } catch (error) {
     console.error("❌ Error creating archive:", error.message);
@@ -114,12 +116,19 @@ function createArchive(browserName) {
 
 if (!browser) {
   console.log("🚀 Creating packages for all browsers...");
+  const createdFiles = [];
+
   Object.keys(browsers).forEach(browserName => {
     console.log(`\n📦 Creating ${browserName} package...`);
-    createArchive(browserName);
+    const outputPath = createArchive(browserName);
+    createdFiles.push(path.relative('.', outputPath));
   });
+
   console.log(`\n🎉 All packages created successfully!`);
+  console.log(`📁 Files created:`);
+  createdFiles.forEach(file => console.log(`   - ${file}`));
 } else {
   console.log(`📦 Creating ${browser} package...`);
-  createArchive(browser);
+  const outputPath = createArchive(browser);
+  console.log(`📁 File created: ${path.relative('.', outputPath)}`);
 }
