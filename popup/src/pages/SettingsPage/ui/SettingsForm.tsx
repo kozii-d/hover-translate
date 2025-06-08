@@ -1,3 +1,5 @@
+import { FC, useCallback, useEffect, useMemo } from "react";
+import { useForm, Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import FormControl from "@mui/material/FormControl";
@@ -5,8 +7,7 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
-import { FC, useCallback, useEffect, useMemo } from "react";
-import { useForm, Controller } from "react-hook-form";
+import Alert from "@mui/material/Alert";
 
 import { AvailableLanguages, Language, SettingsFormValues, Translator } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
@@ -14,7 +15,6 @@ import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 import { useTranslation } from "react-i18next";
-import { InlineBanner } from "@/shared/ui/InlineBanner/InlineBanner.tsx";
 import { MenuItemType } from "@/shared/types/types.ts";
 import { useNotifications } from "@toolpad/core";
 
@@ -193,7 +193,9 @@ export const SettingsForm: FC<SettingsFormProps> = ({
             />
           )}
         />
-        <InlineBanner message={t("tips.multipleSelection")} type="info"/>
+        <Alert severity="info">
+          {t("tips.multipleSelection")}
+        </Alert>
         <Controller
           name="autoPause"
           control={control}
