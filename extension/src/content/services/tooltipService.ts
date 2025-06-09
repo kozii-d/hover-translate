@@ -194,24 +194,60 @@ export class TooltipService {
     tooltip: HTMLDivElement,
     subtitlesContainer: HTMLElement
   ) {
+    // Hide tooltip during positioning calculations
     tooltip.style.visibility = "hidden";
-    tooltip.style.top = "0px";
-    tooltip.style.left = "0px";
+    tooltip.style.position = "absolute";
 
+    const video = document.querySelector("video");
+    if (!video) return;
+
+    const TOOLTIP_MARGIN = 10;
+    const TOOLTIP_GAP = 5;
+
+    // Get bounding rectangles for video, anchor word, and subtitles container
+    const videoRect = video.getBoundingClientRect();
     const rectAnchorWord = anchorWordNode.getBoundingClientRect();
-    tooltip.style.left = `${rectAnchorWord.left + window.scrollX}px`;
-
     const rectSubtitlesContainer = subtitlesContainer.getBoundingClientRect();
 
-    const tooltipHeight = tooltip.offsetHeight;
+    // Set maximum width to fit within video bounds
+    const maxTooltipWidth = videoRect.width - (TOOLTIP_MARGIN * 2);
+    tooltip.style.maxWidth = `${maxTooltipWidth}px`;
+    tooltip.style.width = "auto";
+    tooltip.style.boxSizing = "border-box";
+    tooltip.style.overflowWrap = "break-word";
 
+    // Set initial horizontal position aligned with anchor word
+    tooltip.style.left = `${rectAnchorWord.left + window.scrollX}px`;
+
+    // Position tooltip above or below subtitles based on screen location
+    const tooltipHeight = tooltip.offsetHeight;
     let topPosition;
     if (isCaptionWindowInUpperHalf()) {
-      topPosition = rectSubtitlesContainer.bottom + 5 + window.scrollY;
+      topPosition = rectSubtitlesContainer.bottom + TOOLTIP_GAP + window.scrollY;
     } else {
-      topPosition = rectSubtitlesContainer.top - tooltipHeight - 5 + window.scrollY;
+      topPosition = rectSubtitlesContainer.top - tooltipHeight - TOOLTIP_GAP + window.scrollY;
     }
     tooltip.style.top = `${topPosition}px`;
+
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    const minLeft = videoRect.left + TOOLTIP_MARGIN;
+    const maxRight = videoRect.right - TOOLTIP_MARGIN;
+
+    let newLeft = tooltipRect.left;
+
+    // Shift left if tooltip extends beyond right edge
+    if (tooltipRect.right > maxRight) {
+      newLeft -= (tooltipRect.right - maxRight);
+    }
+
+    // Ensure tooltip doesn't go beyond left edge
+    if (newLeft < minLeft) {
+      newLeft = minLeft;
+    }
+
+    // Apply final position and show tooltip
+    tooltip.style.left = `${newLeft + window.scrollX}px`;
     tooltip.style.visibility = "visible";
   }
 
