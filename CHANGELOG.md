@@ -2,13 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.5] - Unreleased
+## [1.1.6] - Unreleased 
+
+### Fixed
+
+- Fixed an issue where long translation tooltips could extend outside the video player boundaries.
+
+## [1.1.5] - 2025-06-05
 
 ### Added
 
 - Support for Microsoft Edge and Mozilla Firefox browsers.
 
-## [1.1.4] - Unreleased
+## [1.1.4] - 2025-06-05
 
 ### Added
 - **Support modal** with crypto wallet addresses for project donations.
