@@ -7,7 +7,7 @@
   "description": "__MSG_description__",
   "browser_specific_settings": {
     "gecko": {
-      "id": "hovertranslate@gmail.com",
+      "id": "{C49CC196-68CC-441D-9224-2A05F1A073BF}",
       "strict_min_version": "109.0"
     }
   },
