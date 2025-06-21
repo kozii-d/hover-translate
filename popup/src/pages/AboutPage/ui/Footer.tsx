@@ -10,6 +10,12 @@ export const Footer: FC = () => {
   const manifest = chrome.runtime.getManifest();
   const version = manifest.version;
 
+  const openChangelog = () => {
+    chrome.tabs.create({
+      url: "https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md"
+    });
+  };
+
   return (
     <Box>
       <Divider sx={{ marginInline: -2, mt: 2 }}/>
@@ -17,9 +23,8 @@ export const Footer: FC = () => {
         <Typography variant="body2" color="text.secondary">
           {t("footer.version")} {version} ·{" "}
           <Link
-            href="https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md"
-            target="_blank"
-            rel="noopener noreferrer"
+            style={{ cursor: "pointer" }}
+            onClick={openChangelog}
             underline="hover"
           >
             {t("footer.changelog")}

@@ -13,6 +13,18 @@ import { useTranslation } from "react-i18next";
 export const Contacts: FC = () => {
   const { t } = useTranslation("about");
 
+  const openGithubProjectPage = () => {
+    chrome.tabs.create({
+      url: "https://github.com/kozii-d/hover-translate",
+    });
+  };
+
+  const openGithubIssuesPage = () => {
+    chrome.tabs.create({
+      url: "https://github.com/kozii-d/hover-translate/issues",
+    });
+  };
+
   return (
     <Box>
       <Typography variant="h6" gutterBottom textTransform="uppercase" fontWeight="bold">
@@ -29,24 +41,14 @@ export const Contacts: FC = () => {
           <ListItemText primary="hovertranslate@gmail.com" />
         </ListItemButton>
 
-        <ListItemButton
-          component="a"
-          href="https://github.com/kozii-d/hover-translate"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <ListItemButton onClick={openGithubProjectPage}>
           <ListItemIcon>
             <GitHubIcon />
           </ListItemIcon>
           <ListItemText primary={t("blocks.contacts.github")} />
         </ListItemButton>
 
-        <ListItemButton
-          component="a"
-          href="https://github.com/kozii-d/hover-translate/issues"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <ListItemButton onClick={openGithubIssuesPage}>
           <ListItemIcon>
             <BugReportIcon />
           </ListItemIcon>

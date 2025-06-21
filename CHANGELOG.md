@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.7] - Unreleased
+
+### Fixed
+- Fixed the incorrect link for the review button for Firefox and Edge.
+
 ## [1.1.6] - 2025-06-16
 
 ### Fixed
