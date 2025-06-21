@@ -1,0 +1,13 @@
+Please see BUILD_INSTRUCTIONS.md for complete build instructions.
+
+Quick Start:
+1. npm install
+2. cd extension && npm install && cd ..
+3. cd popup && npm install && cd ..
+4. npm run setup:firefox
+5. npm run build
+
+This generates extension/dist/ and popup/dist/ folders containing the built extension files that match the submitted .xpi package.
+
+Build tools: Vite + TypeScript + React
+No external CDN dependencies used.
