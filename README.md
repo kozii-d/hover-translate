@@ -5,7 +5,10 @@
 
 Translate words in video subtitles instantly! Just hover over a word or phrase to see its translation.
 
-Download from [Chrome Wb Store](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic)
+Download from 
+[Chrome Wb Store](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic)| 
+[Firefox Add-ons](https://addons.mozilla.org/firefox/addon/hovertranslate/) | 
+[Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm)
 
 # Preview
 

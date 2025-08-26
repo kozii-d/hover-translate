@@ -27,6 +27,9 @@ export class SettingsService {
   }
   
   private async handleExtensionInstall() {
+    const isAlreadyInstalled = await this.storageService.get("installedAt", "sync");
+    if (isAlreadyInstalled) return;
+
     this.initializeDefaultSettings();
     this.initializeDefaultTooltipTheme();
 
