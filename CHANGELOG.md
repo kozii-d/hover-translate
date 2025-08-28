@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.7] - Unreleased
+## [1.1.8] - 2025-08-28
+
+### Fixed
+- Fixed an issue where settings would reset when installing it on another device.
+
+## [1.1.7] - 2025-06-21
 
 ### Fixed
 - Fixed the incorrect link for the review button for Firefox and Edge.
