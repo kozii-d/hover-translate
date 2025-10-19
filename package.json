@@ -13,7 +13,7 @@
     "setup:edge": "cp manifest.edge.json manifest.json",
     "setup:firefox": "cp manifest.firefox.json manifest.json",
 
-    "release": "npm run build && node archive.js",
+    "release": "npm run build && node archive.js && npm run source-archive",
     "release:chrome": "npm run build && node archive.js chrome",
     "release:edge": "npm run build && node archive.js edge",
     "release:firefox": "npm run build && node archive.js firefox",
