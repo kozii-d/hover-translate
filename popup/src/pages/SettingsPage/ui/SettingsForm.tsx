@@ -9,7 +9,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import Alert from "@mui/material/Alert";
 
-import { AvailableLanguages, Language, SettingsFormValues, Translator } from "../model/types/schema.ts";
+import { AvailableLanguages, Language, LeftClickAction, SettingsFormValues, Translator } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
@@ -71,6 +71,13 @@ export const SettingsForm: FC<SettingsFormProps> = ({
       label: language.name || getLanguageName(language.code) || language.code
     }));
   }, [targetLanguages]);
+
+  const leftClickActionOptions: MenuItemType<LeftClickAction>[]  = [
+    { value: "save-to-dictionary", label: t("fields.leftClickAction.options.saveToDictionary") },
+    { value: "copy-original", label: t("fields.leftClickAction.options.copyOriginal") },
+    { value: "copy-translation", label: t("fields.leftClickAction.options.copyTranslation") },
+    { value: "nothing", label: t("fields.leftClickAction.options.nothing") },
+  ];
 
   const checkSelectedLanguages = useCallback((availableLanguages: AvailableLanguages) => {
     const watchSourceLanguageCode = watch("sourceLanguageCode");
@@ -237,23 +244,20 @@ export const SettingsForm: FC<SettingsFormProps> = ({
           )}
         />
         <Controller
-          name="useDictionary"
+          name="leftClickAction"
           control={control}
           render={({ field }) => (
-            <FormControl fullWidth title={t("fields.useDictionary.tooltip")}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={field.value}
-                    onChange={(_, checked) => handleChangeSwitch("useDictionary", checked)}
-                  />
-                }
-                label={t("fields.useDictionary.label")}
-              />
-              <FormHelperText>
-                {t("fields.useDictionary.helperText")}
-              </FormHelperText>
-            </FormControl>
+            <SettingsSelect
+              id="leftClickAction"
+              label={t("fields.leftClickAction.label")}
+              tooltip={t("fields.leftClickAction.tooltip")}
+              value={field.value}
+              onChange={(value) => {
+                setValue("leftClickAction", value as LeftClickAction, { shouldDirty: true });
+                handleSubmit(onSubmit)();
+              }}
+              options={leftClickActionOptions}
+            />
           )}
         />
         <Controller

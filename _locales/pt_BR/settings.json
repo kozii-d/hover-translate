@@ -25,10 +25,15 @@
       "tooltip": "Pausar automaticamente o vídeo ao passar o mouse sobre as legendas",
       "helperText": "Pausar automaticamente o vídeo ao passar o mouse sobre as legendas"
     },
-    "useDictionary": {
-      "label": "Salvar palavras no dicionário",
-      "tooltip": "Salvar palavras no dicionário ao clicar nelas",
-      "helperText": "Quando desabilitado, clicar nas palavras irá copiá-las para a área de transferência ao invés de salvá-las no dicionário"
+    "leftClickAction": {
+      "label": "Ação do clique esquerdo",
+      "tooltip": "Ação a ser executada ao clicar com o botão esquerdo nas palavras das legendas",
+      "options": {
+        "saveToDictionary": "Salvar no dicionário",
+        "copyOriginal": "Copiar texto original para a área de transferência",
+        "copyTranslation": "Copiar texto traduzido para a área de transferência",
+        "nothing": "Nada"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "Sempre habilitar seleção múltipla",

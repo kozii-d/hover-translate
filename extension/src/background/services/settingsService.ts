@@ -6,7 +6,7 @@ import type { Settings, TooltipTheme } from "../../common/types/settings.ts";
 import { TranslatorFactory } from "../../common/translators/TranslatorFactory.ts";
 
 export class SettingsService {
-  static readonly SETTINGS_VERSION = 3;
+  static readonly SETTINGS_VERSION = 4;
   static readonly TOOLTIP_THEME_VERSION = 1;
 
   constructor(

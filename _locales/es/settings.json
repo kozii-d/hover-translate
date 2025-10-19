@@ -25,10 +25,15 @@
       "tooltip": "Pausar automáticamente el video al pasar el cursor sobre los subtítulos",
       "helperText": "Pausar automáticamente el video al pasar el cursor sobre los subtítulos"
     },
-    "useDictionary": {
-      "label": "Guardar palabras en diccionario",
-      "tooltip": "Guardar palabras en el diccionario al hacer clic en ellas",
-      "helperText": "Cuando esté deshabilitado, hacer clic en las palabras las copiará al portapapeles en lugar de guardarlas en el diccionario"
+    "leftClickAction": {
+      "label": "Acción de clic izquierdo",
+      "tooltip": "Acción a realizar al hacer clic izquierdo en palabras de los subtítulos",
+      "options": {
+        "saveToDictionary": "Guardar en diccionario",
+        "copyOriginal": "Copiar texto original al portapapeles",
+        "copyTranslation": "Copiar texto traducido al portapapeles",
+        "nothing": "Nada"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "Activar siempre selección múltiple",

@@ -362,4 +362,14 @@ export class TooltipService {
     await navigator.clipboard.writeText(textToCopy);
     this.showNotificationTooltip(chrome.i18n.getMessage("originalTextCopied"));
   };
+
+  public saveTranslationToClipboard = async () => {
+    const currentData = this.translationCore.currentTranslationData;
+    if (!currentData) return;
+
+    const textToCopy = currentData.translatedText;
+    if (!textToCopy) return;
+    await navigator.clipboard.writeText(textToCopy);
+    this.showNotificationTooltip(chrome.i18n.getMessage("translatedTextCopied"));
+  };
 }

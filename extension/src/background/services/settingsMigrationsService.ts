@@ -1,4 +1,4 @@
-import { Settings } from "../../common/types/settings.ts";
+import { LeftClickAction, Settings } from "../../common/types/settings.ts";
 
 type SettingsMigration = (oldSettings: Settings) => Settings;
 
@@ -14,6 +14,21 @@ export class SettingsMigrationsService {
       alwaysMultipleSelection: false,
       showNotifications: true,
     }),
+    4: (oldSettings) => {
+      let leftClickAction: LeftClickAction = "copy-original";
+      // NOTE: useDictionary - outdated, replaced by leftClickAction
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      if (oldSettings.useDictionary) {
+        leftClickAction = "save-to-dictionary";
+      }
+
+      return {
+        ...oldSettings,
+        leftClickAction,
+        useDictionary: undefined,
+      };
+    },
   };
 
   /*

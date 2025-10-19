@@ -5,7 +5,7 @@ export const initialFormValues: SettingsFormValues = {
   targetLanguageCode: "en",
   autoPause: true,
   translator: "google",
-  useDictionary: true,
+  leftClickAction: "save-to-dictionary",
   alwaysMultipleSelection: false,
   showNotifications: true,
 };

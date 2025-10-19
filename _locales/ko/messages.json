@@ -10,5 +10,8 @@
   },
   "originalTextCopied": {
     "message": "원본 텍스트가 복사되었습니다"
+  },
+  "translatedTextCopied": {
+    "message": "번역된 텍스트가 복사되었습니다"
   }
 }

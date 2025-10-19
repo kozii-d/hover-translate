@@ -25,10 +25,15 @@
       "tooltip": "자막에 마우스를 올릴 때 동영상을 자동으로 일시정지",
       "helperText": "자막에 마우스를 올릴 때 동영상을 자동으로 일시정지합니다"
     },
-    "useDictionary": {
-      "label": "사전에 단어 저장",
-      "tooltip": "단어를 클릭할 때 사전에 저장",
-      "helperText": "비활성화하면 단어를 클릭할 때 사전에 저장하는 대신 클립보드에 복사됩니다"
+    "leftClickAction": {
+      "label": "왼쪽 클릭 동작",
+      "tooltip": "자막의 단어를 왼쪽 클릭할 때 수행할 동작",
+      "options": {
+        "saveToDictionary": "사전에 저장",
+        "copyOriginal": "원본 텍스트를 클립보드에 복사",
+        "copyTranslation": "번역된 텍스트를 클립보드에 복사",
+        "nothing": "없음"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "항상 다중 선택 활성화",
