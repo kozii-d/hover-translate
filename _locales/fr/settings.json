@@ -25,10 +25,15 @@
       "tooltip": "Mettre automatiquement en pause la vidéo lors du survol des sous-titres",
       "helperText": "Mettre automatiquement en pause la vidéo lors du survol des sous-titres"
     },
-    "useDictionary": {
-      "label": "Enregistrer les mots dans le dictionnaire",
-      "tooltip": "Enregistrer les mots dans le dictionnaire en cliquant dessus",
-      "helperText": "Lorsque désactivé, cliquer sur les mots les copiera dans le presse-papiers au lieu de les enregistrer dans le dictionnaire"
+    "leftClickAction": {
+      "label": "Action du clic gauche",
+      "tooltip": "Action à effectuer lors d'un clic gauche sur les mots des sous-titres",
+      "options": {
+        "saveToDictionary": "Enregistrer dans le dictionnaire",
+        "copyOriginal": "Copier le texte original dans le presse-papiers",
+        "copyTranslation": "Copier le texte traduit dans le presse-papiers",
+        "nothing": "Rien"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "Toujours activer la sélection multiple",

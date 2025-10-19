@@ -52,10 +52,20 @@ export class SubtitleCore {
       wordSpan.addEventListener("pointerup", () => {
         // If the user is dragging the subtitles, don't save the translation or copy the text
         if (!isDrag) {
-          if (state.settings.useDictionary) {
+          switch (state.settings.leftClickAction) {
+          case "save-to-dictionary":
             this.tooltipService.saveTranslationToDictionary();
-          } else {
+            break;
+          case "copy-original":
             this.tooltipService.saveOriginalTextToClipboard();
+            break;
+          case "copy-translation":
+            this.tooltipService.saveTranslationToClipboard();
+            break;
+          case "nothing":
+            break;
+          default:
+            break;
           }
         }
       });

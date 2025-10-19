@@ -25,10 +25,15 @@
       "tooltip": "Automatycznie wstrzymaj wideo po najechaniu na napisy",
       "helperText": "Automatycznie wstrzymaj wideo po najechaniu na napisy"
     },
-    "useDictionary": {
-      "label": "Zapisuj słowa do słownika",
-      "tooltip": "Zapisuj słowa do słownika po kliknięciu na nie",
-      "helperText": "Gdy wyłączone, kliknięcie słów skopiuje je do schowka zamiast zapisania do słownika"
+    "leftClickAction": {
+      "label": "Akcja lewego kliknięcia",
+      "tooltip": "Akcja wykonywana po kliknięciu lewym przyciskiem myszy na słowa w napisach",
+      "options": {
+        "saveToDictionary": "Zapisz w słowniku",
+        "copyOriginal": "Kopiuj oryginalny tekst do schowka",
+        "copyTranslation": "Kopiuj przetłumaczony tekst do schowka",
+        "nothing": "Nic"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "Zawsze włącz wielokrotny wybór",

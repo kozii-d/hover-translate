@@ -25,10 +25,15 @@
       "tooltip": "字幕にマウスを重ねた際に動画を自動的に一時停止",
       "helperText": "字幕にマウスを重ねた際に動画を自動的に一時停止します"
     },
-    "useDictionary": {
-      "label": "辞書に単語を保存",
-      "tooltip": "単語をクリックした際に辞書に保存",
-      "helperText": "無効にすると、単語をクリックした際に辞書に保存する代わりにクリップボードにコピーします"
+    "leftClickAction": {
+      "label": "左クリック操作",
+      "tooltip": "字幕の単語を左クリックしたときに実行する操作",
+      "options": {
+        "saveToDictionary": "辞書に保存",
+        "copyOriginal": "元のテキストをクリップボードにコピー",
+        "copyTranslation": "翻訳されたテキストをクリップボードにコピー",
+        "nothing": "何もしない"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "常に複数選択を有効化",

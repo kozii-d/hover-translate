@@ -25,10 +25,15 @@
       "tooltip": "Video automatisch pausieren beim Überfahren von Untertiteln",
       "helperText": "Video automatisch pausieren beim Überfahren von Untertiteln"
     },
-    "useDictionary": {
-      "label": "Wörter im Wörterbuch speichern",
-      "tooltip": "Wörter beim Anklicken im Wörterbuch speichern",
-      "helperText": "Wenn deaktiviert, werden angeklickte Wörter in die Zwischenablage kopiert, anstatt im Wörterbuch gespeichert zu werden"
+    "leftClickAction": {
+      "label": "Linksklick-Aktion",
+      "tooltip": "Aktion, die beim Linksklick auf Wörter in Untertiteln ausgeführt wird",
+      "options": {
+        "saveToDictionary": "Im Wörterbuch speichern",
+        "copyOriginal": "Originaltext in Zwischenablage kopieren",
+        "copyTranslation": "Übersetzten Text in Zwischenablage kopieren",
+        "nothing": "Nichts"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "Mehrfachauswahl immer aktivieren",

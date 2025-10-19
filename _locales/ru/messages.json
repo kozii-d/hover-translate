@@ -10,5 +10,8 @@
   },
   "originalTextCopied": {
     "message": "Оригинальный текст скопирован"
+  },
+  "translatedTextCopied": {
+    "message": "Переведённый текст скопирован"
   }
 }

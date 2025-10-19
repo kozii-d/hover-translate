@@ -1,4 +1,4 @@
-export interface MenuItemType {
-  value: string;
+export interface MenuItemType<V = string> {
+  value: V;
   label: string;
 }

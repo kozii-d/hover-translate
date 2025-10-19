@@ -25,10 +25,15 @@
       "tooltip": "Automatically pause the video when hovering over subtitles",
       "helperText": "Automatically pause the video when hovering over subtitles"
     },
-    "useDictionary": {
-      "label": "Save words to dictionary",
-      "tooltip": "Save words to dictionary when clicking on them",
-      "helperText": "When disabled, clicking on words will copy them to clipboard instead of saving to dictionary"
+    "leftClickAction": {
+      "label": "Left click action",
+      "tooltip": "Action to perform when left-clicking on words in subtitles",
+      "options": {
+        "saveToDictionary": "Save to dictionary",
+        "copyOriginal": "Copy original text to clipboard",
+        "copyTranslation": "Copy translated text to clipboard",
+        "nothing": "Nothing"
+      }
     },
     "alwaysMultipleSelection": {
       "label": "Always enable multiple selection",

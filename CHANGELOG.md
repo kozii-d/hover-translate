@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.9] - 2025-10-19
+
+### Added
+
+- Added a setting to choose the action for left-clicking on words in subtitles.
+
 ## [1.1.8] - 2025-08-28
 
 ### Fixed

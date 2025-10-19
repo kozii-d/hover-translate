@@ -1,11 +1,12 @@
 export type Translator = "google" | "bing";
+export type LeftClickAction = "nothing" | "copy-original" | "copy-translation" | "save-to-dictionary";
 
 export interface SettingsFormValues {
   sourceLanguageCode: string;
   targetLanguageCode: string;
   autoPause: boolean;
   translator: Translator;
-  useDictionary: boolean;
+  leftClickAction: LeftClickAction;
   alwaysMultipleSelection: boolean;
   showNotifications: boolean;
 }
