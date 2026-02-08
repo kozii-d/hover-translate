@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Sözlük",
+  "tabLabel": "Sözlük",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Çeviriyi sil"
+    },
+    "clearAll": {
+      "text": "Tümünü temizle",
+      "tooltip": "Tüm çevirileri temizle"
+    },
+    "showMore": {
+      "text": "Daha fazla göster",
+      "tooltip": "Daha fazla çeviri göster"
+    },
+    "export": {
+      "tooltip": "Çevirileri dışa aktar"
+    },
+    "exportJSON": {
+      "text": "JSON Dışa Aktar",
+      "tooltip": "Çevirileri JSON olarak dışa aktar"
+    },
+    "exportCSV": {
+      "text": "CSV Dışa Aktar",
+      "tooltip": "Çevirileri CSV olarak dışa aktar"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Tüm çeviriler temizlensın mi?",
+      "description": "Bu işlem tüm çevirileri kalıcı olarak silecektir.",
+      "action": "Temizle"
+    }
+  },
+  "emptyState": {
+    "title": "Sözlük boş",
+    "description": "Sözlüğe kaydetmek için altyazılardaki bir kelimeye veya ifadeye tıklayın"
+  }
+}

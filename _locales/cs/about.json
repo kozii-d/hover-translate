@@ -1,0 +1,33 @@
+{
+  "pageTitle": "O aplikaci",
+  "tabLabel": "O aplikaci",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Budujte si slovní zásobu při sledování YouTube!",
+      "thank-you": "Děkujeme, že jste si vybrali naše rozšíření!"
+    },
+    "support": {
+      "title": "Podpořte projekt",
+      "actions": {
+        "review": { "text": "Ohodnoťte nás" },
+        "donate": { "text": "Kupte mi kávu" }
+      }
+    },
+    "contacts": {
+      "title": "Zůstaňte v kontaktu",
+      "github": "Zobrazit zdrojový kód na GitHubu",
+      "reportIssues": "Nahlásit problémy na GitHubu"
+    },
+    "tips": {
+      "title": "Rychlé tipy",
+      "multipleSelection": "Překlad frází: Podržte Shift nebo povolte vícenásobný výběr v Nastavení",
+      "saveToDictionary": "Kliknutím na slova je uložíte do svého osobního slovníku",
+      "exportDictionary": "Exportujte svou slovní zásobu z karty Slovník jako JSON nebo CSV"
+    }
+  },
+  "footer": {
+    "version": "Verze",
+    "changelog": "Seznam změn"
+  }
+}

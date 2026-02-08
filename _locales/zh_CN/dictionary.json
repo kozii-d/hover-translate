@@ -1,0 +1,16 @@
+{
+  "pageTitle": "生词本",
+  "tabLabel": "生词本",
+  "actions": {
+    "deleteTranslation": { "tooltip": "删除翻译" },
+    "clearAll": { "text": "清空全部", "tooltip": "清空所有翻译" },
+    "showMore": { "text": "显示更多", "tooltip": "显示更多翻译" },
+    "export": { "tooltip": "导出翻译" },
+    "exportJSON": { "text": "导出 JSON", "tooltip": "导出翻译为 JSON 格式" },
+    "exportCSV": { "text": "导出 CSV", "tooltip": "导出翻译为 CSV 格式" }
+  },
+  "modals": {
+    "clearAll": { "title": "清空所有翻译？", "description": "这将永久删除所有记录。", "action": "清空" }
+  },
+  "emptyState": { "title": "生词本是空的", "description": "点击字幕中的单词或短语即可将其保存到生词本" }
+}

@@ -1,0 +1,17 @@
+{
+  "name": {
+    "message": "HoverTranslate - YouTube Undertextöversättare"
+  },
+  "description": {
+    "message": "Bygg ditt ordförråd medan du tittar på YouTube! Översätt ord i undertexter direkt genom att hovra. Perfekt för språkinlärare."
+  },
+  "translationSaved": {
+    "message": "Översättning sparad"
+  },
+  "originalTextCopied": {
+    "message": "Originaltext kopierad"
+  },
+  "translatedTextCopied": {
+    "message": "Översatt text kopierad"
+  }
+}

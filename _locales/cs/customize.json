@@ -1,0 +1,24 @@
+{
+  "pageTitle": "Přizpůsobení",
+  "tabLabel": "Přizpůsobení",
+  "actions": {
+    "reset": { "text": "Resetovat", "tooltip": "Resetovat nastavení přizpůsobení" }
+  },
+  "fields": {
+    "useYouTubeSettings": { "label": "Použít nastavení YouTube", "tooltip": "Použít nastavení YouTube pro bubliny s překladem", "helperText": "Použije stejné nastavení vzhledu pro bubliny s překladem jako pro titulky na YouTube" },
+    "fontFamily": { "label": "Rodina písma", "tooltip": "Rodina písma použitá pro bubliny s překladem" },
+    "fontSize": { "label": "Velikost písma", "tooltip": "Velikost písma pro bubliny s překladem" },
+    "fontColor": { "label": "Barva písma", "tooltip": "Barva písma pro bubliny s překladem" },
+    "fontOpacity": { "label": "Průhlednost písma", "tooltip": "Úroveň průhlednosti písma pro bubliny s překladem" },
+    "backgroundColor": { "label": "Barva pozadí", "tooltip": "Barva pozadí pro bubliny s překladem" },
+    "backgroundOpacity": { "label": "Průhlednost pozadí", "tooltip": "Úroveň průhlednosti pozadí pro bubliny s překladem" },
+    "characterEdgeStyle": { "label": "Styl okrajů znaků", "tooltip": "Styl okrajů znaků pro bubliny s překladem" }
+  },
+  "modals": {
+    "reset": {
+      "title": "Resetovat na výchozí nastavení přizpůsobení?",
+      "description": "Tímto obnovíte všechna nastavení přizpůsobení na jejich výchozí hodnoty.",
+      "action": "Resetovat"
+    }
+  }
+}

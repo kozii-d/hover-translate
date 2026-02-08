@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Özelleştir",
+  "tabLabel": "Özelleştir",
+  "actions": {
+    "reset": {
+      "text": "Sıfırla",
+      "tooltip": "Özelleştirme ayarlarını sıfırla"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "YouTube ayarlarını kullan",
+      "tooltip": "Çeviri ipuçları için YouTube ayarlarını kullan",
+      "helperText": "Çeviri ipuçları için YouTube'daki altyazı ayarlarıyla aynı görünüm ayarlarını kullan"
+    },
+    "fontFamily": {
+      "label": "Yazı tipi ailesi",
+      "tooltip": "Çeviri ipuçları için kullanılacak yazı tipi ailesi"
+    },
+    "fontSize": {
+      "label": "Yazı boyutu",
+      "tooltip": "Çeviri ipuçları için kullanılacak yazı boyutu"
+    },
+    "fontColor": {
+      "label": "Yazı rengi",
+      "tooltip": "Çeviri ipuçları için kullanılacak yazı rengi"
+    },
+    "fontOpacity": {
+      "label": "Yazı opaklığı",
+      "tooltip": "Çeviri ipuçları için yazı tipi opaklık seviyesi"
+    },
+    "backgroundColor": {
+      "label": "Arka plan rengi",
+      "tooltip": "Çeviri ipuçları için arka plan rengi"
+    },
+    "backgroundOpacity": {
+      "label": "Arka plan opaklığı",
+      "tooltip": "Çeviri ipuçları için arka plan opaklık seviyesi"
+    },
+    "characterEdgeStyle": {
+      "label": "Karakter kenar stili",
+      "tooltip": "Çeviri ipuçları için karakter kenar stili"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Varsayılan özelleştirme ayarlarına sıfırlansın mı?",
+      "description": "Bu işlem tüm özelleştirme ayarlarını varsayılan değerlerine döndürecektir.",
+      "action": "Sıfırla"
+    }
+  }
+}

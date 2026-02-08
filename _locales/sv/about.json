@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Om",
+  "tabLabel": "Om",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Bygg ditt ordförråd medan du tittar på YouTube!",
+      "thank-you": "Tack för att du valde mitt tillägg!"
+    },
+    "support": {
+      "title": "Stöd projektet",
+      "actions": {
+        "review": {
+          "text": "Betygsätt oss"
+        },
+        "donate": {
+          "text": "Bjud mig på en kaffe"
+        }
+      }
+    },
+    "contacts": {
+      "title": "Kontakta oss",
+      "github": "Visa källkod på GitHub",
+      "reportIssues": "Rapportera problem på GitHub"
+    },
+    "tips": {
+      "title": "Snabbtips",
+      "multipleSelection": "Översätt fraser: Håll Shift eller aktivera flerval i Inställningar",
+      "saveToDictionary": "Klicka på ord för att spara dem i din personliga ordlista",
+      "exportDictionary": "Exportera ditt ordförråd från fliken Ordlista som JSON eller CSV"
+    }
+  },
+  "footer": {
+    "version": "Version",
+    "changelog": "Ändringslogg"
+  }
+}

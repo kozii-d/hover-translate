@@ -1,0 +1,33 @@
+{
+  "pageTitle": "Informazioni",
+  "tabLabel": "Informazioni",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Arricchisci il tuo vocabolario guardando YouTube!",
+      "thank-you": "Grazie per aver scelto la mia estensione!"
+    },
+    "support": {
+      "title": "Sostieni il progetto",
+      "actions": {
+        "review": { "text": "Valutaci" },
+        "donate": { "text": "Offrimi un caffè" }
+      }
+    },
+    "contacts": {
+      "title": "Contattaci",
+      "github": "Visualizza codice sorgente su GitHub",
+      "reportIssues": "Segnala problemi su GitHub"
+    },
+    "tips": {
+      "title": "Consigli rapidi",
+      "multipleSelection": "Traduci frasi: Tieni premuto Shift o abilita la selezione multipla nelle Impostazioni",
+      "saveToDictionary": "Clicca sulle parole per salvarle nel tuo dizionario personale",
+      "exportDictionary": "Esporta il tuo vocabolario dalla scheda Dizionario come JSON o CSV"
+    }
+  },
+  "footer": {
+    "version": "Versione",
+    "changelog": "Changelog"
+  }
+}

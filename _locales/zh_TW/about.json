@@ -1,0 +1,33 @@
+{
+  "pageTitle": "關於",
+  "tabLabel": "關於",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "邊看 YouTube 邊記單字！",
+      "thank-you": "感謝您選擇我的擴充功能！"
+    },
+    "support": {
+      "title": "支持本專案",
+      "actions": {
+        "review": { "text": "給我們評分" },
+        "donate": { "text": "請我喝杯咖啡" }
+      }
+    },
+    "contacts": {
+      "title": "聯繫我們",
+      "github": "在 GitHub 上查看原始碼",
+      "reportIssues": "在 GitHub 上回報問題"
+    },
+    "tips": {
+      "title": "小技巧",
+      "multipleSelection": "翻譯短語：按住 Shift 鍵或在設定中啟用多選模式",
+      "saveToDictionary": "點擊單字即可將其儲存到個人生字本",
+      "exportDictionary": "可以從‘生字本’分頁將詞彙匯出為 JSON 或 CSV 格式"
+    }
+  },
+  "footer": {
+    "version": "版本",
+    "changelog": "更新日誌"
+  }
+}

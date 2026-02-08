@@ -1,0 +1,25 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": { "text": "Zavřít" },
+      "confirm": { "text": "Potvrdit" }
+    }
+  },
+  "support": {
+    "title": "Kupte mi kávu",
+    "description": "Děkuji za podporu HoverTranslate!\nNíže si vyberte preferovanou kryptoměnu",
+    "footer": "Každá káva mi pomáhá vylepšovat HoverTranslate",
+    "actions": {
+      "showQR": { "text": "Zobrazit QR" },
+      "hideQR": { "text": "Skrýt QR" },
+      "copyAddress": { "text": "Kopírovat" },
+      "copyAddressSuccess": { "text": "Zkopírováno!" }
+    },
+    "labels": { "address": "Adresa" },
+    "notifications": { "copyAddress": "Adresa zkopírována do schránky!" },
+    "warnings": {
+      "verifyNetwork": "Před odesláním ověřte síť a token",
+      "bnb": "Stejná adresa jako Ethereum - jiná síť!"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Nastavení",
+  "tabLabel": "Nastavení",
+  "actions": {
+    "reset": { "text": "Obnovit výchozí", "tooltip": "Obnovit výchozí nastavení" }
+  },
+  "fields": {
+    "targetLanguageCode": { "label": "Přeložit do", "tooltip": "Jazyk, do kterého bude text přeložen" },
+    "sourceLanguageCode": { "label": "Přeložit z", "tooltip": "Jazyk, ze kterého bude text přeložen" },
+    "translator": { "label": "Překladač", "tooltip": "Překladač použitý pro překlady" },
+    "autoPause": { "label": "Automatické pozastavení", "tooltip": "Automaticky pozastavit video při najetí na titulky", "helperText": "Automaticky pozastaví video při najetí myší na titulky" },
+    "leftClickAction": { "label": "Akce levého kliknutí", "tooltip": "Akce provedená při kliknutí levým tlačítkem na slova v titulcích", "options": { "saveToDictionary": "Uložit do slovníku", "copyOriginal": "Kopírovat původní text", "copyTranslation": "Kopírovat přeložený text", "nothing": "Nic" } },
+    "alwaysMultipleSelection": { "label": "Vždy povolit vícenásobný výběr", "tooltip": "Povolit výběr více slov bez držení klávesy Shift", "helperText": "Když je povoleno, můžete vybírat více slov bez držení Shiftu" },
+    "showNotifications": { "label": "Zobrazovat oznámení", "tooltip": "Zobrazovat oznámení při uložení slov do slovníku nebo kopírování", "helperText": "Když je vypnuto, nebudou se zobrazovat žádná oznámení" }
+  },
+  "modals": {
+    "reset": {
+      "title": "Obnovit výchozí nastavení?",
+      "description": "Tímto obnovíte všechna nastavení na jejich výchozí hodnoty.",
+      "action": "Obnovit"
+    }
+  },
+  "tips": { "multipleSelection": "Pro výběr více slov podržte Shift a najeďte na požadovaná slova. Nebo povolte nastavení 'Vždy povolit vícenásobný výběr'." },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} není k dispozici jako zdrojový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} není k dispozici jako cílový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}."
+  }
+}

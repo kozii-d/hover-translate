@@ -1,0 +1,16 @@
+{
+  "pageTitle": "生字本",
+  "tabLabel": "生字本",
+  "actions": {
+    "deleteTranslation": { "tooltip": "刪除翻譯" },
+    "clearAll": { "text": "清空全部", "tooltip": "清空所有翻譯" },
+    "showMore": { "text": "顯示更多", "tooltip": "顯示更多翻譯" },
+    "export": { "tooltip": "匯出翻譯" },
+    "exportJSON": { "text": "匯出 JSON", "tooltip": "匯出翻譯為 JSON 格式" },
+    "exportCSV": { "text": "匯出 CSV", "tooltip": "匯出翻譯為 CSV 格式" }
+  },
+  "modals": {
+    "clearAll": { "title": "清空所有翻譯？", "description": "這將永久刪除所有記錄。", "action": "清空" }
+  },
+  "emptyState": { "title": "生字本是空的", "description": "點擊字幕中的單字或短語即可將其儲存到生字本" }
+}

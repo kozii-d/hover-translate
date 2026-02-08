@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Kapat"
+      },
+      "confirm": {
+        "text": "Onayla"
+      }
+    }
+  },
+  "support": {
+    "title": "Bana bir kahve ısmarla",
+    "description": "HoverTranslate'i desteklediğiniz için teşekkürler!\nTercih ettiğiniz kripto parayı aşağıdan seçin",
+    "footer": "Her kahve HoverTranslate'i geliştirmeme yardımcı olur",
+    "actions": {
+      "showQR": {
+        "text": "QR Göster"
+      },
+      "hideQR": {
+        "text": "QR Gizle"
+      },
+      "copyAddress": {
+        "text": "Kopyala"
+      },
+      "copyAddressSuccess": {
+        "text": "Kopyalandı!"
+      }
+    },
+    "labels": {
+      "address": "Adres"
+    },
+    "notifications": {
+      "copyAddress": "Adres panoya kopyalandı!"
+    },
+    "warnings": {
+      "verifyNetwork": "Lütfen göndermeden önce ağı ve jetonu doğrulayın",
+      "bnb": "Ethereum ile aynı adres - farklı ağ!"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "pageTitle": "自定义",
+  "tabLabel": "自定义",
+  "actions": {
+    "reset": { "text": "重置", "tooltip": "重置自定义设置" }
+  },
+  "fields": {
+    "useYouTubeSettings": { "label": "使用 YouTube 设置", "tooltip": "翻译提示框使用 YouTube 的字幕设置", "helperText": "翻译提示框的外观将与 YouTube 的字幕设置保持一致" },
+    "fontFamily": { "label": "字体系列", "tooltip": "翻译提示框使用的字体" },
+    "fontSize": { "label": "字体大小", "tooltip": "翻译提示框的字体大小" },
+    "fontColor": { "label": "字体颜色", "tooltip": "翻译提示框的字体颜色" },
+    "fontOpacity": { "label": "字体不透明度", "tooltip": "翻译提示框字体的透明度" },
+    "backgroundColor": { "label": "背景颜色", "tooltip": "翻译提示框的背景颜色" },
+    "backgroundOpacity": { "label": "背景不透明度", "tooltip": "翻译提示框背景的透明度" },
+    "characterEdgeStyle": { "label": "文字边框样式", "tooltip": "翻译提示框文字的边框样式" }
+  },
+  "modals": {
+    "reset": { "title": "重置为默认自定义设置？", "description": "这将把所有自定义设置恢复为默认值。", "action": "重置" }
+  }
+}

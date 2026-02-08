@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Stäng"
+      },
+      "confirm": {
+        "text": "Bekräfta"
+      }
+    }
+  },
+  "support": {
+    "title": "Bjud mig på en kaffe",
+    "description": "Tack för att du stödjer HoverTranslate!\nVälj din föredragna kryptovaluta nedan",
+    "footer": "Varje kaffe hjälper mig att förbättra HoverTranslate",
+    "actions": {
+      "showQR": {
+        "text": "Visa QR"
+      },
+      "hideQR": {
+        "text": "Dölj QR"
+      },
+      "copyAddress": {
+        "text": "Kopiera"
+      },
+      "copyAddressSuccess": {
+        "text": "Kopierat!"
+      }
+    },
+    "labels": {
+      "address": "Adress"
+    },
+    "notifications": {
+      "copyAddress": "Adressen kopierad till urklipp!"
+    },
+    "warnings": {
+      "verifyNetwork": "Verifiera nätverk och token innan du skickar",
+      "bnb": "Samma adress som Ethereum - annat nätverk!"
+    }
+  }
+}

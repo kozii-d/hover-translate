@@ -1,0 +1,25 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": { "text": "Sulje" },
+      "confirm": { "text": "Vahvista" }
+    }
+  },
+  "support": {
+    "title": "Osta minulle kahvi",
+    "description": "Kiitos HoverTranslaten tukemisesta!\nValitse haluamasi kryptovaluutta alta",
+    "footer": "Jokainen kahvi auttaa minua parantamaan laajennusta",
+    "actions": {
+      "showQR": { "text": "Näytä QR" },
+      "hideQR": { "text": "Piilota QR" },
+      "copyAddress": { "text": "Kopioi" },
+      "copyAddressSuccess": { "text": "Kopioitu!" }
+    },
+    "labels": { "address": "Osoite" },
+    "notifications": { "copyAddress": "Osoite kopioitu leikepöydälle!" },
+    "warnings": {
+      "verifyNetwork": "Varmista verkko ja token ennen lähettämistä",
+      "bnb": "Sama osoite kuin Ethereumilla - eri verkko!"
+    }
+  }
+}

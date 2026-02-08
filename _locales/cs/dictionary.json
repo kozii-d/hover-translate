@@ -1,0 +1,23 @@
+{
+  "pageTitle": "Slovník",
+  "tabLabel": "Slovník",
+  "actions": {
+    "deleteTranslation": { "tooltip": "Smazat překlad" },
+    "clearAll": { "text": "Vymazat vše", "tooltip": "Vymazat všechny překlady" },
+    "showMore": { "text": "Zobrazit více", "tooltip": "Zobrazit více překladů" },
+    "export": { "tooltip": "Exportovat překlady" },
+    "exportJSON": { "text": "Exportovat JSON", "tooltip": "Exportovat překlady do JSON" },
+    "exportCSV": { "text": "Exportovat CSV", "tooltip": "Exportovat překlady do CSV" }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Vymazat všechny překlady?",
+      "description": "Tímto trvale smažete všechny uložené překlady.",
+      "action": "Vymazat"
+    }
+  },
+  "emptyState": {
+    "title": "Slovník je prázdný",
+    "description": "Kliknutím na slovo nebo frázi v titulcích je uložíte do slovníku"
+  }
+}

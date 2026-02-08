@@ -1,0 +1,25 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": { "text": "Chiudi" },
+      "confirm": { "text": "Conferma" }
+    }
+  },
+  "support": {
+    "title": "Offrimi un caffè",
+    "description": "Grazie per sostenere HoverTranslate!\nScegli la tua criptovaluta preferita qui sotto",
+    "footer": "Ogni caffè mi aiuta a migliorare HoverTranslate",
+    "actions": {
+      "showQR": { "text": "Mostra QR" },
+      "hideQR": { "text": "Nascondi QR" },
+      "copyAddress": { "text": "Copia" },
+      "copyAddressSuccess": { "text": "Copiato!" }
+    },
+    "labels": { "address": "Indirizzo" },
+    "notifications": { "copyAddress": "Indirizzo copiato negli appunti!" },
+    "warnings": {
+      "verifyNetwork": "Verifica la rete e il token prima di inviare",
+      "bnb": "Stesso indirizzo di Ethereum - rete diversa!"
+    }
+  }
+}

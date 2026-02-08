@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Ordlista",
+  "tabLabel": "Ordlista",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Ta bort översättning"
+    },
+    "clearAll": {
+      "text": "Rensa alla",
+      "tooltip": "Rensa alla översättningar"
+    },
+    "showMore": {
+      "text": "Visa mer",
+      "tooltip": "Visa fler översättningar"
+    },
+    "export": {
+      "tooltip": "Exportera översättningar"
+    },
+    "exportJSON": {
+      "text": "Exportera JSON",
+      "tooltip": "Exportera översättningar till JSON"
+    },
+    "exportCSV": {
+      "text": "Exportera CSV",
+      "tooltip": "Exportera översättningar till CSV"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Rensa alla översättningar?",
+      "description": "Detta kommer att radera alla översättningar permanent.",
+      "action": "Rensa"
+    }
+  },
+  "emptyState": {
+    "title": "Ordlistan är tom",
+    "description": "Klicka på ett ord eller en fras i undertexterna för att spara dem i ordlistan"
+  }
+}

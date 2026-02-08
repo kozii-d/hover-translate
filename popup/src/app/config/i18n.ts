@@ -5,24 +5,63 @@ import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import "dayjs/locale/en";
-import "dayjs/locale/uk";
-import "dayjs/locale/ru";
-import "dayjs/locale/es";
-import "dayjs/locale/fr";
+
+// European
+import "dayjs/locale/cs";
 import "dayjs/locale/de";
+import "dayjs/locale/es";
+import "dayjs/locale/fi";
+import "dayjs/locale/fr";
+import "dayjs/locale/it";
 import "dayjs/locale/pl";
-import "dayjs/locale/ja";
-import "dayjs/locale/ko";
-import "dayjs/locale/hi";
 import "dayjs/locale/pt";
 import "dayjs/locale/pt-br";
+import "dayjs/locale/sv";
+import "dayjs/locale/tr";
+
+// Cyrillic
+import "dayjs/locale/ru";
+import "dayjs/locale/uk";
+
+// Asian
+import "dayjs/locale/hi";
+import "dayjs/locale/ja";
+import "dayjs/locale/ko";
+import "dayjs/locale/zh-cn";
+import "dayjs/locale/zh-tw";
 
 import dayjs from "dayjs";
 
 const languageDetector = new LanguageDetector();
 const baseUrl = chrome.runtime.getURL("/");
 
-const supportedLanguages = ["en", "de", "es", "fr", "hi", "ja", "ko", "pl", "pt_BR", "pt_PT", "ru", "uk"];
+const supportedLanguages = [
+  "en",
+
+  // European
+  "cs",
+  "de",
+  "es",
+  "fi",
+  "fr",
+  "it",
+  "pl",
+  "pt_BR",
+  "pt_PT",
+  "sv",
+  "tr",
+
+  // Cyrillic
+  "ru",
+  "uk",
+
+  // Asian
+  "hi",
+  "ja",
+  "ko",
+  "zh_CN",
+  "zh_TW",
+];
 
 languageDetector.addDetector({
   name: "detectUILanguage",
