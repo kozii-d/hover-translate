@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_name__",
   "short_name": "HoverTranslate",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "default_locale": "en",
   "description": "__MSG_description__",
   "browser_specific_settings": {
@@ -26,7 +26,7 @@
   "web_accessible_resources": [
     {
       "resources": ["*.*"],
-        "matches": ["<all_urls>"]
+      "matches": ["<all_urls>"]
     }
   ],
   "action": {

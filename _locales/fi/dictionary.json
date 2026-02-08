@@ -1,0 +1,23 @@
+{
+  "pageTitle": "Sanakirja",
+  "tabLabel": "Sanakirja",
+  "actions": {
+    "deleteTranslation": { "tooltip": "Poista käännös" },
+    "clearAll": { "text": "Tyhjennä kaikki", "tooltip": "Tyhjennä kaikki käännökset" },
+    "showMore": { "text": "Näytä lisää", "tooltip": "Näytä lisää käännöksiä" },
+    "export": { "tooltip": "Vie käännökset" },
+    "exportJSON": { "text": "Vie JSON", "tooltip": "Vie käännökset JSON-muotoon" },
+    "exportCSV": { "text": "Vie CSV", "tooltip": "Vie käännökset CSV-muotoon" }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Tyhjennä kaikki käännökset?",
+      "description": "Tämä poistaa kaikki tallennetut sanat pysyvästi.",
+      "action": "Tyhjennä"
+    }
+  },
+  "emptyState": {
+    "title": "Sanakirja on tyhjä",
+    "description": "Klikkaa sanaa tai lausetta tekstityksissä tallentaaksesi ne sanakirjaan"
+  }
+}

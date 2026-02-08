@@ -1,0 +1,25 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": { "text": "關閉" },
+      "confirm": { "text": "確認" }
+    }
+  },
+  "support": {
+    "title": "請我喝杯咖啡",
+    "description": "感謝您支持 HoverTranslate！\n請在下方選擇您偏好的加密貨幣",
+    "footer": "每一杯咖啡都能幫助我改進 HoverTranslate",
+    "actions": {
+      "showQR": { "text": "顯示二維碼" },
+      "hideQR": { "text": "隱藏二維碼" },
+      "copyAddress": { "text": "複製" },
+      "copyAddressSuccess": { "text": "已複製！" }
+    },
+    "labels": { "address": "地址" },
+    "notifications": { "copyAddress": "地址已複製到剪貼簿！" },
+    "warnings": {
+      "verifyNetwork": "發送前請務必核對網路和代幣類型",
+      "bnb": "地址與以太坊相同 - 但網路不同！"
+    }
+  }
+}

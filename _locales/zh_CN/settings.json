@@ -1,0 +1,35 @@
+{
+  "pageTitle": "设置",
+  "tabLabel": "设置",
+  "actions": {
+    "reset": { "text": "恢复默认", "tooltip": "恢复到默认设置" }
+  },
+  "fields": {
+    "targetLanguageCode": { "label": "翻译为", "tooltip": "目标语言" },
+    "sourceLanguageCode": { "label": "原文语言", "tooltip": "源语言" },
+    "translator": { "label": "翻译引擎", "tooltip": "用于翻译的服务商" },
+    "autoPause": { "label": "自动暂停", "tooltip": "悬停在字幕上时自动暂停视频", "helperText": "悬停在字幕上时自动暂停视频" },
+    "leftClickAction": {
+      "label": "左键点击操作",
+      "tooltip": "点击字幕单词时的操作",
+      "options": {
+        "saveToDictionary": "保存到生词本",
+        "copyOriginal": "复制原文",
+        "copyTranslation": "复制译文",
+        "nothing": "无操作"
+      }
+    },
+    "alwaysMultipleSelection": { "label": "始终开启多选", "tooltip": "无需按住 Shift 即可选择多个单词", "helperText": "开启后，您可以直接选择多个单词而无需按住 Shift 键" },
+    "showNotifications": { "label": "显示通知", "tooltip": "保存单词或复制文本时显示通知", "helperText": "关闭后，保存或复制时将不再弹出通知" }
+  },
+  "modals": {
+    "reset": { "title": "重置为默认设置？", "description": "这将把所有设置恢复为默认值。", "action": "重置" }
+  },
+  "tips": {
+    "multipleSelection": "如需选择多个单词，请按住 Shift 键并悬停。或者在设置中开启‘始终开启多选’。"
+  },
+  "errors": {
+    "sourceLanguageCode": "{{translatorName}} 翻译引擎不支持将 {{incorrectLanguage}} 作为源语言。已切换至 {{defaultLanguage}}。",
+    "targetLanguageCode": "{{translatorName}} 翻译引擎不支持将 {{incorrectLanguage}} 作为目标语言。已切换至 {{defaultLanguage}}。"
+  }
+}

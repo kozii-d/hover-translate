@@ -1,0 +1,63 @@
+{
+  "pageTitle": "Inställningar",
+  "tabLabel": "Inställningar",
+  "actions": {
+    "reset": {
+      "text": "Återställ till standard",
+      "tooltip": "Återställ till standardinställningar"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Översätt till",
+      "tooltip": "Språket som texten ska översättas till"
+    },
+    "sourceLanguageCode": {
+      "label": "Översätt från",
+      "tooltip": "Språket som texten ska översättas från"
+    },
+    "translator": {
+      "label": "Översättare",
+      "tooltip": "Översättaren som ska användas för översättningar"
+    },
+    "autoPause": {
+      "label": "Auto-paus",
+      "tooltip": "Pausa videon automatiskt när du hovrar över undertexter",
+      "helperText": "Pausa videon automatiskt när du hovrar över undertexter"
+    },
+    "leftClickAction": {
+      "label": "Vänsterklicksåtgärd",
+      "tooltip": "Åtgärd vid vänsterklick på ord i undertexter",
+      "options": {
+        "saveToDictionary": "Spara i ordlistan",
+        "copyOriginal": "Kopiera originaltext till urklipp",
+        "copyTranslation": "Kopiera översatt text till urklipp",
+        "nothing": "Ingenting"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "Aktivera alltid flerval",
+      "tooltip": "Aktivera flerval av ord utan att hålla Shift",
+      "helperText": "När aktiverat kan du välja flera ord utan att hålla Shift"
+    },
+    "showNotifications": {
+      "label": "Visa aviseringar",
+      "tooltip": "Visa aviseringar när ord sparas i ordlistan eller kopieras till urklipp",
+      "helperText": "När inaktiverat visas inga aviseringar när ord sparas eller kopieras"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Återställ till standardinställningar?",
+      "description": "Detta kommer att återställa alla inställningar till sina standardvärden.",
+      "action": "Återställ"
+    }
+  },
+  "tips": {
+    "multipleSelection": "För att välja flera ord, håll Shift och hovra över orden du behöver. Eller aktivera inställningen 'Aktivera alltid flerval'."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som källspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som målspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}."
+  }
+}

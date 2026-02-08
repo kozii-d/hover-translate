@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Hakkında",
+  "tabLabel": "Hakkında",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "YouTube izlerken kelime dağarcığınızı geliştirin!",
+      "thank-you": "Eklentimi seçtiğiniz için teşekkürler!"
+    },
+    "support": {
+      "title": "Projeyi Destekleyin",
+      "actions": {
+        "review": {
+          "text": "Bizi oylayın"
+        },
+        "donate": {
+          "text": "Bana bir kahve ısmarla"
+        }
+      }
+    },
+    "contacts": {
+      "title": "İletişime Geçin",
+      "github": "Kaynak Kodunu GitHub'da Görüntüle",
+      "reportIssues": "Sorunları GitHub'da Bildir"
+    },
+    "tips": {
+      "title": "Hızlı İpuçları",
+      "multipleSelection": "İfadeleri çevir: Shift tuşuna basın veya Ayarlar'dan çoklu seçimi etkinleştirin",
+      "saveToDictionary": "Kelimeleri kişisel sözlüğünüze kaydetmek için üzerlerine tıklayın",
+      "exportDictionary": "Kelime listenizi Sözlük sekmesinden JSON veya CSV olarak dışa aktarın"
+    }
+  },
+  "footer": {
+    "version": "Sürüm",
+    "changelog": "Değişiklik Günlüğü"
+  }
+}

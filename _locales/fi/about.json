@@ -1,0 +1,33 @@
+{
+  "pageTitle": "Tietoja",
+  "tabLabel": "Tietoja",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Kasvata sanavarastoasi YouTubea katsellessasi!",
+      "thank-you": "Kiitos, että valitsit laajennuksemme!"
+    },
+    "support": {
+      "title": "Tue projektia",
+      "actions": {
+        "review": { "text": "Arvostele meidät" },
+        "donate": { "text": "Osta minulle kahvi" }
+      }
+    },
+    "contacts": {
+      "title": "Ota yhteyttä",
+      "github": "Näytä lähdekoodi GitHubissa",
+      "reportIssues": "Ilmoita ongelmista GitHubissa"
+    },
+    "tips": {
+      "title": "Pikavinkit",
+      "multipleSelection": "Lauseiden kääntäminen: Pidä Shift-näppäintä painettuna tai ota vähittäinen valinta käyttöön asetuksista",
+      "saveToDictionary": "Klikkaa sanoja tallentaaksesi ne omaan sanakirjaasi",
+      "exportDictionary": "Vie sanavarastosi Sanakirja-välilehdeltä JSON- tai CSV-muodossa"
+    }
+  },
+  "footer": {
+    "version": "Versio",
+    "changelog": "Muutosloki"
+  }
+}

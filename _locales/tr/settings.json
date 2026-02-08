@@ -1,0 +1,63 @@
+{
+  "pageTitle": "Ayarlar",
+  "tabLabel": "Ayarlar",
+  "actions": {
+    "reset": {
+      "text": "Varsayılana sıfırla",
+      "tooltip": "Varsayılan ayarlara sıfırla"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Şu dile çevir",
+      "tooltip": "Metnin çevrileceği hedef dil"
+    },
+    "sourceLanguageCode": {
+      "label": "Şu dilden çevir",
+      "tooltip": "Metnin çevrileceği kaynak dil"
+    },
+    "translator": {
+      "label": "Çevirmen",
+      "tooltip": "Çeviriler için kullanılacak çeviri motoru"
+    },
+    "autoPause": {
+      "label": "Otomatik duraklat",
+      "tooltip": "Altyazıların üzerine gelindiğinde videoyu otomatik olarak duraklat",
+      "helperText": "Altyazıların üzerine gelindiğinde videoyu otomatik olarak duraklat"
+    },
+    "leftClickAction": {
+      "label": "Sol tık işlemi",
+      "tooltip": "Altyazılardaki kelimelere sol tıklandığında yapılacak işlem",
+      "options": {
+        "saveToDictionary": "Sözlüğe kaydet",
+        "copyOriginal": "Orijinal metni panoya kopyala",
+        "copyTranslation": "Çevrilmiş metni panoya kopyala",
+        "nothing": "Hiçbir şey"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "Her zaman çoklu seçimi etkinleştir",
+      "tooltip": "Shift tuşuna basmadan çoklu kelime seçimini etkinleştir",
+      "helperText": "Etkinleştirildiğinde, Shift tuşuna basmadan birden fazla kelime seçebilirsiniz"
+    },
+    "showNotifications": {
+      "label": "Bildirimleri göster",
+      "tooltip": "Kelimeler sözlüğe kaydedildiğinde veya panoya kopyalandığında bildirim göster",
+      "helperText": "Devre dışı bırakıldığında, kelimeler kaydedildiğinde veya kopyalandığında bildirim görünmez"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Varsayılan ayarlara sıfırlansın mı?",
+      "description": "Bu işlem tüm ayarları varsayılan değerlerine döndürecektir.",
+      "action": "Sıfırla"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Çoklu kelime seçimi için Shift tuşuna basılı tutun ve ihtiyacınız olan kelimelerin üzerine gelin. Veya 'Her zaman çoklu seçimi etkinleştir' ayarını açın."
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için kaynak dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor.",
+    "targetLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için hedef dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor."
+  }
+}

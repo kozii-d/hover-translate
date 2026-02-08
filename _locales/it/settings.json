@@ -1,0 +1,28 @@
+{
+  "pageTitle": "Impostazioni",
+  "tabLabel": "Impostazioni",
+  "actions": {
+    "reset": { "text": "Ripristina predefiniti", "tooltip": "Ripristina impostazioni predefinite" }
+  },
+  "fields": {
+    "targetLanguageCode": { "label": "Traduci in", "tooltip": "La lingua in cui verrà tradotto il testo" },
+    "sourceLanguageCode": { "label": "Traduci da", "tooltip": "La lingua da cui verrà tradotto il testo" },
+    "translator": { "label": "Traduttore", "tooltip": "Il servizio di traduzione da utilizzare" },
+    "autoPause": { "label": "Pausa automatica", "tooltip": "Metti in pausa il video automaticamente quando passi sui sottotitoli", "helperText": "Mette in pausa il video quando passi il mouse sui sottotitoli" },
+    "leftClickAction": { "label": "Azione clic sinistro", "tooltip": "Azione da eseguire cliccando sulle parole nei sottotitoli", "options": { "saveToDictionary": "Salva nel dizionario", "copyOriginal": "Copia originale", "copyTranslation": "Copia traduzione", "nothing": "Nulla" } },
+    "alwaysMultipleSelection": { "label": "Abilita sempre selezione multipla", "tooltip": "Seleziona più parole senza tenere premuto Shift", "helperText": "Permette di selezionare più parole senza usare il tasto Shift" },
+    "showNotifications": { "label": "Mostra notifiche", "tooltip": "Mostra notifiche quando le parole vengono salvate o copiate", "helperText": "Se disattivato, non apparirà alcuna notifica" }
+  },
+  "modals": {
+    "reset": {
+      "title": "Ripristinare le impostazioni predefinite?",
+      "description": "Questo ripristinerà tutte le impostazioni ai valori originali.",
+      "action": "Ripristina"
+    }
+  },
+  "tips": { "multipleSelection": "Per la selezione multipla, tieni premuto Shift e passa sulle parole. Oppure attiva 'Abilita sempre selezione multipla'." },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} non è disponibile come lingua di origine per {{translatorName}}. Passaggio a {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} non è disponibile come lingua di destinazione per {{translatorName}}. Passaggio a {{defaultLanguage}}."
+  }
+}

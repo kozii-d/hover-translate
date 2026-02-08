@@ -1,0 +1,17 @@
+{
+  "name": {
+    "message": "HoverTranslate - YouTube Altyazı Çevirmeni"
+  },
+  "description": {
+    "message": "YouTube izlerken kelime dağarcığınızı geliştirin! Altyazıdaki kelimelerin üzerine gelerek anında çevirin. Dil öğrenenler için mükemmel."
+  },
+  "translationSaved": {
+    "message": "Çeviri kaydedildi"
+  },
+  "originalTextCopied": {
+    "message": "Orijinal metin kopyalandı"
+  },
+  "translatedTextCopied": {
+    "message": "Çevrilmiş metin kopyalandı"
+  }
+}

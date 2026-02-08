@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Anpassa",
+  "tabLabel": "Anpassa",
+  "actions": {
+    "reset": {
+      "text": "Återställ",
+      "tooltip": "Återställ anpassningsinställningar"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Använd YouTube-inställningar",
+      "tooltip": "Använd YouTube-inställningar för översättningsrutor",
+      "helperText": "Använd samma utseendeinställningar för översättningsrutor som för undertexter på YouTube"
+    },
+    "fontFamily": {
+      "label": "Typsnittsfamilj",
+      "tooltip": "Typsnittsfamiljen som ska användas för översättningsrutor"
+    },
+    "fontSize": {
+      "label": "Teckenstorlek",
+      "tooltip": "Teckenstorleken för översättningsrutor"
+    },
+    "fontColor": {
+      "label": "Textfärg",
+      "tooltip": "Textfärgen för översättningsrutor"
+    },
+    "fontOpacity": {
+      "label": "Textens opacitet",
+      "tooltip": "Opacitetsnivån för texten i översättningsrutor"
+    },
+    "backgroundColor": {
+      "label": "Bakgrundsfärg",
+      "tooltip": "Bakgrundsfärgen för översättningsrutor"
+    },
+    "backgroundOpacity": {
+      "label": "Bakgrundens opacitet",
+      "tooltip": "Opacitetsnivån för bakgrunden i översättningsrutor"
+    },
+    "characterEdgeStyle": {
+      "label": "Teckenkantstil",
+      "tooltip": "Teckenkantstilen för översättningsrutor"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Återställ till standardinställningar för anpassning?",
+      "description": "Detta kommer att återställa alla anpassningsinställningar till sina standardvärden.",
+      "action": "Återställ"
+    }
+  }
+}

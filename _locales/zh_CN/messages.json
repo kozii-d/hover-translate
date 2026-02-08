@@ -1,0 +1,7 @@
+{
+  "name": { "message": "HoverTranslate - YouTube 字幕翻译器" },
+  "description": { "message": "边看 YouTube 边记单词！悬停字幕即可即时翻译单词。语言学习者的完美伴侣。" },
+  "translationSaved": { "message": "翻译已保存" },
+  "originalTextCopied": { "message": "原文已复制" },
+  "translatedTextCopied": { "message": "译文已复制" }
+}

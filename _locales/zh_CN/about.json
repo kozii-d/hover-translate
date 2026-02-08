@@ -1,0 +1,33 @@
+{
+  "pageTitle": "关于",
+  "tabLabel": "关于",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "边看 YouTube 边记单词！",
+      "thank-you": "感谢您选择我的插件！"
+    },
+    "support": {
+      "title": "支持本项目",
+      "actions": {
+        "review": { "text": "给我们评分" },
+        "donate": { "text": "请我喝杯咖啡" }
+      }
+    },
+    "contacts": {
+      "title": "联系我们",
+      "github": "在 GitHub 上查看源码",
+      "reportIssues": "在 GitHub 上反馈问题"
+    },
+    "tips": {
+      "title": "快速提示",
+      "multipleSelection": "翻译短语：按住 Shift 键或在设置中启用多选模式",
+      "saveToDictionary": "点击单词即可将其保存到个人生词本",
+      "exportDictionary": "可以从‘生词本’选项卡将词汇导出为 JSON 或 CSV 格式"
+    }
+  },
+  "footer": {
+    "version": "版本",
+    "changelog": "更新日志"
+  }
+}
