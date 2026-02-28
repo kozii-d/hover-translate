@@ -2,11 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.10] - 2026-02-08
+## [1.1.10] - 2026-02-28
 
 ### Added
 
 - Added UI language support for: Chinese (Simplified), Chinese (Traditional), Turkish, Swedish, Italian, Czech, and Finnish.
+
+### Fixed
+
+- Fixed popup width and navigation tab display issues across browsers.
 
 ## [1.1.9] - 2025-10-19
 

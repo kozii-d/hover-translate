@@ -1,28 +1,23 @@
 {
   "name": "hover-translate",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "",
   "main": "index.js",
   "scripts": {
     "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green,yellow\" \"cd extension && npm run watch:content\" \"cd extension && npm run watch:background\" \"cd popup && npm run watch\"",
-
     "build": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build\" \"cd popup && npm run build\"",
     "build:dev": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build:dev\" \"cd popup && npm run build\"",
-
     "setup:chrome": "cp manifest.chrome.json manifest.json",
     "setup:edge": "cp manifest.edge.json manifest.json",
     "setup:firefox": "cp manifest.firefox.json manifest.json",
-
     "release": "npm run build && node archive.js && npm run source-archive",
     "release:chrome": "npm run build && node archive.js chrome",
     "release:edge": "npm run build && node archive.js edge",
     "release:firefox": "npm run build && node archive.js firefox",
-
     "release:dev": "npm run build:dev && node archive.js dev",
     "release:chrome:dev": "npm run build:dev && node archive.js chrome dev",
     "release:edge:dev": "npm run build:dev && node archive.js edge dev",
     "release:firefox:dev": "npm run build:dev && node archive.js firefox dev",
-
     "source-archive": "node create-source-archive.js"
   },
   "keywords": [],
