@@ -4,6 +4,7 @@ body {
   place-items: center;
   min-width: 380px;
   max-width: 550px;
+  width: fit-content;
 }
 
 #root {

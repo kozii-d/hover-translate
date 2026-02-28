@@ -30,11 +30,11 @@ export const NavTabs = () => {
     <Tabs
       value={location.pathname}
       onChange={handleChange}
-      variant="scrollable"
+      variant="fullWidth"
       sx={{ borderBottom: 1, borderColor: "divider", marginBottom: "16px" }}
     >
       {tabs.map((tab) => (
-        <Tab key={tab.value} label={tab.label} value={tab.value} title={tab.label} />
+        <Tab key={tab.value} label={tab.label} value={tab.value} title={tab.label} sx={{ whiteSpace: "nowrap" }} />
       ))}
     </Tabs>
   );
