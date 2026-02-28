@@ -64,10 +64,15 @@ function createArchive(browserName) {
     const outputName = `${name}-${browserName}-${mode}.${extension}`;
     const outputPath = path.join(versionDir, outputName);
 
-    const exclude = "*.DS_Store";
+    const excludePatterns = ["*.DS_Store", ".claude", ".claude/*", "CLAUDE.md"];
+    const excludeArgs = excludePatterns.map(p => `-x "${p}"`).join(" ");
     const filesToInclude = "manifest.json _locales assets/icons extension/dist popup/dist";
 
-    const command = `zip -vr ${outputPath} ${filesToInclude} -x "${exclude}"`;
+    if (fs.existsSync(outputPath)) {
+      fs.unlinkSync(outputPath);
+    }
+
+    const command = `zip -vr ${outputPath} ${filesToInclude} ${excludeArgs}`;
     console.log(`📦 Creating ${browserName} package${browserName === 'firefox' ? ' (XPI format)' : ''}...`);
 
     console.log(`Running: ${command}`);

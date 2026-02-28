@@ -30,6 +30,9 @@ function createSourceArchive() {
       ".vscode/*",
       "*.DS_Store",
       "*/.DS_Store",
+      ".claude",
+      ".claude/*",
+      "CLAUDE.md",
       ".env",
       "*.log",
       "*.tsbuildinfo",
@@ -40,6 +43,10 @@ function createSourceArchive() {
       "*.swp",
       "*.swo"
     ].map(pattern => `"${pattern}"`).join(" ");
+
+    if (fs.existsSync(outputPath)) {
+      fs.unlinkSync(outputPath);
+    }
 
     const command = `zip -r ${outputPath} . -x ${excludePatterns}`;
 
