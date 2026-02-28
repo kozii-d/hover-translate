@@ -1,23 +1,35 @@
-HoverTranslate – Arricchisci il tuo vocabolario con la traduzione dei sottotitoli di YouTube!
+HoverTranslate – Impara le lingue con la traduzione dei sottotitoli YouTube!
 
-Impara l'inglese e lo spagnolo guardando i tuoi video preferiti su YouTube! HoverTranslate è lo strumento definitivo per chi vuole imparare le lingue in modo naturale. Guarda contenuti originali e comprendi ogni parola istantaneamente senza interrompere la visione.
+Trasforma YouTube nel tuo insegnante di lingue personale! HoverTranslate è lo strumento definitivo per imparare le lingue con i video. Guarda contenuti in lingua originale con sottotitoli e comprendi ogni parola istantaneamente senza interrompere la visione.
 
 Perché chi impara le lingue sceglie HoverTranslate:
-Basta mettere in pausa i video o passare continuamente al dizionario! Passa il mouse su qualsiasi parola nei sottotitoli di YouTube per vedere la traduzione immediata. Perfetto per costruire il tuo vocabolario mentre ti godi i tuoi canali preferiti.
+Basta mettere in pausa i video o passare continuamente al dizionario! Passa il mouse su qualsiasi parola nei sottotitoli di YouTube per vedere la traduzione immediata. Perfetto per arricchire il tuo vocabolario in modo naturale mentre ti godi i tuoi contenuti preferiti.
 
-🎯 Funzionalità chiave per un apprendimento efficace:
-• Traduzione istantanea al passaggio del mouse: Impara nuove parole senza sforzo.
-• Traduzione intelligente di frasi: Impara idiomi ed espressioni! Tieni premuto Shift per tradurre intere frasi.
-• Supporto per oltre 130 lingue: Impara inglese, spagnolo, francese o qualsiasi altra lingua.
-• Rilevamento automatico della lingua: L'estensione riconosce da sola la lingua dei sottotitoli.
-• Scelta del traduttore: Scegli tra Google Translate e Bing per traduzioni accurate.
-• Pausa automatica intelligente: Il video si ferma quando passi sui sottotitoli, dandoti il tempo di imparare.
-• Dizionario personale: Salva parole e frasi con un clic e crea la tua lista di studio personalizzata.
+Funzionalità chiave per un apprendimento linguistico efficace:
+• Traduzione istantanea al passaggio del mouse: Impara nuove parole senza sforzo - basta passare il mouse su qualsiasi parola nei sottotitoli per vederne la traduzione immediatamente.
+• Traduzione intelligente di frasi: Impara idiomi ed espressioni! Tieni premuto Shift per selezionare e tradurre intere frasi, oppure attiva la selezione multipla permanente per una selezione più semplice.
+• Supporto per oltre 190 lingue: Impara inglese, spagnolo, giapponese, coreano, tedesco o qualsiasi altra lingua! Traduci i sottotitoli di YouTube da qualsiasi lingua in italiano.
+• Rilevamento automatico della lingua: L'estensione riconosce automaticamente la lingua dei sottotitoli - inizia a imparare subito!
+• Traduttori multipli: Scegli tra Google Traduttore e Bing Translator per le traduzioni di vocaboli più accurate.
+• Pausa automatica intelligente: I video si mettono automaticamente in pausa quando passi il mouse sui sottotitoli, dandoti il tempo di imparare nuove parole senza perdere contenuti.
+• Supporto universale dei sottotitoli: Funziona perfettamente sia con i sottotitoli manuali che con quelli generati automaticamente su YouTube.
+• Dizionario personale: Salva nuove parole e frasi nel tuo dizionario con un solo clic! Costruisci la tua lista di vocaboli personale mentre guardi. Esporta il tuo dizionario in formato JSON o CSV.
+• Interfaccia personalizzabile: I tooltip di traduzione si adattano al tema di YouTube o possono essere personalizzati secondo le tue preferenze per un apprendimento confortevole.
 
-📚 Perfetto per:
-- Studenti che vogliono migliorare l'inglese o lo spagnolo con YouTube
-- Professionisti che desiderano perfezionare il linguaggio tecnico
+Perfetto per:
+- Studenti che imparano l'inglese attraverso i video di YouTube
+- Professionisti che migliorano le proprie competenze linguistiche per il lavoro
 - Appassionati di cinema e serie TV in lingua originale
-- Chiunque ami l'apprendimento immersivo
+- Chi desidera espandere il proprio vocabolario in modo naturale
+- Chiunque ami l'apprendimento immersivo attraverso i contenuti video
 
-Installa HoverTranslate oggi e trasforma ogni video di YouTube in un'opportunità di apprendimento!
+Open Source e comunità:
+HoverTranslate è un progetto open source che crede nella trasparenza e nel miglioramento continuo:
+- GitHub: https://github.com/kozii-d/hover-translate
+- Email: hovertranslate@gmail.com
+- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+Inizia ad arricchire il tuo vocabolario oggi!
+Inizia oggi il tuo percorso di apprendimento linguistico! HoverTranslate trasforma YouTube in un potente strumento per imparare nuove parole ed espressioni in modo naturale, aiutandoti a progredire dalle parole base alle espressioni complesse.
+
+Installa ora e trasforma ogni video di YouTube in un'opportunità per arricchire il tuo vocabolario!

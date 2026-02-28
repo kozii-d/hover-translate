@@ -5,30 +5,31 @@ Bemästra engelska, spanska eller franska medan du tittar på YouTube-videor! Ho
 Varför språkinlärare väljer HoverTranslate:
 Sluta pausa videor eller byta till ordböcker! Hovra helt enkelt över valfritt ord i YouTube-undertexter för att se omedelbara översättningar. Perfekt för att bygga upp ett ordförråd i engelska, spanska eller franska på ett naturligt sätt.
 
-🎯 Nyckelfunktioner för effektiv språkinlärning:
+Nyckelfunktioner för effektiv språkinlärning:
 • Omedelbar hovringsöversättning: Bygg ditt ordförråd utan ansträngning - hovra bara med musen över ett ord i undertexten för att se översättningen direkt.
 • Smart frasöversättning: Lär dig idiom och uttryck! Håll Shift för att välja och översätta hela fraser, eller aktivera "Aktivera alltid flerval" för enklare val.
-• Stöd för 130+ språk: Lär dig engelska, spanska, franska, japanska, koreanska, tyska eller vilket språk som helst! Översätt YouTube-undertexter från valfritt språk till ditt modersmål.
+• Stöd för 190+ språk: Lär dig engelska, spanska, franska, japanska, koreanska, tyska eller vilket språk som helst! Översätt YouTube-undertexter från valfritt språk till ditt modersmål.
 • Automatisk språkigenkänning: Tillägget känner automatiskt av språket i undertexten - börja lära dig direkt!
 • Flera översättare: Välj mellan Google Translate och Bing Translator för de mest exakta översättningarna.
 • Smart auto-paus: Videor pausas automatiskt när du hovrar över undertexter, vilket ger dig tid att lära dig nya ord utan att missa handlingen.
 • Universellt undertextstöd: Fungerar perfekt med både manuella och autogenererade YouTube-undertexter.
-• Personlig ordlista: Spara nya ord och fraser i din ordlista med ett klick! Bygg din personliga ordlista medan du tittar.
+• Personlig ordlista: Spara nya ord och fraser i din ordlista med ett klick! Bygg din personliga ordlista medan du tittar. Exportera din ordlista som JSON eller CSV.
 • Anpassningsbart gränssnitt: Översättningsrutorna kan matchas med ditt YouTube-tema eller anpassas efter dina önskemål för bekväm inlärning.
 
-📚 Perfekt för:
+Perfekt för:
 - Studenter som vill utöka sitt ordförråd via YouTube
 - Yrkesverksamma som vill förbättra sin affärsengelska
 - Anime-fans som lär sig japanska naturligt
 - K-drama-entusiaster som studerar koreanska
 - Alla som lär sig språk genom immersivt innehåll
 
-🛠️ Öppen källkod & gemenskapsdriven:
+Öppen källkod & gemenskapsdriven:
 HoverTranslate tror på transparens och kontinuerlig förbättring:
 - GitHub: https://github.com/kozii-d/hover-translate
 - E-post: hovertranslate@gmail.com
+- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-🚀 Börja bygga ditt ordförråd idag!
+Börja bygga ditt ordförråd idag!
 HoverTranslate förvandlar YouTube till ett kraftfullt verktyg för språkinlärning, vilket hjälper dig att gå från grundläggande ord till komplexa uttryck naturligt.
 
 Installera nu och gör varje YouTube-video till en möjlighet att lära dig språk!

@@ -5,18 +5,18 @@ Zamień YouTube w swojego prywatnego lektora języków! HoverTranslate to najlep
 Dlaczego uczący się języków wybierają HoverTranslate:
 Koniec z pauzowaniem filmów i szukaniem w słownikach! Po prostu najedź kursorem na dowolne słowo w napisach YouTube, aby zobaczyć natychmiastowe tłumaczenie. Idealny do naturalnego poszerzania słownictwa podczas oglądania ulubionych treści.
 
-🎯 Kluczowe funkcje dla efektywnej nauki języków:
+Kluczowe funkcje dla efektywnej nauki języków:
 • Natychmiastowe tłumaczenie najechaniem: Ucz się słownictwa bez wysiłku - najedź myszką na słowo w napisach, aby od razu zobaczyć tłumaczenie.
 • Inteligentne tłumaczenie fraz: Ucz się idiomów i wyrażeń! Przytrzymaj Shift, aby zaznaczyć i przetłumaczyć całe frazy, lub włącz stałe zaznaczanie wielu słów.
-• Obsługa 130+ języków: Ucz się angielskiego, niemieckiego, hiszpańskiego, francuskiego, włoskiego czy dowolnego języka! Tłumacz napisy YouTube z każdego języka na polski.
+• Obsługa 190+ języków: Ucz się angielskiego, niemieckiego, hiszpańskiego, francuskiego, włoskiego czy dowolnego języka! Tłumacz napisy YouTube z każdego języka na polski.
 • Automatyczne wykrywanie języka: Rozszerzenie automatycznie wykrywa język napisów - zacznij naukę od razu!
 • Wybór tłumacza: Wybierz między Tłumaczem Google a Bing Translator dla najdokładniejszych tłumaczeń słownictwa.
 • Inteligentna autopauza: Filmy automatycznie zatrzymują się przy najechaniu na napisy, dając czas na naukę nowego słownictwa bez pomijania treści.
 • Uniwersalna obsługa napisów: Działa perfekcyjnie zarówno z ręcznymi, jak i automatycznie generowanymi napisami YouTube.
-• Osobisty słownik: Zapisuj nowe słowa i frazy do swojego słownika jednym kliknięciem! Buduj osobistą listę słownictwa podczas oglądania.
+• Osobisty słownik: Zapisuj nowe słowa i frazy do swojego słownika jednym kliknięciem! Buduj osobistą listę słownictwa podczas oglądania. Eksportuj swój słownik jako JSON lub CSV.
 • Konfigurowalny interfejs: Dymki z tłumaczeniem dopasowują się do twojego motywu YouTube lub możesz je dostosować według preferencji.
 
-📚 Idealny dla:
+Idealny dla:
 - Uczniów i studentów uczących się angielskiego przez YouTube
 - Osób poszerzających słownictwo przez treści wideo
 - Profesjonalistów doskonalących biznesowy angielski
@@ -24,13 +24,13 @@ Koniec z pauzowaniem filmów i szukaniem w słownikach! Po prostu najedź kursor
 - Fanów seriali uczących się z napisów
 - Każdego, kto uczy się języków przez immersję
 
-🛠️ Open Source i społeczność:
+Open Source i społeczność:
 HoverTranslate to projekt open source:
 - GitHub: https://github.com/kozii-d/hover-translate
 - Email: hovertranslate@gmail.com
 - Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-🚀 Zacznij skuteczniej uczyć się języków już dziś!
+Zacznij skuteczniej uczyć się języków już dziś!
 Rozpocznij dziś efektywniejszą naukę języków! HoverTranslate zamienia YouTube w potężne narzędzie do budowania słownictwa, pomagając ci przejść od podstawowych słów do złożonych wyrażeń w naturalny sposób.
 
 Zainstaluj teraz i zamień każdy film na YouTube w okazję do poszerzenia słownictwa!
