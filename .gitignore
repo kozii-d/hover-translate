@@ -6,3 +6,4 @@ dist/
 *.tsbuildinfo
 manifest.json
 /releases/
+CLAUDE.md

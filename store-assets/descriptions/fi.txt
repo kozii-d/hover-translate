@@ -1,22 +1,35 @@
-HoverTranslate – Kasvata sanavarastoasi YouTube-tekstitysten avulla!
+HoverTranslate – Opi kieliä YouTube-tekstitysten käännösten avulla!
 
-Opi englantia katsellessasi YouTube-videoita! HoverTranslate on täydellinen työkalu sanavaraston kasvattamiseen ja kieltenopiskeluun. Katso alkuperäistä sisältöä ja ymmärrä jokainen sana välittömästi ilman keskeytyksiä.
+Muuta YouTube henkilökohtaiseksi kieltenopettajaksesi! HoverTranslate on täydellinen työkalu kielten oppimiseen videoiden avulla. Katso sisältöä alkuperäiskielellä tekstityksillä ja ymmärrä jokainen sana välittömästi keskeyttämättä katselua.
 
-Miksi englannin opiskelijat valitsevat HoverTranslaten:
-Ei enää videon pysäyttämistä tai sanakirjojen selaamista! Vie vain hiiri minkä tahansa sanan päälle YouTube-tekstityksissä nähdäksesi käännöksen heti. Täydellinen tapa oppia uusia sanoja luonnollisesti.
+Miksi kieltenopiskelijat valitsevat HoverTranslaten:
+Ei enää videon pysäyttämistä tai sanakirjojen selaamista! Vie vain hiiri minkä tahansa sanan päälle YouTube-tekstityksissä nähdäksesi käännöksen heti. Täydellinen tapa kasvattaa sanavarastoasi luonnollisesti samalla kun nautit lempisistä sisällöistäsi.
 
-🎯 Tärkeimmät ominaisuudet tehokkaaseen oppimiseen:
-• Välitön käännös hiirellä: Opi sanoja vaivattomasti – vie vain hiiri sanan päälle.
-• Älykäs lauseiden kääntäminen: Opi idiomeja! Pidä Shift-näppäintä pohjassa valitaksesi kokonaisia lauseita.
-• Tuki yli 130 kielelle: Käännä englantia suomeksi tai mille tahansa muulle kielelle.
-• Automaattinen kielen tunnistus: Laajennus tunnistaa tekstityksen kielen automaattisesti.
-• Useita kääntäjiä: Valitse Google Translate tai Bing Translator tarkimpien tulosten saamiseksi.
-• Automaattinen tauko: Video pysähtyy automaattisesti, kun tarkastelet sanoja, jotta ehdit oppia uutta.
-• Oma sanakirja: Tallenna uudet sanat yhdellä klikkauksella ja rakenna oma sanalistasi.
+Tärkeimmät ominaisuudet tehokkaaseen kieltenoppimiseen:
+• Välitön käännös hiirellä: Opi sanoja vaivattomasti - vie vain hiiri minkä tahansa tekstityssanan päälle nähdäksesi sen käännöksen välittömästi.
+• Älykäs lauseiden kääntäminen: Opi idiomeja ja ilmaisuja! Pidä Shift-näppäintä pohjassa valitaksesi ja kääntääksesi kokonaisia lauseita, tai ota käyttöön pysyvä monivalinta helpompaa valintaa varten.
+• Tuki yli 190 kielelle: Opi englantia, espanjaa, japania, koreaa, saksaa tai mitä tahansa kieltä! Käännä YouTube-tekstitykset miltä tahansa kieleltä suomeksi.
+• Automaattinen kielen tunnistus: Laajennus tunnistaa tekstityksen kielen automaattisesti - aloita oppiminen heti!
+• Useita kääntäjiä: Valitse Google-kääntäjän ja Bing Translatorin välillä tarkimpia sanakäännöksiä varten.
+• Älykäs automaattinen tauko: Video pysähtyy automaattisesti, kun viet hiiren tekstitysten päälle, jotta ehdit oppia uusia sanoja menettämättä sisältöä.
+• Yleinen tekstitystuki: Toimii täydellisesti sekä manuaalisten että automaattisesti luotujen YouTube-tekstitysten kanssa.
+• Henkilökohtainen sanakirja: Tallenna uudet sanat ja lauseet sanakirjaasi yhdellä klikkauksella! Rakenna oma sanalistasi katselun aikana. Vie sanakirjasi JSON- tai CSV-muodossa.
+• Mukautettava käyttöliittymä: Käännöstyökaluvihjeet mukautuvat YouTube-teemaasi tai voit mukauttaa ne mieltymystesi mukaan mukavaa oppimista varten.
 
-📚 Sopii erinomaisesti:
-- Englannin opiskelijoille, jotka haluavat oppia YouTuben kautta
-- Ammattilaisille, jotka parantavat kielitaitoaan
+Sopii erinomaisesti:
+- Opiskelijoille, jotka oppivat kieliä YouTuben kautta
+- Ammattilaisille, jotka parantavat kielitaitoaan työtä varten
+- Sarjojen ja elokuvien katsojille, jotka haluavat katsoa alkuperäiskielellä
 - Kaikille, jotka haluavat oppia kieliä uppoutumalla sisältöön
+- Sanavaraston laajentamisesta kiinnostuneille
 
-Asenna HoverTranslate nyt ja muuta jokainen YouTube-video oppitunniksi!
+Open Source ja yhteisö:
+HoverTranslate on avoimeen lähdekoodiin perustuva projekti, joka uskoo läpinäkyvyyteen ja jatkuvaan kehitykseen:
+- GitHub: https://github.com/kozii-d/hover-translate
+- Sähköposti: hovertranslate@gmail.com
+- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+Aloita sanavarastosi kasvattaminen tänään!
+Aloita kieltenoppimismatkasi tänään! HoverTranslate muuttaa YouTuben tehokkaaksi työkaluksi uusien sanojen ja ilmausten oppimiseen luonnollisella tavalla.
+
+Asenna nyt ja muuta jokainen YouTube-video mahdollisuudeksi kasvattaa sanavarastoasi!

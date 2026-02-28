@@ -10,8 +10,8 @@
     "translator": { "label": "Kääntäjä", "tooltip": "Käännöksissä käytettävä kääntäjäpalvelu" },
     "autoPause": { "label": "Automaattinen tauko", "tooltip": "Pysäytä video automaattisesti, kun hiiri on tekstityksen päällä", "helperText": "Pysäyttää videon automaattisesti, kun tarkastelet tekstityksiä" },
     "leftClickAction": { "label": "Vasen klikkaus", "tooltip": "Toiminto, kun klikkaat sanaa tekstityksessä", "options": { "saveToDictionary": "Tallenna sanakirjaan", "copyOriginal": "Kopioi alkuperäinen", "copyTranslation": "Kopioi käännös", "nothing": "Ei mitään" } },
-    "alwaysMultipleSelection": { "label": "Aina vähittäinen valinta", "tooltip": "Valitse useita sanoja ilman Shift-näppäintä", "helperText": "Voit valita useita sanoja kerralla ilman Shiftin pohjassa pitoa" },
-    "showNotifications": { "label": "Näytä ilmoitukset", "tooltip": "Näytä ilmoitus, kun sana tallennetaan tai kopioidaan", "helperText": "Kun pois päältä, ilmoituksia ei näytetä" }
+    "alwaysMultipleSelection": { "label": "Aina monivalinta käytössä", "tooltip": "Valitse useita sanoja ilman Shift-näppäintä", "helperText": "Voit valita useita sanoja kerralla ilman Shiftin pohjassa pitoa" },
+    "showNotifications": { "label": "Näytä ilmoitukset", "tooltip": "Näytä ilmoitus, kun sana tallennetaan tai kopioidaan", "helperText": "Kun pois päältä, ilmoituksia ei näytetä sanojen tallentamisen tai kopioinnin yhteydessä" }
   },
   "modals": {
     "reset": {
@@ -20,7 +20,7 @@
       "action": "Palauta"
     }
   },
-  "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina vähittäinen valinta' -asetus." },
+  "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina monivalinta käytössä' -asetus." },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} ei ole saatavilla lähdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} ei ole saatavilla kohdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}."

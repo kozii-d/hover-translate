@@ -28,7 +28,7 @@
   "modals": {
     "clearAll": {
       "title": "Clear all translations?",
-      "description": "This will delete all transactions permanently.",
+      "description": "This will delete all translations permanently.",
       "action": "Clear"
     }
   },

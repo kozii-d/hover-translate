@@ -1,23 +1,35 @@
-HoverTranslate – Budujte si slovní zásobu s překladem titulků na YouTube!
+HoverTranslate – Učte se jazyky s překladem titulků na YouTube!
 
-Ovládněte angličtinu při sledování videí na YouTube! HoverTranslate je ideální nástroj pro výuku jazyků a rozšiřování slovní zásoby. Sledujte autentický obsah s originálními titulky a okamžitě rozumějte každému slovu, aniž byste museli video přerušovat.
+Proměňte YouTube na svého osobního učitele jazyků! HoverTranslate je dokonalý nástroj pro výuku jazyků pomocí videí. Sledujte obsah v originálním jazyce s titulky a okamžitě rozumějte každému slovu, aniž byste museli přerušovat sledování.
 
-Proč si studenti angličtiny vybírají HoverTranslate:
-Už žádné pauzování videí nebo přepínání do slovníku! Stačí najet myší na jakékoli slovo v YouTube titulcích a okamžitě uvidíte překlad. Ideální pro přirozené učení slovíček při sledování oblíbeného obsahu.
+Proč si studenti jazyků vybírají HoverTranslate:
+Už žádné pauzování videí nebo přepínání do slovníku! Stačí najet myší na jakékoli slovo v YouTube titulcích a okamžitě uvidíte překlad. Ideální pro přirozené budování slovní zásoby při sledování oblíbeného obsahu.
 
-🎯 Klíčové funkce pro efektivní studium jazyků:
-• Okamžitý překlad najetím myši: Budujte si slovní zásobu bez námahy.
-• Chytrý překlad frází: Učte se idiomy! Podržte Shift pro výběr celých frází.
-• Podpora více než 130 jazyků: Překládejte z angličtiny do češtiny nebo jakéhokoli jiného jazyka.
-• Automatická detekce jazyka: Rozšíření samo pozná jazyk titulků.
-• Výběr překladačů: Google Translate nebo Bing Translator pro nejpřesnější výsledky.
-• Automatické pozastavení: Video se samo zastaví, když najedete na titulky, abyste měli čas na nové slovíčko.
-• Osobní slovník: Ukládejte si nová slova jedním kliknutím a budujte si vlastní seznam slovíček.
+Klíčové funkce pro efektivní studium jazyků:
+• Okamžitý překlad najetím myši: Budujte si slovní zásobu bez námahy - stačí najet myší na jakékoli slovo v titulcích a okamžitě uvidíte jeho překlad.
+• Chytrý překlad frází: Učte se idiomy a výrazy! Podržte Shift pro výběr a překlad celých frází, nebo aktivujte trvalý režim vícenásobného výběru pro jednodušší výběr.
+• Podpora více než 190 jazyků: Učte se angličtinu, španělštinu, japonštinu, korejštinu, němčinu nebo jakýkoli jiný jazyk! Překládejte YouTube titulky z jakéhokoliv jazyka do češtiny.
+• Automatická detekce jazyka: Rozšíření samo pozná jazyk titulků - začněte se učit okamžitě!
+• Více překladačů: Vyberte si mezi Google Překladačem a Bing Translatorem pro nejpřesnější překlady slovíček.
+• Chytré automatické pozastavení: Video se samo zastaví, když najedete na titulky, abyste měli čas naučit se nová slovíčka bez ztráty obsahu.
+• Univerzální podpora titulků: Funguje perfektně s manuálními i automaticky generovanými titulky na YouTube.
+• Osobní slovníček: Ukládejte si nová slova a fráze jedním kliknutím! Budujte si vlastní seznam slovíček při sledování. Exportujte svůj slovníček ve formátu JSON nebo CSV.
+• Přizpůsobitelné rozhraní: Překladové bubliny se přizpůsobí vašemu YouTube tématu nebo je upravte podle svých preferencí pro pohodlné učení.
 
-📚 Ideální pro:
-- Studenty angličtiny rozšiřující si slovní zásobu přes YouTube
+Ideální pro:
+- Studenty rozšiřující si slovní zásobu pomocí YouTube
 - Profesionály zlepšující si obchodní angličtinu
 - Fanoušky seriálů a filmů v originálním znění
-- Kohokoli, kdo se učí jazyky imerzivní metodou
+- IT pracovníky učící se technickou terminologii
+- Kohokoliv, kdo se učí jazyky imerzivní metodou
 
-Nainstalujte si HoverTranslate a proměňte každé YouTube video v lekci angličtiny!
+Open Source a komunita:
+HoverTranslate je open source projekt, který věří v transparentnost a neustálé zlepšování:
+- GitHub: https://github.com/kozii-d/hover-translate
+- Email: hovertranslate@gmail.com
+- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+Začněte budovat svou slovní zásobu již dnes!
+Začněte svou jazykovou cestu již dnes! HoverTranslate promění YouTube na mocný nástroj pro učení nových slov a výrazů přirozeným způsobem.
+
+Nainstalujte nyní a proměňte každé YouTube video v příležitost k rozšíření svého slovníku!
