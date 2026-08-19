@@ -23,6 +23,10 @@
   "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina monivalinta käytössä' -asetus." },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} ei ole saatavilla lähdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} ei ole saatavilla kohdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} ei ole saatavilla kohdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}.",
+    "translatorUnavailable": "Kääntäjä {{translatorName}} ei ole käytettävissä: {{errorMessage}}",
+    "translatorFallback": "Kääntäjä {{translatorName}} ei ole käytettävissä: {{errorMessage}}. Palataan kääntäjään {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Kääntäjään {{translatorName}} ei voitu vaihtaa: {{errorMessage}}. Käytössä pysyy {{previousTranslatorName}}.",
+    "permissionDenied": "käyttöoikeutta osoitteeseen {{origins}} ei myönnetty"
   }
 }

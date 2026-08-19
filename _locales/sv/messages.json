@@ -13,5 +13,8 @@
   },
   "translatedTextCopied": {
     "message": "Översatt text kopierad"
+  },
+  "translationFailed": {
+    "message": "Översättningen misslyckades"
   }
 }

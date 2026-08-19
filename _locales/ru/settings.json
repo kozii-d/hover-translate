@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} недоступен в качестве исходного языка для переводчика {{translatorName}}. Переключение на {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} недоступен в качестве целевого языка для переводчика {{translatorName}}. Переключение на {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} недоступен в качестве целевого языка для переводчика {{translatorName}}. Переключение на {{defaultLanguage}}.",
+    "translatorUnavailable": "Переводчик {{translatorName}} недоступен: {{errorMessage}}",
+    "translatorFallback": "Переводчик {{translatorName}} недоступен: {{errorMessage}}. Возврат к {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Не удалось переключиться на {{translatorName}}: {{errorMessage}}. Остаётся {{previousTranslatorName}}.",
+    "permissionDenied": "доступ к {{origins}} не предоставлен"
   }
 }

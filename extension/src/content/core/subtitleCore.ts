@@ -3,6 +3,14 @@ import { TooltipService } from "../services/tooltipService.ts";
 import { state } from "../state/stateManager.ts";
 
 export class SubtitleCore {
+  /**
+   * Words this instance last split each caption line into. It is what makes an
+   * unchanged (or merely extended) line recognisable, and it is per instance on
+   * purpose: after the pipeline is rebuilt the spans still on screen carry
+   * handlers of the previous instance, so the new one has to re-split them.
+   */
+  private readonly parsedSegments = new WeakMap<HTMLElement, string[]>();
+
   constructor(
     private readonly tooltipService: TooltipService
   ) {}
@@ -16,65 +24,132 @@ export class SubtitleCore {
     });
   };
 
-  public splitCaptionIntoSpans(captionSegment: HTMLElement) {
+  /**
+   * Turns a caption line into one span per word, and reports whether the DOM was
+   * actually touched.
+   *
+   * The line is left completely alone when it still holds exactly the words we
+   * split it into last time, and only the missing words are appended when it has
+   * merely grown. Rebuilding the line unconditionally is what broke selections
+   * spanning two caption lines: auto-generated captions are re-rendered on every
+   * appended word, and each rebuild detached the very nodes the current
+   * selection was anchored to.
+   */
+  public splitCaptionIntoSpans(captionSegment: HTMLElement): boolean {
     const text = captionSegment.textContent?.trim() ?? "";
-    const words = text.split(/\s+/);
-    const fragment = document.createDocumentFragment();
+    const words = text ? text.split(/\s+/) : [];
+    const parsedWords = this.getParsedWords(captionSegment);
 
-    words.forEach((word) => {
-      const wordSpan = document.createElement("span");
-      wordSpan.classList.add(TOOLTIP_WORD_CLASS);
-      wordSpan.textContent = word + " ";
-      wordSpan.addEventListener("pointerenter", this.tooltipService.handleWordMouseEnter);
-      wordSpan.addEventListener("pointerleave", this.tooltipService.handleWordMouseLeave);
-      let isDrag = false;
-      let startX = 0;
-      let startY = 0;
-      const DRAG_THRESHOLD = 5;
+    if (parsedWords) {
+      if (this.isSameWords(parsedWords, words)) return false;
 
-      wordSpan.addEventListener("pointerdown", (e: PointerEvent) => {
-        // Save the initial coordinates and reset the "drag" flag
-        isDrag = false;
-        startX = e.clientX;
-        startY = e.clientY;
-      });
+      if (this.isAppendOnly(parsedWords, words)) {
+        // Drop the raw text YouTube appended, keeping the existing spans in place.
+        this.removeNonWordNodes(captionSegment);
+        captionSegment.appendChild(this.buildWordSpans(words.slice(parsedWords.length)));
+        this.parsedSegments.set(captionSegment, words);
+        return true;
+      }
+    }
 
-      wordSpan.addEventListener("pointermove", (e: PointerEvent) => {
-        // If the cursor has moved further than the threshold, set the "drag" flag
-        const diffX = Math.abs(e.clientX - startX);
-        const diffY = Math.abs(e.clientY - startY);
-
-        if (diffX > DRAG_THRESHOLD || diffY > DRAG_THRESHOLD) {
-          isDrag = true;
-        }
-      });
-
-      wordSpan.addEventListener("pointerup", () => {
-        // If the user is dragging the subtitles, don't save the translation or copy the text
-        if (!isDrag) {
-          switch (state.settings.leftClickAction) {
-          case "save-to-dictionary":
-            this.tooltipService.saveTranslationToDictionary();
-            break;
-          case "copy-original":
-            this.tooltipService.saveOriginalTextToClipboard();
-            break;
-          case "copy-translation":
-            this.tooltipService.saveTranslationToClipboard();
-            break;
-          case "nothing":
-            break;
-          default:
-            break;
-          }
-        }
-      });
-
-      fragment.appendChild(wordSpan);
-    });
+    const fragment = this.buildWordSpans(words);
 
     captionSegment.textContent = "";
     captionSegment.appendChild(fragment);
+    this.parsedSegments.set(captionSegment, words);
+
+    return true;
+  }
+
+  /**
+   * The words we split this line into, or null when the line was never split by
+   * this instance or its spans have since been replaced by YouTube.
+   */
+  private getParsedWords(captionSegment: HTMLElement): string[] | null {
+    const parsedWords = this.parsedSegments.get(captionSegment);
+    if (!parsedWords) return null;
+
+    const wordNodes = captionSegment.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
+    if (wordNodes.length !== parsedWords.length) return null;
+
+    const isIntact = parsedWords.every((word, index) => wordNodes[index].textContent?.trim() === word);
+
+    return isIntact ? parsedWords : null;
+  }
+
+  private isSameWords(words: string[], otherWords: string[]): boolean {
+    return words.length === otherWords.length && words.every((word, index) => word === otherWords[index]);
+  }
+
+  private isAppendOnly(parsedWords: string[], words: string[]): boolean {
+    return words.length > parsedWords.length &&
+      this.isSameWords(parsedWords, words.slice(0, parsedWords.length));
+  }
+
+  private removeNonWordNodes(captionSegment: HTMLElement): void {
+    Array.from(captionSegment.childNodes).forEach((child) => {
+      if (child instanceof HTMLElement && child.classList.contains(TOOLTIP_WORD_CLASS)) return;
+      child.remove();
+    });
+  }
+
+  private buildWordSpans(words: string[]): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    words.forEach((word) => fragment.appendChild(this.createWordSpan(word)));
+
+    return fragment;
+  }
+
+  private createWordSpan(word: string): HTMLSpanElement {
+    const wordSpan = document.createElement("span");
+    wordSpan.classList.add(TOOLTIP_WORD_CLASS);
+    wordSpan.textContent = word + " ";
+    wordSpan.addEventListener("pointerenter", this.tooltipService.handleWordMouseEnter);
+    wordSpan.addEventListener("pointerleave", this.tooltipService.handleWordMouseLeave);
+    let isDrag = false;
+    let startX = 0;
+    let startY = 0;
+    const DRAG_THRESHOLD = 5;
+
+    wordSpan.addEventListener("pointerdown", (e: PointerEvent) => {
+      // Save the initial coordinates and reset the "drag" flag
+      isDrag = false;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    wordSpan.addEventListener("pointermove", (e: PointerEvent) => {
+      // If the cursor has moved further than the threshold, set the "drag" flag
+      const diffX = Math.abs(e.clientX - startX);
+      const diffY = Math.abs(e.clientY - startY);
+
+      if (diffX > DRAG_THRESHOLD || diffY > DRAG_THRESHOLD) {
+        isDrag = true;
+      }
+    });
+
+    wordSpan.addEventListener("pointerup", () => {
+      // If the user is dragging the subtitles, don't save the translation or copy the text
+      if (!isDrag) {
+        switch (state.settings.leftClickAction) {
+        case "save-to-dictionary":
+          this.tooltipService.saveTranslationToDictionary();
+          break;
+        case "copy-original":
+          this.tooltipService.saveOriginalTextToClipboard();
+          break;
+        case "copy-translation":
+          this.tooltipService.saveTranslationToClipboard();
+          break;
+        case "nothing":
+          break;
+        default:
+          break;
+        }
+      }
+    });
+
+    return wordSpan;
   }
 
   public updateCaptionWindowSize(): void {

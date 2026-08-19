@@ -3,5 +3,8 @@
   "description": { "message": "邊看 YouTube 邊記單字！懸停字幕即可即時翻譯單字。語言學習者的完美伴侶。" },
   "translationSaved": { "message": "翻譯已儲存" },
   "originalTextCopied": { "message": "原文已複製" },
-  "translatedTextCopied": { "message": "譯文已複製" }
+  "translatedTextCopied": { "message": "譯文已複製" },
+  "translationFailed": {
+    "message": "翻譯失敗"
+  }
 }

@@ -13,5 +13,8 @@
   },
   "translatedTextCopied": {
     "message": "अनुवादित पाठ कॉपी किया गया"
+  },
+  "translationFailed": {
+    "message": "अनुवाद विफल"
   }
 }

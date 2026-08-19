@@ -3,5 +3,8 @@
   "description": { "message": "Budujte si slovní zásobu při sledování YouTube! Okamžitě překládejte slova v titulcích pouhým najetím myši. Ideální pro studium jazyků." },
   "translationSaved": { "message": "Překlad uložen" },
   "originalTextCopied": { "message": "Původní text zkopírován" },
-  "translatedTextCopied": { "message": "Přeložený text zkopírován" }
+  "translatedTextCopied": { "message": "Přeložený text zkopírován" },
+  "translationFailed": {
+    "message": "Překlad se nezdařil"
+  }
 }

@@ -1,6 +1,6 @@
 import { AvailableLanguages } from "../types/languages.ts";
 
-interface TranslatedData {
+export interface TranslatedData {
   detectedLanguageCode: string;
   translatedText: string;
   dictionary?: string;
@@ -11,6 +11,15 @@ interface TranslatedData {
 export abstract class BaseTranslator {
   abstract get name(): string;
   abstract get key(): string;
+
+  /**
+   * True when the translator talks to hosts that don't allow cross-origin
+   * requests from the page, so its work has to run in the background service
+   * worker (which host_permissions cover) instead of in the content script.
+   */
+  get needsBackgroundProxy(): boolean {
+    return false;
+  }
 
   abstract translate(
     text: string,

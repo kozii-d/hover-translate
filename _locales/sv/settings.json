@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som källspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som målspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som målspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}.",
+    "translatorUnavailable": "Översättaren {{translatorName}} är inte tillgänglig: {{errorMessage}}",
+    "translatorFallback": "Översättaren {{translatorName}} är inte tillgänglig: {{errorMessage}}. Byter tillbaka till {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Kunde inte byta till {{translatorName}}: {{errorMessage}}. Behåller {{previousTranslatorName}}.",
+    "permissionDenied": "åtkomst till {{origins}} beviljades inte"
   }
 }

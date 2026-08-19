@@ -13,5 +13,8 @@
   },
   "translatedTextCopied": {
     "message": "번역된 텍스트가 복사되었습니다"
+  },
+  "translationFailed": {
+    "message": "번역 실패"
   }
 }

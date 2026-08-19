@@ -17,11 +17,12 @@ import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationMod
 import { useTranslation } from "react-i18next";
 import { MenuItemType } from "@/shared/types/types.ts";
 import { useNotifications } from "@toolpad/core";
-
-const TRANSLATORS_OPTIONS: MenuItemType[]  = [
-  { value: "google", label: "Google" },
-  { value: "bing", label: "Bing" },
-];
+import {
+  TRANSLATORS_OPTIONS,
+  getErrorMessage,
+  getTranslatorLabel,
+} from "../model/consts/translators.ts";
+import { ensureTranslatorPermissions, getTranslatorOrigins } from "@/shared/lib/helpers/permissions.ts";
 
 interface SettingsFormProps {
   initialValues: SettingsFormValues;
@@ -88,7 +89,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     const selectedTargetLanguage = targetOptions.find(langOption => langOption.value === watchTargetLanguageCode);
 
 
-    const selectedTranslatorLabel = TRANSLATORS_OPTIONS.find(option => option.value === watchTranslator)?.label || "Unknown";
+    const selectedTranslatorLabel = getTranslatorLabel(watchTranslator);
 
     if (watchSourceLanguageCode !== "auto") {
       const sourceLanguagesCodes = availableLanguages.sourceLanguages.map((lang) => lang.code);
@@ -190,11 +191,38 @@ export const SettingsForm: FC<SettingsFormProps> = ({
               tooltip={t("fields.translator.tooltip")}
               value={field.value}
               onChange={(value) => {
-                setValue("translator", value as Translator, { shouldDirty: true });
-                fetchAvailableLanguages(value as Translator).then(availableLanguages => {
-                  checkSelectedLanguages(availableLanguages);
-                  handleSubmit(onSubmit)();
-                });
+                const previousTranslator = field.value;
+                const nextTranslator = value as Translator;
+
+                setValue("translator", nextTranslator, { shouldDirty: true });
+
+                // Firefox only grants the translator's host permissions on
+                // request, and only while a user gesture is being handled.
+                ensureTranslatorPermissions(nextTranslator)
+                  .then(granted => {
+                    if (!granted) {
+                      throw new Error(t("errors.permissionDenied", {
+                        origins: getTranslatorOrigins(nextTranslator).join(", "),
+                      }));
+                    }
+                    return fetchAvailableLanguages(nextTranslator);
+                  })
+                  .then(availableLanguages => {
+                    checkSelectedLanguages(availableLanguages);
+                    handleSubmit(onSubmit)();
+                  })
+                  .catch(error => {
+                    // Report the failure and stay on the translator that works
+                    // rather than saving one that can't answer.
+                    console.error(`Failed to switch to the ${nextTranslator} translator`, error);
+                    setValue("translator", previousTranslator, { shouldDirty: true });
+
+                    notifications.show(t("errors.translatorSwitchFailed", {
+                      translatorName: getTranslatorLabel(nextTranslator),
+                      errorMessage: getErrorMessage(error),
+                      previousTranslatorName: getTranslatorLabel(previousTranslator),
+                    }), { severity: "error", autoHideDuration: 10000 });
+                  });
               }}
               options={TRANSLATORS_OPTIONS}
             />

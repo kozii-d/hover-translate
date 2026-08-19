@@ -23,6 +23,10 @@
   "tips": { "multipleSelection": "Pro výběr více slov podržte Shift a najeďte na požadovaná slova. Nebo povolte nastavení 'Vždy povolit vícenásobný výběr'." },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} není k dispozici jako zdrojový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} není k dispozici jako cílový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} není k dispozici jako cílový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}.",
+    "translatorUnavailable": "Překladač {{translatorName}} není dostupný: {{errorMessage}}",
+    "translatorFallback": "Překladač {{translatorName}} není dostupný: {{errorMessage}}. Přepínám zpět na {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Nepodařilo se přepnout na {{translatorName}}: {{errorMessage}}. Zůstává {{previousTranslatorName}}.",
+    "permissionDenied": "přístup k {{origins}} nebyl povolen"
   }
 }

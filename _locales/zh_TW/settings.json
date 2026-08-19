@@ -30,6 +30,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為源語言。已切換至 {{defaultLanguage}}。",
-    "targetLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為目標語言。已切換至 {{defaultLanguage}}。"
+    "targetLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為目標語言。已切換至 {{defaultLanguage}}。",
+    "translatorUnavailable": "{{translatorName}} 翻譯器無法使用：{{errorMessage}}",
+    "translatorFallback": "{{translatorName}} 翻譯器無法使用：{{errorMessage}}。正在切換回 {{fallbackTranslatorName}}。",
+    "translatorSwitchFailed": "無法切換至 {{translatorName}}：{{errorMessage}}。繼續使用 {{previousTranslatorName}}。",
+    "permissionDenied": "未授予對 {{origins}} 的存取權限"
   }
 }

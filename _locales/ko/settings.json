@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}}은(는) {{translatorName}} 번역기의 원본 언어로 사용할 수 없습니다. {{defaultLanguage}}(으)로 전환합니다.",
-    "targetLanguageCode": "{{incorrectLanguage}}은(는) {{translatorName}} 번역기의 대상 언어로 사용할 수 없습니다. {{defaultLanguage}}(으)로 전환합니다."
+    "targetLanguageCode": "{{incorrectLanguage}}은(는) {{translatorName}} 번역기의 대상 언어로 사용할 수 없습니다. {{defaultLanguage}}(으)로 전환합니다.",
+    "translatorUnavailable": "{{translatorName}} 번역기를 사용할 수 없습니다: {{errorMessage}}",
+    "translatorFallback": "{{translatorName}} 번역기를 사용할 수 없습니다: {{errorMessage}}. {{fallbackTranslatorName}}(으)로 되돌립니다.",
+    "translatorSwitchFailed": "{{translatorName}}(으)로 전환하지 못했습니다: {{errorMessage}}. {{previousTranslatorName}}을(를) 유지합니다.",
+    "permissionDenied": "{{origins}}에 대한 액세스가 허용되지 않았습니다"
   }
 }

@@ -16,7 +16,7 @@ hover-translate/
 │   ├── src/            # TypeScript source files
 │   ├── package.json    # Extension dependencies
 │   └── vite.*.config.ts # Build configuration
-├── popup/              # Popup interface source code  
+├── popup/              # Popup interface source code
 │   ├── src/            # React TypeScript source
 │   ├── package.json    # Popup dependencies
 │   └── vite.config.ts  # Build configuration
@@ -29,11 +29,13 @@ hover-translate/
 ## Installation Steps
 
 ### 1. Install Root Dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Install Extension Dependencies
+
 ```bash
 cd extension
 npm install
@@ -41,6 +43,7 @@ cd ..
 ```
 
 ### 3. Install Popup Dependencies
+
 ```bash
 cd popup
 npm install
@@ -52,11 +55,13 @@ cd ..
 ### For Production Build (Firefox Store Submission)
 
 1. **Set up Firefox manifest:**
+
 ```bash
 npm run setup:firefox
 ```
 
-2. **Build the extension:**
+1. **Build the extension:**
+
 ```bash
 npm run build
 ```
@@ -64,11 +69,13 @@ npm run build
 ### For Development Build
 
 1. **Set up Firefox manifest:**
+
 ```bash
 npm run setup:firefox
 ```
 
-2. **Build development version:**
+1. **Build development version:**
+
 ```bash
 npm run build:dev
 ```
@@ -85,13 +92,13 @@ After running the build commands, the following files are generated:
 
 ## Source to Output Mapping
 
-| Source File | Output File |
-|-------------|-------------|
+| Source File                              | Output File                           |
+| ---------------------------------------- | ------------------------------------- |
 | `extension/src/background/background.ts` | `extension/dist/background.bundle.js` |
-| `extension/src/content/content.ts` | `extension/dist/content.bundle.js` |
-| `extension/src/content/styles.css` | `extension/dist/styles.css` |
-| `popup/src/App.tsx` (and dependencies) | `popup/dist/assets/index-[hash].js` |
-| `popup/src/index.html` | `popup/dist/index.html` |
+| `extension/src/content/content.ts`       | `extension/dist/content.bundle.js`    |
+| `extension/src/content/styles.css`       | `extension/dist/styles.css`           |
+| `popup/src/App.tsx` (and dependencies)   | `popup/dist/assets/index-[hash].js`   |
+| `popup/src/index.html`                   | `popup/dist/index.html`               |
 
 ## Build Tools Used
 
@@ -112,6 +119,7 @@ To verify the build matches the submitted extension:
 ## Dependencies
 
 All dependencies are explicitly listed in:
+
 - `package.json` (root - build tools)
 - `extension/package.json` (extension runtime dependencies)
 - `popup/package.json` (popup UI dependencies)
@@ -121,6 +129,7 @@ No external CDN resources are used during the build process.
 ## Build Configuration
 
 The build process is configured through:
+
 - `extension/vite.background.config.ts` - Background script build
 - `extension/vite.content.config.ts` - Content script build
 - `popup/vite.config.ts` - Popup interface build

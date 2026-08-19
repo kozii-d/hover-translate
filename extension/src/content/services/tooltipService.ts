@@ -14,7 +14,7 @@ import { isCaptionWindowInUpperHalf } from "../utils/domUtils.ts";
 import { TranslationCore } from "../core/translationCore";
 import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
-import { TranslationData } from "../../common/types/translations.ts";
+import { TranslationCacheData, TranslationData } from "../../common/types/translations.ts";
 
 interface AbortableElement extends HTMLElement {
   abortController?: AbortController;
@@ -43,19 +43,32 @@ export class TooltipService {
 
   private async showTooltip(targetNode: AbortableElement) {
     const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
-      const aIndex = parseInt(a.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
-      const bIndex = parseInt(b.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
-      return aIndex - bIndex;
+      return (this.getWordIndex(a) ?? Number.MAX_SAFE_INTEGER) - (this.getWordIndex(b) ?? Number.MAX_SAFE_INTEGER);
     });
 
     const words = sortedWordNodes.map((wordNode) => wordNode.textContent?.trim() || "");
     const textToTranslate = words.join(" ");
 
+    // A word that is not indexed yet cannot join the selection, so there can be
+    // nothing to translate.
+    if (!textToTranslate) return;
+
     // Create a new AbortController for this element
     const abortController = new AbortController();
     targetNode.abortController = abortController;
 
-    const translatedData = await this.translationCore.translateText(textToTranslate, abortController.signal);
+    let translatedData: TranslationCacheData | null;
+
+    try {
+      translatedData = await this.translationCore.translateText(textToTranslate, abortController.signal);
+    } catch (error) {
+      // Without this the failure was a silent unhandled rejection: no tooltip
+      // appeared and nothing told the viewer why.
+      delete targetNode.abortController;
+      console.error("Translation failed", error);
+      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), true);
+      return;
+    }
 
     // Delete link to abortController after request is done
     delete targetNode.abortController;
@@ -84,8 +97,10 @@ export class TooltipService {
     this.positionTooltip(this.firstSelectedWordNode, tooltip, subtitlesContainer);
   }
 
-  private async showNotificationTooltip(text: string) {
-    if (!state.settings.showNotifications) return;
+  private async showNotificationTooltip(text: string, isError: boolean = false) {
+    // Errors are reported even with notifications off — the setting covers the
+    // save/copy confirmations, and a failed translation shows nothing otherwise.
+    if (!state.settings.showNotifications && !isError) return;
 
     const previousTooltip = document.querySelector<HTMLElement>(`.${NOTIFICATION_TOOLTIP_CLASS}`);
     if (previousTooltip) {
@@ -251,40 +266,86 @@ export class TooltipService {
     tooltip.style.visibility = "visible";
   }
 
-  private updateSelectedWords = (selectedNode: HTMLElement) => {
-    const selectedWordIndex = parseInt(selectedNode.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
+  /**
+   * The position of a word in the document-wide numbering, or null while it has
+   * none yet.
+   *
+   * Freshly built spans live without `data-index` until the next reindex, and
+   * falling back to 0 made every one of them look like the very first word on
+   * screen, which either collapsed the selection or stretched it to the start of
+   * the captions. Such a word simply cannot take part in the range.
+   */
+  private getWordIndex(wordNode: HTMLElement): number | null {
+    const rawIndex = wordNode.getAttribute(DATA_ATTRIBUTES.INDEX);
+    if (rawIndex === null) return null;
 
-    if (this.firstSelectedWordNode) {
-      const firstWordIndex = parseInt(this.firstSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
-      if (selectedWordIndex < firstWordIndex) {
-        this.firstSelectedWordNode = selectedNode;
-      }
-    } else {
+    const index = parseInt(rawIndex, 10);
+
+    return Number.isNaN(index) ? null : index;
+  }
+
+  private updateSelectedWords = (selectedNode: HTMLElement) => {
+    const selectedWordIndex = this.getWordIndex(selectedNode);
+    if (selectedWordIndex === null) return;
+
+    const firstWordIndex = this.firstSelectedWordNode ? this.getWordIndex(this.firstSelectedWordNode) : null;
+    if (firstWordIndex === null || selectedWordIndex < firstWordIndex) {
       this.firstSelectedWordNode = selectedNode;
     }
 
-    if (this.lastSelectedWordNode) {
-      const lastWordIndex = parseInt(this.lastSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
-      if (selectedWordIndex > lastWordIndex) {
-        this.lastSelectedWordNode = selectedNode;
-      }
-    } else {
+    const lastWordIndex = this.lastSelectedWordNode ? this.getWordIndex(this.lastSelectedWordNode) : null;
+    if (lastWordIndex === null || selectedWordIndex > lastWordIndex) {
       this.lastSelectedWordNode = selectedNode;
     }
 
-    const words = document.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
-    const firstWordIndex = parseInt(this.firstSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
-    const lastWordIndex = parseInt(this.lastSelectedWordNode.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
+    this.applySelectionRange();
+  };
 
-    words.forEach((word) => {
-      if (!(word instanceof HTMLElement)) return;
-      const wordIndex = parseInt(word.getAttribute(DATA_ATTRIBUTES.INDEX) ?? "0", 10);
+  /**
+   * Highlights every word between the two ends of the selection, dropping the
+   * words that fell out of it. The range is resolved against the words currently
+   * on screen, so it keeps spanning several caption lines after the captions have
+   * been re-rendered.
+   */
+  private applySelectionRange = () => {
+    const firstWordIndex = this.firstSelectedWordNode ? this.getWordIndex(this.firstSelectedWordNode) : null;
+    const lastWordIndex = this.lastSelectedWordNode ? this.getWordIndex(this.lastSelectedWordNode) : null;
 
-      if (wordIndex >= firstWordIndex && wordIndex <= lastWordIndex) {
-        this.selectedWordsNodes.add(word);
-        word.classList.add(TOOLTIP_SELECTED_WORD_CLASS);
-      }
+    if (firstWordIndex === null || lastWordIndex === null) {
+      this.clearSelectedWords();
+      return;
+    }
+
+    this.selectedWordsNodes.forEach((word) => word.classList.remove(TOOLTIP_SELECTED_WORD_CLASS));
+    this.selectedWordsNodes.clear();
+
+    document.querySelectorAll<HTMLElement>(`.${TOOLTIP_WORD_CLASS}`).forEach((word) => {
+      const wordIndex = this.getWordIndex(word);
+      if (wordIndex === null || wordIndex < firstWordIndex || wordIndex > lastWordIndex) return;
+
+      this.selectedWordsNodes.add(word);
+      word.classList.add(TOOLTIP_SELECTED_WORD_CLASS);
     });
+  };
+
+  /**
+   * Re-resolves the selection after the captions were rebuilt and reindexed.
+   *
+   * Dropping the selection on every caption change is what made a selection
+   * started on one line collapse to a single word on the next one: auto-generated
+   * captions keep growing while the user is still dragging across them. The
+   * selection is only given up when the words it was anchored to have actually
+   * left the screen.
+   */
+  public refreshSelectedWords = () => {
+    if (!this.firstSelectedWordNode && !this.lastSelectedWordNode) return;
+
+    if (!this.firstSelectedWordNode?.isConnected || !this.lastSelectedWordNode?.isConnected) {
+      this.clearSelectedWords();
+      return;
+    }
+
+    this.applySelectionRange();
   };
 
   public clearSelectedWords = () => {

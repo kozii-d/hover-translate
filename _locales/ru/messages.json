@@ -13,5 +13,8 @@
   },
   "translatedTextCopied": {
     "message": "Переведённый текст скопирован"
+  },
+  "translationFailed": {
+    "message": "Ошибка перевода"
   }
 }

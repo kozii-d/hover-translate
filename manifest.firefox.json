@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_name__",
   "short_name": "HoverTranslate",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "default_locale": "en",
   "description": "__MSG_description__",
   "browser_specific_settings": {
@@ -12,6 +12,7 @@
     }
   },
   "permissions": ["storage"],
+  "host_permissions": ["https://www.bing.com/*"],
   "content_scripts": [
     {
       "all_frames": true,

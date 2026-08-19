@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳元言語として利用できません。{{defaultLanguage}}に切り替えます。",
-    "targetLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳先言語として利用できません。{{defaultLanguage}}に切り替えます。"
+    "targetLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳先言語として利用できません。{{defaultLanguage}}に切り替えます。",
+    "translatorUnavailable": "{{translatorName}} 翻訳エンジンを利用できません: {{errorMessage}}",
+    "translatorFallback": "{{translatorName}} 翻訳エンジンを利用できません: {{errorMessage}}。{{fallbackTranslatorName}} に戻します。",
+    "translatorSwitchFailed": "{{translatorName}} に切り替えられませんでした: {{errorMessage}}。{{previousTranslatorName}} のままにします。",
+    "permissionDenied": "{{origins}} へのアクセスが許可されませんでした"
   }
 }

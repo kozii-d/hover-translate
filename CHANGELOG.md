@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.11] - 2026-08-19
+
+### Fixed
+
+- Fixed the Bing translator, which stopped working after Microsoft retired the endpoint it used to authorize requests.
+- Fixed the settings page hanging on a loading skeleton when the selected translator could not be reached. The error is now shown and the extension falls back to Google.
+- A translator that fails while you are switching to it now reports the error and keeps the previous one selected.
+- Failed translations now show a message on the video instead of silently showing nothing.
+- Fixed a memory leak where changing any setting left the previous session's observers, timers and event listeners running for the lifetime of the tab.
+- Fixed Shift-selection collapsing to a single word: selecting across two subtitle lines no longer breaks when the captions are redrawn, so the whole phrase is translated instead of the last word hovered. Most noticeable on auto-generated subtitles, which are redrawn on every word.
+- Switching the translator now applies to subtitles already on screen instead of only the next line.
+
+### Changed
+
+- Bing translations are now requested by the background script, which requires access to <www.bing.com>.
+
 ## [1.1.10] - 2026-02-28
 
 ### Added

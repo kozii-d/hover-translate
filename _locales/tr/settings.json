@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için kaynak dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor.",
-    "targetLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için hedef dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor."
+    "targetLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için hedef dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor.",
+    "translatorUnavailable": "{{translatorName}} çevirmeni kullanılamıyor: {{errorMessage}}",
+    "translatorFallback": "{{translatorName}} çevirmeni kullanılamıyor: {{errorMessage}}. {{fallbackTranslatorName}} çevirmenine geri dönülüyor.",
+    "translatorSwitchFailed": "{{translatorName}} çevirmenine geçilemedi: {{errorMessage}}. {{previousTranslatorName}} kullanılmaya devam ediyor.",
+    "permissionDenied": "{{origins}} adresine erişim izni verilmedi"
   }
 }

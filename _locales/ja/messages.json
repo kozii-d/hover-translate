@@ -13,5 +13,8 @@
   },
   "translatedTextCopied": {
     "message": "翻訳されたテキストをコピーしました"
+  },
+  "translationFailed": {
+    "message": "翻訳に失敗しました"
   }
 }

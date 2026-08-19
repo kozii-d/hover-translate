@@ -1,19 +1,10 @@
 
-export interface TokenData {
+export interface BingCredentials {
+  ig: string;
+  iid: string;
+  key: number;
   token: string;
-  expirationInMs: number;
-}
-
-export interface BingTokenPayload {
-  region: string;
-  "subscription-id": string;
-  "product-id": string;
-  "cognitive-services-endpoint": string;
-  "azure-resource-id": string;
-  scope: string;
-  aud: string;
-  exp: number;
-  iss: string;
+  expiresAtMs: number;
 }
 
 interface BingTranslation {
@@ -33,27 +24,15 @@ interface BingTranslation {
 
 export type BingTranslationResponse = BingTranslation[];
 
-interface BingDictionaryTranslation {
-  posTag: string
-  displayTarget: string
-  normalizedTarget: string
-  prefixWord: string
-  confidence: number
-  backTranslations: {
-    displayText: string
-    normalizedText: string
-    numExamples: number
-    frequencyCount: number
-  }[]
+/**
+ * Bing answers with HTTP 200 and one of these envelopes when the anti-abuse
+ * credentials went stale or the request was flagged.
+ */
+export interface BingErrorResponse {
+  statusCode?: number;
+  errorMessage?: string;
+  ShowCaptcha?: boolean;
 }
-
-interface BingDictionary {
-  displaySource: string
-  normalizedSource: string
-  translations: BingDictionaryTranslation[]
-}
-
-export type BingDictionaryResponse = BingDictionary[];
 
 interface BingAvailableLanguages {
   name: string;

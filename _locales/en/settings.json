@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} is not available as a source language for the {{translatorName}} translator. Switching to {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} is not available as a target language for the {{translatorName}} translator. Switching to {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} is not available as a target language for the {{translatorName}} translator. Switching to {{defaultLanguage}}.",
+    "translatorUnavailable": "The {{translatorName}} translator is unavailable: {{errorMessage}}",
+    "translatorFallback": "The {{translatorName}} translator is unavailable: {{errorMessage}}. Switching back to {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Could not switch to {{translatorName}}: {{errorMessage}}. Staying on {{previousTranslatorName}}.",
+    "permissionDenied": "access to {{origins}} was not granted"
   }
 }

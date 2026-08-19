@@ -23,6 +23,10 @@
   "tips": { "multipleSelection": "Per la selezione multipla, tieni premuto Shift e passa sulle parole. Oppure attiva 'Abilita sempre selezione multipla'." },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} non è disponibile come lingua di origine per {{translatorName}}. Passaggio a {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} non è disponibile come lingua di destinazione per {{translatorName}}. Passaggio a {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} non è disponibile come lingua di destinazione per {{translatorName}}. Passaggio a {{defaultLanguage}}.",
+    "translatorUnavailable": "Il traduttore {{translatorName}} non è disponibile: {{errorMessage}}",
+    "translatorFallback": "Il traduttore {{translatorName}} non è disponibile: {{errorMessage}}. Ritorno a {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Impossibile passare a {{translatorName}}: {{errorMessage}}. Resta {{previousTranslatorName}}.",
+    "permissionDenied": "l'accesso a {{origins}} non è stato concesso"
   }
 }

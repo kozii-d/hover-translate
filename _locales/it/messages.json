@@ -3,5 +3,8 @@
   "description": { "message": "Arricchisci il tuo vocabolario guardando YouTube! Traduci istantaneamente le parole nei sottotitoli passandoci sopra il mouse. Perfetto per chi studia le lingue." },
   "translationSaved": { "message": "Traduzione salvata" },
   "originalTextCopied": { "message": "Testo originale copiato" },
-  "translatedTextCopied": { "message": "Testo tradotto copiato" }
+  "translatedTextCopied": { "message": "Testo tradotto copiato" },
+  "translationFailed": {
+    "message": "Traduzione non riuscita"
+  }
 }

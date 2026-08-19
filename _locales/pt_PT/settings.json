@@ -58,6 +58,10 @@
   },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de origem para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de destino para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}."
+    "targetLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de destino para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}.",
+    "translatorUnavailable": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}",
+    "translatorFallback": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}. A voltar para {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Não foi possível mudar para {{translatorName}}: {{errorMessage}}. A manter {{previousTranslatorName}}.",
+    "permissionDenied": "o acesso a {{origins}} não foi concedido"
   }
 }
