@@ -14,6 +14,12 @@
   "translatedTextCopied": {
     "message": "Çevrilmiş metin kopyalandı"
   },
+  "copyFailed": {
+    "message": "Kopyalama başarısız"
+  },
+  "saveFailed": {
+    "message": "Kaydetme başarısız"
+  },
   "translationFailed": {
     "message": "Çeviri başarısız"
   }

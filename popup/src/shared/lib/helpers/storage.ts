@@ -1,33 +1,23 @@
-export const getFromStorage = <T = unknown>(key: string | null, area: "sync" | "local") => {
-  return new Promise<T | null>((resolve, reject) => {
-    chrome.storage[area].get(key, (result) => {
-      if (chrome.runtime.lastError) {
-        return reject(new Error(chrome.runtime.lastError.message || `Failed to get ${key || "data"} from ${area} storage.`));
-      }
+import { StorageService } from "@extension/common/services/storageService.ts";
 
-      if (key === null) {
-        return resolve(result as T);
-      }
+/**
+ * The popup's access to `chrome.storage`.
+ *
+ * The implementation lives in the extension package: the popup and the content
+ * script read and write the very same keys, and for a long time each carried its
+ * own copy of the same promise wrapper. They drifted — `setMany()`, which exists
+ * so that a value and its version number cannot land separately, was only ever
+ * added to one of them.
+ */
+const storageService = new StorageService();
 
-      const data = result[key];
+export const getFromStorage = <T = unknown>(
+  key: string | null,
+  area: "sync" | "local",
+) => storageService.get<T>(key, area);
 
-      if (!data) {
-        return resolve(null);
-      }
-
-      resolve(data);
-    });
-  });
-};
-
-export const setToStorage = <T = unknown>(key: string, value: T, area: "sync" | "local") => {
-  return new Promise<void>((resolve, reject) => {
-    chrome.storage[area].set({ [key]: value }, () => {
-      if (chrome.runtime.lastError) {
-        reject(new Error(chrome.runtime.lastError?.message || `Failed to save ${key} in ${area} storage.`));
-      } else {
-        resolve();
-      }
-    });
-  });
-};
+export const setToStorage = <T = unknown>(
+  key: string,
+  value: T,
+  area: "sync" | "local",
+) => storageService.set<T>(key, value, area);

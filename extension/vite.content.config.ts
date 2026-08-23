@@ -32,6 +32,8 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       __API_URL__: JSON.stringify(process.env.API_URL),
+      // Developer breadcrumbs are compiled out of production builds.
+      __DEV__: JSON.stringify(mode === "development"),
     },
     resolve: {
       alias: {

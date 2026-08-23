@@ -4,6 +4,8 @@
   "translationSaved": { "message": "Překlad uložen" },
   "originalTextCopied": { "message": "Původní text zkopírován" },
   "translatedTextCopied": { "message": "Přeložený text zkopírován" },
+  "copyFailed": { "message": "Kopírování se nezdařilo" },
+  "saveFailed": { "message": "Uložení se nezdařilo" },
   "translationFailed": {
     "message": "Překlad se nezdařil"
   }

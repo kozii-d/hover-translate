@@ -28,6 +28,13 @@ export const getJSONToExport = async (): Promise<string> => {
   return JSON.stringify(data, null, 2);
 };
 
+/**
+ * Leading characters that turn a spreadsheet cell into a formula. The tab and
+ * carriage return are on the list because spreadsheets skip them and read
+ * whatever follows.
+ */
+const FORMULA_PREFIXES = ["=", "+", "-", "@", "\t", "\r"];
+
 export const getCSVToExport = async (): Promise<string> => {
   const data = await getDataToExport();
 
@@ -41,10 +48,25 @@ export const getCSVToExport = async (): Promise<string> => {
     if (value === null || value === undefined) {
       return "";
     }
-    const stringValue = value.toString();
-    if (/[,"\n]/.test(stringValue)) {
+
+    let stringValue = value.toString();
+
+    // Excel, LibreOffice and Google Sheets run a cell that starts with one of
+    // these as a formula. Everything exported here — the original, the
+    // translation, the dictionary entry — is subtitle text from an arbitrary
+    // YouTube video, so without this the video's author decides what the
+    // viewer's spreadsheet executes when they open their own dictionary.
+    // A leading apostrophe is what spreadsheets read as "the rest is text".
+    if (FORMULA_PREFIXES.some((prefix) => stringValue.startsWith(prefix))) {
+      stringValue = `'${stringValue}`;
+    }
+
+    // `\r` belongs here too: a lone carriage return inside an unquoted value
+    // ends the row for most readers.
+    if (/[,"\n\r]/.test(stringValue)) {
       return `"${stringValue.replace(/"/g, "\"\"")}"`;
     }
+
     return stringValue;
   };
 

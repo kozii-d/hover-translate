@@ -9,5 +9,10 @@ export const downloadFile = (data: string, fileName: string, fileType: "json" | 
   link.click();
 
   document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+
+  // Revoking straight after `click()` sometimes cancels the download in Firefox:
+  // the click only queues the save, and the URL has to still resolve when it
+  // actually runs. One turn of the event loop is enough, and the blob is freed
+  // either way.
+  setTimeout(() => URL.revokeObjectURL(url), 0);
 };

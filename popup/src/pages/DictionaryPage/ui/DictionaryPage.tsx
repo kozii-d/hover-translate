@@ -86,7 +86,7 @@ const DictionaryPage: FC = () => {
 
   if (loading) {
     return (
-      <Page title="Dictionary">
+      <Page title={t("pageTitle")}>
         <DictionaryContentSkeleton/>
       </Page>
     );

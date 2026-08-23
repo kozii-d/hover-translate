@@ -9,6 +9,11 @@ export class MessageService {
   // reused instead of being rebuilt for every message.
   private readonly translators = new Map<string, BaseTranslator>();
 
+  // Translations currently in flight for a content script, so that a hover which
+  // ends before the answer arrives can stop the work rather than only stop
+  // listening to it.
+  private readonly activeTranslations = new Map<string, AbortController>();
+
   constructor(
     // private readonly tokenService: TokenService = new TokenService(),
   ) {
@@ -51,14 +56,34 @@ export class MessageService {
       }
 
       if (message?.action === "translate") {
-        const { translatorKey, text, sourceLanguageCode, targetLanguageCode } =
-          message.value;
-
-        return this.getTranslator(translatorKey).translate(
+        const {
+          requestId,
+          translatorKey,
           text,
           sourceLanguageCode,
           targetLanguageCode,
-        );
+        } = message.value;
+
+        const abortController = new AbortController();
+        this.activeTranslations.set(requestId, abortController);
+
+        return this.getTranslator(translatorKey)
+          .translate(
+            text,
+            sourceLanguageCode,
+            targetLanguageCode,
+            abortController.signal,
+          )
+          .finally(() => this.activeTranslations.delete(requestId));
+      }
+
+      if (message?.action === "abortTranslate") {
+        // An unknown id means the request has already finished — or, in theory,
+        // that the abort overtook it. Either way there is nothing left to stop.
+        this.activeTranslations.get(message.value.requestId)?.abort();
+        this.activeTranslations.delete(message.value.requestId);
+
+        return Promise.resolve({ success: true });
       }
 
       return false;

@@ -20,10 +20,33 @@ interface AbortableElement extends HTMLElement {
   abortController?: AbortController;
 }
 
+/**
+ * How long the pointer has to rest on a word before it is translated.
+ *
+ * Without it every `pointerenter` fired a request, so sweeping across a ten-word
+ * caption meant ten of them — which is what got Bing to answer with a captcha.
+ * Words that are already cached skip the wait entirely.
+ */
+const HOVER_DELAY = 200;
+
 export class TooltipService {
   private selectedWordsNodes: Set<HTMLElement>;
   private firstSelectedWordNode: HTMLElement | null;
   private lastSelectedWordNode: HTMLElement | null;
+
+  /**
+   * The translation request started for the selection that is currently on
+   * screen, together with the exact text it was started for.
+   *
+   * Click actions used to read the translator's "last thing translated", which
+   * is a different value entirely: a click landing before the pending request
+   * resolved saved (or copied) the *previous* word. Keeping the request next to
+   * the text it belongs to lets a click wait for its own translation and reject
+   * anything that no longer matches the selection.
+   */
+  private activeTranslation: { text: string; promise: Promise<TranslationCacheData | null> } | null;
+
+  private hoverTimeoutId?: ReturnType<typeof setTimeout>;
 
   constructor(
     private readonly translationCore: TranslationCore,
@@ -33,6 +56,7 @@ export class TooltipService {
     this.selectedWordsNodes = new Set<HTMLElement>();
     this.firstSelectedWordNode = null;
     this.lastSelectedWordNode = null;
+    this.activeTranslation = null;
   }
 
   public deleteActiveTooltip() {
@@ -42,12 +66,7 @@ export class TooltipService {
   }
 
   private async showTooltip(targetNode: AbortableElement) {
-    const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
-      return (this.getWordIndex(a) ?? Number.MAX_SAFE_INTEGER) - (this.getWordIndex(b) ?? Number.MAX_SAFE_INTEGER);
-    });
-
-    const words = sortedWordNodes.map((wordNode) => wordNode.textContent?.trim() || "");
-    const textToTranslate = words.join(" ");
+    const textToTranslate = this.getSelectedText();
 
     // A word that is not indexed yet cannot join the selection, so there can be
     // nothing to translate.
@@ -59,8 +78,13 @@ export class TooltipService {
 
     let translatedData: TranslationCacheData | null;
 
+    const request = this.translationCore.translateText(textToTranslate, abortController.signal);
+    // A click may land before this resolves; it has to be able to await exactly
+    // this request instead of whatever finished last.
+    this.activeTranslation = { text: textToTranslate, promise: request };
+
     try {
-      translatedData = await this.translationCore.translateText(textToTranslate, abortController.signal);
+      translatedData = await request;
     } catch (error) {
       // Without this the failure was a silent unhandled rejection: no tooltip
       // appeared and nothing told the viewer why.
@@ -284,6 +308,23 @@ export class TooltipService {
     return Number.isNaN(index) ? null : index;
   }
 
+  /**
+   * The selected words in document order, joined exactly the way they are sent
+   * to the translator. It is also the identity of the current selection: a
+   * translation is only usable for a click while it still matches this string.
+   *
+   * The spans are joined by what they already carry rather than by a space:
+   * every word split off whitespace ends with one, and two Chinese words must
+   * not be prised apart by a space that was never in the subtitle.
+   */
+  private getSelectedText(): string {
+    const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
+      return (this.getWordIndex(a) ?? Number.MAX_SAFE_INTEGER) - (this.getWordIndex(b) ?? Number.MAX_SAFE_INTEGER);
+    });
+
+    return sortedWordNodes.map((wordNode) => wordNode.textContent ?? "").join("").trim();
+  }
+
   private updateSelectedWords = (selectedNode: HTMLElement) => {
     const selectedWordIndex = this.getWordIndex(selectedNode);
     if (selectedWordIndex === null) return;
@@ -349,11 +390,19 @@ export class TooltipService {
   };
 
   public clearSelectedWords = () => {
+    this.cancelPendingTooltip();
     this.firstSelectedWordNode = null;
     this.lastSelectedWordNode = null;
+    this.activeTranslation = null;
     this.selectedWordsNodes.forEach((word) => word.classList.remove(TOOLTIP_SELECTED_WORD_CLASS));
     this.selectedWordsNodes.clear();
   };
+
+  /** Drops a translation that was scheduled but not started yet. */
+  private cancelPendingTooltip() {
+    clearTimeout(this.hoverTimeoutId);
+    this.hoverTimeoutId = undefined;
+  }
 
   public handleWordMouseEnter = (event: PointerEvent) => {
     const target = event.target as AbortableElement;
@@ -362,13 +411,26 @@ export class TooltipService {
         this.updateSelectedWords(target);
       }
 
-      this.showTooltip(target);
+      // The selection is highlighted straight away; only the request waits.
+      this.cancelPendingTooltip();
+
+      if (this.translationCore.hasCachedTranslation(this.getSelectedText())) {
+        this.showTooltip(target);
+        return;
+      }
+
+      this.hoverTimeoutId = setTimeout(() => {
+        this.hoverTimeoutId = undefined;
+        this.showTooltip(target);
+      }, HOVER_DELAY);
     }
   };
 
   public handleWordMouseLeave = (event: PointerEvent) => {
     const target = event.target as AbortableElement;
     if (target.classList.contains(TOOLTIP_WORD_CLASS)) {
+      this.cancelPendingTooltip();
+
       // Cancel the request if it's still pending
       if (target.abortController) {
         target.abortController.abort();
@@ -383,6 +445,46 @@ export class TooltipService {
     }
   };
 
+  /**
+   * The translation of the words that are selected right now, waiting for the
+   * in-flight request when the click beat it.
+   *
+   * Returns null only when there is nothing selected; otherwise the caller is
+   * guaranteed to get data for the clicked words and never for a neighbour.
+   */
+  private async resolveSelectionTranslation(): Promise<TranslationCacheData | null> {
+    const selectedText = this.getSelectedText();
+    if (!selectedText) return null;
+
+    const activeTranslation = this.activeTranslation;
+
+    if (activeTranslation?.text === selectedText) {
+      // `catch` here only defers the failure: the retry below reports it.
+      const translatedData = await activeTranslation.promise.catch(() => null);
+      if (translatedData) return translatedData;
+    }
+
+    // Either nothing was requested for these words, or the hover request was
+    // aborted by the pointer leaving the word while the click was resolving.
+    // Ask again — unaborted this time — so the click still acts on its own word.
+    return this.translationCore.translateText(selectedText);
+  }
+
+  /**
+   * `resolveSelectionTranslation` for the click handlers: the retry it may run
+   * can reject, and an unhandled rejection in a pointer handler is invisible to
+   * the viewer.
+   */
+  private async resolveTranslationForAction(): Promise<TranslationCacheData | null> {
+    try {
+      return await this.resolveSelectionTranslation();
+    } catch (error) {
+      console.error("Translation failed", error);
+      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), true);
+      return null;
+    }
+  }
+
   private isSameSavedTranslation = (translationData1: TranslationData, translationData2: TranslationData) => {
     return translationData1.sourceLanguageCode === translationData2.sourceLanguageCode &&
       translationData1.translatedText === translationData2.translatedText &&
@@ -391,46 +493,70 @@ export class TooltipService {
   };
 
   public saveTranslationToDictionary = async () => {
-    const currentData = this.translationCore.currentTranslationData;
+    const currentData = await this.resolveTranslationForAction();
     if (!currentData) return;
 
-    const savedTranslations = await this.storageService.get<TranslationData[]>("savedTranslations", "local");
-    const savedTranslationsArray = savedTranslations || [];
+    try {
+      const savedTranslations = await this.storageService.get<TranslationData[]>("savedTranslations", "local");
+      const savedTranslationsArray = savedTranslations || [];
 
-    const newSavedTranslation: TranslationData  = {
-      id: crypto.randomUUID(),
-      ...currentData,
-      timestamp: Date.now(),
-    };
+      const newSavedTranslation: TranslationData  = {
+        id: crypto.randomUUID(),
+        ...currentData,
+        timestamp: Date.now(),
+      };
 
-    // Remove the current translation from the saved translations array to avoid duplicates
-    const filteredTranslations = savedTranslationsArray.filter((translation) => {
-      return !this.isSameSavedTranslation(translation, newSavedTranslation);
-    });
+      // Remove the current translation from the saved translations array to avoid duplicates
+      const filteredTranslations = savedTranslationsArray.filter((translation) => {
+        return !this.isSameSavedTranslation(translation, newSavedTranslation);
+      });
 
-    filteredTranslations.unshift(newSavedTranslation);
+      filteredTranslations.unshift(newSavedTranslation);
 
-    await this.storageService.set("savedTranslations", filteredTranslations, "local");
+      await this.storageService.set("savedTranslations", filteredTranslations, "local");
+    } catch (error) {
+      // Running out of the local storage quota is the realistic cause. Nothing
+      // awaits this handler, so the write used to vanish without a trace: no
+      // saved word, no message, and an unhandled rejection as the only sign.
+      console.error("Saving the translation failed", error);
+      this.showNotificationTooltip(chrome.i18n.getMessage("saveFailed"), true);
+      return;
+    }
+
     this.showNotificationTooltip(chrome.i18n.getMessage("translationSaved"));
   };
 
   public saveOriginalTextToClipboard = async () => {
-    const currentData = this.translationCore.currentTranslationData;
+    const currentData = await this.resolveTranslationForAction();
     if (!currentData) return;
 
-    const textToCopy = currentData.originalText;
-    if (!textToCopy) return;
-    await navigator.clipboard.writeText(textToCopy);
-    this.showNotificationTooltip(chrome.i18n.getMessage("originalTextCopied"));
+    await this.copyToClipboard(currentData.originalText, "originalTextCopied");
   };
 
   public saveTranslationToClipboard = async () => {
-    const currentData = this.translationCore.currentTranslationData;
+    const currentData = await this.resolveTranslationForAction();
     if (!currentData) return;
 
-    const textToCopy = currentData.translatedText;
-    if (!textToCopy) return;
-    await navigator.clipboard.writeText(textToCopy);
-    this.showNotificationTooltip(chrome.i18n.getMessage("translatedTextCopied"));
+    await this.copyToClipboard(currentData.translatedText, "translatedTextCopied");
   };
+
+  /**
+   * The clipboard can refuse the write — the browser only grants it while the
+   * click still counts as a recent user gesture, and waiting for a slow
+   * translation can outlast that. Nothing awaits these handlers, so a rejection
+   * here would surface as an unhandled rejection and nothing else.
+   */
+  private async copyToClipboard(text: string, successMessageKey: string) {
+    if (!text) return;
+
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (error) {
+      console.error("Copying to the clipboard failed", error);
+      this.showNotificationTooltip(chrome.i18n.getMessage("copyFailed"), true);
+      return;
+    }
+
+    this.showNotificationTooltip(chrome.i18n.getMessage(successMessageKey));
+  }
 }

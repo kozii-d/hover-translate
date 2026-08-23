@@ -7,24 +7,31 @@ import {
 import { SubtitleCore } from "../core/subtitleCore";
 import { VideoController } from "../core/videoController";
 import { TooltipService } from "./tooltipService.ts";
+import { debugLog } from "../utils/debugLog.ts";
 
 const RETRY_CONFIG = {
   MAX_RETRIES: 5,
   INITIAL_DELAY: 1000,
   MAX_DELAY: 10000,
   CHECK_INTERVAL: 30000,
-  URL_CHECK_INTERVAL: 1000
+  URL_CHECK_INTERVAL: 1000,
 } as const;
 
 const LOG_MESSAGES = {
   OBSERVING_STARTED: "[MutationObserverService] Observing started",
   NO_CONTAINER: "[MutationObserverService] No container, retrying...",
-  ALL_RETRIES_EXHAUSTED: "[MutationObserverService] All retries exhausted, starting new cycle",
+  ALL_RETRIES_EXHAUSTED:
+    "[MutationObserverService] No player on this page, giving up until something changes",
   TAB_VISIBLE: "[MutationObserverService] Tab is visible, reinit observer",
-  PAGE_RESTORED: "[MutationObserverService] Page restored from cache, reinit observer",
+  PAGE_RESTORED:
+    "[MutationObserverService] Page restored from cache, reinit observer",
   URL_CHANGED: "[MutationObserverService] URL changed, reinit observer",
-  CONTAINER_LOST: "[MutationObserverService] Observed container is gone, reinit observer",
-  HISTORY_METHODS_ERROR: "[MutationObserverService] Failed to override history methods:"
+  CONTAINER_LOST:
+    "[MutationObserverService] Observed container is gone, reinit observer",
+  CAPTIONS_MISSED:
+    "[MutationObserverService] Captions on screen were not split, reinit observer",
+  HISTORY_METHODS_ERROR:
+    "[MutationObserverService] Failed to override history methods:",
 } as const;
 
 export class MutationObserverService {
@@ -47,7 +54,7 @@ export class MutationObserverService {
   constructor(
     private readonly subtitleCore: SubtitleCore,
     private readonly videoController: VideoController,
-    private readonly tooltipService: TooltipService
+    private readonly tooltipService: TooltipService,
   ) {
     this.observer = new MutationObserver(this.handleMutations);
 
@@ -78,7 +85,10 @@ export class MutationObserverService {
     clearInterval(this.observerCheckIntervalId);
     clearInterval(this.urlCheckIntervalId);
 
-    document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+    document.removeEventListener(
+      "visibilitychange",
+      this.handleVisibilityChange,
+    );
     window.removeEventListener("pageshow", this.handlePageShow);
     window.removeEventListener("popstate", this.handleUrlChange);
     window.removeEventListener("hashchange", this.handleUrlChange);
@@ -88,6 +98,8 @@ export class MutationObserverService {
     document.querySelectorAll(`.${CAPTION_WINDOW}`).forEach((captionWindow) => {
       this.detachCaptionWindowListeners(captionWindow);
     });
+
+    this.videoController.destroy();
 
     this.tooltipService.deleteActiveTooltip();
     this.tooltipService.clearSelectedWords();
@@ -123,15 +135,33 @@ export class MutationObserverService {
 
   private attachCaptionWindowListeners(captionWindow: Element): void {
     // Re-adding the same listener is a no-op, so this is safe to repeat.
-    captionWindow.addEventListener("pointerenter", this.videoController.handleVideoPause);
-    captionWindow.addEventListener("pointerleave", this.videoController.handleVideoPlay);
-    captionWindow.addEventListener("pointerleave", this.subtitleCore.handlePointerLeaveOnCaptionWindow);
+    captionWindow.addEventListener(
+      "pointerenter",
+      this.videoController.handleVideoPause,
+    );
+    captionWindow.addEventListener(
+      "pointerleave",
+      this.videoController.handleVideoPlay,
+    );
+    captionWindow.addEventListener(
+      "pointerleave",
+      this.subtitleCore.handlePointerLeaveOnCaptionWindow,
+    );
   }
 
   private detachCaptionWindowListeners(captionWindow: Element): void {
-    captionWindow.removeEventListener("pointerenter", this.videoController.handleVideoPause);
-    captionWindow.removeEventListener("pointerleave", this.videoController.handleVideoPlay);
-    captionWindow.removeEventListener("pointerleave", this.subtitleCore.handlePointerLeaveOnCaptionWindow);
+    captionWindow.removeEventListener(
+      "pointerenter",
+      this.videoController.handleVideoPause,
+    );
+    captionWindow.removeEventListener(
+      "pointerleave",
+      this.videoController.handleVideoPlay,
+    );
+    captionWindow.removeEventListener(
+      "pointerleave",
+      this.subtitleCore.handlePointerLeaveOnCaptionWindow,
+    );
   }
 
   /**
@@ -148,7 +178,8 @@ export class MutationObserverService {
       const segments = node.querySelectorAll(`.${CAPTION_SEGMENT}`);
       segments.forEach((segment) => {
         if (segment instanceof HTMLElement) {
-          wordsChanged = this.subtitleCore.splitCaptionIntoSpans(segment) || wordsChanged;
+          wordsChanged =
+            this.subtitleCore.splitCaptionIntoSpans(segment) || wordsChanged;
         }
       });
       this.subtitleCore.updateCaptionWindowSize();
@@ -162,8 +193,13 @@ export class MutationObserverService {
     // For auto-generated captions (TEXT_NODE inside CaptionSegment)
     if (node.nodeType === Node.TEXT_NODE) {
       const captionSegment = node.parentElement;
-      if (captionSegment && captionSegment.classList.contains(CAPTION_SEGMENT)) {
-        wordsChanged = this.subtitleCore.splitCaptionIntoSpans(captionSegment) || wordsChanged;
+      if (
+        captionSegment &&
+        captionSegment.classList.contains(CAPTION_SEGMENT)
+      ) {
+        wordsChanged =
+          this.subtitleCore.splitCaptionIntoSpans(captionSegment) ||
+          wordsChanged;
       }
     }
 
@@ -189,8 +225,10 @@ export class MutationObserverService {
 
     // A single caption line can be dropped on its own — auto-generated captions
     // scroll line by line — and the selection has to be re-resolved without it.
-    return node.classList.contains(TOOLTIP_WORD_CLASS) ||
-      node.querySelector(`.${TOOLTIP_WORD_CLASS}`) !== null;
+    return (
+      node.classList.contains(TOOLTIP_WORD_CLASS) ||
+      node.querySelector(`.${TOOLTIP_WORD_CLASS}`) !== null
+    );
   }
 
   /**
@@ -228,7 +266,8 @@ export class MutationObserverService {
     // URL change, watchdog) used to start another chain that ran forever.
     this.clearRetryTimeout();
 
-    const captionContainer = document.querySelector(`.${CAPTION_WINDOW_CONTAINER}`);
+    const captionContainer = this.findCaptionContainer();
+
     if (captionContainer) {
       this.observer.observe(captionContainer, {
         childList: true,
@@ -236,27 +275,93 @@ export class MutationObserverService {
       });
       this.observedContainer = captionContainer;
       this.processExistingCaptions();
-      // eslint-disable-next-line no-console
-      console.log(LOG_MESSAGES.OBSERVING_STARTED);
+      debugLog(
+        LOG_MESSAGES.OBSERVING_STARTED,
+        `containers=${document.querySelectorAll(`.${CAPTION_WINDOW_CONTAINER}`).length}`,
+        `segments=${document.querySelectorAll(`.${CAPTION_SEGMENT}`).length}`,
+        `segmentsInsideObserved=${captionContainer.querySelectorAll(`.${CAPTION_SEGMENT}`).length}`,
+        `words=${document.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`).length}`,
+        document.location.pathname,
+      );
       return;
     }
 
-    // eslint-disable-next-line no-console
-    console.log(LOG_MESSAGES.NO_CONTAINER);
+    debugLog(
+      LOG_MESSAGES.NO_CONTAINER,
+      `retriesLeft=${retryCount}`,
+      document.location.pathname,
+    );
+
+    // Out of attempts: this page simply has no player — the home feed, a channel,
+    // Shorts, an ad frame. Starting the whole chain again from here is what kept
+    // every such tab busy for as long as it stayed open. The periodic check below
+    // and the navigation signals will look again when there is a reason to.
+    if (retryCount <= 0) {
+      debugLog(LOG_MESSAGES.ALL_RETRIES_EXHAUSTED);
+      return;
+    }
 
     // Calculate delay using exponential backoff
     const delay = Math.min(
-      RETRY_CONFIG.INITIAL_DELAY * Math.pow(2, RETRY_CONFIG.MAX_RETRIES - retryCount),
-      RETRY_CONFIG.MAX_DELAY
+      RETRY_CONFIG.INITIAL_DELAY *
+        Math.pow(2, RETRY_CONFIG.MAX_RETRIES - retryCount),
+      RETRY_CONFIG.MAX_DELAY,
     );
 
-    if (retryCount > 0) {
-      this.retryTimeoutId = setTimeout(() => this.startObserving(retryCount - 1), delay);
-    } else {
-      // eslint-disable-next-line no-console
-      console.log(LOG_MESSAGES.ALL_RETRIES_EXHAUSTED);
-      this.retryTimeoutId = setTimeout(() => this.startObserving(RETRY_CONFIG.MAX_RETRIES), RETRY_CONFIG.INITIAL_DELAY);
+    this.retryTimeoutId = setTimeout(
+      () => this.startObserving(retryCount - 1),
+      delay,
+    );
+  }
+
+  /**
+   * The caption container worth observing.
+   *
+   * YouTube keeps several players alive at once — the watch player, the
+   * miniplayer, the inline preview a hovered thumbnail starts on the feed — and
+   * the one a previous page left behind stays in the document, *earlier* than
+   * the live one. Taking the first match therefore attached the observer to a
+   * dead container: captions rendered normally, nothing was ever split into
+   * words, and the container stayed connected so nothing ever noticed.
+   */
+  private findCaptionContainer(): Element | null {
+    const containers = Array.from(
+      document.querySelectorAll(`.${CAPTION_WINDOW_CONTAINER}`),
+    );
+
+    if (containers.length <= 1) {
+      return containers[0] ?? null;
     }
+
+    // Captions on screen that nobody has split are exactly the ones being
+    // missed, which makes their container the one to watch.
+    const containerWithMissedCaptions = containers.find(
+      (container) => this.countUnprocessedCaptions(container) > 0,
+    );
+    if (containerWithMissedCaptions) return containerWithMissedCaptions;
+
+    // Otherwise prefer a player the viewer can actually see: a leftover
+    // container is still in the document but has no box.
+    const visibleContainer = containers.find((container) => {
+      const { width, height } = container.getBoundingClientRect();
+      return width > 0 && height > 0;
+    });
+
+    return visibleContainer ?? containers[0];
+  }
+
+  /**
+   * Caption lines that are on screen but were never split into words.
+   *
+   * A non-zero count while an observer is attached means the captions are being
+   * rendered somewhere the observer is not watching.
+   */
+  private countUnprocessedCaptions(root: ParentNode = document): number {
+    return Array.from(root.querySelectorAll(`.${CAPTION_SEGMENT}`)).filter(
+      (segment) =>
+        segment.textContent?.trim() &&
+        !segment.querySelector(`.${TOOLTIP_WORD_CLASS}`),
+    ).length;
   }
 
   private stopObserving(): void {
@@ -272,16 +377,14 @@ export class MutationObserverService {
   private handleVisibilityChange = (): void => {
     if (document.visibilityState !== "visible") return;
 
-    // eslint-disable-next-line no-console
-    console.log(LOG_MESSAGES.TAB_VISIBLE);
+    debugLog(LOG_MESSAGES.TAB_VISIBLE);
     this.startObserving();
   };
 
   private handlePageShow = (event: PageTransitionEvent): void => {
     if (!event.persisted) return;
 
-    // eslint-disable-next-line no-console
-    console.log(LOG_MESSAGES.PAGE_RESTORED);
+    debugLog(LOG_MESSAGES.PAGE_RESTORED);
     this.startObserving();
   };
 
@@ -292,14 +395,27 @@ export class MutationObserverService {
     // Handling page restoration from cache
     window.addEventListener("pageshow", this.handlePageShow);
 
-    // Periodic check of the state: YouTube can replace the whole player, which
-    // leaves the observer attached to a container no longer in the document.
     this.observerCheckIntervalId = setInterval(() => {
-      if (!this.observedContainer?.isConnected) {
-        // eslint-disable-next-line no-console
-        console.log(LOG_MESSAGES.CONTAINER_LOST);
-        this.startObserving();
+      if (this.observedContainer) {
+        // YouTube can replace the whole player, which leaves the observer
+        // attached to a container no longer in the document. It is worth the
+        // full retry chain: the replacement is on its way in.
+        if (!this.observedContainer.isConnected) {
+          debugLog(LOG_MESSAGES.CONTAINER_LOST);
+          this.startObserving();
+        }
+        return;
       }
+
+      // A retry chain is already looking — it was armed by a navigation and is
+      // walking its backoff right now. Looking again from here would cancel that
+      // chain (`startObserving` drops the pending timeout) and then give up,
+      // which left the next video unhandled until the following tick.
+      if (this.retryTimeoutId !== undefined) return;
+
+      // Nothing was ever found here, so nothing was lost. Take a single look in
+      // case a player has appeared since — one attempt, not another chain.
+      this.startObserving(0);
     }, RETRY_CONFIG.CHECK_INTERVAL);
   }
 
@@ -309,8 +425,31 @@ export class MutationObserverService {
 
     this.currentHref = newHref;
     this.startObserving();
-    // eslint-disable-next-line no-console
-    console.log(LOG_MESSAGES.URL_CHANGED);
+    debugLog(LOG_MESSAGES.URL_CHANGED);
+  };
+
+  /**
+   * Captions on screen that were never split mean the observer is watching the
+   * wrong container — or none at all — whatever the container's own state says.
+   * It is the one symptom that is impossible to argue with, so it is checked
+   * often and cheaply: a `querySelectorAll` that returns nothing on every page
+   * without captions.
+   */
+  private handleMissedCaptions = (): void => {
+    if (this.destroyed) return;
+
+    // A retry chain is already looking; leave it to finish.
+    if (this.retryTimeoutId !== undefined) return;
+
+    if (this.countUnprocessedCaptions() === 0) return;
+
+    debugLog(LOG_MESSAGES.CAPTIONS_MISSED);
+    this.startObserving();
+  };
+
+  private handlePeriodicCheck = (): void => {
+    this.handleUrlChange();
+    this.handleMissedCaptions();
   };
 
   /**
@@ -333,13 +472,19 @@ export class MutationObserverService {
     const originalReplaceState = history.replaceState;
 
     try {
-      const patchedPushState: typeof history.pushState = function (this: History, ...args) {
+      const patchedPushState: typeof history.pushState = function (
+        this: History,
+        ...args
+      ) {
         originalPushState.apply(this, args);
 
         handleUrlChange();
       };
 
-      const patchedReplaceState: typeof history.replaceState = function (this: History, ...args) {
+      const patchedReplaceState: typeof history.replaceState = function (
+        this: History,
+        ...args
+      ) {
         originalReplaceState.apply(this, args);
 
         handleUrlChange();
@@ -357,7 +502,10 @@ export class MutationObserverService {
     }
 
     // Periodic check
-    this.urlCheckIntervalId = setInterval(this.handleUrlChange, RETRY_CONFIG.URL_CHECK_INTERVAL);
+    this.urlCheckIntervalId = setInterval(
+      this.handlePeriodicCheck,
+      RETRY_CONFIG.URL_CHECK_INTERVAL,
+    );
   }
 
   private restoreHistoryMethods(): void {
@@ -367,7 +515,10 @@ export class MutationObserverService {
       history.pushState = this.originalPushState;
     }
 
-    if (this.originalReplaceState && history.replaceState === this.patchedReplaceState) {
+    if (
+      this.originalReplaceState &&
+      history.replaceState === this.patchedReplaceState
+    ) {
       history.replaceState = this.originalReplaceState;
     }
   }

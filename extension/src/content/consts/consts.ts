@@ -8,6 +8,7 @@ export const TOOLTIP_SELECTED_WORD_CLASS = "custom-tooltip-word-selected";
 export const CAPTION_WINDOW_CONTAINER = "ytp-caption-window-container";
 export const CAPTION_WINDOW = "caption-window";
 export const CAPTION_SEGMENT = "ytp-caption-segment";
+export const VIDEO_PLAYER = "html5-video-player";
 
 // Data attributes keys
 export const DATA_ATTRIBUTES = {
@@ -40,12 +41,17 @@ interface TooltipSettings {
 
 export const TOOLTIP_SETTINGS: TooltipSettings = {
   fontFamily: {
-    "monospaced-serif": "\"Courier New\", Courier, \"Nimbus Mono L\", \"Cutive Mono\", monospace",
-    "proportional-serif": "\"Times New Roman\", Times, Georgia, Cambria, \"PT Serif Caption\", serif",
-    "monospaced-sans-serif": "\"Deja Vu Sans Mono\", \"Lucida Console\", Monaco, Consolas, \"PT Mono\", monospace",
-    "proportional-sans-serif": "\"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif",
-    "casual": "\"Comic Sans MS\", Impact, Handlee, fantasy",
-    "cursive": "\"Monotype Corsiva\", \"URW Chancery L\", \"Apple Chancery\", \"Dancing Script\", cursive",
+    "monospaced-serif":
+      "\"Courier New\", Courier, \"Nimbus Mono L\", \"Cutive Mono\", monospace",
+    "proportional-serif":
+      "\"Times New Roman\", Times, Georgia, Cambria, \"PT Serif Caption\", serif",
+    "monospaced-sans-serif":
+      "\"Deja Vu Sans Mono\", \"Lucida Console\", Monaco, Consolas, \"PT Mono\", monospace",
+    "proportional-sans-serif":
+      "\"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif",
+    casual: "\"Comic Sans MS\", Impact, Handlee, fantasy",
+    cursive:
+      "\"Monotype Corsiva\", \"URW Chancery L\", \"Apple Chancery\", \"Dancing Script\", cursive",
     "small-capitals": "Arial, Helvetica, Verdana, \"Marcellus SC\", sans-serif",
   },
   fontColor: {
@@ -56,7 +62,7 @@ export const TOOLTIP_SETTINGS: TooltipSettings = {
     blue: "rgb(0, 0, 255)",
     magenta: "rgb(255, 0, 255)",
     red: "rgb(255, 0, 0)",
-    black:"rgb(8, 8, 8)",
+    black: "rgb(8, 8, 8)",
   },
   fontSize: {
     "50%": "11.2667px",
@@ -75,7 +81,7 @@ export const TOOLTIP_SETTINGS: TooltipSettings = {
     blue: "rgb(0, 0, 255)",
     magenta: "rgb(255, 0, 255)",
     red: "rgb(255, 0, 0)",
-    black:"rgb(8, 8, 8)",
+    black: "rgb(8, 8, 8)",
   },
   backgroundOpacity: {
     "0%": 0,
@@ -85,11 +91,14 @@ export const TOOLTIP_SETTINGS: TooltipSettings = {
     "100%": 1,
   },
   characterEdgeStyle: {
-    "none": "none",
-    "drop-shadow": "rgb(34, 34, 34) 1.40833px 1.40833px 2.1125px, rgb(34, 34, 34) 1.40833px 1.40833px 2.81667px, rgb(34, 34, 34) 1.40833px 1.40833px 3.52083px",
-    "raised": "rgb(34, 34, 34) 1px 1px 0px, rgb(34, 34, 34) 1.5px 1.5px 0px, rgb(34, 34, 34) 2px 2px 0px",
-    "depressed": "rgb(204, 204, 204) 1px 1px 0px, rgb(34, 34, 34) -1px -1px 0px",
-    "outline": "rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px",
+    none: "none",
+    "drop-shadow":
+      "rgb(34, 34, 34) 1.40833px 1.40833px 2.1125px, rgb(34, 34, 34) 1.40833px 1.40833px 2.81667px, rgb(34, 34, 34) 1.40833px 1.40833px 3.52083px",
+    raised:
+      "rgb(34, 34, 34) 1px 1px 0px, rgb(34, 34, 34) 1.5px 1.5px 0px, rgb(34, 34, 34) 2px 2px 0px",
+    depressed: "rgb(204, 204, 204) 1px 1px 0px, rgb(34, 34, 34) -1px -1px 0px",
+    outline:
+      "rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px, rgb(34, 34, 34) 0px 0px 1.40833px",
   },
   fontOpacity: {
     "25%": 0.25,
@@ -98,4 +107,3 @@ export const TOOLTIP_SETTINGS: TooltipSettings = {
     "100%": 1,
   },
 };
-

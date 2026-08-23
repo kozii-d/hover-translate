@@ -24,12 +24,6 @@
   "background": {
     "scripts": ["extension/dist/background.bundle.js"]
   },
-  "web_accessible_resources": [
-    {
-      "resources": ["*.*"],
-      "matches": ["<all_urls>"]
-    }
-  ],
   "action": {
     "default_popup": "popup/dist/index.html"
   },

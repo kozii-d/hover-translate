@@ -29,9 +29,10 @@ export const LangSelector: FC = () => {
     handleClose();
   };
 
+  const languageNames = useMemo(() => new Intl.DisplayNames(["en"], { type: "language" }), []);
+
   const getLanguageName = (langCode: string) => {
-    const displayNames = new Intl.DisplayNames(["en"], { type: "language" });
-    return displayNames.of(langCode.replace("_", "-")) || langCode;
+    return languageNames.of(langCode.replace("_", "-")) || langCode;
   };
 
   return (

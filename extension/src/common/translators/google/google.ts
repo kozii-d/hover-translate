@@ -18,7 +18,7 @@ export class GoogleTranslator extends BaseTranslator {
     text: string,
     sourceLanguageCode: string,
     targetLanguageCode: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
   ) {
     const params = new URLSearchParams([
       ["client", "gtx"],
@@ -30,16 +30,29 @@ export class GoogleTranslator extends BaseTranslator {
       ["dt", "t"], // dt: t is for translation
       ["dt", "bd"], // dt: bd is for dictionary
       ["dt", "rm"], // dt: rm is for transliteration
-      ["dt", "rw"], // dt: rw is for related words
       // ["dt", "qca"], // dt: qca is for spelling correction
     ]);
-    
+
+    // No retries, the same as Bing. This endpoint answers a network it has
+    // decided is too busy with 429, and ky would retry that twice by default:
+    // three requests per hover, which deepens the throttling that caused it,
+    // and about a second of waiting before the viewer is told anything.
     const response = await ky.get<GoogleTranslation>(
       `${this.apiUrl}/translate_a/single?${params}`,
-      { signal }
+      { signal, retry: 0 },
     );
 
     const data = await response.json();
+
+    // Google answers a request it declines — rate limiting, an unsupported
+    // language pair — with a body that carries no sentences at all. Reading it as
+    // a translation raised a bare TypeError, which told neither the log nor the
+    // viewer anything.
+    if (!Array.isArray(data.sentences)) {
+      throw new Error(
+        "The Google translator returned no translation for this text",
+      );
+    }
 
     const translatedText = data.sentences.reduce((acc, sentence) => {
       if (sentence.trans) {
@@ -62,11 +75,12 @@ export class GoogleTranslator extends BaseTranslator {
       return acc;
     }, "");
 
-    const dictionary = data.dict?.reduce((acc, dictEntry) => {
-      const dictLine = `${dictEntry.pos}: ${dictEntry.terms.join(", ")};\n`;
-      acc += dictLine;
-      return acc;
-    }, "") || "";
+    const dictionary =
+      data.dict?.reduce((acc, dictEntry) => {
+        const dictLine = `${dictEntry.pos}: ${dictEntry.terms.join(", ")};\n`;
+        acc += dictLine;
+        return acc;
+      }, "") || "";
 
     return {
       detectedLanguageCode: data.src,

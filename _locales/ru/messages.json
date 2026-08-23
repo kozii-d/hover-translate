@@ -14,6 +14,12 @@
   "translatedTextCopied": {
     "message": "Переведённый текст скопирован"
   },
+  "copyFailed": {
+    "message": "Ошибка копирования"
+  },
+  "saveFailed": {
+    "message": "Ошибка сохранения"
+  },
   "translationFailed": {
     "message": "Ошибка перевода"
   }

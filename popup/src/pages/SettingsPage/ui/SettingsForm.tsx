@@ -52,26 +52,25 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     reset(initialValues);
   }, [initialValues, reset]);
 
-  const getLanguageName = (code: string, locale: string = "en") => {
-    const displayNames = new Intl.DisplayNames(locale, { type: "language" });
-    return displayNames.of(code);
-  };
+  // One instance for both lists: building `Intl.DisplayNames` is expensive and the
+  // translators offer close to two hundred languages each.
+  const languageNames = useMemo(() => new Intl.DisplayNames("en", { type: "language" }), []);
 
   const sourceOptions = useMemo(() => {
     const result = sourceLanguages.map((language) => ({
       value: language.code,
-      label: language.name || getLanguageName(language.code) || language.code
+      label: language.name || languageNames.of(language.code) || language.code
     }));
     result.unshift({ value: "auto", label: "Auto" });
     return result;
-  }, [sourceLanguages]);
+  }, [languageNames, sourceLanguages]);
 
   const targetOptions = useMemo(() => {
     return targetLanguages.map((language) => ({
       value: language.code,
-      label: language.name || getLanguageName(language.code) || language.code
+      label: language.name || languageNames.of(language.code) || language.code
     }));
-  }, [targetLanguages]);
+  }, [languageNames, targetLanguages]);
 
   const leftClickActionOptions: MenuItemType<LeftClickAction>[]  = [
     { value: "save-to-dictionary", label: t("fields.leftClickAction.options.saveToDictionary") },
@@ -115,11 +114,11 @@ export const SettingsForm: FC<SettingsFormProps> = ({
       const notificationMessage = t("errors.targetLanguageCode", {
         incorrectLanguage: selectedTargetLanguage?.label || "Unknown",
         translatorName: selectedTranslatorLabel,
-        defaultLanguage: getLanguageName(newTargetLanguage)
+        defaultLanguage: languageNames.of(newTargetLanguage)
       });
       notifications.show(notificationMessage, { severity: "warning", autoHideDuration: 5000 });
     }
-  }, [notifications, setValue, sourceOptions, t, targetOptions, watch]);
+  }, [languageNames, notifications, setValue, sourceOptions, t, targetOptions, watch]);
 
   const handleChangeSwitch = useCallback((field: keyof SettingsFormValues, value: boolean) => {
     setValue(field, value, { shouldDirty: true });

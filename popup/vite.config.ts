@@ -20,6 +20,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),
+      // Code shared with the content script and the background worker — the
+      // storage wrapper today. Only `extension/src/common` is meant to be
+      // reached this way.
+      "@extension": resolve(__dirname, "../extension/src"),
       "chrome": "webextension-polyfill"
     },
   },

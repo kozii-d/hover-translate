@@ -1,6 +1,7 @@
 import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW, DATA_ATTRIBUTES } from "../consts/consts.ts";
 import { TooltipService } from "../services/tooltipService.ts";
 import { state } from "../state/stateManager.ts";
+import { CaptionWord, renderWord, splitIntoWords } from "../utils/wordSegmenter.ts";
 
 export class SubtitleCore {
   /**
@@ -9,7 +10,7 @@ export class SubtitleCore {
    * purpose: after the pipeline is rebuilt the spans still on screen carry
    * handlers of the previous instance, so the new one has to re-split them.
    */
-  private readonly parsedSegments = new WeakMap<HTMLElement, string[]>();
+  private readonly parsedSegments = new WeakMap<HTMLElement, CaptionWord[]>();
 
   constructor(
     private readonly tooltipService: TooltipService
@@ -37,7 +38,7 @@ export class SubtitleCore {
    */
   public splitCaptionIntoSpans(captionSegment: HTMLElement): boolean {
     const text = captionSegment.textContent?.trim() ?? "";
-    const words = text ? text.split(/\s+/) : [];
+    const words = splitIntoWords(text);
     const parsedWords = this.getParsedWords(captionSegment);
 
     if (parsedWords) {
@@ -46,6 +47,7 @@ export class SubtitleCore {
       if (this.isAppendOnly(parsedWords, words)) {
         // Drop the raw text YouTube appended, keeping the existing spans in place.
         this.removeNonWordNodes(captionSegment);
+        this.syncSeparators(captionSegment, words.slice(0, parsedWords.length));
         captionSegment.appendChild(this.buildWordSpans(words.slice(parsedWords.length)));
         this.parsedSegments.set(captionSegment, words);
         return true;
@@ -65,25 +67,54 @@ export class SubtitleCore {
    * The words we split this line into, or null when the line was never split by
    * this instance or its spans have since been replaced by YouTube.
    */
-  private getParsedWords(captionSegment: HTMLElement): string[] | null {
+  private getParsedWords(captionSegment: HTMLElement): CaptionWord[] | null {
     const parsedWords = this.parsedSegments.get(captionSegment);
     if (!parsedWords) return null;
 
     const wordNodes = captionSegment.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
     if (wordNodes.length !== parsedWords.length) return null;
 
-    const isIntact = parsedWords.every((word, index) => wordNodes[index].textContent?.trim() === word);
+    const isIntact = parsedWords.every(
+      (word, index) => wordNodes[index].textContent?.trim() === renderWord(word).trim()
+    );
 
     return isIntact ? parsedWords : null;
   }
 
-  private isSameWords(words: string[], otherWords: string[]): boolean {
-    return words.length === otherWords.length && words.every((word, index) => word === otherWords[index]);
+  private isSameWords(words: CaptionWord[], otherWords: CaptionWord[]): boolean {
+    return words.length === otherWords.length &&
+      words.every((word, index) => renderWord(word) === renderWord(otherWords[index]));
   }
 
-  private isAppendOnly(parsedWords: string[], words: string[]): boolean {
+  /**
+   * Whether the line only grew at the end.
+   *
+   * Only the words themselves are compared, not what is rendered after them: in
+   * a script without spaces the last word of a line loses its trailing space as
+   * soon as the next word arrives (`我喜欢` → `我喜欢看`). Treating that as a
+   * different line would rebuild the whole caption on every appended word, and a
+   * rebuild detaches the very nodes a live selection is anchored to.
+   */
+  private isAppendOnly(parsedWords: CaptionWord[], words: CaptionWord[]): boolean {
     return words.length > parsedWords.length &&
-      this.isSameWords(parsedWords, words.slice(0, parsedWords.length));
+      parsedWords.every((word, index) => word.text === words[index].text);
+  }
+
+  /**
+   * Brings the spans that stay in place in line with what now follows them —
+   * see `isAppendOnly`. The nodes are kept, so the selection survives.
+   */
+  private syncSeparators(captionSegment: HTMLElement, words: CaptionWord[]): void {
+    const wordNodes = captionSegment.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
+
+    words.forEach((word, index) => {
+      const wordNode = wordNodes[index];
+      const rendered = renderWord(word);
+
+      if (wordNode && wordNode.textContent !== rendered) {
+        wordNode.textContent = rendered;
+      }
+    });
   }
 
   private removeNonWordNodes(captionSegment: HTMLElement): void {
@@ -93,17 +124,17 @@ export class SubtitleCore {
     });
   }
 
-  private buildWordSpans(words: string[]): DocumentFragment {
+  private buildWordSpans(words: CaptionWord[]): DocumentFragment {
     const fragment = document.createDocumentFragment();
     words.forEach((word) => fragment.appendChild(this.createWordSpan(word)));
 
     return fragment;
   }
 
-  private createWordSpan(word: string): HTMLSpanElement {
+  private createWordSpan(word: CaptionWord): HTMLSpanElement {
     const wordSpan = document.createElement("span");
     wordSpan.classList.add(TOOLTIP_WORD_CLASS);
-    wordSpan.textContent = word + " ";
+    wordSpan.textContent = renderWord(word);
     wordSpan.addEventListener("pointerenter", this.tooltipService.handleWordMouseEnter);
     wordSpan.addEventListener("pointerleave", this.tooltipService.handleWordMouseLeave);
     let isDrag = false;

@@ -14,6 +14,12 @@
   "translatedTextCopied": {
     "message": "Translated text copied"
   },
+  "copyFailed": {
+    "message": "Copying failed"
+  },
+  "saveFailed": {
+    "message": "Saving failed"
+  },
   "translationFailed": {
     "message": "Translation failed"
   }

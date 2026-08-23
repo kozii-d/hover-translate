@@ -14,6 +14,12 @@
   "translatedTextCopied": {
     "message": "翻訳されたテキストをコピーしました"
   },
+  "copyFailed": {
+    "message": "コピーに失敗しました"
+  },
+  "saveFailed": {
+    "message": "保存に失敗しました"
+  },
   "translationFailed": {
     "message": "翻訳に失敗しました"
   }

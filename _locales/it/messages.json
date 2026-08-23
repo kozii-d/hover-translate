@@ -4,6 +4,8 @@
   "translationSaved": { "message": "Traduzione salvata" },
   "originalTextCopied": { "message": "Testo originale copiato" },
   "translatedTextCopied": { "message": "Testo tradotto copiato" },
+  "copyFailed": { "message": "Copia non riuscita" },
+  "saveFailed": { "message": "Salvataggio non riuscito" },
   "translationFailed": {
     "message": "Traduzione non riuscita"
   }

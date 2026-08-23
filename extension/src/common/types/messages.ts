@@ -12,6 +12,8 @@ export interface GetAvailableLanguagesMessage {
 export interface TranslateMessage {
   action: "translate";
   value: {
+    /** Identifies this request so that it can be aborted while it runs. */
+    requestId: string;
     translatorKey: string;
     text: string;
     sourceLanguageCode: string;
@@ -19,10 +21,18 @@ export interface TranslateMessage {
   };
 }
 
+export interface AbortTranslateMessage {
+  action: "abortTranslate";
+  value: {
+    requestId: string;
+  };
+}
+
 export type ExtensionMessage =
   | OpenPopupMessage
   | GetAvailableLanguagesMessage
-  | TranslateMessage;
+  | TranslateMessage
+  | AbortTranslateMessage;
 
 export interface GetAvailableLanguagesResponse {
   availableLanguages: AvailableLanguages;

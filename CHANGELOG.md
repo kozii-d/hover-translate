@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.11] - 2026-08-19
+## [1.1.11] - 2026-08-23
+
+### Added
+
+- Word-by-word translation for subtitles written without spaces between words — Chinese, Japanese, Thai and others. Their subtitles used to be one solid line, so hovering translated the whole sentence instead of a word.
 
 ### Fixed
 
@@ -10,13 +14,25 @@ All notable changes to this project will be documented in this file.
 - Fixed the settings page hanging on a loading skeleton when the selected translator could not be reached. The error is now shown and the extension falls back to Google.
 - A translator that fails while you are switching to it now reports the error and keeps the previous one selected.
 - Failed translations now show a message on the video instead of silently showing nothing.
-- Fixed a memory leak where changing any setting left the previous session's observers, timers and event listeners running for the lifetime of the tab.
-- Fixed Shift-selection collapsing to a single word: selecting across two subtitle lines no longer breaks when the captions are redrawn, so the whole phrase is translated instead of the last word hovered. Most noticeable on auto-generated subtitles, which are redrawn on every word.
+- Fixed the extension popup opening in English for everyone. It now follows the browser's language, in all 19 languages it is translated into.
+- Fixed clicking a word right after hovering it saving or copying the previous word. You now always get the word you clicked.
+- Fixed subtitles no longer reacting to the mouse after going from the home page to a video.
+- Fixed the video resuming on its own after you had paused it yourself while the pointer was over the subtitles.
+- Fixed settings resetting to their defaults when the extension updated, or when it was installed on a second device.
+- Moving the pointer across a subtitle line no longer asks for a translation of every word it passes - the pointer has to stop on a word. This also stops Bing from asking for a captcha after a few minutes of watching.
+- Words that could not be saved to the dictionary, and text that could not be copied to the clipboard, now say so instead of failing silently.
+- Fixed the extension gradually slowing the page down after settings had been changed a few times without reloading it.
+- Fixed Shift-selection collapsing to a single word. A phrase selected across two subtitle lines now survives the subtitles being redrawn, which auto-generated subtitles do on every word.
 - Switching the translator now applies to subtitles already on screen instead of only the next line.
+- Fixed dates in the dictionary being shown in the wrong language for European Portuguese, and the dictionary showing an untranslated title while it loaded.
+- Firefox: fixed the dictionary export being cancelled instead of downloaded.
 
 ### Changed
 
 - Bing translations are now requested by the background script, which requires access to <www.bing.com>.
+- The extension no longer lets web pages read its files, so a site can no longer tell that you have it installed.
+- The extension now does its work only where a player can actually be — a video page or an embedded player — instead of on every YouTube page and in every frame of it.
+- Subtitle text in an exported dictionary can no longer be treated as a formula by Excel, LibreOffice or Google Sheets.
 
 ## [1.1.10] - 2026-02-28
 

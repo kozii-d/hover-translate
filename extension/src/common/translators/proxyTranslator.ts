@@ -25,24 +25,49 @@ export class ProxyTranslator extends BaseTranslator {
     text: string,
     sourceLanguageCode: string,
     targetLanguageCode: string,
-    signal?: AbortSignal
+    signal?: AbortSignal,
   ): Promise<TranslatedData> {
-    return sendMessageToBackground<TranslatedData>({
-      action: "translate",
-      value: {
-        translatorKey: this.key,
-        text,
-        sourceLanguageCode,
-        targetLanguageCode,
-      },
-    }, signal);
+    const requestId = crypto.randomUUID();
+
+    // Aborting the signal only detaches this caller: the work itself runs in the
+    // service worker, which has to be told separately or the request goes
+    // through to the translator in full — the pointer having long left the word.
+    const handleAbort = () => {
+      sendMessageToBackground({
+        action: "abortTranslate",
+        value: { requestId },
+      })
+        // The request may well have finished already; there is nothing to report.
+        .catch(() => {});
+    };
+
+    signal?.addEventListener("abort", handleAbort, { once: true });
+
+    try {
+      return await sendMessageToBackground<TranslatedData>(
+        {
+          action: "translate",
+          value: {
+            requestId,
+            translatorKey: this.key,
+            text,
+            sourceLanguageCode,
+            targetLanguageCode,
+          },
+        },
+        signal,
+      );
+    } finally {
+      signal?.removeEventListener("abort", handleAbort);
+    }
   }
 
   public async getAvailableLanguages(): Promise<AvailableLanguages> {
-    const { availableLanguages } = await sendMessageToBackground<GetAvailableLanguagesResponse>({
-      action: "getAvailableLanguages",
-      value: this.key,
-    });
+    const { availableLanguages } =
+      await sendMessageToBackground<GetAvailableLanguagesResponse>({
+        action: "getAvailableLanguages",
+        value: this.key,
+      });
 
     return availableLanguages;
   }

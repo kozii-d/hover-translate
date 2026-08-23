@@ -4,6 +4,8 @@
   "translationSaved": { "message": "翻譯已儲存" },
   "originalTextCopied": { "message": "原文已複製" },
   "translatedTextCopied": { "message": "譯文已複製" },
+  "copyFailed": { "message": "複製失敗" },
+  "saveFailed": { "message": "儲存失敗" },
   "translationFailed": {
     "message": "翻譯失敗"
   }

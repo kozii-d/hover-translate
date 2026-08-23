@@ -17,17 +17,20 @@ interface SettingsSelectProps {
 }
 
 export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
-  const { id, value, onChange, error, options, label, tooltip, disabled } = props;
+  const { id, value, onChange, error, options, label, tooltip, disabled } =
+    props;
 
   const renderMenuItem = (item: MenuItemType) => (
-    <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+    <MenuItem key={item.value} value={item.value}>
+      {item.label}
+    </MenuItem>
   );
 
   return (
     <FormControl fullWidth error={error} title={tooltip || label}>
       <InputLabel id={`${id}-label`}>{label}</InputLabel>
       <Select
-        labelId="font-family-label"
+        labelId={`${id}-label`}
         id={id}
         label={label}
         value={value}

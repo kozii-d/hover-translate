@@ -14,6 +14,12 @@
   "translatedTextCopied": {
     "message": "번역된 텍스트가 복사되었습니다"
   },
+  "copyFailed": {
+    "message": "복사 실패"
+  },
+  "saveFailed": {
+    "message": "저장 실패"
+  },
   "translationFailed": {
     "message": "번역 실패"
   }

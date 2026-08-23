@@ -19,32 +19,58 @@ export class SettingsService {
   private setUpChromeEventListeners() {
     chrome.runtime.onInstalled.addListener((details) => {
       if (details.reason === "install") {
-        this.handleExtensionInstall();
+        // Nothing awaits these handlers, so anything they throw has to be caught
+        // here or it surfaces as an unhandled rejection in the service worker.
+        void this.handleExtensionInstall();
       } else if (details.reason === "update") {
-        this.handleExtensionUpdate();
+        void this.handleExtensionUpdate();
       }
     });
   }
-  
+
   private async handleExtensionInstall() {
-    const isAlreadyInstalled = await this.storageService.get("installedAt", "sync");
-    if (isAlreadyInstalled) return;
+    try {
+      const isAlreadyInstalled = await this.storageService.get("installedAt", "sync");
+      if (isAlreadyInstalled) return;
 
-    this.initializeDefaultSettings();
-    this.initializeDefaultTooltipTheme();
+      await this.initializeDefaultSettings();
+      await this.initializeDefaultTooltipTheme();
 
-    const currentTime = Date.now();
-    this.storageService.set("installedAt", currentTime, "sync");
-    this.storageService.set("updatedAt", currentTime, "sync");
+      // Written last, and only once the settings actually landed: this is the
+      // flag that stops the install from ever being redone, so recording it over
+      // a failed write would leave the extension permanently unconfigured.
+      const currentTime = Date.now();
+      await this.storageService.setMany({ installedAt: currentTime, updatedAt: currentTime }, "sync");
+    } catch (error) {
+      console.error("Failed to set up the extension on install:", error);
+    }
 
-    chrome.action.openPopup();
+    this.openPopupOnInstall();
   }
-  
-  private async handleExtensionUpdate() {
-    this.migrateSettings();
-    this.migrateTooltipTheme();
 
-    this.storageService.set("updatedAt", Date.now(), "sync");
+  /**
+   * Shows the popup once, as a welcome screen.
+   *
+   * Firefox MV3 and some Chrome builds only allow this from a user gesture and
+   * reject; older ones do not expose `action.openPopup` at all and throw. Neither
+   * is worth failing the install over, and neither is worth a console error the
+   * viewer can do nothing about.
+   */
+  private openPopupOnInstall(): void {
+    try {
+      chrome.action?.openPopup?.()?.catch(() => { /* the browser declined to open it */ });
+    } catch { /* the browser has no openPopup at all */ }
+  }
+
+  private async handleExtensionUpdate() {
+    try {
+      await this.migrateSettings();
+      await this.migrateTooltipTheme();
+
+      await this.storageService.set("updatedAt", Date.now(), "sync");
+    } catch (error) {
+      console.error("Failed to migrate the extension on update:", error);
+    }
   }
 
   private async migrateSettings() {
@@ -62,8 +88,10 @@ export class SettingsService {
       return;
     }
     
-    this.storageService.set("settings", migrated, "sync");
-    this.storageService.set("settingsVersion", SettingsService.SETTINGS_VERSION, "sync");
+    await this.storageService.setMany({
+      settings: migrated,
+      settingsVersion: SettingsService.SETTINGS_VERSION,
+    }, "sync");
   }
 
   private async migrateTooltipTheme() {
@@ -81,8 +109,10 @@ export class SettingsService {
       return;
     }
  
-    this.storageService.set("tooltipTheme", migrated, "sync");
-    this.storageService.set("tooltipThemeVersion", SettingsService.TOOLTIP_THEME_VERSION, "sync");
+    await this.storageService.setMany({
+      tooltipTheme: migrated,
+      tooltipThemeVersion: SettingsService.TOOLTIP_THEME_VERSION,
+    }, "sync");
   }
 
   private getUserLanguage(): string {
@@ -110,12 +140,16 @@ export class SettingsService {
 
   private async initializeDefaultSettings() {
     const initialSettings = await this.getInitialSettings();
-    this.storageService.set("settings", initialSettings, "sync");
-    this.storageService.set("settingsVersion", SettingsService.SETTINGS_VERSION, "sync");
+    await this.storageService.setMany({
+      settings: initialSettings,
+      settingsVersion: SettingsService.SETTINGS_VERSION,
+    }, "sync");
   }
 
   private async initializeDefaultTooltipTheme() {
-    this.storageService.set("tooltipTheme", defaultTooltipTheme, "sync");
-    this.storageService.set("tooltipThemeVersion", SettingsService.TOOLTIP_THEME_VERSION, "sync");
+    await this.storageService.setMany({
+      tooltipTheme: defaultTooltipTheme,
+      tooltipThemeVersion: SettingsService.TOOLTIP_THEME_VERSION,
+    }, "sync");
   }
 }

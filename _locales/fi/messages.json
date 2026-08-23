@@ -4,6 +4,8 @@
   "translationSaved": { "message": "Käännös tallennettu" },
   "originalTextCopied": { "message": "Alkuperäinen teksti kopioitu" },
   "translatedTextCopied": { "message": "Käännetty teksti kopioitu" },
+  "copyFailed": { "message": "Kopiointi epäonnistui" },
+  "saveFailed": { "message": "Tallennus epäonnistui" },
   "translationFailed": {
     "message": "Käännös epäonnistui"
   }
