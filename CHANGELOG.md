@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.12] - 2026-08-24
+
+### Fixed
+
+- Fixed Google translations failing with a "too many requests" error, which left the tooltip empty on every word. Google stopped answering the kind of request the extension had been making since its first version; it now asks the way Google's own clients do, and moves on to another way of asking if that one is turned down too.
+
 ## [1.1.11] - 2026-08-23
 
 ### Added

@@ -1,10 +1,34 @@
-import ky from "ky";
+import ky, { HTTPError } from "ky";
 import { BaseTranslator } from "../baseTranslator.ts";
 import availableLanguages from "./availableLanguages.json";
 import { GoogleTranslation } from "./types.ts";
 
+/**
+ * The client ids Google's public endpoint accepts, in the order they are tried.
+ *
+ * The endpoint is keyed by this id, and `gtx` — the id this translator used from
+ * the start, and the one every scraper uses — is now refused with 429 ("your
+ * computer or network may be sending automated queries") for anything that does
+ * not look like Chrome. The gate is not the address (a VPN does not move it) nor
+ * anything in the request (user agent, `Origin`, `Referer` and cookies change
+ * nothing): on one machine, in the same seconds, Chrome gets 200 while Firefox,
+ * curl and Node all get 429, and a client that mimics Chrome's TLS handshake
+ * gets 200 with the very headers that were just refused. The ids below are the
+ * ones Google's own clients use, they are not gated that way, and they answer
+ * the same `dj=1` shape, dictionary and transliteration included.
+ */
+const CLIENT_IDS = ["dict-chrome-ex", "at", "gtx"] as const;
+
+/** Statuses that mean "not this client id" rather than "not this text". */
+const CLIENT_REFUSED_STATUSES = [403, 429];
+
 export class GoogleTranslator extends BaseTranslator {
   private apiUrl = "https://translate.googleapis.com";
+
+  // The id that last answered, kept for the rest of the session so that one of
+  // them going the way of `gtx` costs a single extra request instead of one on
+  // every hover.
+  private clientIdIndex = 0;
 
   get name() {
     return "Google";
@@ -20,8 +44,50 @@ export class GoogleTranslator extends BaseTranslator {
     targetLanguageCode: string,
     signal?: AbortSignal,
   ) {
+    for (let attempt = 0; attempt < CLIENT_IDS.length; attempt++) {
+      const clientIdIndex = (this.clientIdIndex + attempt) % CLIENT_IDS.length;
+
+      try {
+        const data = await this.requestTranslation(
+          CLIENT_IDS[clientIdIndex],
+          text,
+          sourceLanguageCode,
+          targetLanguageCode,
+          signal,
+        );
+
+        this.clientIdIndex = clientIdIndex;
+
+        return data;
+      } catch (error) {
+        const isLastAttempt = attempt === CLIENT_IDS.length - 1;
+
+        if (isLastAttempt || !this.isClientRefused(error)) {
+          throw error;
+        }
+      }
+    }
+
+    // Unreachable: the loop either returns or throws on its last attempt.
+    throw new Error("The Google translator ran out of client ids to try");
+  }
+
+  private isClientRefused(error: unknown): boolean {
+    return (
+      error instanceof HTTPError &&
+      CLIENT_REFUSED_STATUSES.includes(error.response.status)
+    );
+  }
+
+  private async requestTranslation(
+    clientId: string,
+    text: string,
+    sourceLanguageCode: string,
+    targetLanguageCode: string,
+    signal?: AbortSignal,
+  ) {
     const params = new URLSearchParams([
-      ["client", "gtx"],
+      ["client", clientId],
       ["q", text],
       ["sl", sourceLanguageCode], // sl: source language
       ["tl", targetLanguageCode], // tl: target language
