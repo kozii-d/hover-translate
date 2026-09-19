@@ -83,7 +83,8 @@ export const CryptoCard: FC<CryptoCardProps> = (props) => {
   return (
     <Card>
       <Box p={2}>
-        <Stack direction="row" spacing={1} alignItems="center">
+        {/* Single-colour logos (Ethereum) are drawn in currentColor. */}
+        <Stack direction="row" spacing={1} alignItems="center" sx={{ color: "text.primary" }}>
           <Icon width={40} height={40} />
           <Box sx={{ flex: 1 }}>
             <Typography variant="subtitle1" fontWeight={500}>

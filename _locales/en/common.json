@@ -1,5 +1,7 @@
 {
   "tooltips": {
-    "languageSelector": "Change popup language"
+    "languageSelector": "Change popup language",
+    "switchToDarkTheme": "Switch to dark theme",
+    "switchToLightTheme": "Switch to light theme"
   }
 }

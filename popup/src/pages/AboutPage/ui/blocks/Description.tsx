@@ -17,7 +17,7 @@ export const Description: FC = () => {
       <Typography variant="subtitle1" color={"text.secondary"}>
         {t("blocks.description.thank-you")}
         {" "}
-        <span style={{ color: "red" }}>❤️</span>
+        <Box component="span" sx={{ color: "error.main" }}>❤️</Box>
       </Typography>
     </Box>
   );

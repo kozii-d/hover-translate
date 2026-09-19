@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import CoffeeIcon from "@mui/icons-material/Coffee";
 import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
 import { CryptoCard } from "./CryptoCard.tsx";
 import { CRYPTO_DATA } from "../model/const/cryptoData.ts";
 import { useTranslation } from "react-i18next";
@@ -81,7 +82,7 @@ export const SupportModal: FC<SupportModalProps> = (props) => {
         marginBlock={2}
       >
         {t("support.footer")}{" "}
-        <span style={{ color: "red" }}>❤️</span>
+        <Box component="span" sx={{ color: "error.main" }}>❤️</Box>
       </Typography>
     </Dialog>
   );

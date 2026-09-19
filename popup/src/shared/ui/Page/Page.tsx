@@ -4,6 +4,7 @@ import { PageContainer } from "@toolpad/core/PageContainer";
 import { NavTabs } from "@/widgets/NavTabs";
 import Stack from "@mui/material/Stack";
 import { LangSelector } from "@/widgets/LangSelector";
+import { ThemeToggle } from "@/widgets/ThemeToggle";
 
 interface PageProps {
   children: ReactNode;
@@ -18,6 +19,7 @@ export const Page: FC<PageProps> = ({ children, title, additionalAction }) => {
         return (
           <Stack direction="row" spacing={2} alignItems="center">
             {additionalAction ? additionalAction : null}
+            <ThemeToggle />
             <LangSelector />
             {/*<Account />*/}
           </Stack>

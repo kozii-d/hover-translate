@@ -1,5 +1,7 @@
 {
   "tooltips": {
-    "languageSelector": "Изменить язык всплывающего окна"
+    "languageSelector": "Изменить язык всплывающего окна",
+    "switchToDarkTheme": "Включить тёмную тему",
+    "switchToLightTheme": "Включить светлую тему"
   }
 }

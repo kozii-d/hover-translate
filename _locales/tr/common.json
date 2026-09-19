@@ -1,5 +1,7 @@
 {
   "tooltips": {
-    "languageSelector": "Açılır pencere dilini değiştir"
+    "languageSelector": "Açılır pencere dilini değiştir",
+    "switchToDarkTheme": "Koyu temaya geç",
+    "switchToLightTheme": "Açık temaya geç"
   }
 }

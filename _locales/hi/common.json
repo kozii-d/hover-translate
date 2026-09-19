@@ -1,5 +1,7 @@
 {
   "tooltips": {
-    "languageSelector": "पॉपअप भाषा बदलें"
+    "languageSelector": "पॉपअप भाषा बदलें",
+    "switchToDarkTheme": "डार्क थीम पर स्विच करें",
+    "switchToLightTheme": "लाइट थीम पर स्विच करें"
   }
 }

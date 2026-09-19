@@ -1,3 +1,7 @@
 {
-  "tooltips": { "languageSelector": "Vaihda ponnahdusikkunan kieli" }
+  "tooltips": {
+    "languageSelector": "Vaihda ponnahdusikkunan kieli",
+    "switchToDarkTheme": "Vaihda tummaan teemaan",
+    "switchToLightTheme": "Vaihda vaaleaan teemaan"
+  }
 }

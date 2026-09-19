@@ -1,5 +1,7 @@
 {
   "tooltips": {
-    "languageSelector": "팝업 언어 변경"
+    "languageSelector": "팝업 언어 변경",
+    "switchToDarkTheme": "다크 테마로 전환",
+    "switchToLightTheme": "라이트 테마로 전환"
   }
 }

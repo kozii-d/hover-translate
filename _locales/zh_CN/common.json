@@ -1,3 +1,7 @@
 {
-  "tooltips": { "languageSelector": "更改弹出窗口语言" }
+  "tooltips": {
+    "languageSelector": "更改弹出窗口语言",
+    "switchToDarkTheme": "切换到深色主题",
+    "switchToLightTheme": "切换到浅色主题"
+  }
 }

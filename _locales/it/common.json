@@ -1,3 +1,7 @@
 {
-  "tooltips": { "languageSelector": "Cambia lingua del popup" }
+  "tooltips": {
+    "languageSelector": "Cambia lingua del popup",
+    "switchToDarkTheme": "Passa al tema scuro",
+    "switchToLightTheme": "Passa al tema chiaro"
+  }
 }

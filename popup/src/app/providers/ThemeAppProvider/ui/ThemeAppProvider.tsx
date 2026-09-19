@@ -1,7 +1,16 @@
-import { FC, ReactNode, useEffect, useMemo, useState } from "react";
+import { FC, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AppProvider } from "@toolpad/core";
+import { getFromStorage, setToStorage } from "@/shared/lib/helpers/storage.ts";
+import {
+  POPUP_THEME_STORAGE_KEY,
+  PopupTheme,
+  ThemeModeContext,
+  isPopupTheme,
+  readCachedPopupTheme,
+  writeCachedPopupTheme,
+} from "@/shared/lib/theme/popupTheme.ts";
 
 const BUTTONS_COLOR = {
   contained: {
@@ -48,12 +57,31 @@ const BUTTONS_COLOR = {
   },
 } as const;
 
+const SYSTEM_DARK_QUERY = "(prefers-color-scheme: dark)";
+
+const getSystemMode = (): PopupTheme =>
+  window.matchMedia(SYSTEM_DARK_QUERY).matches ? "dark" : "light";
+
 interface ThemeAppProviderProps {
   children: ReactNode;
 }
 
 export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  // Both are read synchronously so that the first render already has the
+  // right theme; the OS preference used to arrive in an effect, after a light
+  // frame had been painted.
+  const [storedTheme, setStoredTheme] = useState<PopupTheme | null>(readCachedPopupTheme);
+  const [systemMode, setSystemMode] = useState<PopupTheme>(getSystemMode);
+  // Set once the viewer or another context has chosen, so that the initial
+  // storage read, if it resolves later, cannot bring back an older value.
+  const storedThemeSettledRef = useRef(false);
+
+  const mode = storedTheme ?? systemMode;
+
+  const applyStoredTheme = useCallback((theme: PopupTheme | null) => {
+    setStoredTheme(theme);
+    writeCachedPopupTheme(theme);
+  }, []);
 
   const theme = useMemo(
     () =>
@@ -121,9 +149,9 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
     [mode]
   );
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = window.matchMedia(SYSTEM_DARK_QUERY);
     const handleChange = () => {
-      setMode(mediaQuery.matches ? "dark" : "light");
+      setSystemMode(mediaQuery.matches ? "dark" : "light");
     };
 
     handleChange();
@@ -131,12 +159,61 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
 
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    getFromStorage<unknown>(POPUP_THEME_STORAGE_KEY, "sync")
+      .then((value) => {
+        if (cancelled || storedThemeSettledRef.current) return;
+        applyStoredTheme(isPopupTheme(value) ? value : null);
+      })
+      .catch((error) => {
+        console.error("Failed to get popupTheme", error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [applyStoredTheme]);
+
+  useEffect(() => {
+    const handleStorageChange = (
+      changes: Record<string, { newValue?: unknown }>,
+      areaName: string,
+    ) => {
+      if (areaName !== "sync" || !(POPUP_THEME_STORAGE_KEY in changes)) return;
+
+      const { newValue } = changes[POPUP_THEME_STORAGE_KEY];
+      storedThemeSettledRef.current = true;
+      applyStoredTheme(isPopupTheme(newValue) ? newValue : null);
+    };
+
+    chrome.storage.onChanged.addListener(handleStorageChange);
+
+    return () => chrome.storage.onChanged.removeListener(handleStorageChange);
+  }, [applyStoredTheme]);
+
+  const toggleMode = useCallback(() => {
+    const next: PopupTheme = mode === "dark" ? "light" : "dark";
+
+    storedThemeSettledRef.current = true;
+    applyStoredTheme(next);
+    setToStorage(POPUP_THEME_STORAGE_KEY, next, "sync").catch((error) => {
+      console.error("Failed to save popupTheme", error);
+    });
+  }, [mode, applyStoredTheme]);
+
+  const themeMode = useMemo(() => ({ mode, toggleMode }), [mode, toggleMode]);
+
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppProvider theme={theme}>
-        {children}
-      </AppProvider>
-    </ThemeProvider>
+    <ThemeModeContext.Provider value={themeMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppProvider theme={theme}>
+          {children}
+        </AppProvider>
+      </ThemeProvider>
+    </ThemeModeContext.Provider>
   );
 };

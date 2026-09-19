@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - DeepL as a third translator, working with your own DeepL API key (the free DeepL plan covers 500,000 characters a month). Pick DeepL in the settings, paste your key, and HoverTranslate checks it before switching. The key is stored only on your device and sent only to DeepL; the settings show how much of your monthly allowance is used, and the key can be changed or removed at any time.
 - When a translation fails for a reason you can fix — a missing or rejected API key, a used-up monthly limit, too many requests, no connection — the message on the video now says which, instead of a bare "Translation failed".
+- A light/dark theme switch in the popup header. Until you use it, the popup keeps following your system theme, as before.
 
 ### Changed
 
@@ -16,6 +17,8 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Switching between translators no longer resets the languages you picked when the new translator only spells them differently (for example English vs. English (American), or Chinese (Taiwan) vs. Chinese (Traditional)).
+- The popup no longer flashes white when it opens in dark mode.
+- The Ethereum logo in the donation window is visible in the dark theme.
 
 ## [1.1.12] - 2026-08-24
 

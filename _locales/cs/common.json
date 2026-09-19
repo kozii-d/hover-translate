@@ -1,3 +1,7 @@
 {
-  "tooltips": { "languageSelector": "Změnit jazyk vyskakovacího okna" }
+  "tooltips": {
+    "languageSelector": "Změnit jazyk vyskakovacího okna",
+    "switchToDarkTheme": "Přepnout na tmavý motiv",
+    "switchToLightTheme": "Přepnout na světlý motiv"
+  }
 }
