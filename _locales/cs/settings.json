@@ -21,12 +21,75 @@
     }
   },
   "tips": { "multipleSelection": "Pro výběr více slov podržte Shift a najeďte na požadovaná slova. Nebo povolte nastavení 'Vždy povolit vícenásobný výběr'." },
+  "apiKey": {
+    "requiredHint": "Vyžaduje váš klíč API",
+    "title": "Připojit {{translatorName}}",
+    "description": "{{translatorName}} funguje s vaším osobním klíčem API. Založte si účet na webu {{translatorName}} (existuje bezplatný tarif) a zkopírujte klíč ze stránky svého účtu.",
+    "getKey": "Získat klíč API",
+    "field": {
+      "label": "Klíč API",
+      "placeholder": "Sem vložte svůj klíč",
+      "show": "Zobrazit klíč",
+      "hide": "Skrýt klíč"
+    },
+    "privacy": "Ukládá se jen v tomto zařízení a odesílá se jen do {{translatorName}}.",
+    "actions": {
+      "connect": "Připojit",
+      "connecting": "Ověřování…",
+      "cancel": "Zrušit",
+      "change": "Změnit klíč",
+      "remove": "Odebrat klíč"
+    },
+    "status": {
+      "connected": "{{translatorName}} připojen",
+      "plan": {
+        "free": "Bezplatný tarif",
+        "pro": "Tarif Pro"
+      }
+    },
+    "usage": {
+      "label": "Využito {{used}} z {{limit}} znaků v tomto zúčtovacím období",
+      "unavailable": "Využití se nepodařilo načíst. {{reason}}",
+      "exhausted": "Limit je vyčerpán — {{translatorName}} nebude překládat, dokud se neobnoví."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} je připojen",
+      "removed": "Klíč API pro {{translatorName}} byl odebrán. Přepnuto na {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Klíč API pro {{translatorName}} byl z tohoto zařízení odebrán."
+    },
+    "modals": {
+      "remove": {
+        "title": "Odebrat klíč API pro {{translatorName}}?",
+        "description": "Klíč bude z tohoto zařízení smazán a překlady se přepnou na {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Klíč bude z tohoto zařízení smazán.",
+        "action": "Odebrat"
+      }
+    },
+    "errors": {
+      "empty": "Zadejte svůj klíč API",
+      "permissionDenied": "Bez přístupu k {{translatorName}} nemůže HoverTranslate klíč ověřit. Klikněte znovu na „Připojit“ a povolte přístup.",
+      "saveFailed": "Klíč se nepodařilo uložit. Zkuste to znovu.",
+      "removeFailed": "Klíč se nepodařilo odebrat. Zkuste to znovu.",
+      "settingsSaveFailed": "Klíč byl uložen, ale nastavení se uložit nepodařilo. Klikněte na „Připojit“ a zkuste to znovu."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} není k dispozici jako zdrojový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} není k dispozici jako cílový jazyk pro překladač {{translatorName}}. Přepínám na {{defaultLanguage}}.",
     "translatorUnavailable": "Překladač {{translatorName}} není dostupný: {{errorMessage}}",
     "translatorFallback": "Překladač {{translatorName}} není dostupný: {{errorMessage}}. Přepínám zpět na {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Nepodařilo se přepnout na {{translatorName}}: {{errorMessage}}. Zůstává {{previousTranslatorName}}.",
-    "permissionDenied": "přístup k {{origins}} nebyl povolen"
+    "translatorFallbackReason": "{{reason}} Přepínám na {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Zůstává {{previousTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "V tomto zařízení nebyl přidán žádný klíč API pro {{translatorName}}.",
+      "apiKeyInvalid": "{{translatorName}} klíč API nepřijal. Zkontrolujte, zda byl zkopírován celý.",
+      "quotaExceeded": "Limit znaků {{translatorName}} pro toto zúčtovací období je vyčerpán.",
+      "rateLimited": "{{translatorName}} obdržel příliš mnoho požadavků. Zkuste to za chvíli znovu.",
+      "permissionMissing": "HoverTranslate nemá oprávnění připojit se k {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} nepodporuje vybraný jazyk.",
+      "network": "Nepodařilo se spojit s {{translatorName}}. Zkontrolujte připojení k internetu.",
+      "serviceUnavailable": "{{translatorName}} je dočasně nedostupný. Zkuste to později."
+    }
   }
 }

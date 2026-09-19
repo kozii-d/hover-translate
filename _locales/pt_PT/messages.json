@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "Falha na tradução"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: adicione a sua chave de API nas definições do HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "O $TRANSLATOR$ não aceitou a sua chave de API. Verifique-a nas definições do HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: o limite de caracteres deste período de faturação esgotou-se",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: demasiados pedidos, tente novamente dentro de momentos",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "O HoverTranslate não tem permissão para se ligar ao $TRANSLATOR$. Permita-o nas definições do HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "O $TRANSLATOR$ não suporta o idioma selecionado",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Não foi possível contactar o $TRANSLATOR$. Verifique a sua ligação",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "O $TRANSLATOR$ está temporariamente indisponível",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

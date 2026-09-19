@@ -10,7 +10,7 @@ Etkili Dil Öğrenimi İçin Temel Özellikler:
 • Akıllı İfade Çevirisi: Deyimleri ve kalıpları öğrenin! Tüm ifadeleri seçmek ve çevirmek için Shift tuşuna basın veya daha kolay seçim için "Her zaman çoklu seçimi etkinleştir" ayarını açın.
 • 190+ Dil Desteği: İngilizce, İspanyolca, Fransızca, Japonca, Korece, Almanca veya herhangi bir dili öğrenin! YouTube altyazılarını herhangi bir dilden kendi dilinize çevirin.
 • Otomatik Dil Algılama: Eklenti altyazı dilini otomatik olarak algılar - hemen öğrenmeye başlayın!
-• Çoklu Çevirmenler: En doğru kelime çevirileri için Google Çeviri ve Bing Çevirmen arasında seçim yapın.
+• Çoklu Çevirmenler: En doğru kelime çevirileri için Google Çeviri, Bing Çevirmen ve DeepL (kendi ücretsiz DeepL API anahtarınızla) arasında seçim yapın.
 • Akıllı Otomatik Duraklatma: Altyazıların üzerine geldiğinizde videolar otomatik olarak duraklar, böylece içeriği kaçırmadan yeni kelimeler öğrenmeniz için size zaman tanır.
 • Evrensel Altyazı Desteği: Hem manuel hem de otomatik oluşturulan YouTube altyazılarıyla mükemmel çalışır.
 • Kişisel Kelime Defteri: Yeni kelimeleri ve ifadeleri tek tıkla sözlüğünüze kaydedin! İzlerken kişisel kelime listenizi oluşturun. Sözlüğünüzü JSON veya CSV olarak dışa aktarın.

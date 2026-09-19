@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "Für die Mehrfachauswahl von Wörtern halten Sie die Umschalttaste gedrückt und fahren über die gewünschten Wörter. Oder aktivieren Sie die Einstellung 'Mehrfachauswahl immer aktivieren'."
   },
+  "apiKey": {
+    "requiredHint": "Erfordert Ihren API-Schlüssel",
+    "title": "{{translatorName}} verbinden",
+    "description": "{{translatorName}} funktioniert mit Ihrem persönlichen API-Schlüssel. Erstellen Sie ein Konto auf der {{translatorName}}-Website (es gibt einen kostenlosen Tarif) und kopieren Sie den Schlüssel von Ihrer Kontoseite.",
+    "getKey": "API-Schlüssel erhalten",
+    "field": {
+      "label": "API-Schlüssel",
+      "placeholder": "Schlüssel hier einfügen",
+      "show": "Schlüssel anzeigen",
+      "hide": "Schlüssel verbergen"
+    },
+    "privacy": "Wird nur auf diesem Gerät gespeichert und nur an {{translatorName}} gesendet.",
+    "actions": {
+      "connect": "Verbinden",
+      "connecting": "Wird geprüft…",
+      "cancel": "Abbrechen",
+      "change": "Schlüssel ändern",
+      "remove": "Schlüssel entfernen"
+    },
+    "status": {
+      "connected": "{{translatorName}} verbunden",
+      "plan": {
+        "free": "Kostenloser Tarif",
+        "pro": "Pro-Tarif"
+      }
+    },
+    "usage": {
+      "label": "{{used}} von {{limit}} Zeichen in diesem Abrechnungszeitraum verbraucht",
+      "unavailable": "Die Nutzung konnte nicht geladen werden. {{reason}}",
+      "exhausted": "Das Limit ist aufgebraucht — {{translatorName}} übersetzt erst wieder, wenn es zurückgesetzt wird."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} ist verbunden",
+      "removed": "Der {{translatorName}}-API-Schlüssel wurde entfernt. Gewechselt zu {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Der {{translatorName}}-API-Schlüssel wurde von diesem Gerät entfernt."
+    },
+    "modals": {
+      "remove": {
+        "title": "{{translatorName}}-API-Schlüssel entfernen?",
+        "description": "Der Schlüssel wird von diesem Gerät gelöscht und Übersetzungen wechseln zu {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Der Schlüssel wird von diesem Gerät gelöscht.",
+        "action": "Entfernen"
+      }
+    },
+    "errors": {
+      "empty": "Geben Sie Ihren API-Schlüssel ein",
+      "permissionDenied": "Ohne Zugriff auf {{translatorName}} kann HoverTranslate den Schlüssel nicht prüfen. Klicken Sie erneut auf „Verbinden“ und erlauben Sie den Zugriff.",
+      "saveFailed": "Der Schlüssel konnte nicht gespeichert werden. Versuchen Sie es erneut.",
+      "removeFailed": "Der Schlüssel konnte nicht entfernt werden. Versuchen Sie es erneut.",
+      "settingsSaveFailed": "Der Schlüssel wurde gespeichert, die Einstellungen aber nicht. Klicken Sie erneut auf „Verbinden“."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} ist als Ausgangssprache für den {{translatorName}}-Übersetzer nicht verfügbar. Wechsel zu {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} ist als Zielsprache für den {{translatorName}}-Übersetzer nicht verfügbar. Wechsel zu {{defaultLanguage}}.",
     "translatorUnavailable": "Der Übersetzer {{translatorName}} ist nicht verfügbar: {{errorMessage}}",
     "translatorFallback": "Der Übersetzer {{translatorName}} ist nicht verfügbar: {{errorMessage}}. Zurück zu {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Wechsel zu {{translatorName}} fehlgeschlagen: {{errorMessage}}. {{previousTranslatorName}} bleibt aktiv.",
-    "permissionDenied": "Zugriff auf {{origins}} wurde nicht erteilt"
+    "translatorFallbackReason": "{{reason}} Wechsel zu {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} bleibt ausgewählt.",
+    "translator": {
+      "apiKeyMissing": "Auf diesem Gerät wurde kein {{translatorName}}-API-Schlüssel hinzugefügt.",
+      "apiKeyInvalid": "{{translatorName}} hat den API-Schlüssel nicht akzeptiert. Prüfen Sie, ob er vollständig kopiert wurde.",
+      "quotaExceeded": "Das {{translatorName}}-Zeichenlimit für diesen Abrechnungszeitraum ist aufgebraucht.",
+      "rateLimited": "{{translatorName}} hat zu viele Anfragen erhalten. Versuchen Sie es gleich noch einmal.",
+      "permissionMissing": "HoverTranslate darf keine Verbindung zu {{translatorName}} herstellen.",
+      "unsupportedLanguage": "{{translatorName}} unterstützt die ausgewählte Sprache nicht.",
+      "network": "{{translatorName}} ist nicht erreichbar. Prüfen Sie Ihre Internetverbindung.",
+      "serviceUnavailable": "{{translatorName}} ist vorübergehend nicht verfügbar. Versuchen Sie es später erneut."
+    }
   }
 }

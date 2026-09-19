@@ -21,12 +21,75 @@
     }
   },
   "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina monivalinta käytössä' -asetus." },
+  "apiKey": {
+    "requiredHint": "Vaatii oman API-avaimesi",
+    "title": "Yhdistä {{translatorName}}",
+    "description": "{{translatorName}} toimii henkilökohtaisella API-avaimellasi. Luo tili {{translatorName}}-sivustolla (ilmainen paketti on saatavilla) ja kopioi avain tilisi sivulta.",
+    "getKey": "Hanki API-avain",
+    "field": {
+      "label": "API-avain",
+      "placeholder": "Liitä avain tähän",
+      "show": "Näytä avain",
+      "hide": "Piilota avain"
+    },
+    "privacy": "Tallennetaan vain tälle laitteelle ja lähetetään vain palveluun {{translatorName}}.",
+    "actions": {
+      "connect": "Yhdistä",
+      "connecting": "Tarkistetaan…",
+      "cancel": "Peruuta",
+      "change": "Vaihda avain",
+      "remove": "Poista avain"
+    },
+    "status": {
+      "connected": "{{translatorName}} yhdistetty",
+      "plan": {
+        "free": "Ilmainen paketti",
+        "pro": "Pro-paketti"
+      }
+    },
+    "usage": {
+      "label": "{{used}} / {{limit}} merkkiä käytetty tällä laskutuskaudella",
+      "unavailable": "Käyttötietoja ei voitu ladata. {{reason}}",
+      "exhausted": "Raja on täynnä — {{translatorName}} ei käännä ennen kuin se nollautuu."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} on yhdistetty",
+      "removed": "Palvelun {{translatorName}} API-avain poistettiin. Vaihdettiin kääntäjään {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Palvelun {{translatorName}} API-avain poistettiin tältä laitteelta."
+    },
+    "modals": {
+      "remove": {
+        "title": "Poistetaanko palvelun {{translatorName}} API-avain?",
+        "description": "Avain poistetaan tältä laitteelta ja käännöksissä siirrytään käyttämään kääntäjää {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Avain poistetaan tältä laitteelta.",
+        "action": "Poista"
+      }
+    },
+    "errors": {
+      "empty": "Anna API-avaimesi",
+      "permissionDenied": "Ilman pääsyä palveluun {{translatorName}} HoverTranslate ei voi tarkistaa avainta. Napsauta uudelleen ”Yhdistä” ja salli pääsy.",
+      "saveFailed": "Avainta ei voitu tallentaa. Yritä uudelleen.",
+      "removeFailed": "Avainta ei voitu poistaa. Yritä uudelleen.",
+      "settingsSaveFailed": "Avain tallennettiin, mutta asetuksia ei voitu tallentaa. Yritä uudelleen napsauttamalla ”Yhdistä”."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} ei ole saatavilla lähdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} ei ole saatavilla kohdekieleksi kääntäjälle {{translatorName}}. Vaihdetaan kieleen {{defaultLanguage}}.",
     "translatorUnavailable": "Kääntäjä {{translatorName}} ei ole käytettävissä: {{errorMessage}}",
     "translatorFallback": "Kääntäjä {{translatorName}} ei ole käytettävissä: {{errorMessage}}. Palataan kääntäjään {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Kääntäjään {{translatorName}} ei voitu vaihtaa: {{errorMessage}}. Käytössä pysyy {{previousTranslatorName}}.",
-    "permissionDenied": "käyttöoikeutta osoitteeseen {{origins}} ei myönnetty"
+    "translatorFallbackReason": "{{reason}} Vaihdetaan kääntäjään {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} pysyy valittuna.",
+    "translator": {
+      "apiKeyMissing": "Tälle laitteelle ei ole lisätty palvelun {{translatorName}} API-avainta.",
+      "apiKeyInvalid": "{{translatorName}} ei hyväksynyt API-avainta. Tarkista, että se kopioitiin kokonaan.",
+      "quotaExceeded": "Palvelun {{translatorName}} merkkiraja tälle laskutuskaudelle on täynnä.",
+      "rateLimited": "{{translatorName}} sai liikaa pyyntöjä. Yritä hetken kuluttua uudelleen.",
+      "permissionMissing": "HoverTranslatella ei ole lupaa muodostaa yhteyttä palveluun {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} ei tue valittua kieltä.",
+      "network": "Palveluun {{translatorName}} ei saatu yhteyttä. Tarkista internetyhteys.",
+      "serviceUnavailable": "{{translatorName}} ei ole tilapäisesti käytettävissä. Yritä myöhemmin uudelleen."
+    }
   }
 }

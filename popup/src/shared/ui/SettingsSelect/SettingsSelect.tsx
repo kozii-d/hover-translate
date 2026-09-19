@@ -3,6 +3,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import ListItemText from "@mui/material/ListItemText";
 import { MenuItemType } from "../../types/types.ts";
 
 interface SettingsSelectProps {
@@ -22,9 +23,15 @@ export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
 
   const renderMenuItem = (item: MenuItemType) => (
     <MenuItem key={item.value} value={item.value}>
-      {item.label}
+      {item.description
+        ? <ListItemText primary={item.label} secondary={item.description} sx={{ my: 0 }} />
+        : item.label}
     </MenuItem>
   );
+
+  // The closed select shows the label alone, not the menu's second line.
+  const renderValue = (selected: string) =>
+    options.find((option) => option.value === selected)?.label ?? selected;
 
   return (
     <FormControl fullWidth error={error} title={tooltip || label}>
@@ -35,6 +42,7 @@ export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
         label={label}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        renderValue={renderValue}
         variant="outlined"
         disabled={disabled}
       >

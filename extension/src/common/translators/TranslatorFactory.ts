@@ -1,10 +1,12 @@
 import { GoogleTranslator } from "./google/google.ts";
 import { BingTranslator } from "./bing/bing.ts";
+import { DeepLTranslator } from "./deepl/deepl.ts";
 import { BaseTranslator } from "./baseTranslator.ts";
 
 const TRANSLATORS = {
   google: GoogleTranslator,
   bing: BingTranslator,
+  deepl: DeepLTranslator,
 } as const;
 
 export class TranslatorFactory {

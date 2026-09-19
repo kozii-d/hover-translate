@@ -8,5 +8,77 @@
   "saveFailed": { "message": "Tallennus epäonnistui" },
   "translationFailed": {
     "message": "Käännös epäonnistui"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: lisää API-avaimesi HoverTranslaten asetuksissa",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ ei hyväksynyt API-avaintasi. Tarkista se HoverTranslaten asetuksissa",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: tämän laskutuskauden merkkiraja on täynnä",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: liikaa pyyntöjä, yritä hetken kuluttua uudelleen",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslatella ei ole lupaa muodostaa yhteyttä palveluun $TRANSLATOR$. Salli se HoverTranslaten asetuksissa",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ ei tue valittua kieltä",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Palveluun $TRANSLATOR$ ei saatu yhteyttä. Tarkista yhteys",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ ei ole tilapäisesti käytettävissä",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

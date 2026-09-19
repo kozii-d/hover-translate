@@ -10,7 +10,7 @@ Kluczowe funkcje dla efektywnej nauki języków:
 • Inteligentne tłumaczenie fraz: Ucz się idiomów i wyrażeń! Przytrzymaj Shift, aby zaznaczyć i przetłumaczyć całe frazy, lub włącz stałe zaznaczanie wielu słów.
 • Obsługa 190+ języków: Ucz się angielskiego, niemieckiego, hiszpańskiego, francuskiego, włoskiego czy dowolnego języka! Tłumacz napisy YouTube z każdego języka na polski.
 • Automatyczne wykrywanie języka: Rozszerzenie automatycznie wykrywa język napisów - zacznij naukę od razu!
-• Wybór tłumacza: Wybierz między Tłumaczem Google a Bing Translator dla najdokładniejszych tłumaczeń słownictwa.
+• Wybór tłumacza: Wybierz między Tłumaczem Google, Bing Translator i DeepL (z własnym darmowym kluczem API DeepL) dla najdokładniejszych tłumaczeń słownictwa.
 • Inteligentna autopauza: Filmy automatycznie zatrzymują się przy najechaniu na napisy, dając czas na naukę nowego słownictwa bez pomijania treści.
 • Uniwersalna obsługa napisów: Działa perfekcyjnie zarówno z ręcznymi, jak i automatycznie generowanymi napisami YouTube.
 • Osobisty słownik: Zapisuj nowe słowa i frazy do swojego słownika jednym kliknięciem! Buduj osobistą listę słownictwa podczas oglądania. Eksportuj swój słownik jako JSON lub CSV.

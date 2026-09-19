@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "For multiple word selection, hold Shift and hover over the words you need. Or enable 'Always enable multiple selection' setting."
   },
+  "apiKey": {
+    "requiredHint": "Requires your API key",
+    "title": "Connect {{translatorName}}",
+    "description": "{{translatorName}} works with your personal API key. Create an account on the {{translatorName}} website (there is a free plan) and copy the key from your account page.",
+    "getKey": "Get an API key",
+    "field": {
+      "label": "API key",
+      "placeholder": "Paste your key here",
+      "show": "Show key",
+      "hide": "Hide key"
+    },
+    "privacy": "Stored only on this device and sent only to {{translatorName}}.",
+    "actions": {
+      "connect": "Connect",
+      "connecting": "Checking…",
+      "cancel": "Cancel",
+      "change": "Change key",
+      "remove": "Remove key"
+    },
+    "status": {
+      "connected": "{{translatorName}} connected",
+      "plan": {
+        "free": "Free plan",
+        "pro": "Pro plan"
+      }
+    },
+    "usage": {
+      "label": "{{used}} of {{limit}} characters used this billing period",
+      "unavailable": "Usage could not be loaded. {{reason}}",
+      "exhausted": "The limit is used up — {{translatorName}} will not translate until it resets."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} is connected",
+      "removed": "The {{translatorName}} API key was removed. Switched to {{fallbackTranslatorName}}.",
+      "removedFromDevice": "The {{translatorName}} API key was removed from this device."
+    },
+    "modals": {
+      "remove": {
+        "title": "Remove the {{translatorName}} API key?",
+        "description": "The key will be deleted from this device and translations will switch to {{fallbackTranslatorName}}.",
+        "descriptionInactive": "The key will be deleted from this device.",
+        "action": "Remove"
+      }
+    },
+    "errors": {
+      "empty": "Enter your API key",
+      "permissionDenied": "HoverTranslate cannot check the key without access to {{translatorName}}. Click Connect again and allow access.",
+      "saveFailed": "The key could not be saved. Try again.",
+      "removeFailed": "The key could not be removed. Try again.",
+      "settingsSaveFailed": "The key was saved, but the settings could not be. Click Connect to try again."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} is not available as a source language for the {{translatorName}} translator. Switching to {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} is not available as a target language for the {{translatorName}} translator. Switching to {{defaultLanguage}}.",
     "translatorUnavailable": "The {{translatorName}} translator is unavailable: {{errorMessage}}",
     "translatorFallback": "The {{translatorName}} translator is unavailable: {{errorMessage}}. Switching back to {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Could not switch to {{translatorName}}: {{errorMessage}}. Staying on {{previousTranslatorName}}.",
-    "permissionDenied": "access to {{origins}} was not granted"
+    "translatorFallbackReason": "{{reason}} Switching to {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Staying on {{previousTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "No {{translatorName}} API key has been added on this device.",
+      "apiKeyInvalid": "{{translatorName}} did not accept the API key. Check that it was copied in full.",
+      "quotaExceeded": "The {{translatorName}} character limit for this billing period is used up.",
+      "rateLimited": "{{translatorName}} received too many requests. Try again in a moment.",
+      "permissionMissing": "HoverTranslate is not allowed to connect to {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} does not support the selected language.",
+      "network": "Could not reach {{translatorName}}. Check your internet connection.",
+      "serviceUnavailable": "{{translatorName}} is temporarily unavailable. Try again later."
+    }
   }
 }

@@ -120,6 +120,11 @@ export class TranslationCore {
     }
   };
 
+  /** The name of the translator in use, for messages shown to the viewer. */
+  public get translatorName(): string {
+    return this.translator.name;
+  }
+
   private getCacheKey(normalizedText: string): string {
     return `${normalizedText}_${state.settings.sourceLanguageCode}_${state.settings.targetLanguageCode}_${this.translator.key}`;
   }

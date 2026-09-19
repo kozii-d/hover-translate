@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "Échec de la traduction"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$ : ajoutez votre clé API dans les paramètres de HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ n'a pas accepté votre clé API. Vérifiez-la dans les paramètres de HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$ : la limite de caractères de cette période de facturation est atteinte",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$ : trop de requêtes, réessayez dans un instant",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate n'est pas autorisé à se connecter à $TRANSLATOR$. Autorisez-le dans les paramètres de HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ ne prend pas en charge la langue sélectionnée",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Impossible de joindre $TRANSLATOR$. Vérifiez votre connexion",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ est temporairement indisponible",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

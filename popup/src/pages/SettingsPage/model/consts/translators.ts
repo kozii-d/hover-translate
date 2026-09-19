@@ -3,9 +3,10 @@ import { Translator } from "../types/schema.ts";
 
 export const FALLBACK_TRANSLATOR: Translator = "google";
 
-export const TRANSLATORS_OPTIONS: MenuItemType[] = [
+export const TRANSLATORS_OPTIONS: MenuItemType<Translator>[] = [
   { value: "google", label: "Google" },
   { value: "bing", label: "Bing" },
+  { value: "deepl", label: "DeepL" },
 ];
 
 export const getTranslatorLabel = (translator: string) => {

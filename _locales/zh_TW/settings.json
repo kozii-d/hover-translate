@@ -28,12 +28,75 @@
   "tips": {
     "multipleSelection": "如需選擇多個單字，請按住 Shift 鍵並懸停。或者在設定中開啟‘始終開啟多選’。"
   },
+  "apiKey": {
+    "requiredHint": "需要你的 API 金鑰",
+    "title": "連接 {{translatorName}}",
+    "description": "{{translatorName}} 需要使用你個人的 API 金鑰。請在 {{translatorName}} 網站上建立帳戶（提供免費方案），然後從帳戶頁面複製金鑰。",
+    "getKey": "取得 API 金鑰",
+    "field": {
+      "label": "API 金鑰",
+      "placeholder": "在此貼上金鑰",
+      "show": "顯示金鑰",
+      "hide": "隱藏金鑰"
+    },
+    "privacy": "僅儲存在此裝置上，且僅傳送給 {{translatorName}}。",
+    "actions": {
+      "connect": "連接",
+      "connecting": "正在檢查…",
+      "cancel": "取消",
+      "change": "更換金鑰",
+      "remove": "移除金鑰"
+    },
+    "status": {
+      "connected": "已連接 {{translatorName}}",
+      "plan": {
+        "free": "免費方案",
+        "pro": "Pro 方案"
+      }
+    },
+    "usage": {
+      "label": "本計費週期已使用 {{used}} / {{limit}} 個字元",
+      "unavailable": "無法載入用量。{{reason}}",
+      "exhausted": "額度已用完 — 在額度重設之前 {{translatorName}} 將無法翻譯。"
+    },
+    "notifications": {
+      "connected": "已連接 {{translatorName}}",
+      "removed": "已移除 {{translatorName}} API 金鑰，並切換到 {{fallbackTranslatorName}}。",
+      "removedFromDevice": "已從此裝置移除 {{translatorName}} API 金鑰。"
+    },
+    "modals": {
+      "remove": {
+        "title": "移除 {{translatorName}} API 金鑰？",
+        "description": "金鑰將從此裝置上刪除，翻譯將切換到 {{fallbackTranslatorName}}。",
+        "descriptionInactive": "金鑰將從此裝置上刪除。",
+        "action": "移除"
+      }
+    },
+    "errors": {
+      "empty": "請輸入 API 金鑰",
+      "permissionDenied": "沒有 {{translatorName}} 的存取權限，HoverTranslate 無法檢查金鑰。請再次點選「連接」並允許存取。",
+      "saveFailed": "無法儲存金鑰，請再試一次。",
+      "removeFailed": "無法移除金鑰，請再試一次。",
+      "settingsSaveFailed": "金鑰已儲存，但設定未能儲存。請再次點選「連接」重試。"
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為源語言。已切換至 {{defaultLanguage}}。",
     "targetLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為目標語言。已切換至 {{defaultLanguage}}。",
     "translatorUnavailable": "{{translatorName}} 翻譯器無法使用：{{errorMessage}}",
     "translatorFallback": "{{translatorName}} 翻譯器無法使用：{{errorMessage}}。正在切換回 {{fallbackTranslatorName}}。",
     "translatorSwitchFailed": "無法切換至 {{translatorName}}：{{errorMessage}}。繼續使用 {{previousTranslatorName}}。",
-    "permissionDenied": "未授予對 {{origins}} 的存取權限"
+    "translatorFallbackReason": "{{reason}}正在切換到 {{fallbackTranslatorName}}。",
+    "translatorSwitchFailedReason": "{{reason}}仍使用 {{previousTranslatorName}}。",
+    "translator": {
+      "apiKeyMissing": "此裝置上尚未新增 {{translatorName}} API 金鑰。",
+      "apiKeyInvalid": "{{translatorName}} 未接受該 API 金鑰。請檢查金鑰是否已完整複製。",
+      "quotaExceeded": "本計費週期的 {{translatorName}} 字元額度已用完。",
+      "rateLimited": "{{translatorName}} 收到的請求過多，請稍後再試。",
+      "permissionMissing": "HoverTranslate 沒有連接到 {{translatorName}} 的權限。",
+      "unsupportedLanguage": "{{translatorName}} 不支援所選語言。",
+      "network": "無法連線到 {{translatorName}}。請檢查網路連線。",
+      "serviceUnavailable": "{{translatorName}} 暫時無法使用，請稍後再試。"
+    }
   }
 }

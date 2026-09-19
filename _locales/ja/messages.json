@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "翻訳に失敗しました"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: HoverTranslate の設定で API キーを追加してください",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ が API キーを受け付けませんでした。HoverTranslate の設定で確認してください",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: 今回の請求期間の文字数上限に達しました",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: リクエストが多すぎます。しばらくしてからお試しください",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate には $TRANSLATOR$ に接続する権限がありません。HoverTranslate の設定で許可してください",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ は選択した言語に対応していません",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "$TRANSLATOR$ に接続できませんでした。接続を確認してください",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ は一時的に利用できません",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

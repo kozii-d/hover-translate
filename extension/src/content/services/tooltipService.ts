@@ -15,6 +15,7 @@ import { TranslationCore } from "../core/translationCore";
 import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
 import { TranslationCacheData, TranslationData } from "../../common/types/translations.ts";
+import { TranslatorErrorCode, isTranslatorError } from "../../common/translators/translatorError.ts";
 
 interface AbortableElement extends HTMLElement {
   abortController?: AbortController;
@@ -28,6 +29,29 @@ interface AbortableElement extends HTMLElement {
  * Words that are already cached skip the wait entirely.
  */
 const HOVER_DELAY = 200;
+
+const NOTIFICATION_DURATION = 2000;
+
+/**
+ * A failure that tells the viewer what to do about it takes longer to read
+ * than "Translation saved", and there is nothing else on screen explaining it.
+ */
+const ACTIONABLE_ERROR_DURATION = 5000;
+
+/**
+ * The message shown for each reason a translator can give. Each one takes the
+ * translator's name as its only substitution.
+ */
+const TRANSLATOR_ERROR_MESSAGES: Record<TranslatorErrorCode, string> = {
+  "api-key-missing": "errorApiKeyMissing",
+  "api-key-invalid": "errorApiKeyInvalid",
+  "quota-exceeded": "errorQuotaExceeded",
+  "rate-limited": "errorRateLimited",
+  "permission-missing": "errorPermissionMissing",
+  "unsupported-language": "errorUnsupportedLanguage",
+  "network": "errorNetwork",
+  "service-unavailable": "errorServiceUnavailable",
+};
 
 export class TooltipService {
   private selectedWordsNodes: Set<HTMLElement>;
@@ -89,8 +113,7 @@ export class TooltipService {
       // Without this the failure was a silent unhandled rejection: no tooltip
       // appeared and nothing told the viewer why.
       delete targetNode.abortController;
-      console.error("Translation failed", error);
-      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), true);
+      this.reportTranslationFailure(error);
       return;
     }
 
@@ -121,7 +144,11 @@ export class TooltipService {
     this.positionTooltip(this.firstSelectedWordNode, tooltip, subtitlesContainer);
   }
 
-  private async showNotificationTooltip(text: string, isError: boolean = false) {
+  private async showNotificationTooltip(
+    text: string,
+    isError: boolean = false,
+    durationMs: number = NOTIFICATION_DURATION,
+  ) {
     // Errors are reported even with notifications off — the setting covers the
     // save/copy confirmations, and a failed translation shows nothing otherwise.
     if (!state.settings.showNotifications && !isError) return;
@@ -146,7 +173,7 @@ export class TooltipService {
 
     setTimeout(() => {
       tooltip.remove();
-    }, 2000);
+    }, durationMs);
   }
 
   private positionNotificationTooltip(tooltip: HTMLDivElement) {
@@ -479,10 +506,36 @@ export class TooltipService {
     try {
       return await this.resolveSelectionTranslation();
     } catch (error) {
-      console.error("Translation failed", error);
-      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), true);
+      this.reportTranslationFailure(error);
       return null;
     }
+  }
+
+  /**
+   * Tells the viewer why a translation failed when the translator said why —
+   * a missing or rejected API key, a used-up quota — and falls back to the
+   * generic message otherwise.
+   */
+  private reportTranslationFailure(error: unknown) {
+    if (!isTranslatorError(error)) {
+      console.error("Translation failed", error);
+      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), true);
+      return;
+    }
+
+    // An expected, explained condition rather than a bug: a warning is enough.
+    console.warn("Translation failed", error);
+
+    const message = chrome.i18n.getMessage(
+      TRANSLATOR_ERROR_MESSAGES[error.code],
+      [this.translationCore.translatorName],
+    );
+
+    this.showNotificationTooltip(
+      message || chrome.i18n.getMessage("translationFailed"),
+      true,
+      ACTIONABLE_ERROR_DURATION,
+    );
   }
 
   private isSameSavedTranslation = (translationData1: TranslationData, translationData2: TranslationData) => {

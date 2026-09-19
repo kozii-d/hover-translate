@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "Översättningen misslyckades"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: lägg till din API-nyckel i HoverTranslates inställningar",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ godkände inte din API-nyckel. Kontrollera den i HoverTranslates inställningar",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: teckengränsen för den här faktureringsperioden är nådd",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: för många förfrågningar, försök igen om en stund",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate har inte behörighet att ansluta till $TRANSLATOR$. Tillåt det i HoverTranslates inställningar",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ stöder inte det valda språket",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Det gick inte att nå $TRANSLATOR$. Kontrollera anslutningen",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ är tillfälligt otillgängligt",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

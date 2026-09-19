@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "मल्टिपल शब्द सेलेक्शन के लिए, Shift दबाकर रखें और आवश्यक शब्दों पर होवर करें। या 'हमेशा मल्टिपल सेलेक्शन सक्षम करें' सेटिंग चालू करें।"
   },
+  "apiKey": {
+    "requiredHint": "आपकी API कुंजी आवश्यक है",
+    "title": "{{translatorName}} कनेक्ट करें",
+    "description": "{{translatorName}} आपकी निजी API कुंजी से काम करता है। {{translatorName}} की वेबसाइट पर खाता बनाएँ (मुफ़्त प्लान उपलब्ध है) और अपने खाते के पेज से कुंजी कॉपी करें।",
+    "getKey": "API कुंजी प्राप्त करें",
+    "field": {
+      "label": "API कुंजी",
+      "placeholder": "अपनी कुंजी यहाँ पेस्ट करें",
+      "show": "कुंजी दिखाएँ",
+      "hide": "कुंजी छिपाएँ"
+    },
+    "privacy": "केवल इसी डिवाइस पर सहेजी जाती है और केवल {{translatorName}} को भेजी जाती है।",
+    "actions": {
+      "connect": "कनेक्ट करें",
+      "connecting": "जाँच हो रही है…",
+      "cancel": "रद्द करें",
+      "change": "कुंजी बदलें",
+      "remove": "कुंजी हटाएँ"
+    },
+    "status": {
+      "connected": "{{translatorName}} कनेक्ट है",
+      "plan": {
+        "free": "मुफ़्त प्लान",
+        "pro": "Pro प्लान"
+      }
+    },
+    "usage": {
+      "label": "इस बिलिंग अवधि में {{limit}} में से {{used}} वर्ण उपयोग हुए",
+      "unavailable": "उपयोग लोड नहीं हो सका। {{reason}}",
+      "exhausted": "सीमा समाप्त हो गई है — सीमा रीसेट होने तक {{translatorName}} अनुवाद नहीं करेगा।"
+    },
+    "notifications": {
+      "connected": "{{translatorName}} कनेक्ट हो गया",
+      "removed": "{{translatorName}} API कुंजी हटा दी गई। {{fallbackTranslatorName}} पर स्विच किया गया।",
+      "removedFromDevice": "{{translatorName}} API कुंजी इस डिवाइस से हटा दी गई।"
+    },
+    "modals": {
+      "remove": {
+        "title": "{{translatorName}} API कुंजी हटाएँ?",
+        "description": "कुंजी इस डिवाइस से हटा दी जाएगी और अनुवाद {{fallbackTranslatorName}} पर स्विच हो जाएँगे।",
+        "descriptionInactive": "कुंजी इस डिवाइस से हटा दी जाएगी।",
+        "action": "हटाएँ"
+      }
+    },
+    "errors": {
+      "empty": "अपनी API कुंजी दर्ज करें",
+      "permissionDenied": "{{translatorName}} तक पहुँच के बिना HoverTranslate कुंजी की जाँच नहीं कर सकता। फिर से \"कनेक्ट करें\" पर क्लिक करें और पहुँच की अनुमति दें।",
+      "saveFailed": "कुंजी सहेजी नहीं जा सकी। फिर से कोशिश करें।",
+      "removeFailed": "कुंजी हटाई नहीं जा सकी। फिर से कोशिश करें।",
+      "settingsSaveFailed": "कुंजी सहेज ली गई, लेकिन सेटिंग्स सहेजी नहीं जा सकीं। फिर से कोशिश करने के लिए \"कनेक्ट करें\" पर क्लिक करें।"
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए स्रोत भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच कर रहे हैं।",
     "targetLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए लक्ष्य भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच कर रहे हैं।",
     "translatorUnavailable": "{{translatorName}} अनुवादक उपलब्ध नहीं है: {{errorMessage}}",
     "translatorFallback": "{{translatorName}} अनुवादक उपलब्ध नहीं है: {{errorMessage}}. {{fallbackTranslatorName}} पर वापस स्विच किया जा रहा है।",
     "translatorSwitchFailed": "{{translatorName}} पर स्विच नहीं किया जा सका: {{errorMessage}}. {{previousTranslatorName}} ही बना रहेगा।",
-    "permissionDenied": "{{origins}} तक पहुँच की अनुमति नहीं दी गई"
+    "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
+    "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} ही चुना रहेगा।",
+    "translator": {
+      "apiKeyMissing": "इस डिवाइस पर कोई {{translatorName}} API कुंजी नहीं जोड़ी गई है।",
+      "apiKeyInvalid": "{{translatorName}} ने API कुंजी स्वीकार नहीं की। जाँचें कि वह पूरी कॉपी हुई है।",
+      "quotaExceeded": "इस बिलिंग अवधि की {{translatorName}} वर्ण सीमा समाप्त हो गई है।",
+      "rateLimited": "{{translatorName}} को बहुत अधिक अनुरोध मिले। थोड़ी देर में फिर कोशिश करें।",
+      "permissionMissing": "HoverTranslate को {{translatorName}} से कनेक्ट करने की अनुमति नहीं है।",
+      "unsupportedLanguage": "{{translatorName}} चुनी गई भाषा का समर्थन नहीं करता।",
+      "network": "{{translatorName}} तक नहीं पहुँचा जा सका। अपना इंटरनेट कनेक्शन जाँचें।",
+      "serviceUnavailable": "{{translatorName}} अस्थायी रूप से उपलब्ध नहीं है। बाद में फिर कोशिश करें।"
+    }
   }
 }

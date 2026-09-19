@@ -2,17 +2,21 @@
   "manifest_version": 3,
   "name": "__MSG_name__",
   "short_name": "HoverTranslate",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "default_locale": "en",
   "description": "__MSG_description__",
   "browser_specific_settings": {
     "gecko": {
       "id": "{C49CC196-68CC-441D-9224-2A05F1A073BF}",
-      "strict_min_version": "109.0"
+      "strict_min_version": "115.0"
     }
   },
   "permissions": ["storage"],
   "host_permissions": ["https://www.bing.com/*"],
+  "optional_permissions": [
+    "https://api-free.deepl.com/*",
+    "https://api.deepl.com/*"
+  ],
   "content_scripts": [
     {
       "all_frames": true,

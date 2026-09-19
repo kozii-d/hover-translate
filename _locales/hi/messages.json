@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "अनुवाद विफल"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: HoverTranslate सेटिंग्स में अपनी API कुंजी जोड़ें",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ ने आपकी API कुंजी स्वीकार नहीं की। HoverTranslate सेटिंग्स में इसे जाँचें",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: इस बिलिंग अवधि की वर्ण सीमा समाप्त हो गई है",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: बहुत अधिक अनुरोध, थोड़ी देर में फिर कोशिश करें",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate को $TRANSLATOR$ से कनेक्ट करने की अनुमति नहीं है। HoverTranslate सेटिंग्स में अनुमति दें",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ चुनी गई भाषा का समर्थन नहीं करता",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "$TRANSLATOR$ तक नहीं पहुँचा जा सका। अपना कनेक्शन जाँचें",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ अस्थायी रूप से उपलब्ध नहीं है",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

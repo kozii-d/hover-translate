@@ -8,5 +8,77 @@
   "saveFailed": { "message": "Uložení se nezdařilo" },
   "translationFailed": {
     "message": "Překlad se nezdařil"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: přidejte svůj klíč API v nastavení HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ nepřijal váš klíč API. Zkontrolujte ho v nastavení HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: limit znaků pro toto zúčtovací období je vyčerpán",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: příliš mnoho požadavků, zkuste to za chvíli znovu",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate nemá oprávnění připojit se k $TRANSLATOR$. Povolte to v nastavení HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ nepodporuje vybraný jazyk",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Nepodařilo se spojit s $TRANSLATOR$. Zkontrolujte připojení",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ je dočasně nedostupný",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

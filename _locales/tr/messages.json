@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "Çeviri başarısız"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: API anahtarınızı HoverTranslate ayarlarından ekleyin",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ API anahtarınızı kabul etmedi. HoverTranslate ayarlarından kontrol edin",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: bu fatura döneminin karakter sınırı doldu",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: çok fazla istek, biraz sonra tekrar deneyin",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate'in $TRANSLATOR$ hizmetine bağlanma izni yok. HoverTranslate ayarlarından izin verin",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ seçilen dili desteklemiyor",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "$TRANSLATOR$ hizmetine ulaşılamadı. Bağlantınızı kontrol edin",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ geçici olarak kullanılamıyor",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

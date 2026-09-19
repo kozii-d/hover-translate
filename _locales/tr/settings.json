@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "Çoklu kelime seçimi için Shift tuşuna basılı tutun ve ihtiyacınız olan kelimelerin üzerine gelin. Veya 'Her zaman çoklu seçimi etkinleştir' ayarını açın."
   },
+  "apiKey": {
+    "requiredHint": "API anahtarınızı gerektirir",
+    "title": "{{translatorName}} bağlantısı kur",
+    "description": "{{translatorName}}, kişisel API anahtarınızla çalışır. {{translatorName}} web sitesinde bir hesap oluşturun (ücretsiz bir plan vardır) ve anahtarı hesap sayfanızdan kopyalayın.",
+    "getKey": "API anahtarı al",
+    "field": {
+      "label": "API anahtarı",
+      "placeholder": "Anahtarınızı buraya yapıştırın",
+      "show": "Anahtarı göster",
+      "hide": "Anahtarı gizle"
+    },
+    "privacy": "Yalnızca bu cihazda saklanır ve yalnızca {{translatorName}} hizmetine gönderilir.",
+    "actions": {
+      "connect": "Bağlan",
+      "connecting": "Kontrol ediliyor…",
+      "cancel": "İptal",
+      "change": "Anahtarı değiştir",
+      "remove": "Anahtarı kaldır"
+    },
+    "status": {
+      "connected": "{{translatorName}} bağlı",
+      "plan": {
+        "free": "Ücretsiz plan",
+        "pro": "Pro plan"
+      }
+    },
+    "usage": {
+      "label": "Bu fatura döneminde {{limit}} karakterin {{used}} kadarı kullanıldı",
+      "unavailable": "Kullanım bilgisi yüklenemedi. {{reason}}",
+      "exhausted": "Sınır doldu — {{translatorName}} sınır yenilenene kadar çeviri yapmayacak."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} bağlandı",
+      "removed": "{{translatorName}} API anahtarı kaldırıldı. {{fallbackTranslatorName}} çevirmenine geçildi.",
+      "removedFromDevice": "{{translatorName}} API anahtarı bu cihazdan kaldırıldı."
+    },
+    "modals": {
+      "remove": {
+        "title": "{{translatorName}} API anahtarı kaldırılsın mı?",
+        "description": "Anahtar bu cihazdan silinecek ve çeviriler {{fallbackTranslatorName}} çevirmenine geçecek.",
+        "descriptionInactive": "Anahtar bu cihazdan silinecek.",
+        "action": "Kaldır"
+      }
+    },
+    "errors": {
+      "empty": "API anahtarınızı girin",
+      "permissionDenied": "{{translatorName}} erişimi olmadan HoverTranslate anahtarı kontrol edemez. Tekrar \"Bağlan\"a tıklayın ve erişime izin verin.",
+      "saveFailed": "Anahtar kaydedilemedi. Tekrar deneyin.",
+      "removeFailed": "Anahtar kaldırılamadı. Tekrar deneyin.",
+      "settingsSaveFailed": "Anahtar kaydedildi ancak ayarlar kaydedilemedi. Tekrar denemek için \"Bağlan\"a tıklayın."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için kaynak dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor.",
     "targetLanguageCode": "{{incorrectLanguage}}, {{translatorName}} çevirmeni için hedef dil olarak mevcut değil. {{defaultLanguage}} diline geçiliyor.",
     "translatorUnavailable": "{{translatorName}} çevirmeni kullanılamıyor: {{errorMessage}}",
     "translatorFallback": "{{translatorName}} çevirmeni kullanılamıyor: {{errorMessage}}. {{fallbackTranslatorName}} çevirmenine geri dönülüyor.",
     "translatorSwitchFailed": "{{translatorName}} çevirmenine geçilemedi: {{errorMessage}}. {{previousTranslatorName}} kullanılmaya devam ediyor.",
-    "permissionDenied": "{{origins}} adresine erişim izni verilmedi"
+    "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} çevirmenine geçiliyor.",
+    "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} kullanılmaya devam ediyor.",
+    "translator": {
+      "apiKeyMissing": "Bu cihaza {{translatorName}} API anahtarı eklenmemiş.",
+      "apiKeyInvalid": "{{translatorName}} API anahtarını kabul etmedi. Anahtarın tamamen kopyalandığından emin olun.",
+      "quotaExceeded": "Bu fatura dönemi için {{translatorName}} karakter sınırı doldu.",
+      "rateLimited": "{{translatorName}} çok fazla istek aldı. Biraz sonra tekrar deneyin.",
+      "permissionMissing": "HoverTranslate'in {{translatorName}} hizmetine bağlanma izni yok.",
+      "unsupportedLanguage": "{{translatorName}} seçilen dili desteklemiyor.",
+      "network": "{{translatorName}} hizmetine ulaşılamadı. İnternet bağlantınızı kontrol edin.",
+      "serviceUnavailable": "{{translatorName}} geçici olarak kullanılamıyor. Daha sonra tekrar deneyin."
+    }
   }
 }

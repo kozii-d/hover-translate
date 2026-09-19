@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "번역 실패"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: HoverTranslate 설정에서 API 키를 추가하세요",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$이(가) API 키를 받아들이지 않았습니다. HoverTranslate 설정에서 확인하세요",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: 이번 결제 기간의 글자 수 한도를 모두 사용했습니다",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: 요청이 너무 많습니다. 잠시 후 다시 시도하세요",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate에 $TRANSLATOR$ 연결 권한이 없습니다. HoverTranslate 설정에서 허용하세요",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$은(는) 선택한 언어를 지원하지 않습니다",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "$TRANSLATOR$에 연결할 수 없습니다. 연결을 확인하세요",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$을(를) 일시적으로 사용할 수 없습니다",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

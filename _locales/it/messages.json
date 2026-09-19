@@ -8,5 +8,77 @@
   "saveFailed": { "message": "Salvataggio non riuscito" },
   "translationFailed": {
     "message": "Traduzione non riuscita"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: aggiungi la tua chiave API nelle impostazioni di HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ non ha accettato la tua chiave API. Controllala nelle impostazioni di HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: il limite di caratteri di questo periodo di fatturazione è esaurito",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: troppe richieste, riprova tra un momento",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate non ha il permesso di connettersi a $TRANSLATOR$. Consentilo nelle impostazioni di HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ non supporta la lingua selezionata",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Impossibile raggiungere $TRANSLATOR$. Controlla la connessione",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ non è temporaneamente disponibile",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

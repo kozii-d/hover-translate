@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "Aby wybrać wiele słów, trzymaj Shift i najedź na potrzebne słowa. Lub włącz ustawienie 'Zawsze włącz wielokrotny wybór'."
   },
+  "apiKey": {
+    "requiredHint": "Wymaga Twojego klucza API",
+    "title": "Połącz z {{translatorName}}",
+    "description": "{{translatorName}} działa z Twoim osobistym kluczem API. Załóż konto na stronie {{translatorName}} (jest bezpłatny plan) i skopiuj klucz ze strony swojego konta.",
+    "getKey": "Uzyskaj klucz API",
+    "field": {
+      "label": "Klucz API",
+      "placeholder": "Wklej tutaj swój klucz",
+      "show": "Pokaż klucz",
+      "hide": "Ukryj klucz"
+    },
+    "privacy": "Przechowywany tylko na tym urządzeniu i wysyłany tylko do {{translatorName}}.",
+    "actions": {
+      "connect": "Połącz",
+      "connecting": "Sprawdzanie…",
+      "cancel": "Anuluj",
+      "change": "Zmień klucz",
+      "remove": "Usuń klucz"
+    },
+    "status": {
+      "connected": "Połączono z {{translatorName}}",
+      "plan": {
+        "free": "Plan bezpłatny",
+        "pro": "Plan Pro"
+      }
+    },
+    "usage": {
+      "label": "Wykorzystano {{used}} z {{limit}} znaków w tym okresie rozliczeniowym",
+      "unavailable": "Nie udało się wczytać wykorzystania. {{reason}}",
+      "exhausted": "Limit został wyczerpany — {{translatorName}} nie będzie tłumaczyć, dopóki się nie odnowi."
+    },
+    "notifications": {
+      "connected": "Połączono z {{translatorName}}",
+      "removed": "Klucz API {{translatorName}} został usunięty. Przełączono na {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Klucz API {{translatorName}} został usunięty z tego urządzenia."
+    },
+    "modals": {
+      "remove": {
+        "title": "Usunąć klucz API {{translatorName}}?",
+        "description": "Klucz zostanie usunięty z tego urządzenia, a tłumaczenia przełączą się na {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Klucz zostanie usunięty z tego urządzenia.",
+        "action": "Usuń"
+      }
+    },
+    "errors": {
+      "empty": "Wpisz swój klucz API",
+      "permissionDenied": "Bez dostępu do {{translatorName}} HoverTranslate nie może sprawdzić klucza. Kliknij ponownie „Połącz” i zezwól na dostęp.",
+      "saveFailed": "Nie udało się zapisać klucza. Spróbuj ponownie.",
+      "removeFailed": "Nie udało się usunąć klucza. Spróbuj ponownie.",
+      "settingsSaveFailed": "Klucz został zapisany, ale ustawień nie udało się zapisać. Kliknij „Połącz”, aby spróbować ponownie."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} nie jest dostępny jako język źródłowy dla tłumacza {{translatorName}}. Przełączanie na {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} nie jest dostępny jako język docelowy dla tłumacza {{translatorName}}. Przełączanie na {{defaultLanguage}}.",
     "translatorUnavailable": "Tłumacz {{translatorName}} jest niedostępny: {{errorMessage}}",
     "translatorFallback": "Tłumacz {{translatorName}} jest niedostępny: {{errorMessage}}. Powrót do {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Nie udało się przełączyć na {{translatorName}}: {{errorMessage}}. Pozostaje {{previousTranslatorName}}.",
-    "permissionDenied": "nie przyznano dostępu do {{origins}}"
+    "translatorFallbackReason": "{{reason}} Przełączanie na {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Pozostaje {{previousTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "Na tym urządzeniu nie dodano klucza API {{translatorName}}.",
+      "apiKeyInvalid": "{{translatorName}} nie zaakceptował klucza API. Sprawdź, czy został skopiowany w całości.",
+      "quotaExceeded": "Limit znaków {{translatorName}} na ten okres rozliczeniowy został wyczerpany.",
+      "rateLimited": "{{translatorName}} otrzymał zbyt wiele żądań. Spróbuj ponownie za chwilę.",
+      "permissionMissing": "HoverTranslate nie ma uprawnień do łączenia się z {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} nie obsługuje wybranego języka.",
+      "network": "Nie udało się połączyć z {{translatorName}}. Sprawdź połączenie z internetem.",
+      "serviceUnavailable": "{{translatorName}} jest tymczasowo niedostępny. Spróbuj później."
+    }
   }
 }

@@ -28,12 +28,75 @@
   "tips": {
     "multipleSelection": "如需选择多个单词，请按住 Shift 键并悬停。或者在设置中开启‘始终开启多选’。"
   },
+  "apiKey": {
+    "requiredHint": "需要你的 API 密钥",
+    "title": "连接 {{translatorName}}",
+    "description": "{{translatorName}} 需要使用你个人的 API 密钥。请在 {{translatorName}} 网站上创建账户（提供免费套餐），然后从账户页面复制密钥。",
+    "getKey": "获取 API 密钥",
+    "field": {
+      "label": "API 密钥",
+      "placeholder": "在此粘贴密钥",
+      "show": "显示密钥",
+      "hide": "隐藏密钥"
+    },
+    "privacy": "仅保存在此设备上，且仅发送给 {{translatorName}}。",
+    "actions": {
+      "connect": "连接",
+      "connecting": "正在检查…",
+      "cancel": "取消",
+      "change": "更换密钥",
+      "remove": "删除密钥"
+    },
+    "status": {
+      "connected": "已连接 {{translatorName}}",
+      "plan": {
+        "free": "免费套餐",
+        "pro": "Pro 套餐"
+      }
+    },
+    "usage": {
+      "label": "本计费周期已使用 {{used}} / {{limit}} 个字符",
+      "unavailable": "无法加载用量。{{reason}}",
+      "exhausted": "额度已用完 — 在额度重置之前 {{translatorName}} 将无法翻译。"
+    },
+    "notifications": {
+      "connected": "已连接 {{translatorName}}",
+      "removed": "已删除 {{translatorName}} API 密钥，并切换到 {{fallbackTranslatorName}}。",
+      "removedFromDevice": "已从此设备删除 {{translatorName}} API 密钥。"
+    },
+    "modals": {
+      "remove": {
+        "title": "删除 {{translatorName}} API 密钥？",
+        "description": "密钥将从此设备上删除，翻译将切换到 {{fallbackTranslatorName}}。",
+        "descriptionInactive": "密钥将从此设备上删除。",
+        "action": "删除"
+      }
+    },
+    "errors": {
+      "empty": "请输入 API 密钥",
+      "permissionDenied": "没有 {{translatorName}} 的访问权限，HoverTranslate 无法检查密钥。请再次点击“连接”并允许访问。",
+      "saveFailed": "无法保存密钥，请重试。",
+      "removeFailed": "无法删除密钥，请重试。",
+      "settingsSaveFailed": "密钥已保存，但设置未能保存。请再次点击“连接”重试。"
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{translatorName}} 翻译引擎不支持将 {{incorrectLanguage}} 作为源语言。已切换至 {{defaultLanguage}}。",
     "targetLanguageCode": "{{translatorName}} 翻译引擎不支持将 {{incorrectLanguage}} 作为目标语言。已切换至 {{defaultLanguage}}。",
     "translatorUnavailable": "{{translatorName}} 翻译器不可用：{{errorMessage}}",
     "translatorFallback": "{{translatorName}} 翻译器不可用：{{errorMessage}}。正在切换回 {{fallbackTranslatorName}}。",
     "translatorSwitchFailed": "无法切换到 {{translatorName}}：{{errorMessage}}。继续使用 {{previousTranslatorName}}。",
-    "permissionDenied": "未授予对 {{origins}} 的访问权限"
+    "translatorFallbackReason": "{{reason}}正在切换到 {{fallbackTranslatorName}}。",
+    "translatorSwitchFailedReason": "{{reason}}仍使用 {{previousTranslatorName}}。",
+    "translator": {
+      "apiKeyMissing": "此设备上尚未添加 {{translatorName}} API 密钥。",
+      "apiKeyInvalid": "{{translatorName}} 未接受该 API 密钥。请检查密钥是否已完整复制。",
+      "quotaExceeded": "本计费周期的 {{translatorName}} 字符额度已用完。",
+      "rateLimited": "{{translatorName}} 收到的请求过多，请稍后再试。",
+      "permissionMissing": "HoverTranslate 没有连接到 {{translatorName}} 的权限。",
+      "unsupportedLanguage": "{{translatorName}} 不支持所选语言。",
+      "network": "无法连接到 {{translatorName}}。请检查网络连接。",
+      "serviceUnavailable": "{{translatorName}} 暂时不可用，请稍后再试。"
+    }
   }
 }

@@ -1,4 +1,4 @@
-export type Translator = "google" | "bing";
+export type Translator = "google" | "bing" | "deepl";
 export type LeftClickAction = "nothing" | "copy-original" | "copy-translation" | "save-to-dictionary";
 
 export interface Settings {

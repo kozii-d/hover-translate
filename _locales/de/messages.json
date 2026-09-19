@@ -22,5 +22,77 @@
   },
   "translationFailed": {
     "message": "Übersetzung fehlgeschlagen"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: Fügen Sie Ihren API-Schlüssel in den HoverTranslate-Einstellungen hinzu",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ hat Ihren API-Schlüssel nicht akzeptiert. Prüfen Sie ihn in den HoverTranslate-Einstellungen",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: Das Zeichenlimit für diesen Abrechnungszeitraum ist aufgebraucht",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: Zu viele Anfragen, versuchen Sie es gleich noch einmal",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate darf keine Verbindung zu $TRANSLATOR$ herstellen. Erlauben Sie es in den HoverTranslate-Einstellungen",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ unterstützt die ausgewählte Sprache nicht",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "$TRANSLATOR$ ist nicht erreichbar. Prüfen Sie Ihre Verbindung",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ ist vorübergehend nicht verfügbar",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
   }
 }

@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "Для виділення кількох слів утримуйте Shift і наведіть курсор на потрібні слова. Або увімкніть налаштування 'Завжди вмикати множинне виділення'."
   },
+  "apiKey": {
+    "requiredHint": "Потрібен ваш API-ключ",
+    "title": "Підключити {{translatorName}}",
+    "description": "{{translatorName}} працює з вашим особистим API-ключем. Створіть обліковий запис на сайті {{translatorName}} (є безкоштовний план) і скопіюйте ключ на сторінці облікового запису.",
+    "getKey": "Отримати API-ключ",
+    "field": {
+      "label": "API-ключ",
+      "placeholder": "Вставте ключ сюди",
+      "show": "Показати ключ",
+      "hide": "Сховати ключ"
+    },
+    "privacy": "Зберігається лише на цьому пристрої й надсилається лише до {{translatorName}}.",
+    "actions": {
+      "connect": "Підключити",
+      "connecting": "Перевірка…",
+      "cancel": "Скасувати",
+      "change": "Змінити ключ",
+      "remove": "Видалити ключ"
+    },
+    "status": {
+      "connected": "{{translatorName}} підключено",
+      "plan": {
+        "free": "Безкоштовний план",
+        "pro": "План Pro"
+      }
+    },
+    "usage": {
+      "label": "Використано {{used}} з {{limit}} символів у цьому розрахунковому періоді",
+      "unavailable": "Не вдалося завантажити дані про використання. {{reason}}",
+      "exhausted": "Ліміт вичерпано — {{translatorName}} не перекладатиме, доки він не оновиться."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} підключено",
+      "removed": "API-ключ {{translatorName}} видалено. Перемкнено на {{fallbackTranslatorName}}.",
+      "removedFromDevice": "API-ключ {{translatorName}} видалено з цього пристрою."
+    },
+    "modals": {
+      "remove": {
+        "title": "Видалити API-ключ {{translatorName}}?",
+        "description": "Ключ буде видалено з цього пристрою, а переклади перемкнуться на {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Ключ буде видалено з цього пристрою.",
+        "action": "Видалити"
+      }
+    },
+    "errors": {
+      "empty": "Введіть API-ключ",
+      "permissionDenied": "Без доступу до {{translatorName}} HoverTranslate не може перевірити ключ. Натисніть «Підключити» ще раз і дозвольте доступ.",
+      "saveFailed": "Не вдалося зберегти ключ. Спробуйте ще раз.",
+      "removeFailed": "Не вдалося видалити ключ. Спробуйте ще раз.",
+      "settingsSaveFailed": "Ключ збережено, але не вдалося зберегти налаштування. Натисніть «Підключити», щоб спробувати ще раз."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} недоступна як вихідна мова для перекладача {{translatorName}}. Перемикання на {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} недоступна як цільова мова для перекладача {{translatorName}}. Перемикання на {{defaultLanguage}}.",
     "translatorUnavailable": "Перекладач {{translatorName}} недоступний: {{errorMessage}}",
     "translatorFallback": "Перекладач {{translatorName}} недоступний: {{errorMessage}}. Повернення до {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Не вдалося переключитися на {{translatorName}}: {{errorMessage}}. Залишається {{previousTranslatorName}}.",
-    "permissionDenied": "доступ до {{origins}} не надано"
+    "translatorFallbackReason": "{{reason}} Перемикання на {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Залишається {{previousTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "На цьому пристрої не додано API-ключ {{translatorName}}.",
+      "apiKeyInvalid": "{{translatorName}} не прийняв API-ключ. Перевірте, чи скопійовано його повністю.",
+      "quotaExceeded": "Ліміт символів {{translatorName}} на цей розрахунковий період вичерпано.",
+      "rateLimited": "{{translatorName}} отримав забагато запитів. Спробуйте трохи пізніше.",
+      "permissionMissing": "HoverTranslate не має дозволу підключатися до {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} не підтримує вибрану мову.",
+      "network": "Не вдалося зв'язатися з {{translatorName}}. Перевірте підключення до інтернету.",
+      "serviceUnavailable": "{{translatorName}} тимчасово недоступний. Спробуйте пізніше."
+    }
   }
 }

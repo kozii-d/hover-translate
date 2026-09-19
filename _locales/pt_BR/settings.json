@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "Para seleção múltipla de palavras, segure Shift e passe o mouse sobre as palavras necessárias. Ou habilite a configuração 'Sempre habilitar seleção múltipla'."
   },
+  "apiKey": {
+    "requiredHint": "Requer sua chave de API",
+    "title": "Conectar {{translatorName}}",
+    "description": "O {{translatorName}} funciona com sua chave de API pessoal. Crie uma conta no site do {{translatorName}} (há um plano gratuito) e copie a chave da página da sua conta.",
+    "getKey": "Obter uma chave de API",
+    "field": {
+      "label": "Chave de API",
+      "placeholder": "Cole sua chave aqui",
+      "show": "Mostrar chave",
+      "hide": "Ocultar chave"
+    },
+    "privacy": "Armazenada apenas neste dispositivo e enviada apenas ao {{translatorName}}.",
+    "actions": {
+      "connect": "Conectar",
+      "connecting": "Verificando…",
+      "cancel": "Cancelar",
+      "change": "Trocar chave",
+      "remove": "Remover chave"
+    },
+    "status": {
+      "connected": "{{translatorName}} conectado",
+      "plan": {
+        "free": "Plano gratuito",
+        "pro": "Plano Pro"
+      }
+    },
+    "usage": {
+      "label": "{{used}} de {{limit}} caracteres usados neste período de cobrança",
+      "unavailable": "Não foi possível carregar o uso. {{reason}}",
+      "exhausted": "O limite acabou — o {{translatorName}} não vai traduzir até ele ser renovado."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} está conectado",
+      "removed": "A chave de API do {{translatorName}} foi removida. Alterado para {{fallbackTranslatorName}}.",
+      "removedFromDevice": "A chave de API do {{translatorName}} foi removida deste dispositivo."
+    },
+    "modals": {
+      "remove": {
+        "title": "Remover a chave de API do {{translatorName}}?",
+        "description": "A chave será apagada deste dispositivo e as traduções passarão para o {{fallbackTranslatorName}}.",
+        "descriptionInactive": "A chave será apagada deste dispositivo.",
+        "action": "Remover"
+      }
+    },
+    "errors": {
+      "empty": "Digite sua chave de API",
+      "permissionDenied": "Sem acesso ao {{translatorName}}, o HoverTranslate não consegue verificar a chave. Clique em “Conectar” de novo e permita o acesso.",
+      "saveFailed": "Não foi possível salvar a chave. Tente novamente.",
+      "removeFailed": "Não foi possível remover a chave. Tente novamente.",
+      "settingsSaveFailed": "A chave foi salva, mas as configurações não. Clique em “Conectar” para tentar novamente."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de origem para o tradutor {{translatorName}}. Mudando para {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de destino para o tradutor {{translatorName}}. Mudando para {{defaultLanguage}}.",
     "translatorUnavailable": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}",
     "translatorFallback": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}. Voltando para {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Não foi possível mudar para {{translatorName}}: {{errorMessage}}. Mantendo {{previousTranslatorName}}.",
-    "permissionDenied": "o acesso a {{origins}} não foi concedido"
+    "translatorFallbackReason": "{{reason}} Alterando para {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Mantendo {{previousTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "Nenhuma chave de API do {{translatorName}} foi adicionada neste dispositivo.",
+      "apiKeyInvalid": "O {{translatorName}} não aceitou a chave de API. Verifique se ela foi copiada por completo.",
+      "quotaExceeded": "O limite de caracteres do {{translatorName}} deste período de cobrança acabou.",
+      "rateLimited": "O {{translatorName}} recebeu solicitações demais. Tente novamente em instantes.",
+      "permissionMissing": "O HoverTranslate não tem permissão para se conectar ao {{translatorName}}.",
+      "unsupportedLanguage": "O {{translatorName}} não oferece suporte ao idioma selecionado.",
+      "network": "Não foi possível acessar o {{translatorName}}. Verifique sua conexão com a internet.",
+      "serviceUnavailable": "O {{translatorName}} está temporariamente indisponível. Tente mais tarde."
+    }
   }
 }

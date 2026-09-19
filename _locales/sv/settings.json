@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "För att välja flera ord, håll Shift och hovra över orden du behöver. Eller aktivera inställningen 'Aktivera alltid flerval'."
   },
+  "apiKey": {
+    "requiredHint": "Kräver din API-nyckel",
+    "title": "Anslut {{translatorName}}",
+    "description": "{{translatorName}} fungerar med din personliga API-nyckel. Skapa ett konto på {{translatorName}}s webbplats (det finns en gratisplan) och kopiera nyckeln från din kontosida.",
+    "getKey": "Skaffa en API-nyckel",
+    "field": {
+      "label": "API-nyckel",
+      "placeholder": "Klistra in nyckeln här",
+      "show": "Visa nyckel",
+      "hide": "Dölj nyckel"
+    },
+    "privacy": "Sparas bara på den här enheten och skickas bara till {{translatorName}}.",
+    "actions": {
+      "connect": "Anslut",
+      "connecting": "Kontrollerar…",
+      "cancel": "Avbryt",
+      "change": "Byt nyckel",
+      "remove": "Ta bort nyckel"
+    },
+    "status": {
+      "connected": "{{translatorName}} anslutet",
+      "plan": {
+        "free": "Gratisplan",
+        "pro": "Pro-plan"
+      }
+    },
+    "usage": {
+      "label": "{{used}} av {{limit}} tecken använda under den här faktureringsperioden",
+      "unavailable": "Användningen kunde inte läsas in. {{reason}}",
+      "exhausted": "Gränsen är nådd — {{translatorName}} översätter inte förrän den återställs."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} är anslutet",
+      "removed": "API-nyckeln för {{translatorName}} togs bort. Bytte till {{fallbackTranslatorName}}.",
+      "removedFromDevice": "API-nyckeln för {{translatorName}} togs bort från den här enheten."
+    },
+    "modals": {
+      "remove": {
+        "title": "Ta bort API-nyckeln för {{translatorName}}?",
+        "description": "Nyckeln raderas från den här enheten och översättningarna byter till {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Nyckeln raderas från den här enheten.",
+        "action": "Ta bort"
+      }
+    },
+    "errors": {
+      "empty": "Ange din API-nyckel",
+      "permissionDenied": "Utan åtkomst till {{translatorName}} kan HoverTranslate inte kontrollera nyckeln. Klicka på ”Anslut” igen och tillåt åtkomst.",
+      "saveFailed": "Nyckeln kunde inte sparas. Försök igen.",
+      "removeFailed": "Nyckeln kunde inte tas bort. Försök igen.",
+      "settingsSaveFailed": "Nyckeln sparades, men inte inställningarna. Klicka på ”Anslut” för att försöka igen."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som källspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} är inte tillgängligt som målspråk för översättaren {{translatorName}}. Byter till {{defaultLanguage}}.",
     "translatorUnavailable": "Översättaren {{translatorName}} är inte tillgänglig: {{errorMessage}}",
     "translatorFallback": "Översättaren {{translatorName}} är inte tillgänglig: {{errorMessage}}. Byter tillbaka till {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Kunde inte byta till {{translatorName}}: {{errorMessage}}. Behåller {{previousTranslatorName}}.",
-    "permissionDenied": "åtkomst till {{origins}} beviljades inte"
+    "translatorFallbackReason": "{{reason}} Byter till {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} är kvar.",
+    "translator": {
+      "apiKeyMissing": "Ingen API-nyckel för {{translatorName}} har lagts till på den här enheten.",
+      "apiKeyInvalid": "{{translatorName}} godkände inte API-nyckeln. Kontrollera att den kopierades i sin helhet.",
+      "quotaExceeded": "Teckengränsen för {{translatorName}} under den här faktureringsperioden är nådd.",
+      "rateLimited": "{{translatorName}} fick för många förfrågningar. Försök igen om en stund.",
+      "permissionMissing": "HoverTranslate har inte behörighet att ansluta till {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} stöder inte det valda språket.",
+      "network": "Det gick inte att nå {{translatorName}}. Kontrollera din internetanslutning.",
+      "serviceUnavailable": "{{translatorName}} är tillfälligt otillgängligt. Försök igen senare."
+    }
   }
 }

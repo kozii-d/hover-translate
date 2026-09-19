@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "複数の単語を選択するには、Shiftキーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。"
   },
+  "apiKey": {
+    "requiredHint": "API キーが必要です",
+    "title": "{{translatorName}} に接続",
+    "description": "{{translatorName}} はあなた個人の API キーで動作します。{{translatorName}} のウェブサイトでアカウントを作成し（無料プランがあります）、アカウントページからキーをコピーしてください。",
+    "getKey": "API キーを取得",
+    "field": {
+      "label": "API キー",
+      "placeholder": "ここにキーを貼り付けてください",
+      "show": "キーを表示",
+      "hide": "キーを隠す"
+    },
+    "privacy": "このデバイスにのみ保存され、{{translatorName}} にのみ送信されます。",
+    "actions": {
+      "connect": "接続",
+      "connecting": "確認中…",
+      "cancel": "キャンセル",
+      "change": "キーを変更",
+      "remove": "キーを削除"
+    },
+    "status": {
+      "connected": "{{translatorName}} に接続済み",
+      "plan": {
+        "free": "無料プラン",
+        "pro": "Pro プラン"
+      }
+    },
+    "usage": {
+      "label": "今回の請求期間の使用量: {{limit}} 文字中 {{used}} 文字",
+      "unavailable": "使用量を読み込めませんでした。{{reason}}",
+      "exhausted": "上限に達しました。リセットされるまで {{translatorName}} は翻訳しません。"
+    },
+    "notifications": {
+      "connected": "{{translatorName}} に接続しました",
+      "removed": "{{translatorName}} の API キーを削除しました。{{fallbackTranslatorName}} に切り替えました。",
+      "removedFromDevice": "{{translatorName}} の API キーをこのデバイスから削除しました。"
+    },
+    "modals": {
+      "remove": {
+        "title": "{{translatorName}} の API キーを削除しますか？",
+        "description": "キーはこのデバイスから削除され、翻訳は {{fallbackTranslatorName}} に切り替わります。",
+        "descriptionInactive": "キーはこのデバイスから削除されます。",
+        "action": "削除"
+      }
+    },
+    "errors": {
+      "empty": "API キーを入力してください",
+      "permissionDenied": "{{translatorName}} へのアクセスがないと、HoverTranslate はキーを確認できません。もう一度「接続」をクリックして、アクセスを許可してください。",
+      "saveFailed": "キーを保存できませんでした。もう一度お試しください。",
+      "removeFailed": "キーを削除できませんでした。もう一度お試しください。",
+      "settingsSaveFailed": "キーは保存されましたが、設定を保存できませんでした。もう一度「接続」をクリックしてください。"
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳元言語として利用できません。{{defaultLanguage}}に切り替えます。",
     "targetLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳先言語として利用できません。{{defaultLanguage}}に切り替えます。",
     "translatorUnavailable": "{{translatorName}} 翻訳エンジンを利用できません: {{errorMessage}}",
     "translatorFallback": "{{translatorName}} 翻訳エンジンを利用できません: {{errorMessage}}。{{fallbackTranslatorName}} に戻します。",
     "translatorSwitchFailed": "{{translatorName}} に切り替えられませんでした: {{errorMessage}}。{{previousTranslatorName}} のままにします。",
-    "permissionDenied": "{{origins}} へのアクセスが許可されませんでした"
+    "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} に切り替えます。",
+    "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} のままにします。",
+    "translator": {
+      "apiKeyMissing": "このデバイスには {{translatorName}} の API キーが追加されていません。",
+      "apiKeyInvalid": "{{translatorName}} が API キーを受け付けませんでした。キーが完全にコピーされているか確認してください。",
+      "quotaExceeded": "今回の請求期間の {{translatorName}} の文字数上限に達しました。",
+      "rateLimited": "{{translatorName}} へのリクエストが多すぎます。しばらくしてからもう一度お試しください。",
+      "permissionMissing": "HoverTranslate には {{translatorName}} に接続する権限がありません。",
+      "unsupportedLanguage": "{{translatorName}} は選択した言語に対応していません。",
+      "network": "{{translatorName}} に接続できませんでした。インターネット接続を確認してください。",
+      "serviceUnavailable": "{{translatorName}} は一時的に利用できません。後でもう一度お試しください。"
+    }
   }
 }

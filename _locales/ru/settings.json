@@ -56,12 +56,75 @@
   "tips": {
     "multipleSelection": "Для выделения нескольких слов удерживайте Shift и наведите курсор на нужные слова. Или включите настройку 'Всегда включать множественное выделение'."
   },
+  "apiKey": {
+    "requiredHint": "Нужен ваш API-ключ",
+    "title": "Подключить {{translatorName}}",
+    "description": "{{translatorName}} работает с вашим личным API-ключом. Создайте аккаунт на сайте {{translatorName}} (есть бесплатный план) и скопируйте ключ на странице аккаунта.",
+    "getKey": "Получить API-ключ",
+    "field": {
+      "label": "API-ключ",
+      "placeholder": "Вставьте ключ сюда",
+      "show": "Показать ключ",
+      "hide": "Скрыть ключ"
+    },
+    "privacy": "Хранится только на этом устройстве и отправляется только в {{translatorName}}.",
+    "actions": {
+      "connect": "Подключить",
+      "connecting": "Проверка…",
+      "cancel": "Отмена",
+      "change": "Сменить ключ",
+      "remove": "Удалить ключ"
+    },
+    "status": {
+      "connected": "{{translatorName}} подключён",
+      "plan": {
+        "free": "Бесплатный план",
+        "pro": "План Pro"
+      }
+    },
+    "usage": {
+      "label": "Использовано {{used}} из {{limit}} символов в этом расчётном периоде",
+      "unavailable": "Не удалось загрузить расход. {{reason}}",
+      "exhausted": "Лимит исчерпан — {{translatorName}} не будет переводить, пока он не обновится."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} подключён",
+      "removed": "API-ключ {{translatorName}} удалён. Выбран {{fallbackTranslatorName}}.",
+      "removedFromDevice": "API-ключ {{translatorName}} удалён с этого устройства."
+    },
+    "modals": {
+      "remove": {
+        "title": "Удалить API-ключ {{translatorName}}?",
+        "description": "Ключ будет удалён с этого устройства, а переводы переключатся на {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Ключ будет удалён с этого устройства.",
+        "action": "Удалить"
+      }
+    },
+    "errors": {
+      "empty": "Введите API-ключ",
+      "permissionDenied": "Без доступа к {{translatorName}} HoverTranslate не может проверить ключ. Нажмите «Подключить» ещё раз и разрешите доступ.",
+      "saveFailed": "Не удалось сохранить ключ. Попробуйте ещё раз.",
+      "removeFailed": "Не удалось удалить ключ. Попробуйте ещё раз.",
+      "settingsSaveFailed": "Ключ сохранён, но не удалось сохранить настройки. Нажмите «Подключить», чтобы попробовать ещё раз."
+    }
+  },
   "errors": {
     "sourceLanguageCode": "{{incorrectLanguage}} недоступен в качестве исходного языка для переводчика {{translatorName}}. Переключение на {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} недоступен в качестве целевого языка для переводчика {{translatorName}}. Переключение на {{defaultLanguage}}.",
     "translatorUnavailable": "Переводчик {{translatorName}} недоступен: {{errorMessage}}",
     "translatorFallback": "Переводчик {{translatorName}} недоступен: {{errorMessage}}. Возврат к {{fallbackTranslatorName}}.",
     "translatorSwitchFailed": "Не удалось переключиться на {{translatorName}}: {{errorMessage}}. Остаётся {{previousTranslatorName}}.",
-    "permissionDenied": "доступ к {{origins}} не предоставлен"
+    "translatorFallbackReason": "{{reason}} Переключение на {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Остаётся {{previousTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "На этом устройстве не добавлен API-ключ {{translatorName}}.",
+      "apiKeyInvalid": "{{translatorName}} не принял API-ключ. Проверьте, что он скопирован полностью.",
+      "quotaExceeded": "Лимит символов {{translatorName}} на этот расчётный период исчерпан.",
+      "rateLimited": "{{translatorName}} получил слишком много запросов. Попробуйте чуть позже.",
+      "permissionMissing": "У HoverTranslate нет разрешения подключаться к {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} не поддерживает выбранный язык.",
+      "network": "Не удалось связаться с {{translatorName}}. Проверьте подключение к интернету.",
+      "serviceUnavailable": "{{translatorName}} временно недоступен. Попробуйте позже."
+    }
   }
 }

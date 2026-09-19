@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.13] - 2026-09-19
+
+### Added
+
+- DeepL as a third translator, working with your own DeepL API key (the free DeepL plan covers 500,000 characters a month). Pick DeepL in the settings, paste your key, and HoverTranslate checks it before switching. The key is stored only on your device and sent only to DeepL; the settings show how much of your monthly allowance is used, and the key can be changed or removed at any time.
+- When a translation fails for a reason you can fix — a missing or rejected API key, a used-up monthly limit, too many requests, no connection — the message on the video now says which, instead of a bare "Translation failed".
+
+### Changed
+
+- HoverTranslate now requires Chrome or Edge 102 and Firefox 115 or newer.
+
+### Fixed
+
+- Switching between translators no longer resets the languages you picked when the new translator only spells them differently (for example English vs. English (American), or Chinese (Taiwan) vs. Chinese (Traditional)).
+
 ## [1.1.12] - 2026-08-24
 
 ### Fixed
