@@ -66,11 +66,19 @@ export class DeepLTranslator extends ApiKeyTranslator {
     return true;
   }
 
+  // DeepL's `context` steers the translation without being translated or
+  // billed. Returning false here switches the whole feature off, cache keys
+  // included.
+  get supportsContext() {
+    return true;
+  }
+
   public async translate(
     text: string,
     sourceLanguageCode: string,
     targetLanguageCode: string,
     signal?: AbortSignal,
+    context?: string,
   ): Promise<TranslatedData> {
     const apiKey = await this.getStoredApiKey();
 
@@ -84,6 +92,7 @@ export class DeepLTranslator extends ApiKeyTranslator {
         ...(sourceLanguageCode && sourceLanguageCode !== "auto"
           ? { source_lang: toDeepLSourceCode(sourceLanguageCode) }
           : {}),
+        ...(context ? { context } : {}),
         // A subtitle fragment is rarely a whole sentence; without this DeepL
         // capitalises it and adds the punctuation it thinks is missing.
         preserve_formatting: true,

@@ -26,7 +26,8 @@
     "reset": { "title": "重置为默认设置？", "description": "这将把所有设置恢复为默认值。", "action": "重置" }
   },
   "tips": {
-    "multipleSelection": "如需选择多个单词，请按住 Shift 键并悬停。或者在设置中开启‘始终开启多选’。"
+    "multipleSelection": "如需选择多个单词，请按住 Shift 键并悬停。或者在设置中开启‘始终开启多选’。",
+    "dismiss": "隐藏提示"
   },
   "apiKey": {
     "requiredHint": "需要你的 API 密钥",
@@ -98,5 +99,11 @@
       "network": "无法连接到 {{translatorName}}。请检查网络连接。",
       "serviceUnavailable": "{{translatorName}} 暂时不可用，请稍后再试。"
     }
+  },
+  "contextHint": {
+    "text": "DeepL 会结合整行字幕来翻译单词，因此多义词会按照它在句中的实际含义来翻译。",
+    "keyNote": "需要你自己的 DeepL API 密钥，免费套餐即可。",
+    "connect": "连接 DeepL",
+    "switch": "切换到 DeepL"
   }
 }

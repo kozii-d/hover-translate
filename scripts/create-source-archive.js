@@ -41,8 +41,11 @@ function createSourceArchive() {
       "manifest.json",
       "*~",
       "*.swp",
-      "*.swo"
-    ].map(pattern => `"${pattern}"`).join(" ");
+      "*.swo",
+      "notes/*",
+    ]
+      .map((pattern) => `"${pattern}"`)
+      .join(" ");
 
     if (fs.existsSync(outputPath)) {
       fs.unlinkSync(outputPath);
@@ -55,14 +58,15 @@ function createSourceArchive() {
 
     execSync(command, { stdio: "inherit" });
 
-    console.log(`✅ Source archive created: ${path.relative('.', outputPath)}`);
+    console.log(`✅ Source archive created: ${path.relative(".", outputPath)}`);
 
     const stats = fs.statSync(outputPath);
     const fileSizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
     console.log(`📊 Archive size: ${fileSizeInMB} MB`);
 
-    console.log(`\n📋 Upload this file to Firefox Add-ons as source code: ${path.relative('.', outputPath)}`);
-
+    console.log(
+      `\n📋 Upload this file to Firefox Add-ons as source code: ${path.relative(".", outputPath)}`,
+    );
   } catch (error) {
     console.error("❌ Error creating source archive:", error.message);
     process.exit(1);

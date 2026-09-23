@@ -54,7 +54,8 @@
     }
   },
   "tips": {
-    "multipleSelection": "여러 단어를 선택하려면 Shift 키를 누른 상태에서 필요한 단어들에 마우스를 올리세요. 또는 '항상 다중 선택 활성화' 설정을 켜세요."
+    "multipleSelection": "여러 단어를 선택하려면 Shift 키를 누른 상태에서 필요한 단어들에 마우스를 올리세요. 또는 '항상 다중 선택 활성화' 설정을 켜세요.",
+    "dismiss": "팁 숨기기"
   },
   "apiKey": {
     "requiredHint": "API 키가 필요합니다",
@@ -126,5 +127,11 @@
       "network": "{{translatorName}}에 연결할 수 없습니다. 인터넷 연결을 확인하세요.",
       "serviceUnavailable": "{{translatorName}}을(를) 일시적으로 사용할 수 없습니다. 나중에 다시 시도하세요."
     }
+  },
+  "contextHint": {
+    "text": "DeepL은 자막 줄 전체를 고려해 단어를 번역하므로, 뜻이 여러 개인 단어도 실제로 쓰인 의미로 번역됩니다.",
+    "keyNote": "본인의 DeepL API 키가 필요합니다. 무료 요금제로 충분합니다.",
+    "connect": "DeepL 연결",
+    "switch": "DeepL로 전환"
   }
 }

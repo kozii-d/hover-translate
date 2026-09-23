@@ -54,7 +54,8 @@
     }
   },
   "tips": {
-    "multipleSelection": "Çoklu kelime seçimi için Shift tuşuna basılı tutun ve ihtiyacınız olan kelimelerin üzerine gelin. Veya 'Her zaman çoklu seçimi etkinleştir' ayarını açın."
+    "multipleSelection": "Çoklu kelime seçimi için Shift tuşuna basılı tutun ve ihtiyacınız olan kelimelerin üzerine gelin. Veya 'Her zaman çoklu seçimi etkinleştir' ayarını açın.",
+    "dismiss": "İpucunu gizle"
   },
   "apiKey": {
     "requiredHint": "API anahtarınızı gerektirir",
@@ -126,5 +127,11 @@
       "network": "{{translatorName}} hizmetine ulaşılamadı. İnternet bağlantınızı kontrol edin.",
       "serviceUnavailable": "{{translatorName}} geçici olarak kullanılamıyor. Daha sonra tekrar deneyin."
     }
+  },
+  "contextHint": {
+    "text": "DeepL, kelimeyi altyazı satırının tamamını dikkate alarak çevirir; böylece birden çok anlamı olan bir kelime, kullanıldığı anlamda çevrilir.",
+    "keyNote": "Kendi DeepL API anahtarınız gerekir; ücretsiz plan yeterlidir.",
+    "connect": "DeepL bağlantısı kur",
+    "switch": "DeepL'e geç"
   }
 }

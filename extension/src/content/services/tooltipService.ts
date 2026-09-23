@@ -4,6 +4,7 @@ import alpha from "color-alpha";
 import {
   TOOLTIP_CLASS,
   CAPTION_WINDOW,
+  CAPTION_VISUAL_LINE,
   TOOLTIP_WORD_CLASS,
   CAPTION_SEGMENT,
   DATA_ATTRIBUTES,
@@ -96,13 +97,15 @@ export class TooltipService {
     // nothing to translate.
     if (!textToTranslate) return;
 
+    const context = this.getSelectionContext();
+
     // Create a new AbortController for this element
     const abortController = new AbortController();
     targetNode.abortController = abortController;
 
     let translatedData: TranslationCacheData | null;
 
-    const request = this.translationCore.translateText(textToTranslate, abortController.signal);
+    const request = this.translationCore.translateText(textToTranslate, context, abortController.signal);
     // A click may land before this resolves; it has to be able to await exactly
     // this request instead of whatever finished last.
     this.activeTranslation = { text: textToTranslate, promise: request };
@@ -122,12 +125,16 @@ export class TooltipService {
 
     if (!translatedData) return;
 
-    const subtitlesContainer = document.querySelector<HTMLElement>(`.${CAPTION_WINDOW}`);
+    // The window the hovered word sits in. Taking the first one on the page
+    // meant that with two caption windows on screen — two speakers — a word in
+    // the second one was translated, and paid for, but never shown.
+    const subtitlesContainer = targetNode.closest<HTMLElement>(`.${CAPTION_WINDOW}`);
     if (!subtitlesContainer || !translatedData.translatedText) return;
 
     this.deleteActiveTooltip();
 
-    if (!subtitlesContainer.contains(targetNode)) return;
+    // The captions may have been redrawn while the request was running.
+    if (!targetNode.isConnected) return;
     if (!this.firstSelectedWordNode) return;
 
     const tooltip = document.createElement("div");
@@ -288,7 +295,7 @@ export class TooltipService {
     // Position tooltip above or below subtitles based on screen location
     const tooltipHeight = tooltip.offsetHeight;
     let topPosition;
-    if (isCaptionWindowInUpperHalf()) {
+    if (isCaptionWindowInUpperHalf(subtitlesContainer)) {
       topPosition = rectSubtitlesContainer.bottom + TOOLTIP_GAP + window.scrollY;
     } else {
       topPosition = rectSubtitlesContainer.top - tooltipHeight - TOOLTIP_GAP + window.scrollY;
@@ -345,11 +352,57 @@ export class TooltipService {
    * not be prised apart by a space that was never in the subtitle.
    */
   private getSelectedText(): string {
-    const sortedWordNodes = Array.from(this.selectedWordsNodes).sort((a, b) => {
+    return this.getSortedSelectedWords().map((wordNode) => wordNode.textContent ?? "").join("").trim();
+  }
+
+  /** The selected words in document order. */
+  private getSortedSelectedWords(): HTMLElement[] {
+    return Array.from(this.selectedWordsNodes).sort((a, b) => {
       return (this.getWordIndex(a) ?? Number.MAX_SAFE_INTEGER) - (this.getWordIndex(b) ?? Number.MAX_SAFE_INTEGER);
     });
+  }
 
-    return sortedWordNodes.map((wordNode) => wordNode.textContent ?? "").join("").trim();
+  /**
+   * The text of the caption window the selection sits in — every window it
+   * touches, in order, on the rare selection that spans several — one visual
+   * line per line. Only those windows: positioned manual captions can show
+   * several at once, one per speaker, and a neighbour's phrase steers the
+   * translation wrong.
+   *
+   * Read line by line rather than as the window's `textContent`, so the result
+   * depends neither on the separators in our spans nor on whether a line YouTube
+   * just redrew has been split into spans yet.
+   *
+   * Whitespace inside a line is collapsed here only so that a line break in a
+   * caption's text cannot pass for the end of a line; trimming, dropping empty
+   * lines and the length limit are `TranslationCore`'s, which hashes the result.
+   *
+   * Undefined when the translator makes no use of context: the DOM is then not
+   * walked on every hover for nothing.
+   */
+  private getSelectionContext(): string | undefined {
+    if (!this.translationCore.supportsContext) return undefined;
+
+    // A Set keeps the order windows were first met in, which is the order of
+    // the words.
+    const captionWindows = new Set<HTMLElement>();
+
+    this.getSortedSelectedWords().forEach((wordNode) => {
+      const captionWindow = wordNode.closest<HTMLElement>(`.${CAPTION_WINDOW}`);
+      if (captionWindow) captionWindows.add(captionWindow);
+    });
+
+    const lines = Array.from(captionWindows).flatMap((captionWindow) => {
+      const visualLines = captionWindow.querySelectorAll<HTMLElement>(`.${CAPTION_VISUAL_LINE}`);
+
+      // Markup without visual lines (YouTube changed it): the window's text as
+      // a whole still carries every word with its separator.
+      const lineNodes: HTMLElement[] = visualLines.length ? Array.from(visualLines) : [captionWindow];
+
+      return lineNodes.map((line) => (line.textContent ?? "").replace(/\s+/g, " "));
+    });
+
+    return lines.join("\n") || undefined;
   }
 
   private updateSelectedWords = (selectedNode: HTMLElement) => {
@@ -441,7 +494,7 @@ export class TooltipService {
       // The selection is highlighted straight away; only the request waits.
       this.cancelPendingTooltip();
 
-      if (this.translationCore.hasCachedTranslation(this.getSelectedText())) {
+      if (this.translationCore.hasCachedTranslation(this.getSelectedText(), this.getSelectionContext())) {
         this.showTooltip(target);
         return;
       }
@@ -493,8 +546,9 @@ export class TooltipService {
 
     // Either nothing was requested for these words, or the hover request was
     // aborted by the pointer leaving the word while the click was resolving.
-    // Ask again — unaborted this time — so the click still acts on its own word.
-    return this.translationCore.translateText(selectedText);
+    // Ask again — unaborted this time — so the click still acts on its own word,
+    // and in its caption, so it gets the meaning the tooltip showed.
+    return this.translationCore.translateText(selectedText, this.getSelectionContext());
   }
 
   /**

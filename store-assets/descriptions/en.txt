@@ -10,7 +10,7 @@ Key Features for Effective Language Learning:
 • Smart Phrase Translation: Learn idioms and expressions! Hold Shift to select and translate entire phrases, or enable "Always enable multiple selection" for easier phrase selection.
 • 190+ Language Support: Learn Spanish, French, Japanese, Korean, German, or any language! Translate YouTube subtitles from any language to your native one.
 • Auto Language Detection: The extension automatically detects the subtitle language - start learning immediately!
-• Multiple Translators: Choose between Google Translate, Bing Translator and DeepL (with your own free DeepL API key) for the most accurate vocabulary translations.
+• Multiple Translators: Choose between Google Translate, Bing Translator and DeepL (with your own free DeepL API key). DeepL also looks at the whole subtitle line, so a word with several meanings is translated the way it is used there: "bank" in "we sat on the bank of the river" means the riverbank, not a bank.
 • Smart Auto-Pause: Videos automatically pause when you hover over subtitles, giving you time to learn new vocabulary without missing content.
 • Universal Subtitle Support: Works perfectly with both manual and auto-generated YouTube subtitles.
 • Personal Vocabulary Builder: Save new words and phrases to your dictionary with one click! Build your personal vocabulary list while watching. Export your dictionary as JSON or CSV.

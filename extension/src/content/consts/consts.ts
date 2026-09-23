@@ -7,6 +7,7 @@ export const TOOLTIP_SELECTED_WORD_CLASS = "custom-tooltip-word-selected";
 // YouTube classes
 export const CAPTION_WINDOW_CONTAINER = "ytp-caption-window-container";
 export const CAPTION_WINDOW = "caption-window";
+export const CAPTION_VISUAL_LINE = "caption-visual-line";
 export const CAPTION_SEGMENT = "ytp-caption-segment";
 export const VIDEO_PLAYER = "html5-video-player";
 

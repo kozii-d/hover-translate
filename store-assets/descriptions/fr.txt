@@ -10,7 +10,7 @@ Fonctionnalités clés pour un apprentissage efficace :
 • Traduction intelligente de phrases : Apprenez les expressions idiomatiques ! Maintenez Shift pour sélectionner et traduire des phrases entières, ou activez la sélection multiple permanente.
 • Support de 190+ langues : Apprenez l'anglais, l'espagnol, le japonais, le coréen, l'allemand ou toute autre langue ! Traduisez les sous-titres YouTube de n'importe quelle langue vers le français.
 • Détection automatique de langue : L'extension détecte automatiquement la langue des sous-titres - commencez à apprendre immédiatement !
-• Choix du traducteur : Choisissez entre Google Traduction, Bing Translator et DeepL (avec votre propre clé API DeepL gratuite) pour les traductions de vocabulaire les plus précises.
+• Choix du traducteur : Choisissez entre Google Traduction, Bing Translator et DeepL (avec votre propre clé API DeepL gratuite). DeepL tient compte de toute la ligne de sous-titres : un mot à plusieurs sens est traduit dans le sens où il est employé, « bank » dans « we sat on the bank of the river » devient « rive », et non « banque ».
 • Pause automatique intelligente : Les vidéos se mettent automatiquement en pause au survol des sous-titres, vous donnant le temps d'apprendre le nouveau vocabulaire sans manquer de contenu.
 • Support universel des sous-titres : Fonctionne parfaitement avec les sous-titres manuels et générés automatiquement sur YouTube.
 • Constructeur de vocabulaire personnel : Sauvegardez les nouveaux mots et expressions dans votre dictionnaire d'un seul clic ! Créez votre liste de vocabulaire personnelle en regardant. Exportez votre dictionnaire en JSON ou CSV.

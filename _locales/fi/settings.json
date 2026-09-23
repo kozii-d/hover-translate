@@ -20,7 +20,7 @@
       "action": "Palauta"
     }
   },
-  "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina monivalinta käytössä' -asetus." },
+  "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina monivalinta käytössä' -asetus.", "dismiss": "Piilota vinkki" },
   "apiKey": {
     "requiredHint": "Vaatii oman API-avaimesi",
     "title": "Yhdistä {{translatorName}}",
@@ -91,5 +91,11 @@
       "network": "Palveluun {{translatorName}} ei saatu yhteyttä. Tarkista internetyhteys.",
       "serviceUnavailable": "{{translatorName}} ei ole tilapäisesti käytettävissä. Yritä myöhemmin uudelleen."
     }
+  },
+  "contextHint": {
+    "text": "DeepL kääntää sanan koko tekstitysrivin perusteella, joten monimerkityksinen sana käännetään siinä merkityksessä, jossa sitä käytetään.",
+    "keyNote": "Tarvitset oman DeepL-API-avaimen – ilmainen paketti riittää.",
+    "connect": "Yhdistä DeepL",
+    "switch": "Vaihda DeepL:iin"
   }
 }

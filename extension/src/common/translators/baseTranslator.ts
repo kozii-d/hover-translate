@@ -21,11 +21,26 @@ export abstract class BaseTranslator {
     return false;
   }
 
+  /**
+   * True when the translator can use the caption line around the selection to
+   * pick the meaning of an ambiguous word. Others are given no context, and
+   * their cache keys stay what they were.
+   */
+  get supportsContext(): boolean {
+    return false;
+  }
+
+  /**
+   * `context` is the text around `text` — the caption the selection sits in —
+   * which steers the translation but is not translated itself. Only passed to
+   * translators that report `supportsContext`.
+   */
   abstract translate(
     text: string,
     sourceLanguageCode: string,
     targetLanguageCode: string,
     signal?: AbortSignal,
+    context?: string,
   ): Promise<TranslatedData>;
   
   abstract getAvailableLanguages(): Promise<AvailableLanguages>;

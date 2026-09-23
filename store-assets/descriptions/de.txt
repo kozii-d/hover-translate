@@ -10,7 +10,7 @@ Hauptfunktionen für effektives Sprachenlernen:
 • Intelligente Phrasen-Übersetzung: Lerne Redewendungen und Ausdrücke! Halte Shift gedrückt, um ganze Phrasen zu markieren und zu übersetzen, oder aktiviere die Dauerfunktion.
 • 190+ Sprachen unterstützt: Lerne Englisch, Spanisch, Japanisch, Koreanisch, Französisch oder jede andere Sprache! Übersetze YouTube-Untertitel aus jeder Sprache ins Deutsche.
 • Automatische Spracherkennung: Die Erweiterung erkennt die Untertitelsprache automatisch - starte sofort mit dem Lernen!
-• Übersetzer-Auswahl: Wähle zwischen Google Übersetzer, Bing Translator und DeepL (mit deinem eigenen kostenlosen DeepL-API-Schlüssel) für präziseste Vokabelübersetzungen.
+• Übersetzer-Auswahl: Wähle zwischen Google Übersetzer, Bing Translator und DeepL (mit deinem eigenen kostenlosen DeepL-API-Schlüssel). DeepL berücksichtigt die ganze Untertitelzeile, sodass ein mehrdeutiges Wort in der Bedeutung übersetzt wird, in der es dort gemeint ist: „bank“ in „we sat on the bank of the river“ wird zu „Ufer“, nicht zu „Bank“.
 • Intelligente Auto-Pause: Videos pausieren automatisch beim Überfahren von Untertiteln, damit du neue Vokabeln in Ruhe lernen kannst.
 • Universelle Untertitel-Unterstützung: Funktioniert perfekt mit manuellen und automatisch generierten YouTube-Untertiteln.
 • Persönlicher Vokabeltrainer: Speichere neue Wörter und Phrasen mit einem Klick in deine Vokabelliste! Erstelle deine persönliche Wortschatzsammlung beim Schauen. Exportiere deine Vokabelliste als JSON oder CSV.

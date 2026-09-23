@@ -22,11 +22,18 @@ export class ProxyTranslator extends BaseTranslator {
     return this.translator.key;
   }
 
+  // Forwarded, or every proxied translator would look context-blind and never
+  // be given any — DeepL, the one that uses it, always runs behind this proxy.
+  get supportsContext() {
+    return this.translator.supportsContext;
+  }
+
   public async translate(
     text: string,
     sourceLanguageCode: string,
     targetLanguageCode: string,
     signal?: AbortSignal,
+    context?: string,
   ): Promise<TranslatedData> {
     const requestId = crypto.randomUUID();
 
@@ -54,6 +61,7 @@ export class ProxyTranslator extends BaseTranslator {
             text,
             sourceLanguageCode,
             targetLanguageCode,
+            context,
           },
         },
         signal,

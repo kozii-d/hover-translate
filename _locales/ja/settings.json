@@ -54,7 +54,8 @@
     }
   },
   "tips": {
-    "multipleSelection": "複数の単語を選択するには、Shiftキーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。"
+    "multipleSelection": "複数の単語を選択するには、Shiftキーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。",
+    "dismiss": "ヒントを非表示"
   },
   "apiKey": {
     "requiredHint": "API キーが必要です",
@@ -126,5 +127,11 @@
       "network": "{{translatorName}} に接続できませんでした。インターネット接続を確認してください。",
       "serviceUnavailable": "{{translatorName}} は一時的に利用できません。後でもう一度お試しください。"
     }
+  },
+  "contextHint": {
+    "text": "DeepL は字幕の行全体を踏まえて単語を翻訳するため、複数の意味を持つ単語も、その場で使われている意味で訳されます。",
+    "keyNote": "ご自身の DeepL API キーが必要です（無料プランで十分です）。",
+    "connect": "DeepL に接続",
+    "switch": "DeepL に切り替え"
   }
 }

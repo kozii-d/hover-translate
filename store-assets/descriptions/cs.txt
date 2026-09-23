@@ -10,7 +10,7 @@ Klíčové funkce pro efektivní studium jazyků:
 • Chytrý překlad frází: Učte se idiomy a výrazy! Podržte Shift pro výběr a překlad celých frází, nebo aktivujte trvalý režim vícenásobného výběru pro jednodušší výběr.
 • Podpora více než 190 jazyků: Učte se angličtinu, španělštinu, japonštinu, korejštinu, němčinu nebo jakýkoli jiný jazyk! Překládejte YouTube titulky z jakéhokoliv jazyka do češtiny.
 • Automatická detekce jazyka: Rozšíření samo pozná jazyk titulků - začněte se učit okamžitě!
-• Více překladačů: Vyberte si mezi Google Překladačem, Bing Translatorem a DeepL (s vlastním bezplatným API klíčem DeepL) pro nejpřesnější překlady slovíček.
+• Více překladačů: Vyberte si mezi Google Překladačem, Bing Translatorem a DeepL (s vlastním bezplatným API klíčem DeepL). DeepL bere v úvahu celý řádek titulků, takže víceznačné slovo přeloží ve významu, ve kterém je použito: „bank“ ve větě „we sat on the bank of the river“ je „břeh“, ne „banka“.
 • Chytré automatické pozastavení: Video se samo zastaví, když najedete na titulky, abyste měli čas naučit se nová slovíčka bez ztráty obsahu.
 • Univerzální podpora titulků: Funguje perfektně s manuálními i automaticky generovanými titulky na YouTube.
 • Osobní slovníček: Ukládejte si nová slova a fráze jedním kliknutím! Budujte si vlastní seznam slovíček při sledování. Exportujte svůj slovníček ve formátu JSON nebo CSV.

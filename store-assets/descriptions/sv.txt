@@ -10,7 +10,7 @@ Nyckelfunktioner för effektiv språkinlärning:
 • Smart frasöversättning: Lär dig idiom och uttryck! Håll Shift för att välja och översätta hela fraser, eller aktivera "Aktivera alltid flerval" för enklare val.
 • Stöd för 190+ språk: Lär dig engelska, spanska, franska, japanska, koreanska, tyska eller vilket språk som helst! Översätt YouTube-undertexter från valfritt språk till ditt modersmål.
 • Automatisk språkigenkänning: Tillägget känner automatiskt av språket i undertexten - börja lära dig direkt!
-• Flera översättare: Välj mellan Google Translate, Bing Translator och DeepL (med din egen kostnadsfria DeepL API-nyckel) för de mest exakta översättningarna.
+• Flera översättare: Välj mellan Google Translate, Bing Translator och DeepL (med din egen kostnadsfria DeepL API-nyckel). DeepL tar hänsyn till hela undertextraden, så ett ord med flera betydelser översätts i den betydelse som det används i: "bank" i "we sat on the bank of the river" blir "strand", inte "bank".
 • Smart auto-paus: Videor pausas automatiskt när du hovrar över undertexter, vilket ger dig tid att lära dig nya ord utan att missa handlingen.
 • Universellt undertextstöd: Fungerar perfekt med både manuella och autogenererade YouTube-undertexter.
 • Personlig ordlista: Spara nya ord och fraser i din ordlista med ett klick! Bygg din personliga ordlista medan du tittar. Exportera din ordlista som JSON eller CSV.

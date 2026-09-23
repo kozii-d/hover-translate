@@ -113,6 +113,7 @@ export class MessageService {
           text,
           sourceLanguageCode,
           targetLanguageCode,
+          context,
         } = message.value;
 
         const abortController = new AbortController();
@@ -124,6 +125,7 @@ export class MessageService {
             sourceLanguageCode,
             targetLanguageCode,
             abortController.signal,
+            context,
           ))
           .finally(() => this.activeTranslations.delete(requestId));
       }

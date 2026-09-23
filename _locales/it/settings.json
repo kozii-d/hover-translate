@@ -20,7 +20,7 @@
       "action": "Ripristina"
     }
   },
-  "tips": { "multipleSelection": "Per la selezione multipla, tieni premuto Shift e passa sulle parole. Oppure attiva 'Abilita sempre selezione multipla'." },
+  "tips": { "multipleSelection": "Per la selezione multipla, tieni premuto Shift e passa sulle parole. Oppure attiva 'Abilita sempre selezione multipla'.", "dismiss": "Nascondi suggerimento" },
   "apiKey": {
     "requiredHint": "Richiede la tua chiave API",
     "title": "Connetti {{translatorName}}",
@@ -91,5 +91,11 @@
       "network": "Impossibile raggiungere {{translatorName}}. Controlla la connessione a internet.",
       "serviceUnavailable": "{{translatorName}} non è temporaneamente disponibile. Riprova più tardi."
     }
+  },
+  "contextHint": {
+    "text": "DeepL traduce ogni parola tenendo conto dell'intera riga dei sottotitoli, così una parola con più significati viene tradotta nel senso in cui è usata.",
+    "keyNote": "Serve la tua chiave API DeepL: basta il piano gratuito.",
+    "connect": "Connetti DeepL",
+    "switch": "Passa a DeepL"
   }
 }

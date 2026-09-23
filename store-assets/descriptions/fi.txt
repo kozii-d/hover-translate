@@ -10,7 +10,7 @@ Tärkeimmät ominaisuudet tehokkaaseen kieltenoppimiseen:
 • Älykäs lauseiden kääntäminen: Opi idiomeja ja ilmaisuja! Pidä Shift-näppäintä pohjassa valitaksesi ja kääntääksesi kokonaisia lauseita, tai ota käyttöön pysyvä monivalinta helpompaa valintaa varten.
 • Tuki yli 190 kielelle: Opi englantia, espanjaa, japania, koreaa, saksaa tai mitä tahansa kieltä! Käännä YouTube-tekstitykset miltä tahansa kieleltä suomeksi.
 • Automaattinen kielen tunnistus: Laajennus tunnistaa tekstityksen kielen automaattisesti - aloita oppiminen heti!
-• Useita kääntäjiä: Valitse Google-kääntäjän, Bing Translatorin ja DeepL:n välillä (oma ilmainen DeepL API -avain) tarkimpia sanakäännöksiä varten.
+• Useita kääntäjiä: Valitse Google-kääntäjän, Bing Translatorin ja DeepL:n välillä (oma ilmainen DeepL API -avain). DeepL ottaa huomioon koko tekstitysrivin, joten monimerkityksinen sana käännetään siinä merkityksessä, jossa sitä käytetään: ”bank” lauseessa ”we sat on the bank of the river” on ”ranta”, ei ”pankki”.
 • Älykäs automaattinen tauko: Video pysähtyy automaattisesti, kun viet hiiren tekstitysten päälle, jotta ehdit oppia uusia sanoja menettämättä sisältöä.
 • Yleinen tekstitystuki: Toimii täydellisesti sekä manuaalisten että automaattisesti luotujen YouTube-tekstitysten kanssa.
 • Henkilökohtainen sanakirja: Tallenna uudet sanat ja lauseet sanakirjaasi yhdellä klikkauksella! Rakenna oma sanalistasi katselun aikana. Vie sanakirjasi JSON- tai CSV-muodossa.

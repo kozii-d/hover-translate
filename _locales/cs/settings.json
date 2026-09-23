@@ -20,7 +20,7 @@
       "action": "Obnovit"
     }
   },
-  "tips": { "multipleSelection": "Pro výběr více slov podržte Shift a najeďte na požadovaná slova. Nebo povolte nastavení 'Vždy povolit vícenásobný výběr'." },
+  "tips": { "multipleSelection": "Pro výběr více slov podržte Shift a najeďte na požadovaná slova. Nebo povolte nastavení 'Vždy povolit vícenásobný výběr'.", "dismiss": "Skrýt tip" },
   "apiKey": {
     "requiredHint": "Vyžaduje váš klíč API",
     "title": "Připojit {{translatorName}}",
@@ -91,5 +91,11 @@
       "network": "Nepodařilo se spojit s {{translatorName}}. Zkontrolujte připojení k internetu.",
       "serviceUnavailable": "{{translatorName}} je dočasně nedostupný. Zkuste to později."
     }
+  },
+  "contextHint": {
+    "text": "DeepL překládá slovo s ohledem na celý řádek titulků, takže víceznačné slovo dostane význam, ve kterém je použito.",
+    "keyNote": "Potřebujete vlastní klíč API DeepL – stačí bezplatný tarif.",
+    "connect": "Připojit DeepL",
+    "switch": "Přepnout na DeepL"
   }
 }

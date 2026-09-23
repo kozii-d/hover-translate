@@ -10,7 +10,7 @@ Funcionalidades essenciais para aprendizagem eficaz:
 • Tradução inteligente de frases: Aprenda expressões idiomáticas! Mantenha Shift pressionado para selecionar e traduzir frases inteiras, ou ative a seleção múltipla permanente.
 • Suporte para 190+ idiomas: Aprenda inglês, espanhol, francês, alemão, italiano ou qualquer idioma! Traduza legendas do YouTube de qualquer idioma para português.
 • Deteção automática de idioma: A extensão deteta automaticamente o idioma da legenda - comece a aprender imediatamente!
-• Escolha de tradutor: Escolha entre Google Tradutor, Bing Translator e DeepL (com a sua própria chave de API gratuita do DeepL) para as traduções de vocabulário mais precisas.
+• Escolha de tradutor: Escolha entre Google Tradutor, Bing Translator e DeepL (com a sua própria chave de API gratuita do DeepL). O DeepL tem em conta a linha inteira da legenda, pelo que uma palavra com vários sentidos é traduzida no sentido em que é usada: «bank» em «we sat on the bank of the river» passa a «margem», e não «banco».
 • Pausa automática inteligente: Os vídeos pausam automaticamente ao passar sobre as legendas, dando-lhe tempo para aprender vocabulário novo sem perder conteúdo.
 • Suporte universal de legendas: Funciona perfeitamente com legendas manuais e geradas automaticamente no YouTube.
 • Construtor de vocabulário pessoal: Guarde palavras e frases novas no seu dicionário com um clique! Construa a sua lista pessoal de vocabulário enquanto vê. Exporte o seu dicionário como JSON ou CSV.

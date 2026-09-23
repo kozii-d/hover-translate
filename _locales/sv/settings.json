@@ -54,7 +54,8 @@
     }
   },
   "tips": {
-    "multipleSelection": "För att välja flera ord, håll Shift och hovra över orden du behöver. Eller aktivera inställningen 'Aktivera alltid flerval'."
+    "multipleSelection": "För att välja flera ord, håll Shift och hovra över orden du behöver. Eller aktivera inställningen 'Aktivera alltid flerval'.",
+    "dismiss": "Dölj tipset"
   },
   "apiKey": {
     "requiredHint": "Kräver din API-nyckel",
@@ -126,5 +127,11 @@
       "network": "Det gick inte att nå {{translatorName}}. Kontrollera din internetanslutning.",
       "serviceUnavailable": "{{translatorName}} är tillfälligt otillgängligt. Försök igen senare."
     }
+  },
+  "contextHint": {
+    "text": "DeepL översätter ett ord utifrån hela undertextraden, så ett ord med flera betydelser översätts i den betydelse som det används i.",
+    "keyNote": "Det kräver en egen API-nyckel för DeepL – gratisplanen räcker.",
+    "connect": "Anslut DeepL",
+    "switch": "Byt till DeepL"
   }
 }

@@ -54,7 +54,8 @@
     }
   },
   "tips": {
-    "multipleSelection": "Para selección múltiple de palabras, mantén presionado Shift y pasa el cursor sobre las palabras que necesites. O habilita la configuración 'Activar siempre selección múltiple'."
+    "multipleSelection": "Para selección múltiple de palabras, mantén presionado Shift y pasa el cursor sobre las palabras que necesites. O habilita la configuración 'Activar siempre selección múltiple'.",
+    "dismiss": "Ocultar consejo"
   },
   "apiKey": {
     "requiredHint": "Requiere tu clave de API",
@@ -126,5 +127,11 @@
       "network": "No se pudo contactar con {{translatorName}}. Comprueba tu conexión a internet.",
       "serviceUnavailable": "{{translatorName}} no está disponible temporalmente. Inténtalo más tarde."
     }
+  },
+  "contextHint": {
+    "text": "DeepL traduce cada palabra teniendo en cuenta toda la línea de subtítulos, así que una palabra con varios significados se traduce en el sentido en que se usa.",
+    "keyNote": "Necesitas tu propia clave de API de DeepL; basta con el plan gratuito.",
+    "connect": "Conectar DeepL",
+    "switch": "Cambiar a DeepL"
   }
 }

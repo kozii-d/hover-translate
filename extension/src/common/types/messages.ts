@@ -18,6 +18,8 @@ export interface TranslateMessage {
     text: string;
     sourceLanguageCode: string;
     targetLanguageCode: string;
+    /** The caption around `text`; only sent to translators that support it. */
+    context?: string;
   };
 }
 

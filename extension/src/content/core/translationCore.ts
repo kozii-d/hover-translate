@@ -4,6 +4,7 @@ import { TranslationCacheData } from "../../common/types/translations.ts";
 import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
 import { state } from "../state/stateManager.ts";
 import { debugLog } from "../utils/debugLog.ts";
+import { hashString } from "../utils/hash.ts";
 
 type TranslationCache = QuickLRU<string, TranslationCacheData>;
 
@@ -16,6 +17,64 @@ type TranslationCacheFromStorage = { key: string; value: TranslationCacheData }[
  * miss meant a multi-megabyte round trip several times a second while watching.
  */
 const CACHE_WRITE_DELAY = 5000;
+
+/**
+ * The most context sent along with a selection. A caption window never gets
+ * near this; it only guards against a page whose DOM hands over far more text
+ * than a subtitle.
+ */
+const MAX_CONTEXT_LENGTH = 500;
+
+/**
+ * Where `text` starts in `context`, allowing any whitespace — or none — between
+ * its characters: a selection across two caption lines has a space (or, in
+ * Chinese, nothing) where the context has a line break. -1 when absent.
+ */
+const findIgnoringWhitespace = (context: string, text: string): number => {
+  const characters = Array.from(text.replace(/\s+/g, ""));
+  if (!characters.length) return -1;
+
+  const pattern = characters
+    .map((character) => character.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("\\s*");
+
+  return context.search(new RegExp(pattern, "u"));
+};
+
+/**
+ * The context in the form it is sent and hashed in: each line trimmed, runs of
+ * whitespace inside a line collapsed to one space, empty lines dropped. Line
+ * breaks are kept — they are where the caption lines meet.
+ *
+ * Returns undefined when there is nothing the translator could use: no context
+ * at all, or one that is just the selection again (the whole caption selected).
+ */
+const normalizeContext = (text: string, context?: string): string | undefined => {
+  if (!context) return undefined;
+
+  let normalized = context
+    .split("\n")
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .join("\n");
+
+  // Compared without any whitespace: two Chinese caption lines are joined by a
+  // line break in the context and by nothing in the selection.
+  const stripWhitespace = (value: string) => value.replace(/\s+/g, "");
+  if (!normalized || stripWhitespace(normalized) === stripWhitespace(text)) return undefined;
+
+  if (normalized.length > MAX_CONTEXT_LENGTH) {
+    // Keep the stretch around the selection, which is what the context is for.
+    const position = Math.max(findIgnoringWhitespace(normalized, text), 0);
+    const start = Math.max(0, Math.min(
+      position - Math.floor((MAX_CONTEXT_LENGTH - text.length) / 2),
+      normalized.length - MAX_CONTEXT_LENGTH,
+    ));
+    normalized = normalized.slice(start, start + MAX_CONTEXT_LENGTH).trim();
+  }
+
+  return normalized;
+};
 
 export class TranslationCore {
   private translationCache: TranslationCache;
@@ -125,8 +184,33 @@ export class TranslationCore {
     return this.translator.name;
   }
 
-  private getCacheKey(normalizedText: string): string {
-    return `${normalizedText}_${state.settings.sourceLanguageCode}_${state.settings.targetLanguageCode}_${this.translator.key}`;
+  /**
+   * Whether the translator makes use of the caption around the selection. When
+   * it doesn't, callers need not collect it at all.
+   */
+  public get supportsContext(): boolean {
+    return this.translator.supportsContext;
+  }
+
+  /**
+   * The context actually sent for this text, or undefined when none is: the
+   * translator ignores it, or there is nothing in it beyond the text itself.
+   */
+  private getEffectiveContext(normalizedText: string, context?: string): string | undefined {
+    return this.supportsContext ? normalizeContext(normalizedText, context) : undefined;
+  }
+
+  /**
+   * A translation made with context is only valid in that context, so its hash
+   * is part of the key. The hash rather than the context itself: the whole LRU
+   * is serialised into `local` storage on every flush, and a caption line in
+   * each key would multiply its size. Without context the key is exactly what
+   * it always was, so Google and Bing keep their accumulated cache.
+   */
+  private getCacheKey(normalizedText: string, context?: string): string {
+    const key = `${normalizedText}_${state.settings.sourceLanguageCode}_${state.settings.targetLanguageCode}_${this.translator.key}`;
+
+    return context ? `${key}_${hashString(context)}` : key;
   }
 
   /**
@@ -136,20 +220,24 @@ export class TranslationCore {
    * exists to avoid firing requests while the pointer sweeps across a line, and
    * a cache hit fires none.
    */
-  public hasCachedTranslation(text: string): boolean {
+  public hasCachedTranslation(text: string, context?: string): boolean {
     const normalizedText = text.trim();
+    if (!normalizedText) return false;
 
-    return Boolean(normalizedText) && this.translationCache.has(this.getCacheKey(normalizedText));
+    const cacheKey = this.getCacheKey(normalizedText, this.getEffectiveContext(normalizedText, context));
+
+    return this.translationCache.has(cacheKey);
   }
 
-  async translateText(text: string, signal?: AbortSignal): Promise<TranslationCacheData | null> {
+  async translateText(text: string, context?: string, signal?: AbortSignal): Promise<TranslationCacheData | null> {
     const normalizedText = text.trim();
 
     if (!normalizedText) {
       return null;
     }
 
-    const cacheKey = this.getCacheKey(normalizedText);
+    const effectiveContext = this.getEffectiveContext(normalizedText, context);
+    const cacheKey = this.getCacheKey(normalizedText, effectiveContext);
 
     if (this.translationCache.has(cacheKey)) {
       const cachedData = this.translationCache.get(cacheKey);
@@ -164,7 +252,8 @@ export class TranslationCore {
         normalizedText,
         state.settings.sourceLanguageCode,
         state.settings.targetLanguageCode,
-        signal
+        signal,
+        effectiveContext,
       );
 
       if (!translatedData) {

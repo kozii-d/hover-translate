@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
-import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
 
 import {
@@ -19,6 +18,8 @@ import {
   Translator,
 } from "../model/types/schema.ts";
 import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
+import { ContextHint } from "./ContextHint.tsx";
+import { DismissibleTip } from "@/shared/ui/DismissibleTip/DismissibleTip.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
@@ -91,9 +92,13 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   // know synchronously whether it can switch or has to ask for a key, because
   // the permission request that switching starts needs the user gesture.
   const [apiKeys, setApiKeys] = useState<StoredApiKeys>({});
+  // Until then `apiKeys` is empty whatever is stored, and anything that tells
+  // a viewer with a key from one without would say the wrong thing first.
+  const [apiKeysLoaded, setApiKeysLoaded] = useState(false);
   const [apiKeyForm, setApiKeyForm] = useState<ApiKeyPrompt | null>(null);
 
   const currentTranslator = watch("translator");
+  const alwaysMultipleSelection = watch("alwaysMultipleSelection");
 
   useEffect(() => {
     reset(initialValues);
@@ -102,7 +107,8 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   useEffect(() => {
     apiKeyService.getAll()
       .then(setApiKeys)
-      .catch((error) => console.error("Could not read the stored API keys", error));
+      .catch((error) => console.error("Could not read the stored API keys", error))
+      .finally(() => setApiKeysLoaded(true));
 
     // The popup was closed while a key was being connected — most likely by
     // Firefox showing the permission prompt. Pick up where the viewer left off.
@@ -515,9 +521,19 @@ export const SettingsForm: FC<SettingsFormProps> = ({
             onRemoveKey={() => removeApiKey(currentTranslator)}
           />
         )}
-        <Alert severity="info">
-          {t("tips.multipleSelection")}
-        </Alert>
+        {apiKeysLoaded && !apiKeyForm && currentTranslator !== "deepl" && (
+          <ContextHint
+            hasApiKey={Boolean(apiKeys.deepl)}
+            onSelectDeepL={() => handleTranslatorChange("deepl")}
+          />
+        )}
+        {/* With the setting on, Shift is not needed and the tip would suggest
+            turning on what already is. */}
+        {!alwaysMultipleSelection && (
+          <DismissibleTip storageKey="multipleSelectionTipDismissed" closeText={t("tips.dismiss")}>
+            {t("tips.multipleSelection")}
+          </DismissibleTip>
+        )}
         <Controller
           name="autoPause"
           control={control}

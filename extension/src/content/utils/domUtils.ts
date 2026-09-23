@@ -1,10 +1,15 @@
-import { CAPTION_WINDOW_CONTAINER, CAPTION_WINDOW } from "../consts/consts.ts";
+import { CAPTION_WINDOW_CONTAINER } from "../consts/consts.ts";
 
-export function isCaptionWindowInUpperHalf(): boolean {
-  const container = document.querySelector<HTMLElement>(`.${CAPTION_WINDOW_CONTAINER}`);
-  const captionWindow = document.querySelector<HTMLElement>(`.${CAPTION_WINDOW}`);
+/**
+ * Whether a caption window sits in the upper half of the player. Takes the
+ * window rather than finding one: with two speakers on screen, one caption at
+ * the top and one at the bottom, the first window in the document is not
+ * necessarily the one the tooltip belongs to.
+ */
+export function isCaptionWindowInUpperHalf(captionWindow: HTMLElement): boolean {
+  const container = captionWindow.closest<HTMLElement>(`.${CAPTION_WINDOW_CONTAINER}`);
 
-  if (!container || !captionWindow) {
+  if (!container) {
     return false;
   }
 
