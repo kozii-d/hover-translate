@@ -1,6 +1,6 @@
 {
   "name": { "message": "HoverTranslate - YouTube 字幕翻譯器" },
-  "description": { "message": "邊看 YouTube 邊記單字！懸停字幕即可即時翻譯單字。語言學習者的完美伴侶。" },
+  "description": { "message": "滑鼠移到 YouTube 字幕的單字上，就能看到翻譯。看影片學英文、累積單字，一鍵存入單字本並匯出 CSV。免費、免註冊。" },
   "translationSaved": { "message": "翻譯已儲存" },
   "originalTextCopied": { "message": "原文已複製" },
   "translatedTextCopied": { "message": "譯文已複製" },

@@ -3,7 +3,7 @@
     "message": "HoverTranslate - YouTube字幕翻訳"
   },
   "description": {
-    "message": "YouTube動画で語彙力アップ！字幕の単語にマウスを合わせるだけで瞬時に翻訳。語学学習に最適。"
+    "message": "YouTubeの字幕の単語にマウスを合わせるだけで翻訳を表示。英語字幕で英語を学ぶ方に。単語帳に保存してCSVで書き出し。無料・登録不要。"
   },
   "translationSaved": {
     "message": "翻訳を保存しました"
