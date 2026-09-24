@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file.
 
 - HoverTranslate no longer asks for access to www.bing.com. Version 1.1.11 started asking every user for it, and Chrome switched the extension off until that access was approved. If that happened to you, this update switches HoverTranslate back on by itself, with nothing to approve.
 - With two subtitle windows on screen at once — two speakers, one caption at the top and one at the bottom — hovering a word in the second window showed nothing. It now shows its translation, placed next to its own window.
+- On a first install in Brazilian or European Portuguese, or Latin American Spanish, the translation language was set to English instead of your language, so hovering a word in an English video showed the same English word. HoverTranslate now picks your language whenever the browser names it with a region the translator does not list — also Spanish (Spain) and Swedish in Firefox, Norwegian, Chinese (Hong Kong), Canadian French and others. Settings you already have are not changed; if yours shows English and you did not choose it, pick your language in the settings.
+- Norwegian is no longer replaced with another language when you switch between Google and DeepL, or when Google stands in for Bing (Google calls it "no", DeepL and Bing "nb").
 
 ## [1.1.13] - 2026-09-19
 

@@ -4,6 +4,7 @@ import { StorageService } from "../../common/services/storageService.ts";
 import { defaultSettings, defaultTooltipTheme } from "../../common/consts/defaultValues.ts";
 import type { Settings, TooltipTheme } from "../../common/types/settings.ts";
 import { TranslatorFactory } from "../../common/translators/TranslatorFactory.ts";
+import { findUserLanguage } from "../../common/translators/findClosestLanguage.ts";
 
 export class SettingsService {
   static readonly SETTINGS_VERSION = 4;
@@ -124,14 +125,15 @@ export class SettingsService {
       const translator = TranslatorFactory.create(defaultSettings.translator);
       const availableLanguages = await translator.getAvailableLanguages();
 
-      const userLanguage = this.getUserLanguage();
-      const availableTargetLanguages = availableLanguages.targetLanguages.map((lang) => lang.code);
+      // The same language as the translator spells it: no translator has
+      // `pt-BR`, `es-419` or `es-MX`, and those viewers used to get English.
+      const targetLanguage = findUserLanguage(
+        this.getUserLanguage(),
+        availableLanguages.targetLanguages,
+        defaultSettings.targetLanguageCode,
+      );
 
-      const targetLanguageCode = availableTargetLanguages.includes(userLanguage)
-        ? userLanguage
-        : defaultSettings.targetLanguageCode;
-
-      return { ...defaultSettings, targetLanguageCode };
+      return { ...defaultSettings, targetLanguageCode: targetLanguage?.code ?? defaultSettings.targetLanguageCode };
     } catch (error) {
       console.error("Failed to fetch languages from server:", error);
       return defaultSettings;

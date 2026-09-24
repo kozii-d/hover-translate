@@ -2,13 +2,18 @@ import { AvailableLanguages, Language } from "../types/languages.ts";
 
 /**
  * Codes that name the same language in the spellings the translators use:
- * Google's legacy `iw` / `jw`, Bing's `fil`, and the regional Chinese codes
- * that stand for a script (`zh-CN` is simplified, `zh-TW` traditional).
+ * Google's legacy `iw` / `jw`, Bing's `fil`, Norwegian Bokmål (`nb` in the
+ * browsers, DeepL and Bing, `no` in Google), Central Kurdish in Arabic script
+ * (`ku-Arab` in the browsers, `ckb` in Google — Google's `ku` is Kurmanji in
+ * Latin script), and the regional Chinese codes that stand for a script
+ * (`zh-CN` is simplified, `zh-TW` traditional).
  */
 const CANONICAL_CODES: Record<string, string> = {
   "iw": "he",
   "jw": "jv",
   "fil": "tl",
+  "nb": "no",
+  "ku-arab": "ckb",
   "zh-cn": "zh-hans",
   "zh-sg": "zh-hans",
   "zh-tw": "zh-hant",
@@ -21,7 +26,8 @@ const canonical = (code: string) => {
   return CANONICAL_CODES[lowerCased] ?? lowerCased;
 };
 
-const primaryLanguage = (code: string) => canonical(code).split("-")[0];
+// Canonical again for a regional code whose language has two spellings (`nb-NO`).
+const primaryLanguage = (code: string) => canonical(canonical(code).split("-")[0]);
 
 /**
  * The language in `languages` that best stands for `code`, or null when the
@@ -30,7 +36,9 @@ const primaryLanguage = (code: string) => canonical(code).split("-")[0];
  * Translators spell the same language differently — Google has `en` and
  * `zh-CN`, DeepL `en-US`, `en-GB` and `zh-Hans` — and an exact comparison
  * threw the viewer's choice away on every switch between them. In order of
- * preference: the same code, the same script (`zh-CN` → `zh-Hans`), the bare
+ * preference: the very same code (Google lists both `he` and `iw`, `fil` and
+ * `tl`, and the one asked for is kept), the same language in another
+ * spelling or the same script (`iw` → `he`, `zh-CN` → `zh-Hans`), the bare
  * language (`en-US` → `en`), the viewer's own regional variant, and finally
  * any variant of the language.
  */
@@ -39,6 +47,9 @@ export const findClosestLanguage = (
   languages: Language[],
   uiLanguage: string = "",
 ): Language | null => {
+  const same = languages.find((language) => language.code === code);
+  if (same) return same;
+
   const wanted = canonical(code);
 
   const exact = languages.find((language) => canonical(language.code) === wanted);
@@ -51,6 +62,22 @@ export const findClosestLanguage = (
     ?? variants.find((language) => canonical(language.code) === canonical(uiLanguage))
     ?? variants[0];
 };
+
+/**
+ * The viewer's own language as `languages` spells it (`pt-BR` → `pt`), else
+ * `defaultCode`, else the first one listed — the one rule for picking a target
+ * language for the viewer: on install, on "reset to defaults", and when a
+ * change of translator loses the selected one.
+ */
+export const findUserLanguage = (
+  uiLanguage: string,
+  languages: Language[],
+  defaultCode: string,
+): Language | null =>
+  findClosestLanguage(uiLanguage, languages, uiLanguage)
+    ?? findClosestLanguage(defaultCode, languages, uiLanguage)
+    ?? languages[0]
+    ?? null;
 
 /** Whether two codes name the same language, whatever the region or spelling. */
 export const isSameLanguage = (code: string, otherCode: string) =>
@@ -88,10 +115,7 @@ export const matchSelectedLanguages = (
 
   const targets = availableLanguages.targetLanguages;
   const targetMatch = findClosestLanguage(targetLanguageCode, targets, uiLanguage);
-  const newTarget = targetMatch
-    ?? findClosestLanguage(uiLanguage, targets, uiLanguage)
-    ?? findClosestLanguage(defaultTargetCode, targets, uiLanguage)
-    ?? targets[0];
+  const newTarget = targetMatch ?? findUserLanguage(uiLanguage, targets, defaultTargetCode);
 
   return {
     sourceLanguageCode: sourceMatch?.code ?? "auto",

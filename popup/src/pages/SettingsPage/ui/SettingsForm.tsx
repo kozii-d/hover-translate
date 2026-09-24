@@ -53,7 +53,7 @@ import { StoredApiKeys } from "@extension/common/services/apiKeyService.ts";
 import { ApiKeyForm, ApiKeyStatus } from "@/features/TranslatorApiKey";
 import {
   SelectedLanguagesMatch,
-  findClosestLanguage,
+  findUserLanguage,
   matchSelectedLanguages,
 } from "../lib/helpers/findClosestLanguage.ts";
 
@@ -410,8 +410,11 @@ export const SettingsForm: FC<SettingsFormProps> = ({
 
     try {
       const defaultLanguages = await fetchAvailableLanguages(initialFormValues.translator);
-      const userLanguage = chrome.i18n.getUILanguage();
-      const userTargetLanguage = findClosestLanguage(userLanguage, defaultLanguages.targetLanguages, userLanguage);
+      const userTargetLanguage = findUserLanguage(
+        chrome.i18n.getUILanguage(),
+        defaultLanguages.targetLanguages,
+        initialFormValues.targetLanguageCode,
+      );
 
       const newValues = {
         ...initialFormValues,
