@@ -1,6 +1,6 @@
 {
   "name": "hover-translate",
-  "version": "1.1.14",
+  "version": "1.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
     "release:firefox:dev": "npm run build:dev && node scripts/archive.js firefox dev",
     "source-archive": "node scripts/create-source-archive.js",
     "check:listing": "node scripts/check-listing.js",
+    "version:set": "node scripts/set-version.js",
     "update:amo": "node scripts/update-amo-listing.js"
   },
   "keywords": [],

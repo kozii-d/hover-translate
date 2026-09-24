@@ -1,4 +1,4 @@
-# Bringing the Bing translator back (1.1.15)
+# Bringing the Bing translator back (1.2.0)
 
 Temporary document. Delete it in the same change that completes the last step below.
 
@@ -28,18 +28,18 @@ The stand that measured all this lives in `notes/harness/01/chromium-update/run.
 
 Firefox never disabled anything. For MV3, host permissions are stored in `ExtensionPermissions`, and `ExtensionData.migratePermissions` (`toolkit/components/extensions/Extension.sys.mjs`) revokes them on update only for policy-installed add-ons. So Firefox users simply lose Bing for one version, like everyone else.
 
-## When to release 1.1.15
+## When to release 1.2.0
 
-**Not right after 1.1.14.** The store serves only its latest version. A Chrome that has not fetched 1.1.14 before 1.1.15 is published goes straight from 1.1.13 to 1.1.15, which is the "bing optional" path above, and **that user stays disabled for good**.
+**Not right after 1.1.14.** The store serves only its latest version. A Chrome that has not fetched 1.1.14 before 1.2.0 is published goes straight from 1.1.13 to 1.2.0, which is the "bing optional" path above, and **that user stays disabled for good**.
 
 - Chrome checks for updates at every start and then every 5 hours (`kDefaultUpdateFrequency = base::Hours(5)`, `extensions/common/constants.h`). Disabled extensions are updated too.
 - For comparison, 1.1.11 became the main version one day after it was published.
-- Count from the day 1.1.14 is **published**, not submitted. Do not upload 1.1.15 while 1.1.14 is still in review: a new upload replaces the one in the queue.
-- Release 1.1.15 when both hold in the Chrome dashboard:
+- Count from the day 1.1.14 is **published**, not submitted. Do not upload 1.2.0 while 1.1.14 is still in review: a new upload replaces the one in the queue.
+- Release 1.2.0 when both hold in the Chrome dashboard:
   - "Enabled / disabled": the enabled count has climbed back to roughly its level before 1.1.11 and stopped growing;
   - "By version": the share of 1.1.14 has levelled off.
 
-  Expect 1–2 weeks. For Edge nothing is measured: no Edge run and no Edge statistics. It is built on the same Chromium extension code, so it most likely behaves the same — wait there too. Firefox can get 1.1.15 at any time.
+  Expect 1–2 weeks. For Edge nothing is measured: no Edge run and no Edge statistics. It is built on the same Chromium extension code, so it most likely behaves the same — wait there too. Firefox can get 1.2.0 at any time.
 
 ## Steps
 
@@ -159,7 +159,7 @@ Firefox may close the popup while the permission prompt is shown (see `apiKeyDra
 
 Picking Bing again then resolves at once without a prompt, which is acceptable. Check it by hand (step 9), and add a draft like DeepL's only if it turns out to be a real problem.
 
-### 7. `CHANGELOG.md`, `[1.1.15]`
+### 7. `CHANGELOG.md`, `[1.2.0]`
 
 Suggested entry: "Bing is back. Access to <www.bing.com> is now asked for only when you pick Bing in the settings; HoverTranslate no longer asks every user for it."
 
@@ -167,11 +167,11 @@ Suggested entry: "Bing is back. Access to <www.bing.com> is now asked for only w
 
 - Remove the `BING_RESTORE.md` line from "Repository Layout".
 - Update the "Translators" paragraph (step 2).
-- Keep the rule in "Browser differences", and change its last sentence to say that 1.1.15 brought Bing back as an optional permission.
+- Keep the rule in "Browser differences", and change its last sentence to say that 1.2.0 brought Bing back as an optional permission.
 
 ### 9. Verification
 
-- The stand `notes/harness/01/run.mjs` holds the 1.1.14 checks. For 1.1.15, flip or extend them:
+- The stand `notes/harness/01/run.mjs` holds the 1.1.14 checks. For 1.2.0, flip or extend them:
   - manifests: bing present in the optional key of each browser and absent from `host_permissions`;
   - factory: `bing` builds `BingTranslator`;
   - `translate` for bing:
@@ -182,8 +182,8 @@ Suggested entry: "Bing is back. Access to <www.bing.com> is now asked for only w
     - picking it calls `permissions.request(["https://www.bing.com/*"])`: false keeps Google and shows the reason, true saves `bing`;
     - opening the settings with Bing selected and no permission falls back with the step-4 notice, and with the permission shows no notice;
   - Google and DeepL unchanged; no unhandled rejections.
-- `notes/harness/01/chromium-update/run.mjs --real`: add a 1.1.15 build and check that a profile that went 1.1.13 (disabled) → 1.1.14 → 1.1.15 stays enabled and has no bing until it is requested. The `disabled-two-step` scenario already shows this with the tiny extension.
+- `notes/harness/01/chromium-update/run.mjs --real`: add a 1.2.0 build and check that a profile that went 1.1.13 (disabled) → 1.1.14 → 1.2.0 stays enabled and has no bing until it is requested. The `disabled-two-step` scenario already shows this with the tiny extension.
 - `npm run setup:chrome && npm run build`, both lints, `setup:firefox` and `setup:edge` for valid manifests, then back to `setup:chrome`.
 - By hand:
-  - Chrome: install 1.1.15 unpacked, pick Bing, and the prompt for <www.bing.com> should appear; allow it and hover a word, and you should get a Bing translation. Remove the access on the extension's details page, and hovering should now show "not allowed to connect to Bing"; opening the settings should fall back to Google with the notice.
+  - Chrome: install 1.2.0 unpacked, pick Bing, and the prompt for <www.bing.com> should appear; allow it and hover a word, and you should get a Bing translation. Remove the access on the extension's details page, and hovering should now show "not allowed to connect to Bing"; opening the settings should fall back to Google with the notice.
   - Firefox: the same, plus reopen the popup if it closed on the prompt.
