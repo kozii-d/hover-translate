@@ -6,6 +6,7 @@ Mitä HoverTranslate osaa:
 • Yksittäiset sanat ja kokonaiset fraasit. Tuliko vastaan idiomi tai vakiintunut ilmaus? Pidä Shift-näppäintä pohjassa ja vedä hiiri sanojen yli. Jos haluat valita sanoja ilman Shiftiä, sen voi ottaa käyttöön asetuksista.
 • Oma sanalista. Napsauta sanaa, niin se tallentuu käännöksen kanssa. Listan voi viedä CSV- tai JSON-muodossa, jotta voit kerrata uudet sanat myöhemmin.
 • Toimii myös automaattisen tekstityksen kanssa eli sen, jonka YouTube luo itse. Sopivia ovat siis nekin videot, joihin tekijä ei ole lisännyt tekstitystä.
+• Ei vain itse YouTubessa: kun video on upotettu blogiin, verkkokurssille tai uutisartikkeliin, riittää, että viet hiiren sanan päälle samalla tavalla.
 • Pärjää kiinan, japanin ja thain kanssa: vaikka niissä sanojen väliin ei tule välilyöntejä, saat käännöksen yhdelle sanalle etkä koko riville.
 • Kääntää yli 180 kielelle ja tunnistaa tekstityksen kielen itse.
 • Sulautuu kuvaan: käännös näyttää samalta kuin YouTube-tekstityksesi. Haluatko toisenlaisen? Valitse oma fontti, väri ja koko.

@@ -6,6 +6,7 @@ HoverTranslate neler yapar:
 • Tek tek kelimeleri de bütün ifadeleri de çevirir. Bir deyim ya da kalıp ifadeyle mi karşılaştınız? Shift tuşunu basılı tutup imleci kelimelerin üzerinde gezdirin. Shift'e basmadan seçmek isterseniz bunu ayarlardan açabilirsiniz.
 • Kendi kelime listenizi oluşturur. Tıkladığınız kelime, çevirisiyle birlikte kaydedilir. Listeyi CSV veya JSON olarak dışa aktarıp yeni kelimeleri daha sonra tekrar edebilirsiniz.
 • Otomatik altyazılarla, yani YouTube'un kendi oluşturduğu altyazılarla da çalışır. Böylece yükleyenin altyazı eklemediği videolar da işinize yarar.
+• Yalnızca YouTube'da değil: video bir bloga, çevrimiçi bir kursa ya da bir haber yazısına yerleştirilmiş olsa bile imleci kelimenin üzerine getirmeniz yeterli.
 • Çince, Japonca ve Taycayla da başa çıkar: bu dillerde kelimeler boşluksuz yazılsa da satırın tamamını değil, tek bir kelimeyi çevirir.
 • 180'den fazla dile çevirir ve altyazının dilini kendisi algılar.
 • Göze batmaz: çeviri, YouTube'daki altyazılarınızla aynı görünür. Farklı olsun isterseniz yazı tipini, rengi ve boyutu kendiniz seçin.

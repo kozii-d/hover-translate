@@ -6,6 +6,7 @@ Ce que fait HoverTranslate :
 • Des mots isolés comme des expressions entières. Vous tombez sur une expression idiomatique ? Maintenez la touche Maj (Shift) enfoncée et balayez les mots avec la souris. Si vous préférez vous passer de Maj, activez l'option dans les paramètres.
 • Votre propre liste de vocabulaire. Cliquez sur un mot : il est enregistré avec sa traduction. Exportez la liste en CSV ou en JSON pour réviser vos nouveaux mots plus tard.
 • Fonctionne aussi avec les sous-titres automatiques, ceux que YouTube génère lui-même : même les vidéos que leur auteur n'a pas sous-titrées font l'affaire.
+• Pas seulement sur YouTube : quand une vidéo est intégrée à un blog, à un cours en ligne ou à un article de presse, il suffit de survoler un mot de la même façon.
 • Chinois, japonais et thaï compris : bien que ces langues s'écrivent sans espaces entre les mots, vous obtenez la traduction d'un seul mot, et non de toute la ligne.
 • Traduction vers plus de 180 langues, avec détection automatique de la langue des sous-titres.
 • Discret à l'écran : la traduction reprend l'apparence de vos sous-titres YouTube. Envie d'autre chose ? Choisissez vous-même la police, la couleur et la taille.

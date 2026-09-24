@@ -6,6 +6,7 @@ Co HoverTranslate umí:
 • Jednotlivá slova i celé fráze. Narazili jste na idiom nebo ustálené spojení? Podržte Shift a přejeďte myší přes slova. Pokud vám víc vyhovuje výběr bez Shiftu, zapnete ho v nastavení.
 • Váš vlastní slovníček. Klikněte na slovo a uloží se i s překladem. Seznam můžete vyexportovat do CSV nebo JSON a nová slovíčka si později zopakovat.
 • Funguje i s automatickými titulky, tedy s těmi, které YouTube vytváří sám. Poslouží proto i videa, ke kterým autor titulky nepřidal.
+• Nejen na samotném YouTube: když je video vložené do blogu, online kurzu nebo novinového článku, stačí na slovo stejně najet myší.
 • Poradí si s čínštinou, japonštinou a thajštinou: přestože se v nich slova píší bez mezer, přeloží se jedno slovo, ne celý řádek.
 • Překládá do více než 180 jazyků a jazyk titulků pozná sám.
 • Nevyčnívá z obrazu: překlad vypadá stejně jako vaše titulky na YouTube. Chcete to jinak? Vyberte si vlastní písmo, barvu a velikost.

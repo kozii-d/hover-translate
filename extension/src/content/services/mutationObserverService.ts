@@ -7,6 +7,7 @@ import {
 import { SubtitleCore } from "../core/subtitleCore";
 import { VideoController } from "../core/videoController";
 import { TooltipService } from "./tooltipService.ts";
+import { CoveredCaptionPointerService } from "./coveredCaptionPointerService.ts";
 import { debugLog } from "../utils/debugLog.ts";
 
 const RETRY_CONFIG = {
@@ -37,6 +38,8 @@ const LOG_MESSAGES = {
 export class MutationObserverService {
   private observer: MutationObserver;
   private urlObserver?: MutationObserver;
+  // Gets the pointer to caption words that a player layer covers (the embedded player).
+  private coveredCaptionPointerService = new CoveredCaptionPointerService();
 
   private observedContainer: Element | null = null;
   private currentHref = document.location.href;
@@ -94,6 +97,8 @@ export class MutationObserverService {
     window.removeEventListener("hashchange", this.handleUrlChange);
 
     this.restoreHistoryMethods();
+
+    this.coveredCaptionPointerService.destroy();
 
     document.querySelectorAll(`.${CAPTION_WINDOW}`).forEach((captionWindow) => {
       this.detachCaptionWindowListeners(captionWindow);

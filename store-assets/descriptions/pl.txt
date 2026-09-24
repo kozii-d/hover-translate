@@ -6,6 +6,7 @@ Co potrafi HoverTranslate:
 • Pojedyncze słowa i całe wyrażenia. Trafił się idiom albo stały zwrot? Przytrzymaj Shift i przeciągnij kursorem po słowach. Jeśli wolisz bez Shifta, włączysz to w ustawieniach.
 • Twój własny słowniczek. Kliknij słowo, a zapisze się razem z tłumaczeniem. Listę możesz wyeksportować do CSV lub JSON i później powtórzyć nowe słówka.
 • Działa też z napisami automatycznymi, czyli tymi, które YouTube tworzy sam, więc nadają się nawet filmy bez napisów od autora.
+• Nie tylko na samym YouTube: jeśli film jest osadzony na blogu, w kursie online albo w artykule, wystarczy tak samo najechać kursorem na słowo.
 • Radzi sobie z chińskim, japońskim i tajskim: choć słowa pisze się w nich bez spacji, dostajesz tłumaczenie jednego słowa, a nie całej linijki.
 • Tłumaczy na ponad 180 języków, a język napisów rozpoznaje sam.
 • Nie gryzie się z obrazem: tłumaczenie wygląda tak jak twoje napisy na YouTube. Chcesz inaczej? Wybierz własną czcionkę, kolor i rozmiar.

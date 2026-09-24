@@ -6,6 +6,7 @@ What HoverTranslate does:
 • Translates single words and whole phrases. Found an idiom or a set expression? Hold Shift and sweep the pointer across the words. If you'd rather not hold Shift, you can switch that on in the settings.
 • Builds your personal word list. Click a word, and it's saved together with its translation. Export the list as CSV or JSON to review your new words later.
 • Works with auto-generated subtitles too – the ones YouTube creates itself – so videos without subtitles from the creator work as well.
+• Not just on YouTube itself: when a video is embedded in a blog post, an online course or a news article, just hover over a word the same way.
 • Handles Chinese, Japanese and Thai: even though they're written without spaces between words, you get the translation of one word, not the whole line.
 • Translates into more than 180 languages and detects the subtitle language on its own.
 • Blends in: the translation looks just like your YouTube subtitles. Want something different? Pick your own font, color and size.

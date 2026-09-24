@@ -6,6 +6,7 @@ Det här kan HoverTranslate:
 • Enstaka ord och hela fraser. Stött på ett idiom eller ett fast uttryck? Håll ned Shift och dra pekaren över orden. Vill du slippa Shift kan du slå på det i inställningarna.
 • Din egen ordlista. Klicka på ett ord så sparas det tillsammans med översättningen. Listan kan exporteras som CSV eller JSON, så att du kan repetera de nya glosorna senare.
 • Fungerar även med automatiska undertexter, alltså de som YouTube skapar själv, så även videor som kanalen inte har textat går bra.
+• Inte bara på själva YouTube: är videon inbäddad i en blogg, en onlinekurs eller en nyhetsartikel håller du pekaren över ett ord på samma sätt.
 • Klarar kinesiska, japanska och thai: trots att orden skrivs utan mellanslag får du översättningen av ett enda ord, inte hela raden.
 • Översätter till fler än 180 språk och känner själv igen vilket språk undertexterna är på.
 • Smälter in: översättningen ser ut precis som dina undertexter på YouTube. Vill du ha något annat? Välj själv typsnitt, färg och storlek.

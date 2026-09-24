@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - unreleased
+
+### Fixed
+
+- In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player, rolled out from March 2026, placed its controls layer over the subtitles: no translation, no auto-pause, and a click did not save the word. Now it shows the translation, pauses the video and saves the word, as on YouTube itself, and a click anywhere else in the player still works as before.
+
 ## [1.1.14] - 2026-09-24
 
 ### Changed

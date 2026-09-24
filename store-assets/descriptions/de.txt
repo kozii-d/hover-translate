@@ -6,6 +6,7 @@ Das kann HoverTranslate:
 • Einzelne Wörter und ganze Wendungen. Eine Redewendung entdeckt? Halte die Shift-Taste gedrückt und fahr mit der Maus über die Wörter. Wenn du lieber ohne Shift markierst, lässt sich das in den Einstellungen einschalten.
 • Deine eigene Vokabelliste. Klick auf ein Wort, und es wird samt Übersetzung gespeichert. Die Liste kannst du als CSV oder JSON exportieren und die neuen Vokabeln später wiederholen.
 • Funktioniert auch mit automatischen Untertiteln – denen, die YouTube selbst erstellt. So eignen sich auch Videos, zu denen der Kanal keine eigenen Untertitel hochgeladen hat.
+• Nicht nur auf YouTube selbst: Steckt ein Video in einem Blog, einem Onlinekurs oder einem Nachrichtenartikel, fährst du genauso mit der Maus über ein Wort.
 • Kommt mit Chinesisch, Japanisch und Thai zurecht: Obwohl dort ohne Leerzeichen zwischen den Wörtern geschrieben wird, bekommst du die Übersetzung eines einzelnen Wortes, nicht der ganzen Zeile.
 • Übersetzt in mehr als 180 Sprachen und erkennt die Sprache der Untertitel von selbst.
 • Passt ins Bild: Die Übersetzung sieht aus wie deine Untertitel auf YouTube. Lieber anders? Schriftart, Farbe und Größe kannst du selbst wählen.

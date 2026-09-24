@@ -6,6 +6,7 @@ O que o HoverTranslate faz:
 • Traduz palavras soltas e frases inteiras. Encontrou uma expressão idiomática? Mantenha premida a tecla Shift e passe o rato pelas palavras. Se preferir não usar o Shift, pode ativar essa opção nas definições.
 • Um vocabulário só seu. Clique numa palavra e ela fica guardada com a tradução. Exporte a lista em CSV ou JSON para rever as palavras novas mais tarde.
 • Funciona também com legendas automáticas, as que o próprio YouTube cria, por isso servem até os vídeos sem legendas do autor.
+• Não só no próprio YouTube: se o vídeo estiver incorporado num blogue, num curso online ou num artigo de notícias, basta passar o rato sobre a palavra da mesma forma.
 • Lida bem com chinês, japonês e tailandês: embora estas línguas se escrevam sem espaços entre as palavras, obtém a tradução de uma só palavra e não da linha inteira.
 • Traduz para mais de 180 línguas e deteta sozinho a língua das legendas.
 • Não destoa no ecrã: a tradução tem o mesmo aspeto das suas legendas do YouTube. Se preferir outra coisa, escolha o tipo de letra, a cor e o tamanho.

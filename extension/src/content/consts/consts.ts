@@ -10,6 +10,8 @@ export const CAPTION_WINDOW = "caption-window";
 export const CAPTION_VISUAL_LINE = "caption-visual-line";
 export const CAPTION_SEGMENT = "ytp-caption-segment";
 export const VIDEO_PLAYER = "html5-video-player";
+// The controls layer of the new embedded player (`#player-controls`), drawn over the captions.
+export const PLAYER_CONTROLS_LAYER = "ytPlayerControlsContainerHost";
 
 // Data attributes keys
 export const DATA_ATTRIBUTES = {
