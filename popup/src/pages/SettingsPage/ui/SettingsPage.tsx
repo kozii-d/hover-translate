@@ -6,6 +6,7 @@ import { requestAvailableLanguages } from "@/shared/lib/helpers/translatorReques
 import { describeTranslatorError, isApiKeyProblem } from "@/shared/lib/helpers/translatorErrors.ts";
 import { apiKeyService } from "@/shared/lib/helpers/apiKeys.ts";
 import { isTranslatorError } from "@extension/common/translators/translatorError.ts";
+import { isTranslatorWithdrawn, resolveTranslatorKey } from "@extension/common/translators/withdrawnTranslators.ts";
 import { matchSelectedLanguages } from "../lib/helpers/findClosestLanguage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import {
@@ -65,6 +66,42 @@ const SettingsPage: FC = () => {
     }
   }, [applyAvailableLanguages]);
 
+  /** Shows why the settings moved to another translator, replacing the previous notice. */
+  const showFallbackNotice = useCallback((message: string, severity: "error" | "warning") => {
+    if (fallbackNoticeKey.current) {
+      notifications.close(fallbackNoticeKey.current);
+    }
+
+    const noticeKey = notifications.show(message, { severity, autoHideDuration: 10000 });
+    fallbackNoticeKey.current = noticeKey;
+
+    return noticeKey;
+  }, [notifications]);
+
+  /**
+   * Saves the settings with `translator` in place of the one they had. The
+   * languages move with the translator: a DeepL `en-US` or `zh-Hant` would
+   * otherwise stay selected in a list that has no such entry.
+   */
+  const fallBackTo = useCallback(async (settings: SettingsFormValues, translator: Translator) => {
+    const fallbackLanguages = await fetchAvailableLanguages(translator);
+    const languages = matchSelectedLanguages(
+      settings,
+      fallbackLanguages,
+      chrome.i18n.getUILanguage(),
+      initialFormValues.targetLanguageCode,
+    );
+
+    const fallbackSettings: SettingsFormValues = {
+      ...settings,
+      translator,
+      sourceLanguageCode: languages.sourceLanguageCode,
+      targetLanguageCode: languages.targetLanguageCode,
+    };
+    setInitialValues(fallbackSettings);
+    await set<SettingsFormValues>("settings", fallbackSettings, "sync");
+  }, [fetchAvailableLanguages, set]);
+
   const setInitialSettings = useCallback(async () => {
     setLoadingSettings(true);
     try {
@@ -74,6 +111,21 @@ const SettingsPage: FC = () => {
       }
 
       setInitialValues(settings);
+
+      // Taken out of this release (see `WITHDRAWN_TRANSLATORS`): there is
+      // nothing the viewer could grant or fix, so they are told and moved to
+      // the replacement right away.
+      if (isTranslatorWithdrawn(settings.translator)) {
+        const replacement = resolveTranslatorKey(settings.translator) as Translator;
+
+        showFallbackNotice(t("errors.translatorWithdrawn", {
+          translatorName: getTranslatorLabel(settings.translator),
+          fallbackTranslatorName: getTranslatorLabel(replacement),
+        }), "warning");
+
+        await fallBackTo(settings, replacement);
+        return;
+      }
 
       try {
         await fetchAvailableLanguages(settings.translator);
@@ -88,26 +140,13 @@ const SettingsPage: FC = () => {
         const fallbackTranslatorName = getTranslatorLabel(FALLBACK_TRANSLATOR);
         const reason = describeTranslatorError(t, error, translatorName);
 
-        let noticeKey: string;
-
-        if (fallbackNoticeKey.current) {
-          notifications.close(fallbackNoticeKey.current);
-        }
-
-        if (reason) {
-          noticeKey = notifications.show(
-            canFallBack ? t("errors.translatorFallbackReason", { reason, fallbackTranslatorName }) : reason,
-            { severity: "error", autoHideDuration: 10000 },
-          );
-        } else {
-          noticeKey = notifications.show(t(canFallBack ? "errors.translatorFallback" : "errors.translatorUnavailable", {
+        const noticeKey = showFallbackNotice(reason
+          ? (canFallBack ? t("errors.translatorFallbackReason", { reason, fallbackTranslatorName }) : reason)
+          : t(canFallBack ? "errors.translatorFallback" : "errors.translatorUnavailable", {
             translatorName,
             errorMessage: getErrorMessage(error),
             fallbackTranslatorName,
-          }), { severity: "error", autoHideDuration: 10000 });
-        }
-
-        fallbackNoticeKey.current = noticeKey;
+          }), "error");
 
         // A key that is missing on this device (the choice of translator syncs,
         // the key does not), was revoked, or lost its permission: open the form
@@ -123,25 +162,7 @@ const SettingsPage: FC = () => {
         }
 
         if (canFallBack) {
-          // The languages move with the translator: a DeepL `en-US` or
-          // `zh-Hant` would otherwise stay selected in a list that has no such
-          // entry.
-          const fallbackLanguages = await fetchAvailableLanguages(FALLBACK_TRANSLATOR);
-          const languages = matchSelectedLanguages(
-            settings,
-            fallbackLanguages,
-            chrome.i18n.getUILanguage(),
-            initialFormValues.targetLanguageCode,
-          );
-
-          const fallbackSettings: SettingsFormValues = {
-            ...settings,
-            translator: FALLBACK_TRANSLATOR,
-            sourceLanguageCode: languages.sourceLanguageCode,
-            targetLanguageCode: languages.targetLanguageCode,
-          };
-          setInitialValues(fallbackSettings);
-          await set<SettingsFormValues>("settings", fallbackSettings, "sync");
+          await fallBackTo(settings, FALLBACK_TRANSLATOR);
         }
       }
     } catch (error) {
@@ -151,7 +172,7 @@ const SettingsPage: FC = () => {
     } finally {
       setLoadingSettings(false);
     }
-  }, [fetchAvailableLanguages, get, notifications, set, t]);
+  }, [fallBackTo, fetchAvailableLanguages, get, notifications, showFallbackNotice, t]);
 
   useEffect(() => {
     setInitialSettings();

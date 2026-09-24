@@ -117,6 +117,7 @@
     "translatorSwitchFailed": "{{translatorName}}(으)로 전환하지 못했습니다: {{errorMessage}}. {{previousTranslatorName}}을(를) 유지합니다.",
     "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}}(으)로 전환합니다.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}}을(를) 계속 사용합니다.",
+    "translatorWithdrawn": "{{translatorName}} 번역기는 이 버전의 HoverTranslate에서 사용할 수 없으며 다음 업데이트에서 다시 제공됩니다. {{fallbackTranslatorName}}(으)로 전환합니다.",
     "translator": {
       "apiKeyMissing": "이 기기에 {{translatorName}} API 키가 추가되지 않았습니다.",
       "apiKeyInvalid": "{{translatorName}}이(가) API 키를 받아들이지 않았습니다. 키 전체가 복사되었는지 확인하세요.",

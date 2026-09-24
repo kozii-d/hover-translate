@@ -117,6 +117,7 @@
     "translatorSwitchFailed": "Could not switch to {{translatorName}}: {{errorMessage}}. Staying on {{previousTranslatorName}}.",
     "translatorFallbackReason": "{{reason}} Switching to {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} Staying on {{previousTranslatorName}}.",
+    "translatorWithdrawn": "The {{translatorName}} translator is not available in this version of HoverTranslate and will return in the next update. Switching to {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "No {{translatorName}} API key has been added on this device.",
       "apiKeyInvalid": "{{translatorName}} did not accept the API key. Check that it was copied in full.",

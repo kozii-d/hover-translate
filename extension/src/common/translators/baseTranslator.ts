@@ -15,7 +15,9 @@ export abstract class BaseTranslator {
   /**
    * True when the translator talks to hosts that don't allow cross-origin
    * requests from the page, so its work has to run in the background service
-   * worker (which host_permissions cover) instead of in the content script.
+   * worker, which may reach them once their host permission is granted,
+   * instead of in the content script. Such hosts are optional permissions —
+   * see "Browser differences" in CLAUDE.md.
    */
   get needsBackgroundProxy(): boolean {
     return false;

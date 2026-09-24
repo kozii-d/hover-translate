@@ -117,6 +117,7 @@
     "translatorSwitchFailed": "Kunde inte byta till {{translatorName}}: {{errorMessage}}. Behåller {{previousTranslatorName}}.",
     "translatorFallbackReason": "{{reason}} Byter till {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} är kvar.",
+    "translatorWithdrawn": "Översättaren {{translatorName}} är inte tillgänglig i den här versionen av HoverTranslate och kommer tillbaka i nästa uppdatering. Byter till {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Ingen API-nyckel för {{translatorName}} har lagts till på den här enheten.",
       "apiKeyInvalid": "{{translatorName}} godkände inte API-nyckeln. Kontrollera att den kopierades i sin helhet.",

@@ -12,7 +12,6 @@
     }
   },
   "permissions": ["storage"],
-  "host_permissions": ["https://www.bing.com/*"],
   "optional_permissions": [
     "https://api-free.deepl.com/*",
     "https://api.deepl.com/*"

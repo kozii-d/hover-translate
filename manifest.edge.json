@@ -7,7 +7,6 @@
   "description": "__MSG_description__",
   "minimum_chrome_version": "102",
   "permissions": ["storage"],
-  "host_permissions": ["https://www.bing.com/*"],
   "optional_host_permissions": [
     "https://api-free.deepl.com/*",
     "https://api.deepl.com/*"

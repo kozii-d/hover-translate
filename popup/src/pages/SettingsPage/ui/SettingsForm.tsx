@@ -48,6 +48,7 @@ import {
 } from "@/shared/lib/helpers/apiKeys.ts";
 import { requiresApiKey } from "@extension/common/translators/apiKeyProviders.ts";
 import { TranslatorError } from "@extension/common/translators/translatorError.ts";
+import { isTranslatorWithdrawn } from "@extension/common/translators/withdrawnTranslators.ts";
 import { StoredApiKeys } from "@extension/common/services/apiKeyService.ts";
 import { ApiKeyForm, ApiKeyStatus } from "@/features/TranslatorApiKey";
 import {
@@ -152,7 +153,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   }, [getLanguageLabel, targetLanguages]);
 
   const translatorOptions = useMemo<MenuItemType<Translator>[]>(() =>
-    TRANSLATORS_OPTIONS.map((option) => ({
+    TRANSLATORS_OPTIONS.filter((option) => !isTranslatorWithdrawn(option.value)).map((option) => ({
       ...option,
       description: requiresApiKey(option.value) && !apiKeys[option.value]
         ? t("apiKey.requiredHint")

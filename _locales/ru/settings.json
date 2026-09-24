@@ -117,6 +117,7 @@
     "translatorSwitchFailed": "Не удалось переключиться на {{translatorName}}: {{errorMessage}}. Остаётся {{previousTranslatorName}}.",
     "translatorFallbackReason": "{{reason}} Переключение на {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} Остаётся {{previousTranslatorName}}.",
+    "translatorWithdrawn": "Переводчик {{translatorName}} недоступен в этой версии HoverTranslate и вернётся в следующем обновлении. Переключение на {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "На этом устройстве не добавлен API-ключ {{translatorName}}.",
       "apiKeyInvalid": "{{translatorName}} не принял API-ключ. Проверьте, что он скопирован полностью.",

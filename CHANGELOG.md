@@ -6,15 +6,17 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- The Bing translator is not available in this version. It comes back in the next update, which will ask for access to www.bing.com only when you pick Bing. If Bing was your translator, Google is used in the meantime, and the settings say so when you open them.
 - With DeepL, words are now translated in the context of the subtitle line they appear in, so a word with several meanings gets the one it has there — "bank" in "we sat on the bank of the river" is a riverbank, not a bank. The surrounding line is not counted against your DeepL allowance — only the selected words are, as before. A word hovered again once the line has changed is translated, and counted, again. Because the translation follows the sentence, a word may now be translated in the form it takes in that sentence rather than its dictionary form.
 
 ### Added
 
-- A tip in the settings for Google and Bing users that DeepL translates words in context, with a button to connect or switch to DeepL. It can be closed for good.
+- A tip in the settings for Google users that DeepL translates words in context, with a button to connect or switch to DeepL. It can be closed for good.
 - The "hold Shift to select several words" tip in the settings can now be closed for good too, and it is no longer shown while "Always enable multiple selection" is on.
 
 ### Fixed
 
+- HoverTranslate no longer asks for access to www.bing.com. Version 1.1.11 started asking every user for it, and Chrome switched the extension off until that access was approved. If that happened to you, this update switches HoverTranslate back on by itself, with nothing to approve.
 - With two subtitle windows on screen at once — two speakers, one caption at the top and one at the bottom — hovering a word in the second window showed nothing. It now shows its translation, placed next to its own window.
 
 ## [1.1.13] - 2026-09-19

@@ -89,6 +89,7 @@
     "translatorSwitchFailed": "無法切換至 {{translatorName}}：{{errorMessage}}。繼續使用 {{previousTranslatorName}}。",
     "translatorFallbackReason": "{{reason}}正在切換到 {{fallbackTranslatorName}}。",
     "translatorSwitchFailedReason": "{{reason}}仍使用 {{previousTranslatorName}}。",
+    "translatorWithdrawn": "此版本的 HoverTranslate 暫不提供 {{translatorName}} 翻譯器，它將在下次更新中回歸。正在切換到 {{fallbackTranslatorName}}。",
     "translator": {
       "apiKeyMissing": "此裝置上尚未新增 {{translatorName}} API 金鑰。",
       "apiKeyInvalid": "{{translatorName}} 未接受該 API 金鑰。請檢查金鑰是否已完整複製。",

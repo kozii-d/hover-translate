@@ -81,6 +81,7 @@
     "translatorSwitchFailed": "Nepodařilo se přepnout na {{translatorName}}: {{errorMessage}}. Zůstává {{previousTranslatorName}}.",
     "translatorFallbackReason": "{{reason}} Přepínám na {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} Zůstává {{previousTranslatorName}}.",
+    "translatorWithdrawn": "Překladač {{translatorName}} v této verzi HoverTranslate není k dispozici a vrátí se v příští aktualizaci. Přepínám na {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "V tomto zařízení nebyl přidán žádný klíč API pro {{translatorName}}.",
       "apiKeyInvalid": "{{translatorName}} klíč API nepřijal. Zkontrolujte, zda byl zkopírován celý.",

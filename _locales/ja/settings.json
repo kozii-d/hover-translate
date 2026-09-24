@@ -117,6 +117,7 @@
     "translatorSwitchFailed": "{{translatorName}} に切り替えられませんでした: {{errorMessage}}。{{previousTranslatorName}} のままにします。",
     "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} に切り替えます。",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} のままにします。",
+    "translatorWithdrawn": "{{translatorName}} 翻訳エンジンはこのバージョンの HoverTranslate では利用できません。次回のアップデートで復活します。{{fallbackTranslatorName}} に切り替えます。",
     "translator": {
       "apiKeyMissing": "このデバイスには {{translatorName}} の API キーが追加されていません。",
       "apiKeyInvalid": "{{translatorName}} が API キーを受け付けませんでした。キーが完全にコピーされているか確認してください。",
