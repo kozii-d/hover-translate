@@ -1,35 +1,24 @@
-HoverTranslate – Bygg ditt ordförråd med YouTube-undertexter!
+HoverTranslate – översätt ord i YouTube-undertexter medan du lär dig språk
 
-Bemästra engelska, spanska eller franska medan du tittar på YouTube-videor! HoverTranslate är det ultimata verktyget för språkinlärare som vill bygga sitt ordförråd och översätta undertexter. Titta på innehåll med originalundertexter och förstå varje ord direkt utan att avbryta din upplevelse.
+Tittar du på en video med spanska eller franska undertexter och stöter på ett ord du inte kan? Håll bara muspekaren över det, så dyker översättningen upp precis ovanför undertexterna. Videon pausas medan du läser och fortsätter så fort du flyttar bort pekaren. Du slipper kopiera ord till en översättare och tappa tråden – du tittar bara vidare och förstår allt mer. Det fungerar lika bra när du pluggar japanska, tyska eller vilket annat språk som helst.
 
-Varför språkinlärare väljer HoverTranslate:
-Sluta pausa videor eller byta till ordböcker! Hovra helt enkelt över valfritt ord i YouTube-undertexter för att se omedelbara översättningar. Perfekt för att bygga upp ett ordförråd i engelska, spanska eller franska på ett naturligt sätt.
+Det här kan HoverTranslate:
+• Enstaka ord och hela fraser. Stött på ett idiom eller ett fast uttryck? Håll ned Shift och dra pekaren över orden. Vill du slippa Shift kan du slå på det i inställningarna.
+• Din egen ordlista. Klicka på ett ord så sparas det tillsammans med översättningen. Listan kan exporteras som CSV eller JSON, så att du kan repetera de nya glosorna senare.
+• Fungerar även med automatiska undertexter, alltså de som YouTube skapar själv, så även videor som kanalen inte har textat går bra.
+• Klarar kinesiska, japanska och thai: trots att orden skrivs utan mellanslag får du översättningen av ett enda ord, inte hela raden.
+• Översätter till fler än 180 språk och känner själv igen vilket språk undertexterna är på.
+• Smälter in: översättningen ser ut precis som dina undertexter på YouTube. Vill du ha något annat? Välj själv typsnitt, färg och storlek.
+• Anpassar sig efter dig: den automatiska pausen kan stängas av, och ett klick kan kopiera ordet eller översättningen i stället för att spara det.
 
-Nyckelfunktioner för effektiv språkinlärning:
-• Omedelbar hovringsöversättning: Bygg ditt ordförråd utan ansträngning - hovra bara med musen över ett ord i undertexten för att se översättningen direkt.
-• Smart frasöversättning: Lär dig idiom och uttryck! Håll Shift för att välja och översätta hela fraser, eller aktivera "Aktivera alltid flerval" för enklare val.
-• Stöd för 190+ språk: Lär dig engelska, spanska, franska, japanska, koreanska, tyska eller vilket språk som helst! Översätt YouTube-undertexter från valfritt språk till ditt modersmål.
-• Automatisk språkigenkänning: Tillägget känner automatiskt av språket i undertexten - börja lära dig direkt!
-• Flera översättare: Välj mellan Google Translate, Bing Translator och DeepL (med din egen kostnadsfria DeepL API-nyckel). DeepL tar hänsyn till hela undertextraden, så ett ord med flera betydelser översätts i den betydelse som det används i: "bank" i "we sat on the bank of the river" blir "strand", inte "bank".
-• Smart auto-paus: Videor pausas automatiskt när du hovrar över undertexter, vilket ger dig tid att lära dig nya ord utan att missa handlingen.
-• Universellt undertextstöd: Fungerar perfekt med både manuella och autogenererade YouTube-undertexter.
-• Personlig ordlista: Spara nya ord och fraser i din ordlista med ett klick! Bygg din personliga ordlista medan du tittar. Exportera din ordlista som JSON eller CSV.
-• Anpassningsbart gränssnitt: Översättningsrutorna kan matchas med ditt YouTube-tema eller anpassas efter dina önskemål för bekväm inlärning.
+Översättning som förstår sammanhanget
+Välj mellan Google, Bing och DeepL. Med DeepL (du behöver en egen gratis API-nyckel) översätts varje ord utifrån hela undertextraden: i ”we sat on the bank of the river” översätts ”bank” med ”strand”, inte med ”bank”. Nyckeln sparas bara på din enhet.
 
-Perfekt för:
-- Studenter som vill utöka sitt ordförråd via YouTube
-- Yrkesverksamma som vill förbättra sin affärsengelska
-- Anime-fans som lär sig japanska naturligt
-- K-drama-entusiaster som studerar koreanska
-- Alla som lär sig språk genom immersivt innehåll
+Gratis och utan konto
+HoverTranslate är helt gratis: inga konton, inga prenumerationer och ingen reklam. Det är öppen källkod, och koden finns på GitHub.
 
-Öppen källkod & gemenskapsdriven:
-HoverTranslate tror på transparens och kontinuerlig förbättring:
-- GitHub: https://github.com/kozii-d/hover-translate
-- E-post: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Frågor och förslag: hovertranslate@gmail.com
+Källkod: https://github.com/kozii-d/hover-translate
+Ändringshistorik: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Börja bygga ditt ordförråd idag!
-HoverTranslate förvandlar YouTube till ett kraftfullt verktyg för språkinlärning, vilket hjälper dig att gå från grundläggande ord till komplexa uttryck naturligt.
-
-Installera nu och gör varje YouTube-video till en möjlighet att lära dig språk!
+Installera HoverTranslate, öppna valfri video med undertexter och håll pekaren över det första ordet du inte kan. Trevlig tittning!

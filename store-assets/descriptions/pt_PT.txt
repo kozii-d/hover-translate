@@ -1,36 +1,24 @@
-HoverTranslate – Aumente o Vocabulário com Tradução de Legendas YouTube!
+HoverTranslate – tradutor de legendas do YouTube para aprender línguas com vídeos
 
-Transforme o YouTube no seu professor de idiomas pessoal! HoverTranslate é a ferramenta definitiva para aprender idiomas com vídeos. Veja conteúdo no idioma original com legendas e compreenda cada palavra instantaneamente sem interromper a visualização.
+Está a ver um vídeo com legendas em inglês e aparece uma palavra que não conhece? Basta passar o rato por cima dela e a tradução surge logo acima das legendas. O vídeo fica em pausa enquanto lê e continua assim que afasta o rato. Não precisa de copiar a palavra para um tradutor nem de perder o fio à meada: continua a ver e percebe cada vez mais. Seja para o exame nacional, para a faculdade ou para o trabalho, aprender inglês com o YouTube torna-se bem mais simples.
 
-Porque é que os estudantes de idiomas escolhem HoverTranslate:
-Acabaram-se as pausas e as mudanças para dicionários! Simplesmente passe o cursor sobre qualquer palavra nas legendas do YouTube para ver traduções instantâneas. Perfeito para aumentar o vocabulário naturalmente enquanto desfruta do seu conteúdo favorito.
+O que o HoverTranslate faz:
+• Traduz palavras soltas e frases inteiras. Encontrou uma expressão idiomática? Mantenha premida a tecla Shift e passe o rato pelas palavras. Se preferir não usar o Shift, pode ativar essa opção nas definições.
+• Um vocabulário só seu. Clique numa palavra e ela fica guardada com a tradução. Exporte a lista em CSV ou JSON para rever as palavras novas mais tarde.
+• Funciona também com legendas automáticas, as que o próprio YouTube cria, por isso servem até os vídeos sem legendas do autor.
+• Lida bem com chinês, japonês e tailandês: embora estas línguas se escrevam sem espaços entre as palavras, obtém a tradução de uma só palavra e não da linha inteira.
+• Traduz para mais de 180 línguas e deteta sozinho a língua das legendas.
+• Não destoa no ecrã: a tradução tem o mesmo aspeto das suas legendas do YouTube. Se preferir outra coisa, escolha o tipo de letra, a cor e o tamanho.
+• Adapta-se à sua forma de ver: a pausa automática pode ser desligada, e um clique pode copiar a palavra ou a tradução em vez de a guardar.
 
-Funcionalidades essenciais para aprendizagem eficaz:
-• Tradução instantânea ao passar o rato: Aprenda vocabulário sem esforço - passe o rato sobre qualquer palavra da legenda para ver a tradução imediatamente.
-• Tradução inteligente de frases: Aprenda expressões idiomáticas! Mantenha Shift pressionado para selecionar e traduzir frases inteiras, ou ative a seleção múltipla permanente.
-• Suporte para 190+ idiomas: Aprenda inglês, espanhol, francês, alemão, italiano ou qualquer idioma! Traduza legendas do YouTube de qualquer idioma para português.
-• Deteção automática de idioma: A extensão deteta automaticamente o idioma da legenda - comece a aprender imediatamente!
-• Escolha de tradutor: Escolha entre Google Tradutor, Bing Translator e DeepL (com a sua própria chave de API gratuita do DeepL). O DeepL tem em conta a linha inteira da legenda, pelo que uma palavra com vários sentidos é traduzida no sentido em que é usada: «bank» em «we sat on the bank of the river» passa a «margem», e não «banco».
-• Pausa automática inteligente: Os vídeos pausam automaticamente ao passar sobre as legendas, dando-lhe tempo para aprender vocabulário novo sem perder conteúdo.
-• Suporte universal de legendas: Funciona perfeitamente com legendas manuais e geradas automaticamente no YouTube.
-• Construtor de vocabulário pessoal: Guarde palavras e frases novas no seu dicionário com um clique! Construa a sua lista pessoal de vocabulário enquanto vê. Exporte o seu dicionário como JSON ou CSV.
-• Interface personalizável: As dicas de tradução adaptam-se ao seu tema YouTube ou personalize ao seu gosto.
+Tradução que percebe o contexto
+Pode traduzir com o Google, o Bing ou o DeepL. Com o DeepL (vai precisar da sua própria chave de API gratuita), cada palavra é traduzida tendo em conta toda a linha da legenda: em «we sat on the bank of the river», «bank» é «margem» e não «banco». A chave fica guardada apenas no seu dispositivo.
 
-Perfeito para:
-- Estudantes a aprender inglês através do YouTube
-- Profissionais a melhorar inglês para negócios
-- Estudantes universitários com conteúdo académico em inglês
-- Programadores a aprender inglês técnico
-- Entusiastas de tecnologia a seguir tutoriais
-- Qualquer pessoa a aprender idiomas através de imersão
+Grátis e sem registo
+O HoverTranslate é totalmente gratuito: sem contas, sem subscrições e sem anúncios. É um projeto de código aberto, que pode consultar no GitHub.
 
-Código aberto e comunidade:
-HoverTranslate é um projeto de código aberto:
-- GitHub: https://github.com/kozii-d/hover-translate
-- Email: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Dúvidas e sugestões: hovertranslate@gmail.com
+Código-fonte: https://github.com/kozii-d/hover-translate
+Histórico de alterações: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Comece a aumentar o seu vocabulário hoje!
-Comece hoje a aprender idiomas de forma mais eficaz! HoverTranslate transforma o YouTube numa ferramenta poderosa para aprender palavras e expressões novas de forma natural.
-
-Instale agora e transforme cada vídeo do YouTube numa oportunidade para aumentar o vocabulário!
+Instale o HoverTranslate, abra um vídeo com legendas e passe o rato pela primeira palavra que não conhece. Bom proveito!

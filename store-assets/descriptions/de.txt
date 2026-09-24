@@ -1,36 +1,24 @@
-HoverTranslate – Vokabeln lernen mit YouTube Untertitel-Übersetzung!
+HoverTranslate – YouTube-Untertitel übersetzen und nebenbei Sprachen lernen
 
-Mache YouTube zu deinem persönlichen Sprachlehrer! HoverTranslate ist das ultimative Tool zum Sprachenlernen mit Videos. Schaue Inhalte in der Originalsprache mit Untertiteln und verstehe jedes Wort sofort, ohne die Wiedergabe zu unterbrechen.
+Du schaust ein Video mit englischen Untertiteln und stößt auf ein Wort, das du nicht kennst? Zeig einfach mit der Maus darauf – die Übersetzung erscheint direkt über den Untertiteln. Das Video hält an, während du liest, und läuft weiter, sobald du die Maus wegbewegst. Du musst nichts in einen Übersetzer kopieren und verlierst nicht den Faden: Du schaust einfach weiter und verstehst immer mehr. So lernst du Englisch mit YouTube – oder jede andere Sprache.
 
-Warum Sprachenlerner HoverTranslate wählen:
-Kein Pausieren mehr, kein Wörterbuch-Wechsel! Fahre einfach mit der Maus über ein Wort in den YouTube-Untertiteln und sieh sofort die Übersetzung. Perfekt, um deinen Wortschatz natürlich zu erweitern, während du deine Lieblingsinhalte genießt.
+Das kann HoverTranslate:
+• Einzelne Wörter und ganze Wendungen. Eine Redewendung entdeckt? Halte die Shift-Taste gedrückt und fahr mit der Maus über die Wörter. Wenn du lieber ohne Shift markierst, lässt sich das in den Einstellungen einschalten.
+• Deine eigene Vokabelliste. Klick auf ein Wort, und es wird samt Übersetzung gespeichert. Die Liste kannst du als CSV oder JSON exportieren und die neuen Vokabeln später wiederholen.
+• Funktioniert auch mit automatischen Untertiteln – denen, die YouTube selbst erstellt. So eignen sich auch Videos, zu denen der Kanal keine eigenen Untertitel hochgeladen hat.
+• Kommt mit Chinesisch, Japanisch und Thai zurecht: Obwohl dort ohne Leerzeichen zwischen den Wörtern geschrieben wird, bekommst du die Übersetzung eines einzelnen Wortes, nicht der ganzen Zeile.
+• Übersetzt in mehr als 180 Sprachen und erkennt die Sprache der Untertitel von selbst.
+• Passt ins Bild: Die Übersetzung sieht aus wie deine Untertitel auf YouTube. Lieber anders? Schriftart, Farbe und Größe kannst du selbst wählen.
+• Richtet sich nach dir: Die automatische Pause lässt sich abschalten, und ein Klick kann das Wort oder seine Übersetzung kopieren, statt es zu speichern.
 
-Hauptfunktionen für effektives Sprachenlernen:
-• Sofortige Hover-Übersetzung: Lerne neue Vokabeln mühelos - fahre einfach mit der Maus über ein Untertitel-Wort für die sofortige Übersetzung.
-• Intelligente Phrasen-Übersetzung: Lerne Redewendungen und Ausdrücke! Halte Shift gedrückt, um ganze Phrasen zu markieren und zu übersetzen, oder aktiviere die Dauerfunktion.
-• 190+ Sprachen unterstützt: Lerne Englisch, Spanisch, Japanisch, Koreanisch, Französisch oder jede andere Sprache! Übersetze YouTube-Untertitel aus jeder Sprache ins Deutsche.
-• Automatische Spracherkennung: Die Erweiterung erkennt die Untertitelsprache automatisch - starte sofort mit dem Lernen!
-• Übersetzer-Auswahl: Wähle zwischen Google Übersetzer, Bing Translator und DeepL (mit deinem eigenen kostenlosen DeepL-API-Schlüssel). DeepL berücksichtigt die ganze Untertitelzeile, sodass ein mehrdeutiges Wort in der Bedeutung übersetzt wird, in der es dort gemeint ist: „bank“ in „we sat on the bank of the river“ wird zu „Ufer“, nicht zu „Bank“.
-• Intelligente Auto-Pause: Videos pausieren automatisch beim Überfahren von Untertiteln, damit du neue Vokabeln in Ruhe lernen kannst.
-• Universelle Untertitel-Unterstützung: Funktioniert perfekt mit manuellen und automatisch generierten YouTube-Untertiteln.
-• Persönlicher Vokabeltrainer: Speichere neue Wörter und Phrasen mit einem Klick in deine Vokabelliste! Erstelle deine persönliche Wortschatzsammlung beim Schauen. Exportiere deine Vokabelliste als JSON oder CSV.
-• Anpassbare Oberfläche: Übersetzungs-Tooltips passen sich deinem YouTube-Theme an oder können individuell eingestellt werden.
+Übersetzung, die den Zusammenhang versteht
+Zur Wahl stehen Google, Bing und DeepL. Mit DeepL (dafür brauchst du einen eigenen kostenlosen API-Schlüssel) wird jedes Wort im Zusammenhang der ganzen Untertitelzeile übersetzt: In „we sat on the bank of the river“ ist „bank“ das „Ufer“ und keine „Bank“. Dein Schlüssel bleibt nur auf deinem Gerät.
 
-Perfekt geeignet für:
-- Englisch lernen mit YouTube-Videos
-- Studenten, die ihren Wortschatz durch Videoinhalte erweitern
-- Business-Englisch für Berufstätige verbessern
-- Anime-Fans, die Japanisch lernen
-- K-Drama-Liebhaber, die Koreanisch studieren
-- Alle, die Sprachen durch immersives Lernen meistern wollen
+Kostenlos und ohne Anmeldung
+HoverTranslate ist komplett kostenlos: kein Konto, kein Abo, keine Werbung. Es ist Open Source – der Code liegt auf GitHub.
 
-Open Source & Community:
-HoverTranslate ist ein Open-Source-Projekt:
-- GitHub: https://github.com/kozii-d/hover-translate
-- Email: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Fragen und Vorschläge: hovertranslate@gmail.com
+Quellcode: https://github.com/kozii-d/hover-translate
+Änderungsverlauf: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Starte heute mit effektiverem Sprachenlernen!
-Beginne heute, Sprachen effektiver zu lernen! HoverTranslate verwandelt YouTube in ein mächtiges Werkzeug zum Erlernen neuer Wörter und Ausdrücke auf natürliche Weise.
-
-Installiere jetzt und verwandle jedes YouTube-Video in eine Gelegenheit, deinen Wortschatz zu erweitern!
+Installiere HoverTranslate, öffne ein Video mit Untertiteln und zeig mit der Maus auf das erste Wort, das du nicht kennst. Viel Spaß beim Schauen!

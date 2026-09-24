@@ -1,35 +1,24 @@
-HoverTranslate – Opi kieliä YouTube-tekstitysten käännösten avulla!
+HoverTranslate – YouTube-tekstitysten kääntäjä ja oma sanalista kielten opiskeluun
 
-Muuta YouTube henkilökohtaiseksi kieltenopettajaksesi! HoverTranslate on täydellinen työkalu kielten oppimiseen videoiden avulla. Katso sisältöä alkuperäiskielellä tekstityksillä ja ymmärrä jokainen sana välittömästi keskeyttämättä katselua.
+Katsot videota englanninkielisellä tekstityksellä, ja vastaan tulee sana, jota et tunne? Vie hiiri sen päälle, niin käännös ilmestyy heti tekstityksen yläpuolelle. Video pysähtyy siksi aikaa, kun luet, ja jatkuu, kun siirrät hiiren pois. Sanoja ei tarvitse kopioida kääntäjään eikä ajatus katkea: jatkat katsomista ja ymmärrät yhä enemmän. Näin opit englantia YouTubesta – tai ruotsia tai mitä tahansa muuta kieltä.
 
-Miksi kieltenopiskelijat valitsevat HoverTranslaten:
-Ei enää videon pysäyttämistä tai sanakirjojen selaamista! Vie vain hiiri minkä tahansa sanan päälle YouTube-tekstityksissä nähdäksesi käännöksen heti. Täydellinen tapa kasvattaa sanavarastoasi luonnollisesti samalla kun nautit lempisistä sisällöistäsi.
+Mitä HoverTranslate osaa:
+• Yksittäiset sanat ja kokonaiset fraasit. Tuliko vastaan idiomi tai vakiintunut ilmaus? Pidä Shift-näppäintä pohjassa ja vedä hiiri sanojen yli. Jos haluat valita sanoja ilman Shiftiä, sen voi ottaa käyttöön asetuksista.
+• Oma sanalista. Napsauta sanaa, niin se tallentuu käännöksen kanssa. Listan voi viedä CSV- tai JSON-muodossa, jotta voit kerrata uudet sanat myöhemmin.
+• Toimii myös automaattisen tekstityksen kanssa eli sen, jonka YouTube luo itse. Sopivia ovat siis nekin videot, joihin tekijä ei ole lisännyt tekstitystä.
+• Pärjää kiinan, japanin ja thain kanssa: vaikka niissä sanojen väliin ei tule välilyöntejä, saat käännöksen yhdelle sanalle etkä koko riville.
+• Kääntää yli 180 kielelle ja tunnistaa tekstityksen kielen itse.
+• Sulautuu kuvaan: käännös näyttää samalta kuin YouTube-tekstityksesi. Haluatko toisenlaisen? Valitse oma fontti, väri ja koko.
+• Mukautuu tapoihisi: automaattisen pysäytyksen voi kytkeä pois, ja napsautus voi tallentamisen sijaan kopioida sanan tai sen käännöksen.
 
-Tärkeimmät ominaisuudet tehokkaaseen kieltenoppimiseen:
-• Välitön käännös hiirellä: Opi sanoja vaivattomasti - vie vain hiiri minkä tahansa tekstityssanan päälle nähdäksesi sen käännöksen välittömästi.
-• Älykäs lauseiden kääntäminen: Opi idiomeja ja ilmaisuja! Pidä Shift-näppäintä pohjassa valitaksesi ja kääntääksesi kokonaisia lauseita, tai ota käyttöön pysyvä monivalinta helpompaa valintaa varten.
-• Tuki yli 190 kielelle: Opi englantia, espanjaa, japania, koreaa, saksaa tai mitä tahansa kieltä! Käännä YouTube-tekstitykset miltä tahansa kieleltä suomeksi.
-• Automaattinen kielen tunnistus: Laajennus tunnistaa tekstityksen kielen automaattisesti - aloita oppiminen heti!
-• Useita kääntäjiä: Valitse Google-kääntäjän, Bing Translatorin ja DeepL:n välillä (oma ilmainen DeepL API -avain). DeepL ottaa huomioon koko tekstitysrivin, joten monimerkityksinen sana käännetään siinä merkityksessä, jossa sitä käytetään: ”bank” lauseessa ”we sat on the bank of the river” on ”ranta”, ei ”pankki”.
-• Älykäs automaattinen tauko: Video pysähtyy automaattisesti, kun viet hiiren tekstitysten päälle, jotta ehdit oppia uusia sanoja menettämättä sisältöä.
-• Yleinen tekstitystuki: Toimii täydellisesti sekä manuaalisten että automaattisesti luotujen YouTube-tekstitysten kanssa.
-• Henkilökohtainen sanakirja: Tallenna uudet sanat ja lauseet sanakirjaasi yhdellä klikkauksella! Rakenna oma sanalistasi katselun aikana. Vie sanakirjasi JSON- tai CSV-muodossa.
-• Mukautettava käyttöliittymä: Käännöstyökaluvihjeet mukautuvat YouTube-teemaasi tai voit mukauttaa ne mieltymystesi mukaan mukavaa oppimista varten.
+Käännös, joka ymmärtää asiayhteyden
+Kääntäjäksi voi valita Googlen, Bingin tai DeepL:n. DeepL:llä (tarvitset oman ilmaisen API-avaimen) jokainen sana käännetään koko tekstitysrivin asiayhteydessä: lauseessa ”we sat on the bank of the river” sana ”bank” on ”ranta” eikä ”pankki”. Avain tallennetaan vain omalle laitteellesi.
 
-Sopii erinomaisesti:
-- Opiskelijoille, jotka oppivat kieliä YouTuben kautta
-- Ammattilaisille, jotka parantavat kielitaitoaan työtä varten
-- Sarjojen ja elokuvien katsojille, jotka haluavat katsoa alkuperäiskielellä
-- Kaikille, jotka haluavat oppia kieliä uppoutumalla sisältöön
-- Sanavaraston laajentamisesta kiinnostuneille
+Ilmainen, ei rekisteröitymistä
+HoverTranslate on täysin ilmainen: ei tilejä, tilauksia eikä mainoksia. Se on avointa lähdekoodia, ja koodi on GitHubissa.
 
-Open Source ja yhteisö:
-HoverTranslate on avoimeen lähdekoodiin perustuva projekti, joka uskoo läpinäkyvyyteen ja jatkuvaan kehitykseen:
-- GitHub: https://github.com/kozii-d/hover-translate
-- Sähköposti: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Kysymykset ja ehdotukset: hovertranslate@gmail.com
+Lähdekoodi: https://github.com/kozii-d/hover-translate
+Muutoshistoria: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Aloita sanavarastosi kasvattaminen tänään!
-Aloita kieltenoppimismatkasi tänään! HoverTranslate muuttaa YouTuben tehokkaaksi työkaluksi uusien sanojen ja ilmausten oppimiseen luonnollisella tavalla.
-
-Asenna nyt ja muuta jokainen YouTube-video mahdollisuudeksi kasvattaa sanavarastoasi!
+Asenna HoverTranslate, avaa mikä tahansa tekstitetty video ja vie hiiri ensimmäisen tuntemattoman sanan päälle. Mukavia katseluhetkiä!

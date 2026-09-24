@@ -1,35 +1,24 @@
-HoverTranslate – YouTube Altyazı Çevirisi ile Dil Öğrenirken Kelime Dağarcığınızı Geliştirin!
+HoverTranslate – YouTube altyazı çeviri eklentisi, videolarla dil öğrenenler için
 
-YouTube videolarını izlerken dil öğrenin! HoverTranslate, dil öğrenenler için en iyi kelime geliştirme ve altyazı çeviri aracıdır. Orijinal altyazılı içerikleri izleyin ve izleme deneyiminizi bölmeden her kelimeyi anında anlayın.
+İngilizce altyazılı bir video izlerken bilmediğiniz bir kelimeyle mi karşılaştınız? İmleci kelimenin üzerine getirmeniz yeterli: çevirisi hemen altyazının üstünde görünür. Siz okurken video duraklar, imleci çektiğiniz anda da kaldığı yerden devam eder. Kelimeyi bir çeviri aracına kopyalamanıza, konuşmanın akışını kaçırmanıza gerek yok: izlemeye devam eder, giderek daha fazlasını anlarsınız. İster YDS ve YÖKDİL'e hazırlanın ister iş için İngilizcenizi geliştirin: YouTube ile İngilizce öğrenmek çok daha rahat hale gelir.
 
-Neden Dil Öğrenenler HoverTranslate'i Seçiyor?
-Artık videoları durdurmaya veya sözlüklere bakmaya son! YouTube altyazılarındaki herhangi bir kelimenin üzerine gelerek anında çevirisini görün. En sevdiğiniz içeriklerin tadını çıkarırken doğal bir şekilde kelime dağarcığınızı geliştirmek için mükemmeldir.
+HoverTranslate neler yapar:
+• Tek tek kelimeleri de bütün ifadeleri de çevirir. Bir deyim ya da kalıp ifadeyle mi karşılaştınız? Shift tuşunu basılı tutup imleci kelimelerin üzerinde gezdirin. Shift'e basmadan seçmek isterseniz bunu ayarlardan açabilirsiniz.
+• Kendi kelime listenizi oluşturur. Tıkladığınız kelime, çevirisiyle birlikte kaydedilir. Listeyi CSV veya JSON olarak dışa aktarıp yeni kelimeleri daha sonra tekrar edebilirsiniz.
+• Otomatik altyazılarla, yani YouTube'un kendi oluşturduğu altyazılarla da çalışır. Böylece yükleyenin altyazı eklemediği videolar da işinize yarar.
+• Çince, Japonca ve Taycayla da başa çıkar: bu dillerde kelimeler boşluksuz yazılsa da satırın tamamını değil, tek bir kelimeyi çevirir.
+• 180'den fazla dile çevirir ve altyazının dilini kendisi algılar.
+• Göze batmaz: çeviri, YouTube'daki altyazılarınızla aynı görünür. Farklı olsun isterseniz yazı tipini, rengi ve boyutu kendiniz seçin.
+• Alışkanlıklarınıza uyum sağlar: otomatik duraklatma kapatılabilir, tıklama da kelimeyi kaydetmek yerine kelimeyi ya da çevirisini kopyalayabilir.
 
-Etkili Dil Öğrenimi İçin Temel Özellikler:
-• Anında Üzerine Gelerek Çeviri: Zahmetsizce kelime öğrenin - çevirisini anında görmek için farenizi herhangi bir altyazı kelimesinin üzerine getirin.
-• Akıllı İfade Çevirisi: Deyimleri ve kalıpları öğrenin! Tüm ifadeleri seçmek ve çevirmek için Shift tuşuna basın veya daha kolay seçim için "Her zaman çoklu seçimi etkinleştir" ayarını açın.
-• 190+ Dil Desteği: İngilizce, İspanyolca, Fransızca, Japonca, Korece, Almanca veya herhangi bir dili öğrenin! YouTube altyazılarını herhangi bir dilden kendi dilinize çevirin.
-• Otomatik Dil Algılama: Eklenti altyazı dilini otomatik olarak algılar - hemen öğrenmeye başlayın!
-• Çoklu Çevirmenler: Google Çeviri, Bing Çevirmen ve DeepL (kendi ücretsiz DeepL API anahtarınızla) arasında seçim yapın. DeepL altyazı satırının tamamını dikkate alır; böylece birden çok anlamı olan bir kelime, kullanıldığı anlamda çevrilir: "we sat on the bank of the river" cümlesindeki "bank", "banka" değil "kıyı" olur.
-• Akıllı Otomatik Duraklatma: Altyazıların üzerine geldiğinizde videolar otomatik olarak duraklar, böylece içeriği kaçırmadan yeni kelimeler öğrenmeniz için size zaman tanır.
-• Evrensel Altyazı Desteği: Hem manuel hem de otomatik oluşturulan YouTube altyazılarıyla mükemmel çalışır.
-• Kişisel Kelime Defteri: Yeni kelimeleri ve ifadeleri tek tıkla sözlüğünüze kaydedin! İzlerken kişisel kelime listenizi oluşturun. Sözlüğünüzü JSON veya CSV olarak dışa aktarın.
-• Özelleştirilebilir Arayüz: Çeviri kutucuklarını YouTube temanıza göre ayarlayın veya konforlu bir öğrenme için dilediğiniz gibi özelleştirin.
+Bağlamı anlayan çeviri
+Google, Bing veya DeepL ile çeviri yapabilirsiniz. DeepL ile (kendi ücretsiz API anahtarınız gerekir) her kelime, altyazı satırının bütünü dikkate alınarak çevrilir: "we sat on the bank of the river" cümlesindeki "bank", "banka" değil "kıyı" olarak çevrilir. Anahtarınız yalnızca kendi cihazınızda saklanır.
 
-Şunlar İçin Mükemmeldir:
-- YouTube üzerinden kelime dağarcığını geliştirmek isteyen öğrenciler
-- İş dilini geliştirmek isteyen profesyoneller
-- Anime izleyerek Japonca öğrenenler
-- K-drama hayranları için Korece çalışma aracı
-- İçeriklere dalarak dil öğrenmek isteyen herkes
+Ücretsiz ve üyeliksiz
+HoverTranslate tamamen ücretsizdir: hesap, abonelik ve reklam yok. Açık kaynaklı bir projedir ve kodu GitHub'da yer alır.
 
-Açık Kaynak ve Topluluk Odaklı:
-HoverTranslate şeffaflığa ve sürekli gelişime inanır:
-- GitHub: https://github.com/kozii-d/hover-translate
-- E-posta: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Soru ve önerileriniz için: hovertranslate@gmail.com
+Kaynak kodu: https://github.com/kozii-d/hover-translate
+Değişiklik geçmişi: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Kelime Dağarcığınızı Bugün Geliştirmeye Başlayın!
-HoverTranslate, YouTube'u güçlü bir kelime öğrenme aracına dönüştürerek temel kelimelerden karmaşık ifadelere doğal bir şekilde ilerlemenize yardımcı olur.
-
-Hemen yükleyin ve her YouTube videosunu bir öğrenme fırsatına dönüştürün!
+HoverTranslate'i yükleyin, altyazılı herhangi bir video açın ve imleci bilmediğiniz ilk kelimenin üzerine getirin. İyi seyirler!

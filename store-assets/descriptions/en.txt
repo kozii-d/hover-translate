@@ -1,35 +1,24 @@
-HoverTranslate – Build Vocabulary with YouTube Subtitle Translation!
+HoverTranslate – a YouTube subtitle translator for learning languages from videos
 
-Master any language while watching YouTube videos! HoverTranslate is the ultimate vocabulary builder and subtitle translator for language learners. Watch native content with original subtitles and instantly understand every word without interrupting your viewing experience.
+Watching a video with Spanish or Japanese subtitles and hit a word you don't know? Just hover over it, and the translation appears right above the subtitles. The video pauses while you read and plays on as soon as you move the pointer away. No copying words into a translator, no losing the thread – you keep watching and understand more.
 
-Why Language Learners Choose HoverTranslate:
-No more pausing videos or switching to dictionaries! Simply hover over any word in YouTube subtitles to see instant translations. Perfect for building vocabulary naturally while enjoying your favorite content.
+What HoverTranslate does:
+• Translates single words and whole phrases. Found an idiom or a set expression? Hold Shift and sweep the pointer across the words. If you'd rather not hold Shift, you can switch that on in the settings.
+• Builds your personal word list. Click a word, and it's saved together with its translation. Export the list as CSV or JSON to review your new words later.
+• Works with auto-generated subtitles too – the ones YouTube creates itself – so videos without subtitles from the creator work as well.
+• Handles Chinese, Japanese and Thai: even though they're written without spaces between words, you get the translation of one word, not the whole line.
+• Translates into more than 180 languages and detects the subtitle language on its own.
+• Blends in: the translation looks just like your YouTube subtitles. Want something different? Pick your own font, color and size.
+• Fits the way you watch: auto-pause can be turned off, and a click can copy the word or its translation instead of saving it.
 
-Key Features for Effective Language Learning:
-• Instant Hover Translation: Build vocabulary effortlessly - just hover your mouse over any subtitle word to see its translation immediately.
-• Smart Phrase Translation: Learn idioms and expressions! Hold Shift to select and translate entire phrases, or enable "Always enable multiple selection" for easier phrase selection.
-• 190+ Language Support: Learn Spanish, French, Japanese, Korean, German, or any language! Translate YouTube subtitles from any language to your native one.
-• Auto Language Detection: The extension automatically detects the subtitle language - start learning immediately!
-• Multiple Translators: Choose between Google Translate, Bing Translator and DeepL (with your own free DeepL API key). DeepL also looks at the whole subtitle line, so a word with several meanings is translated the way it is used there: "bank" in "we sat on the bank of the river" means the riverbank, not a bank.
-• Smart Auto-Pause: Videos automatically pause when you hover over subtitles, giving you time to learn new vocabulary without missing content.
-• Universal Subtitle Support: Works perfectly with both manual and auto-generated YouTube subtitles.
-• Personal Vocabulary Builder: Save new words and phrases to your dictionary with one click! Build your personal vocabulary list while watching. Export your dictionary as JSON or CSV.
-• Customizable Interface: Translation tooltips match your YouTube theme or customize to your preference for comfortable learning.
+Translation that understands context
+Choose Google, Bing or DeepL. With DeepL (you'll need your own free API key), each word is translated in the context of its whole subtitle line, so a word with several meanings gets the one it has there: "bank" in "we sat on the bank of the river" is a riverbank, not a bank. Your key is stored only on your device.
 
-Perfect for:
-- Language students expanding vocabulary through YouTube
-- Professionals improving business language skills
-- Anime fans learning Japanese naturally
-- K-drama enthusiasts studying Korean
-- Anyone learning languages through immersive content
+Free, with no sign-up
+HoverTranslate is completely free: no accounts, no subscriptions, no ads. It's open source – the code is on GitHub.
 
-Open Source & Community Driven:
-HoverTranslate believes in transparency and continuous improvement:
-- GitHub: https://github.com/kozii-d/hover-translate
-- Email: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Questions and suggestions: hovertranslate@gmail.com
+Source code: https://github.com/kozii-d/hover-translate
+Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Start Building Your Vocabulary Today!
-Start your language learning journey today! HoverTranslate transforms YouTube into a powerful vocabulary-building tool, helping you progress from basic words to complex expressions naturally.
-
-Install now and transform every YouTube video into a vocabulary-building opportunity!
+Install HoverTranslate, open any video with subtitles and hover over the first word you don't know. Enjoy watching!

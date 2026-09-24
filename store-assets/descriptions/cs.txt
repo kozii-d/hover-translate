@@ -1,35 +1,24 @@
-HoverTranslate – Učte se jazyky s překladem titulků na YouTube!
+HoverTranslate – překlad titulků na YouTube pro každého, kdo se učí jazyky z videí
 
-Proměňte YouTube na svého osobního učitele jazyků! HoverTranslate je dokonalý nástroj pro výuku jazyků pomocí videí. Sledujte obsah v originálním jazyce s titulky a okamžitě rozumějte každému slovu, aniž byste museli přerušovat sledování.
+Díváte se na video s anglickými titulky a narazíte na neznámé slovo? Stačí na něj najet myší a překlad se objeví přímo nad titulky. Video se samo pozastaví, zatímco čtete, a pustí se dál, jakmile myš odsunete. Nemusíte slovo kopírovat do překladače a ztrácet nit: prostě se díváte dál a rozumíte čím dál víc. HoverTranslate se hodí při přípravě na maturitu z angličtiny, v práci i jen tak pro radost.
 
-Proč si studenti jazyků vybírají HoverTranslate:
-Už žádné pauzování videí nebo přepínání do slovníku! Stačí najet myší na jakékoli slovo v YouTube titulcích a okamžitě uvidíte překlad. Ideální pro přirozené budování slovní zásoby při sledování oblíbeného obsahu.
+Co HoverTranslate umí:
+• Jednotlivá slova i celé fráze. Narazili jste na idiom nebo ustálené spojení? Podržte Shift a přejeďte myší přes slova. Pokud vám víc vyhovuje výběr bez Shiftu, zapnete ho v nastavení.
+• Váš vlastní slovníček. Klikněte na slovo a uloží se i s překladem. Seznam můžete vyexportovat do CSV nebo JSON a nová slovíčka si později zopakovat.
+• Funguje i s automatickými titulky, tedy s těmi, které YouTube vytváří sám. Poslouží proto i videa, ke kterým autor titulky nepřidal.
+• Poradí si s čínštinou, japonštinou a thajštinou: přestože se v nich slova píší bez mezer, přeloží se jedno slovo, ne celý řádek.
+• Překládá do více než 180 jazyků a jazyk titulků pozná sám.
+• Nevyčnívá z obrazu: překlad vypadá stejně jako vaše titulky na YouTube. Chcete to jinak? Vyberte si vlastní písmo, barvu a velikost.
+• Přizpůsobí se vašim zvykům: automatické pozastavení jde vypnout a kliknutí může místo uložení zkopírovat slovo nebo jeho překlad.
 
-Klíčové funkce pro efektivní studium jazyků:
-• Okamžitý překlad najetím myši: Budujte si slovní zásobu bez námahy - stačí najet myší na jakékoli slovo v titulcích a okamžitě uvidíte jeho překlad.
-• Chytrý překlad frází: Učte se idiomy a výrazy! Podržte Shift pro výběr a překlad celých frází, nebo aktivujte trvalý režim vícenásobného výběru pro jednodušší výběr.
-• Podpora více než 190 jazyků: Učte se angličtinu, španělštinu, japonštinu, korejštinu, němčinu nebo jakýkoli jiný jazyk! Překládejte YouTube titulky z jakéhokoliv jazyka do češtiny.
-• Automatická detekce jazyka: Rozšíření samo pozná jazyk titulků - začněte se učit okamžitě!
-• Více překladačů: Vyberte si mezi Google Překladačem, Bing Translatorem a DeepL (s vlastním bezplatným API klíčem DeepL). DeepL bere v úvahu celý řádek titulků, takže víceznačné slovo přeloží ve významu, ve kterém je použito: „bank“ ve větě „we sat on the bank of the river“ je „břeh“, ne „banka“.
-• Chytré automatické pozastavení: Video se samo zastaví, když najedete na titulky, abyste měli čas naučit se nová slovíčka bez ztráty obsahu.
-• Univerzální podpora titulků: Funguje perfektně s manuálními i automaticky generovanými titulky na YouTube.
-• Osobní slovníček: Ukládejte si nová slova a fráze jedním kliknutím! Budujte si vlastní seznam slovíček při sledování. Exportujte svůj slovníček ve formátu JSON nebo CSV.
-• Přizpůsobitelné rozhraní: Překladové bubliny se přizpůsobí vašemu YouTube tématu nebo je upravte podle svých preferencí pro pohodlné učení.
+Překlad, který rozumí kontextu
+Překládat můžete přes Google, Bing nebo DeepL. S DeepL (budete potřebovat vlastní bezplatný klíč API) se každé slovo překládá s ohledem na celý řádek titulků: ve větě „we sat on the bank of the river“ znamená „bank“ „břeh“, a ne „banka“. Klíč zůstává jen ve vašem zařízení.
 
-Ideální pro:
-- Studenty rozšiřující si slovní zásobu pomocí YouTube
-- Profesionály zlepšující si obchodní angličtinu
-- Fanoušky seriálů a filmů v originálním znění
-- IT pracovníky učící se technickou terminologii
-- Kohokoliv, kdo se učí jazyky imerzivní metodou
+Zdarma a bez registrace
+HoverTranslate je úplně zdarma: bez účtů, předplatného a reklam. Jde o open source projekt a jeho kód najdete na GitHubu.
 
-Open Source a komunita:
-HoverTranslate je open source projekt, který věří v transparentnost a neustálé zlepšování:
-- GitHub: https://github.com/kozii-d/hover-translate
-- Email: hovertranslate@gmail.com
-- Changelog: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+Dotazy a návrhy: hovertranslate@gmail.com
+Zdrojový kód: https://github.com/kozii-d/hover-translate
+Historie změn: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
 
-Začněte budovat svou slovní zásobu již dnes!
-Začněte svou jazykovou cestu již dnes! HoverTranslate promění YouTube na mocný nástroj pro učení nových slov a výrazů přirozeným způsobem.
-
-Nainstalujte nyní a proměňte každé YouTube video v příležitost k rozšíření svého slovníku!
+Nainstalujte si HoverTranslate, otevřete libovolné video s titulky a najeďte myší na první neznámé slovo. Příjemné sledování!
