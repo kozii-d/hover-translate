@@ -19,12 +19,11 @@ const answerTranslatorRequest = <T>(request: () => Promise<T>) =>
     .catch(serializeTranslatorError);
 
 /**
- * The translators whose "answering through the fallback" notice was already
- * shown in this browser session: `{ bing: true }`, in `session` storage, which
- * outlives restarts of the background worker and is cleared when the browser
- * closes.
+ * The notices already shown in this browser session, `{ [noticeId]: true }` —
+ * see `ClaimSessionNoticeMessage`. In `session` storage, which outlives
+ * restarts of the background worker and is cleared when the browser closes.
  */
-const PERMISSION_FALLBACK_NOTICES_STORAGE_KEY = "permissionFallbackNotices";
+const SESSION_NOTICES_STORAGE_KEY = "shownSessionNotices";
 
 const getSessionStorage = () => (chrome.storage as { session?: typeof chrome.storage.local }).session;
 
@@ -40,10 +39,6 @@ export class MessageService {
 
   // The only writer of `apiKeys` — see `SetApiKeyMessage`.
   private readonly apiKeyService = new ApiKeyService();
-
-  // Claims are answered one after the other: two tabs asking at once must not
-  // both read "not shown yet".
-  private noticeClaims: Promise<unknown> = Promise.resolve();
 
   constructor(
     // private readonly tokenService: TokenService = new TokenService(),
@@ -73,29 +68,16 @@ export class MessageService {
     return translator;
   }
 
-  /** See `ClaimPermissionFallbackNoticeMessage`. */
-  private claimPermissionFallbackNotice(translatorKey: string): Promise<{ claimed: boolean }> {
-    const claim = this.noticeClaims.then(async () => {
-      const session = getSessionStorage();
+  /** See `ClaimSessionNoticeMessage`. Without `storage.session`, every page shows its notice. */
+  private async claimSessionNotice(noticeId: string): Promise<{ claimed: boolean }> {
+    const session = getSessionStorage();
+    if (!session) return { claimed: true };
 
-      // No `storage.session`: every page tells the viewer once.
-      if (!session) return { claimed: true };
+    const shown: Partial<Record<string, boolean>> = (await session.get(SESSION_NOTICES_STORAGE_KEY))[SESSION_NOTICES_STORAGE_KEY] ?? {};
+    if (shown[noticeId]) return { claimed: false };
 
-      const stored = (await session.get(PERMISSION_FALLBACK_NOTICES_STORAGE_KEY))[PERMISSION_FALLBACK_NOTICES_STORAGE_KEY] as
-        Partial<Record<string, boolean>> | undefined;
-
-      if (stored?.[translatorKey]) return { claimed: false };
-
-      await session.set({ [PERMISSION_FALLBACK_NOTICES_STORAGE_KEY]: { ...stored, [translatorKey]: true } });
-
-      return { claimed: true };
-    })
-      // Better told twice than not at all.
-      .catch(() => ({ claimed: true }));
-
-    this.noticeClaims = claim;
-
-    return claim;
+    await session.set({ [SESSION_NOTICES_STORAGE_KEY]: { ...shown, [noticeId]: true } });
+    return { claimed: true };
   }
 
   private setupMessageListeners(): void {
@@ -169,8 +151,13 @@ export class MessageService {
           .finally(() => this.activeTranslations.delete(requestId));
       }
 
-      if (message?.action === "claimPermissionFallbackNotice") {
-        return this.claimPermissionFallbackNotice(message.value.translatorKey);
+      if (message?.action === "hasPermissions") {
+        return chrome.permissions.contains({ origins: message.value.origins })
+          .then((granted) => ({ granted }));
+      }
+
+      if (message?.action === "claimSessionNotice") {
+        return this.claimSessionNotice(message.value.noticeId);
       }
 
       if (message?.action === "abortTranslate") {

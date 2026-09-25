@@ -17,7 +17,7 @@ import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
 import { TranslationCacheData, TranslationData } from "../../common/types/translations.ts";
 import { TranslatorErrorCode, isTranslatorError } from "../../common/translators/translatorError.ts";
-import { PermissionFallbackNotice } from "../../common/translators/permissionFallbackTranslator.ts";
+import { sendMessageToBackground } from "../../common/services/messagingService.ts";
 
 interface AbortableElement extends HTMLElement {
   abortController?: AbortController;
@@ -74,6 +74,9 @@ export class TooltipService {
 
   private hoverTimeoutId?: ReturnType<typeof setTimeout>;
 
+  /** See `showWithFirstTranslation`. */
+  private sessionNotice?: { id: string; text: string };
+
   constructor(
     private readonly translationCore: TranslationCore,
     private readonly storageService: StorageService = new StorageService(),
@@ -125,6 +128,8 @@ export class TooltipService {
     delete targetNode.abortController;
 
     if (!translatedData) return;
+
+    this.showSessionNotice();
 
     // The window the hovered word sits in. Taking the first one on the page
     // meant that with two caption windows on screen — two speakers — a word in
@@ -182,6 +187,31 @@ export class TooltipService {
     setTimeout(() => {
       tooltip.remove();
     }, durationMs);
+  }
+
+  /**
+   * Shows `text` with the first translation on this page, unless another page
+   * has shown notice `id` in this browser session (`ClaimSessionNoticeMessage`).
+   * Used to say that Google translates for Bing until Bing is allowed.
+   */
+  public showWithFirstTranslation(id: string, text: string) {
+    this.sessionNotice = { id, text };
+  }
+
+  private showSessionNotice() {
+    const notice = this.sessionNotice;
+    if (!notice) return;
+    this.sessionNotice = undefined;
+
+    sendMessageToBackground<{ claimed: boolean }>({ action: "claimSessionNotice", value: { noticeId: notice.id } })
+      .then(({ claimed }) => claimed)
+      // No answer: better told twice than not at all.
+      .catch(() => true)
+      .then((claimed) => {
+        // Shown like an error, whatever the notifications setting: otherwise
+        // the other translator's answers go unexplained.
+        if (claimed) this.showNotificationTooltip(notice.text, true, ACTIONABLE_ERROR_DURATION);
+      });
   }
 
   private positionNotificationTooltip(tooltip: HTMLDivElement) {
@@ -592,21 +622,6 @@ export class TooltipService {
       ACTIONABLE_ERROR_DURATION,
     );
   }
-
-  /**
-   * Tells the viewer why their translator's words come from another one — Bing
-   * without access to www.bing.com, answered by Google — and where to fix it.
-   * Called once per browser session (see `ClaimPermissionFallbackNoticeMessage`).
-   * Shown like an error, notifications setting or not: otherwise the switch
-   * goes unexplained.
-   */
-  public reportPermissionFallback = ({ translatorName, host, fallbackTranslatorName }: PermissionFallbackNotice) => {
-    this.showNotificationTooltip(
-      chrome.i18n.getMessage("noticePermissionFallback", [translatorName, host, fallbackTranslatorName]),
-      true,
-      ACTIONABLE_ERROR_DURATION,
-    );
-  };
 
   private isSameSavedTranslation = (translationData1: TranslationData, translationData2: TranslationData) => {
     return translationData1.sourceLanguageCode === translationData2.sourceLanguageCode &&

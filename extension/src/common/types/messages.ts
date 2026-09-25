@@ -71,15 +71,25 @@ export interface RemoveApiKeyMessage {
 }
 
 /**
- * Sent by a page whose translator answers through its fallback because a host
- * permission is missing (`PermissionFallbackTranslator`). Answered with
- * `{ claimed: true }` only for the first such page of the browser session, so
- * the viewer is told once rather than in every tab, reload and embedded player.
+ * Whether the extension may reach `origins`, answered `{ granted }`. For the
+ * content script, which has no permissions API of its own.
  */
-export interface ClaimPermissionFallbackNoticeMessage {
-  action: "claimPermissionFallbackNotice";
+export interface HasPermissionsMessage {
+  action: "hasPermissions";
   value: {
-    translatorKey: string;
+    origins: string[];
+  };
+}
+
+/**
+ * Answered `{ claimed: true }` only for the first page of the browser session
+ * that asks about `noticeId`, so a notice is shown once rather than in every
+ * tab, reload and embedded player.
+ */
+export interface ClaimSessionNoticeMessage {
+  action: "claimSessionNotice";
+  value: {
+    noticeId: string;
   };
 }
 
@@ -92,7 +102,8 @@ export type ExtensionMessage =
   | GetApiKeyUsageMessage
   | SetApiKeyMessage
   | RemoveApiKeyMessage
-  | ClaimPermissionFallbackNoticeMessage;
+  | HasPermissionsMessage
+  | ClaimSessionNoticeMessage;
 
 export interface GetAvailableLanguagesResponse {
   availableLanguages: AvailableLanguages;

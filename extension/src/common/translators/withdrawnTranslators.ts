@@ -14,8 +14,7 @@
  * Chrome only re-enables it by itself once an update no longer asks for that
  * host at all — declaring it optional instead is not enough. So 1.1.14 carried
  * no Bing permission, and 1.2.0 brought Bing back with its host as an optional
- * permission (see `PermissionFallbackTranslator` for a viewer who has not
- * granted it).
+ * permission (see `content.ts` for a viewer who has not granted it).
  *
  * Kept apart from `TranslatorFactory` so the popup can read it without pulling
  * in the translators' HTTP client.

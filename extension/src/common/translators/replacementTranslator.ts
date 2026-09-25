@@ -6,8 +6,8 @@ import { AvailableLanguages } from "../types/languages.ts";
 /**
  * Answers for a translator the settings still name but that cannot answer
  * itself: a withdrawn one (see `WITHDRAWN_TRANSLATORS`) until the viewer opens
- * the settings, which move them to the replacement for good, or one whose host
- * permission was not granted (see `PermissionFallbackTranslator`).
+ * the settings, which move them to the replacement for good, or Bing without
+ * access to its host (see `content.ts`).
  *
  * The settings keep that translator's language codes, and the replacement may
  * not take them: Google answers 400 to Bing's `prs`, `lzh` or `tlh-Latn`. Each
