@@ -51,6 +51,7 @@ import { TranslatorError } from "@extension/common/translators/translatorError.t
 import { isTranslatorWithdrawn } from "@extension/common/translators/withdrawnTranslators.ts";
 import { StoredApiKeys } from "@extension/common/services/apiKeyService.ts";
 import { ApiKeyForm, ApiKeyStatus } from "@/features/TranslatorApiKey";
+import { RatingPromptCard, useRatingPrompt } from "@/features/RatingPrompt";
 import {
   SelectedLanguagesMatch,
   findUserLanguage,
@@ -68,6 +69,8 @@ interface SettingsFormProps {
   applyAvailableLanguages: (availableLanguages: AvailableLanguages) => void;
   /** Opens the API key form from outside — the stored key stopped working. */
   apiKeyPrompt: ApiKeyPrompt | null;
+  /** The saved translator had to be replaced on load, and a notice says so. */
+  fellBack: boolean;
   loading: boolean;
 }
 
@@ -80,6 +83,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   fetchAvailableLanguages,
   applyAvailableLanguages,
   apiKeyPrompt,
+  fellBack,
   loading,
 }) => {
   const { t } = useTranslation("settings");
@@ -88,6 +92,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   });
 
   const notifications = useNotifications();
+  const showRatingPrompt = useRatingPrompt();
 
   // The keys stored on this device, read up front: picking a translator has to
   // know synchronously whether it can switch or has to ask for a key, because
@@ -525,7 +530,13 @@ export const SettingsForm: FC<SettingsFormProps> = ({
             onRemoveKey={() => removeApiKey(currentTranslator)}
           />
         )}
-        {apiKeysLoaded && !apiKeyForm && currentTranslator !== "deepl" && (
+        {/* Not next to a translator that stopped working or a missing API
+            key: that opening is about fixing it, and the card waits for
+            another one. */}
+        {showRatingPrompt && !fellBack && !apiKeyForm && <RatingPromptCard/>}
+        {/* One card at a time: the tips wait for an opening without the rating
+            card, even once it has been closed. */}
+        {showRatingPrompt === false && apiKeysLoaded && !apiKeyForm && currentTranslator !== "deepl" && (
           <ContextHint
             hasApiKey={Boolean(apiKeys.deepl)}
             onSelectDeepL={() => handleTranslatorChange("deepl")}
@@ -533,7 +544,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
         )}
         {/* With the setting on, Shift is not needed and the tip would suggest
             turning on what already is. */}
-        {!alwaysMultipleSelection && (
+        {showRatingPrompt === false && !alwaysMultipleSelection && (
           <DismissibleTip storageKey="multipleSelectionTipDismissed" closeText={t("tips.dismiss")}>
             {t("tips.multipleSelection")}
           </DismissibleTip>

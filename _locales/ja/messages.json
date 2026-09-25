@@ -111,5 +111,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "HoverTranslate が学習に役立っているなら、評価をいただくとほかの学習者が見つけやすくなります。"
+  },
+  "ratingPromptRate": {
+    "message": "評価する"
+  },
+  "ratingPromptNotNow": {
+    "message": "後で"
   }
 }

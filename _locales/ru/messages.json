@@ -111,5 +111,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "Если HoverTranslate помогает вам учиться, оценка поможет другим изучающим языки его найти."
+  },
+  "ratingPromptRate": {
+    "message": "Оценить"
+  },
+  "ratingPromptNotNow": {
+    "message": "Не сейчас"
   }
 }

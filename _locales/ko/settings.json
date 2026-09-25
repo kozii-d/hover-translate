@@ -135,5 +135,12 @@
     "keyNote": "본인의 DeepL API 키가 필요합니다. 무료 요금제로 충분합니다.",
     "connect": "DeepL 연결",
     "switch": "DeepL로 전환"
+  },
+  "ratingPrompt": {
+    "text": "HoverTranslate가 학습에 도움이 된다면, 평가를 남겨 주세요. 다른 학습자들이 찾는 데 도움이 됩니다.",
+    "rate": "평가하기",
+    "dontAskAgain": "다시 묻지 않기",
+    "notNow": "나중에",
+    "reportProblem": "문제가 있나요? GitHub에서 알려 주세요"
   }
 }

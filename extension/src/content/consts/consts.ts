@@ -3,6 +3,7 @@ export const TOOLTIP_CLASS = "custom-tooltip";
 export const NOTIFICATION_TOOLTIP_CLASS = "custom-notification-tooltip";
 export const TOOLTIP_WORD_CLASS = "custom-tooltip-word";
 export const TOOLTIP_SELECTED_WORD_CLASS = "custom-tooltip-word-selected";
+export const RATING_CARD_CLASS = "custom-rating-card";
 
 // YouTube classes
 export const CAPTION_WINDOW_CONTAINER = "ytp-caption-window-container";
@@ -10,6 +11,8 @@ export const CAPTION_WINDOW = "caption-window";
 export const CAPTION_VISUAL_LINE = "caption-visual-line";
 export const CAPTION_SEGMENT = "ytp-caption-segment";
 export const VIDEO_PLAYER = "html5-video-player";
+// Set on the player while an ad plays.
+export const AD_SHOWING = "ad-showing";
 // The controls layer of the new embedded player (`#player-controls`), drawn over the captions.
 export const PLAYER_CONTROLS_LAYER = "ytPlayerControlsContainerHost";
 

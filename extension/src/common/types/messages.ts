@@ -93,6 +93,16 @@ export interface ClaimSessionNoticeMessage {
   };
 }
 
+/**
+ * Opens the page where the extension can be rated, for the card on the video
+ * (a content script cannot open tabs). The background works the address out
+ * itself — see `getReviewPageUrl` — rather than taking one from the page.
+ * Answered `{ success }`, false when the store is unknown.
+ */
+export interface OpenReviewPageMessage {
+  action: "openReviewPage";
+}
+
 export type ExtensionMessage =
   | OpenPopupMessage
   | GetAvailableLanguagesMessage
@@ -103,7 +113,8 @@ export type ExtensionMessage =
   | SetApiKeyMessage
   | RemoveApiKeyMessage
   | HasPermissionsMessage
-  | ClaimSessionNoticeMessage;
+  | ClaimSessionNoticeMessage
+  | OpenReviewPageMessage;
 
 export interface GetAvailableLanguagesResponse {
   availableLanguages: AvailableLanguages;

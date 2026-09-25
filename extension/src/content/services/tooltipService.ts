@@ -1,17 +1,17 @@
-import rgba from "color-rgba";
-import alpha from "color-alpha";
-
 import {
   TOOLTIP_CLASS,
   CAPTION_WINDOW,
   CAPTION_VISUAL_LINE,
   TOOLTIP_WORD_CLASS,
-  CAPTION_SEGMENT,
   DATA_ATTRIBUTES,
   TOOLTIP_SELECTED_WORD_CLASS,
-  TOOLTIP_SETTINGS, NOTIFICATION_TOOLTIP_CLASS,
+  NOTIFICATION_TOOLTIP_CLASS,
+  VIDEO_PLAYER,
 } from "../consts/consts.ts";
-import { isCaptionWindowInUpperHalf } from "../utils/domUtils.ts";
+import { getOverlayContainer, getVisibleRect, isCaptionWindowInUpperHalf, placeAt } from "../utils/domUtils.ts";
+import { styleTooltip } from "../utils/tooltipTheme.ts";
+import { RatingPromptService } from "./ratingPromptService.ts";
+import { MIN_CACHED_TRANSLATIONS, VIDEO_MIN_SAVED_WORDS } from "../../common/ratingPrompt.ts";
 import { TranslationCore } from "../core/translationCore";
 import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
@@ -77,8 +77,16 @@ export class TooltipService {
   /** See `showWithFirstTranslation`. */
   private sessionNotice?: { id: string; text: string };
 
+  /**
+   * A translation, save or copy failed on this page (until the translator is
+   * changed, which builds a new service). The rating card then waits for
+   * another page rather than interrupt someone dealing with an error.
+   */
+  private hadFailure = false;
+
   constructor(
     private readonly translationCore: TranslationCore,
+    private readonly ratingPromptService: RatingPromptService,
     private readonly storageService: StorageService = new StorageService(),
   )
   {
@@ -102,6 +110,8 @@ export class TooltipService {
     if (!textToTranslate) return;
 
     const context = this.getSelectionContext();
+    // Found now: the word may be gone from the page once the answer comes.
+    const player = targetNode.closest<HTMLElement>(`.${VIDEO_PLAYER}`);
 
     // Create a new AbortController for this element
     const abortController = new AbortController();
@@ -120,7 +130,7 @@ export class TooltipService {
       // Without this the failure was a silent unhandled rejection: no tooltip
       // appeared and nothing told the viewer why.
       delete targetNode.abortController;
-      this.reportTranslationFailure(error);
+      this.reportTranslationFailure(error, player);
       return;
     }
 
@@ -129,7 +139,7 @@ export class TooltipService {
 
     if (!translatedData) return;
 
-    this.showSessionNotice();
+    this.showSessionNotice(player);
 
     // The window the hovered word sits in. Taking the first one on the page
     // meant that with two caption windows on screen — two speakers — a word in
@@ -153,12 +163,20 @@ export class TooltipService {
 
     container.appendChild(tooltip);
 
-    this.styleTooltip(tooltip);
+    styleTooltip(tooltip);
     this.positionTooltip(this.firstSelectedWordNode, tooltip, subtitlesContainer);
+
+    // For viewers who translate without saving: asked once they have
+    // translated plenty, as the popup asks them.
+    if (!this.hadFailure && this.translationCore.cachedTranslationsCount >= MIN_CACHED_TRANSLATIONS) {
+      this.ratingPromptService.offer(subtitlesContainer);
+    }
   }
 
+  /** `player`: the one the word that was hovered or clicked belongs to. */
   private async showNotificationTooltip(
     text: string,
+    player: HTMLElement | null,
     isError: boolean = false,
     durationMs: number = NOTIFICATION_DURATION,
   ) {
@@ -177,12 +195,12 @@ export class TooltipService {
 
     tooltip.style.visibility = "hidden";
 
-    const container = document.fullscreenElement ? document.fullscreenElement : document.body;
+    const container = getOverlayContainer();
 
     container.appendChild(tooltip);
 
-    this.styleTooltip(tooltip);
-    this.positionNotificationTooltip(tooltip);
+    styleTooltip(tooltip);
+    this.positionNotificationTooltip(tooltip, container, player);
 
     setTimeout(() => {
       tooltip.remove();
@@ -198,7 +216,7 @@ export class TooltipService {
     this.sessionNotice = { id, text };
   }
 
-  private showSessionNotice() {
+  private showSessionNotice(player: HTMLElement | null) {
     const notice = this.sessionNotice;
     if (!notice) return;
     this.sessionNotice = undefined;
@@ -210,87 +228,23 @@ export class TooltipService {
       .then((claimed) => {
         // Shown like an error, whatever the notifications setting: otherwise
         // the other translator's answers go unexplained.
-        if (claimed) this.showNotificationTooltip(notice.text, true, ACTIONABLE_ERROR_DURATION);
+        if (claimed) this.showNotificationTooltip(notice.text, player, true, ACTIONABLE_ERROR_DURATION);
       });
   }
 
-  private positionNotificationTooltip(tooltip: HTMLDivElement) {
-    const video = document.querySelector("video");
-
-    if (!video) return;
-
-    const rectVideo = video.getBoundingClientRect();
+  /**
+   * At the top-left of the part of the player that is on screen. It used to
+   * take the first video of the document, which may be a thumbnail preview,
+   * and left out the page scroll, so a scrolled page put it off screen.
+   */
+  private positionNotificationTooltip(tooltip: HTMLDivElement, container: Element, player: HTMLElement | null) {
+    const playerRect = player && getVisibleRect(player);
+    if (!playerRect) return;
 
     tooltip.style.position = "absolute";
-    tooltip.style.left = `${rectVideo.left + 65}px`;
-    tooltip.style.top = `${rectVideo.top + 40}px`;
+    placeAt(tooltip, container, playerRect.left + 65, playerRect.top + 40);
 
     tooltip.style.visibility = "visible";
-  }
-
-  private styleTooltip(tooltip: HTMLDivElement) {
-    const captionSegment = document.querySelector<HTMLElement>(`.${CAPTION_SEGMENT}`);
-    if (!captionSegment) return;
-
-    const youtubeSubtitleContainerStyles = window.getComputedStyle(captionSegment);
-
-    const {
-      useYouTubeSettings,
-      fontFamily,
-      fontColor,
-      fontOpacity,
-      fontSize,
-      backgroundColor,
-      backgroundOpacity,
-      characterEdgeStyle
-    } = state.tooltipTheme;
-
-    if (useYouTubeSettings) {
-      tooltip.style.fontFamily = youtubeSubtitleContainerStyles.fontFamily;
-      tooltip.style.color = youtubeSubtitleContainerStyles.color;
-      tooltip.style.fontSize = youtubeSubtitleContainerStyles.fontSize;
-      tooltip.style.fontVariant = youtubeSubtitleContainerStyles.fontVariant;
-      tooltip.style.background = youtubeSubtitleContainerStyles.background;
-      tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
-      return;
-    }
-
-    if (fontFamily === "small-capitals") {
-      tooltip.style.fontFamily = TOOLTIP_SETTINGS.fontFamily[fontFamily];
-      tooltip.style.fontVariant = "small-caps";
-    } else if (fontFamily === "auto") {
-      tooltip.style.fontFamily = youtubeSubtitleContainerStyles.fontFamily;
-    } else {
-      tooltip.style.fontFamily = TOOLTIP_SETTINGS.fontFamily[fontFamily];
-    }
-
-    const newFontColor = fontColor === "auto" ? youtubeSubtitleContainerStyles.color : TOOLTIP_SETTINGS.fontColor[fontColor];
-    const ytSubtitleContainerColor = rgba(youtubeSubtitleContainerStyles.color);
-    if (ytSubtitleContainerColor.length) {
-      const [, , , ytAlpha] = ytSubtitleContainerColor;
-      tooltip.style.color = fontOpacity === "auto" ? alpha(newFontColor, ytAlpha) : alpha(newFontColor, TOOLTIP_SETTINGS.fontOpacity[fontOpacity]);
-    }
-
-    if (fontSize === "auto") {
-      tooltip.style.fontSize = youtubeSubtitleContainerStyles.fontSize;
-    } else {
-      tooltip.style.fontSize = TOOLTIP_SETTINGS.fontSize[fontSize];
-    }
-
-    const newBackgroundColor = backgroundColor === "auto" ? youtubeSubtitleContainerStyles.backgroundColor : TOOLTIP_SETTINGS.backgroundColor[backgroundColor];
-    const ytSubtitleContainerBackground = rgba(youtubeSubtitleContainerStyles.background);
-    
-    if (ytSubtitleContainerBackground.length) {
-      const [, , , ytBackgroundAlpha] = ytSubtitleContainerBackground;
-      tooltip.style.background = youtubeSubtitleContainerStyles.background;
-      tooltip.style.backgroundColor = backgroundOpacity === "auto" ? alpha(newBackgroundColor, ytBackgroundAlpha) : alpha(newBackgroundColor, TOOLTIP_SETTINGS.backgroundOpacity[backgroundOpacity]);
-    }
-
-    if (characterEdgeStyle === "auto") {
-      tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
-    } else {
-      tooltip.style.textShadow = TOOLTIP_SETTINGS.characterEdgeStyle[characterEdgeStyle];
-    }
   }
 
   private positionTooltip(
@@ -587,11 +541,11 @@ export class TooltipService {
    * can reject, and an unhandled rejection in a pointer handler is invisible to
    * the viewer.
    */
-  private async resolveTranslationForAction(): Promise<TranslationCacheData | null> {
+  private async resolveTranslationForAction(player: HTMLElement | null): Promise<TranslationCacheData | null> {
     try {
       return await this.resolveSelectionTranslation();
     } catch (error) {
-      this.reportTranslationFailure(error);
+      this.reportTranslationFailure(error, player);
       return null;
     }
   }
@@ -601,10 +555,12 @@ export class TooltipService {
    * a missing or rejected API key, a used-up quota — and falls back to the
    * generic message otherwise.
    */
-  private reportTranslationFailure(error: unknown) {
+  private reportTranslationFailure(error: unknown, player: HTMLElement | null) {
+    this.hadFailure = true;
+
     if (!isTranslatorError(error)) {
       console.error("Translation failed", error);
-      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), true);
+      this.showNotificationTooltip(chrome.i18n.getMessage("translationFailed"), player, true);
       return;
     }
 
@@ -618,6 +574,7 @@ export class TooltipService {
 
     this.showNotificationTooltip(
       message || chrome.i18n.getMessage("translationFailed"),
+      player,
       true,
       ACTIONABLE_ERROR_DURATION,
     );
@@ -630,9 +587,15 @@ export class TooltipService {
       translationData1.targetLanguageCode === translationData2.targetLanguageCode;
   };
 
-  public saveTranslationToDictionary = async () => {
-    const currentData = await this.resolveTranslationForAction();
+  public saveTranslationToDictionary = async (wordNode: HTMLElement) => {
+    // Found before anything is awaited: the captions may change meanwhile.
+    const player = wordNode.closest<HTMLElement>(`.${VIDEO_PLAYER}`);
+    const captionWindow = wordNode.closest<HTMLElement>(`.${CAPTION_WINDOW}`);
+
+    const currentData = await this.resolveTranslationForAction(player);
     if (!currentData) return;
+
+    let savedCount: number;
 
     try {
       const savedTranslations = await this.storageService.get<TranslationData[]>("savedTranslations", "local");
@@ -652,30 +615,38 @@ export class TooltipService {
       filteredTranslations.unshift(newSavedTranslation);
 
       await this.storageService.set("savedTranslations", filteredTranslations, "local");
+      savedCount = filteredTranslations.length;
     } catch (error) {
       // Running out of the local storage quota is the realistic cause. Nothing
       // awaits this handler, so the write used to vanish without a trace: no
       // saved word, no message, and an unhandled rejection as the only sign.
       console.error("Saving the translation failed", error);
-      this.showNotificationTooltip(chrome.i18n.getMessage("saveFailed"), true);
+      this.hadFailure = true;
+      this.showNotificationTooltip(chrome.i18n.getMessage("saveFailed"), player, true);
       return;
     }
 
-    this.showNotificationTooltip(chrome.i18n.getMessage("translationSaved"));
+    this.showNotificationTooltip(chrome.i18n.getMessage("translationSaved"), player);
+
+    if (captionWindow && !this.hadFailure && savedCount >= VIDEO_MIN_SAVED_WORDS) {
+      this.ratingPromptService.offer(captionWindow);
+    }
   };
 
-  public saveOriginalTextToClipboard = async () => {
-    const currentData = await this.resolveTranslationForAction();
+  public saveOriginalTextToClipboard = async (wordNode: HTMLElement) => {
+    const player = wordNode.closest<HTMLElement>(`.${VIDEO_PLAYER}`);
+    const currentData = await this.resolveTranslationForAction(player);
     if (!currentData) return;
 
-    await this.copyToClipboard(currentData.originalText, "originalTextCopied");
+    await this.copyToClipboard(currentData.originalText, "originalTextCopied", player);
   };
 
-  public saveTranslationToClipboard = async () => {
-    const currentData = await this.resolveTranslationForAction();
+  public saveTranslationToClipboard = async (wordNode: HTMLElement) => {
+    const player = wordNode.closest<HTMLElement>(`.${VIDEO_PLAYER}`);
+    const currentData = await this.resolveTranslationForAction(player);
     if (!currentData) return;
 
-    await this.copyToClipboard(currentData.translatedText, "translatedTextCopied");
+    await this.copyToClipboard(currentData.translatedText, "translatedTextCopied", player);
   };
 
   /**
@@ -684,17 +655,18 @@ export class TooltipService {
    * translation can outlast that. Nothing awaits these handlers, so a rejection
    * here would surface as an unhandled rejection and nothing else.
    */
-  private async copyToClipboard(text: string, successMessageKey: string) {
+  private async copyToClipboard(text: string, successMessageKey: string, player: HTMLElement | null) {
     if (!text) return;
 
     try {
       await navigator.clipboard.writeText(text);
     } catch (error) {
       console.error("Copying to the clipboard failed", error);
-      this.showNotificationTooltip(chrome.i18n.getMessage("copyFailed"), true);
+      this.hadFailure = true;
+      this.showNotificationTooltip(chrome.i18n.getMessage("copyFailed"), player, true);
       return;
     }
 
-    this.showNotificationTooltip(chrome.i18n.getMessage(successMessageKey));
+    this.showNotificationTooltip(chrome.i18n.getMessage(successMessageKey), player);
   }
 }

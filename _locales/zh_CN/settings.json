@@ -107,5 +107,12 @@
     "keyNote": "需要你自己的 DeepL API 密钥，免费套餐即可。",
     "connect": "连接 DeepL",
     "switch": "切换到 DeepL"
+  },
+  "ratingPrompt": {
+    "text": "如果 HoverTranslate 对你的学习有帮助，给它评个分能让更多学习者找到它。",
+    "rate": "评分",
+    "dontAskAgain": "不再询问",
+    "notNow": "以后再说",
+    "reportProblem": "遇到问题？在 GitHub 上告诉我们"
   }
 }

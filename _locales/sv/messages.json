@@ -111,5 +111,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "Om HoverTranslate hjälper dig att lära dig gör ett betyg det lättare för andra att hitta det."
+  },
+  "ratingPromptRate": {
+    "message": "Betygsätt"
+  },
+  "ratingPromptNotNow": {
+    "message": "Inte nu"
   }
 }

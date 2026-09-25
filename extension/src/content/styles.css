@@ -25,3 +25,38 @@
 .custom-tooltip-word-selected {
     background-color: #808080;
 }
+
+/* The rating card on the video: colours and font come from the subtitle theme (inline). */
+.custom-rating-card {
+    position: absolute;
+    box-sizing: border-box;
+    max-width: 360px;
+    padding: 8px 10px;
+    border-radius: 4px;
+    background-color: rgba(8, 8, 8, 0.75);
+    font-size: 16px;
+    line-height: 1.35;
+    color: #fff;
+    z-index: 1000000000;
+    pointer-events: auto;
+}
+
+.custom-rating-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.custom-rating-card-actions button {
+    min-height: 28px;
+    padding: 2px 12px;
+    font: inherit;
+    font-size: 0.85em;
+    color: inherit;
+    text-shadow: inherit;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    cursor: pointer;
+}

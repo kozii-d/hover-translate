@@ -34,6 +34,8 @@ const SettingsPage: FC = () => {
   // failed save, or twice under StrictMode) replaces it instead of queueing a
   // second copy that would hold back every notification after it.
   const fallbackNoticeKey = useRef<string | null>(null);
+  // Something had to be switched on load: no request for a rating next to it.
+  const [fellBack, setFellBack] = useState(false);
 
   const { t } = useTranslation("settings");
 
@@ -76,6 +78,7 @@ const SettingsPage: FC = () => {
 
     const noticeKey = notifications.show(message, { severity, autoHideDuration: 10000 });
     fallbackNoticeKey.current = noticeKey;
+    setFellBack(true);
 
     return noticeKey;
   }, [notifications]);
@@ -231,6 +234,7 @@ const SettingsPage: FC = () => {
         fetchAvailableLanguages={fetchAvailableLanguages}
         applyAvailableLanguages={applyAvailableLanguages}
         apiKeyPrompt={apiKeyPrompt}
+        fellBack={fellBack}
         loading={loading}
       />
     </Page>

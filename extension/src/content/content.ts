@@ -5,6 +5,7 @@ import { SubtitleCore } from "./core/subtitleCore.ts";
 import { TooltipService } from "./services/tooltipService.ts";
 import { VideoController } from "./core/videoController.ts";
 import { MutationObserverService } from "./services/mutationObserverService.ts";
+import { RatingPromptService } from "./services/ratingPromptService.ts";
 import { TranslatorFactory } from "../common/translators/TranslatorFactory.ts";
 import { ProxyTranslator } from "../common/translators/proxyTranslator.ts";
 import { ReplacementTranslator } from "../common/translators/replacementTranslator.ts";
@@ -85,9 +86,10 @@ const main = async () => {
       : selectedTranslator;
 
     const translationCore = new TranslationCore(translator);
-    const tooltipService = new TooltipService(translationCore);
-    const subtitleCore = new SubtitleCore(tooltipService);
     const videoController = new VideoController();
+    const ratingPromptService = new RatingPromptService(videoController);
+    const tooltipService = new TooltipService(translationCore, ratingPromptService);
+    const subtitleCore = new SubtitleCore(tooltipService);
 
     if (bingWithoutAccess) {
       tooltipService.showWithFirstTranslation(
@@ -102,7 +104,7 @@ const main = async () => {
     activeObserverService?.destroy();
     activeTranslationCore?.destroy();
 
-    activeObserverService = new MutationObserverService(subtitleCore, videoController, tooltipService);
+    activeObserverService = new MutationObserverService(subtitleCore, videoController, tooltipService, ratingPromptService);
     activeTranslationCore = translationCore;
     activeTranslatorKey = translatorKey;
   } catch (error) {

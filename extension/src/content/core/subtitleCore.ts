@@ -164,13 +164,13 @@ export class SubtitleCore {
       if (!isDrag) {
         switch (state.settings.leftClickAction) {
         case "save-to-dictionary":
-          this.tooltipService.saveTranslationToDictionary();
+          this.tooltipService.saveTranslationToDictionary(wordSpan);
           break;
         case "copy-original":
-          this.tooltipService.saveOriginalTextToClipboard();
+          this.tooltipService.saveOriginalTextToClipboard(wordSpan);
           break;
         case "copy-translation":
-          this.tooltipService.saveTranslationToClipboard();
+          this.tooltipService.saveTranslationToClipboard(wordSpan);
           break;
         case "nothing":
           break;

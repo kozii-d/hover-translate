@@ -97,5 +97,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "Pokud vám HoverTranslate pomáhá s učením, hodnocení pomůže dalším studentům ho najít."
+  },
+  "ratingPromptRate": {
+    "message": "Ohodnotit"
+  },
+  "ratingPromptNotNow": {
+    "message": "Teď ne"
   }
 }

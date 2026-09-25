@@ -135,5 +135,12 @@
     "keyNote": "ご自身の DeepL API キーが必要です（無料プランで十分です）。",
     "connect": "DeepL に接続",
     "switch": "DeepL に切り替え"
+  },
+  "ratingPrompt": {
+    "text": "HoverTranslate が学習に役立っているなら、評価をいただくとほかの学習者が見つけやすくなります。",
+    "rate": "評価する",
+    "dontAskAgain": "今後表示しない",
+    "notNow": "後で",
+    "reportProblem": "うまく動かない場合は GitHub でお知らせください"
   }
 }

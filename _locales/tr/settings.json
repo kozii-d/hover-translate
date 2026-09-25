@@ -135,5 +135,12 @@
     "keyNote": "Kendi DeepL API anahtarınız gerekir; ücretsiz plan yeterlidir.",
     "connect": "DeepL bağlantısı kur",
     "switch": "DeepL'e geç"
+  },
+  "ratingPrompt": {
+    "text": "HoverTranslate öğrenmenize yardımcı oluyorsa, bir puan diğer öğrenenlerin onu bulmasına yardımcı olur.",
+    "rate": "Puan ver",
+    "dontAskAgain": "Bir daha sorma",
+    "notNow": "Şimdi değil",
+    "reportProblem": "Bir şey çalışmıyor mu? GitHub'da bize bildirin"
   }
 }

@@ -6,6 +6,7 @@ import { ApiKeyTranslator, isApiKeyTranslator } from "../../common/translators/a
 import { serializeTranslatorError } from "../../common/translators/translatorError.ts";
 import { ApiKeyService } from "../../common/services/apiKeyService.ts";
 import { ExtensionMessage } from "../../common/types/messages.ts";
+import { getReviewPageUrl } from "../../common/ratingPrompt.ts";
 
 /**
  * Runs a translator request and answers with its result, or with the error it
@@ -158,6 +159,13 @@ export class MessageService {
 
       if (message?.action === "claimSessionNotice") {
         return this.claimSessionNotice(message.value.noticeId);
+      }
+
+      if (message?.action === "openReviewPage") {
+        const url = getReviewPageUrl(chrome.runtime.getURL(""), chrome.runtime.id);
+        if (!url) return Promise.resolve({ success: false });
+
+        return chrome.tabs.create({ url }).then(() => ({ success: true }));
       }
 
       if (message?.action === "abortTranslate") {

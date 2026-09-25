@@ -15,14 +15,32 @@ export class VideoController {
   private claimedVideo: HTMLVideoElement | null = null;
 
   public handleVideoPause = (event: Event): void => {
-    if (!state.settings.autoPause) return;
+    this.pauseVideo(this.getVideoElement(event));
+  };
 
-    const video = this.getVideoElement(event);
+  /**
+   * Auto-pause for our own interface outside the player — the rating card —
+   * which cannot find the video from where it sits and is given it instead.
+   * Resumed by `handleVideoPlay`, like a pause over the captions: it is the
+   * same claim.
+   */
+  public pauseVideo(video: HTMLVideoElement | null): void {
+    if (!state.settings.autoPause) return;
     if (!video || video.paused) return;
 
     video.pause();
     this.claimVideo(video);
-  };
+  }
+
+  /**
+   * Pauses `video` and gives up the claim without resuming it: the viewer is
+   * leaving for another tab on purpose and should find the video where it
+   * was, not playing on in the background after the pointer "left".
+   */
+  public keepPaused(video: HTMLVideoElement): void {
+    this.releaseClaim();
+    video.pause();
+  }
 
   public handleVideoPlay = (): void => {
     // Deliberately not gated on `autoPause`: the claim can only exist because

@@ -135,5 +135,12 @@
     "keyNote": "É necessária a sua própria chave de API do DeepL; o plano gratuito é suficiente.",
     "connect": "Ligar DeepL",
     "switch": "Mudar para o DeepL"
+  },
+  "ratingPrompt": {
+    "text": "Se o HoverTranslate ajuda a aprender, uma avaliação ajuda outros estudantes a encontrá-lo.",
+    "rate": "Avaliar",
+    "dontAskAgain": "Não voltar a perguntar",
+    "notNow": "Agora não",
+    "reportProblem": "Algo não funciona? Diga-nos no GitHub"
   }
 }

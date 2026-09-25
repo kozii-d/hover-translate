@@ -97,5 +97,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "Se HoverTranslate ti aiuta a imparare, una valutazione aiuta altri studenti a trovarlo."
+  },
+  "ratingPromptRate": {
+    "message": "Valuta"
+  },
+  "ratingPromptNotNow": {
+    "message": "Non ora"
   }
 }

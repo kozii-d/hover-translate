@@ -99,5 +99,12 @@
     "keyNote": "Tarvitset oman DeepL-API-avaimen – ilmainen paketti riittää.",
     "connect": "Yhdistä DeepL",
     "switch": "Vaihda DeepL:iin"
+  },
+  "ratingPrompt": {
+    "text": "Jos HoverTranslate auttaa sinua oppimaan, arvio auttaa muita oppijoita löytämään sen.",
+    "rate": "Arvostele",
+    "dontAskAgain": "Älä kysy uudelleen",
+    "notNow": "Ei nyt",
+    "reportProblem": "Eikö jokin toimi? Kerro meille GitHubissa"
   }
 }

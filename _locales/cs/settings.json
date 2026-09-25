@@ -99,5 +99,12 @@
     "keyNote": "Potřebujete vlastní klíč API DeepL – stačí bezplatný tarif.",
     "connect": "Připojit DeepL",
     "switch": "Přepnout na DeepL"
+  },
+  "ratingPrompt": {
+    "text": "Pokud vám HoverTranslate pomáhá s učením, hodnocení pomůže dalším studentům ho najít.",
+    "rate": "Ohodnotit",
+    "dontAskAgain": "Už se neptat",
+    "notNow": "Teď ne",
+    "reportProblem": "Něco nefunguje? Napište nám na GitHubu"
   }
 }

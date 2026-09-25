@@ -97,5 +97,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "Jos HoverTranslate auttaa sinua oppimaan, arvio auttaa muita oppijoita löytämään sen."
+  },
+  "ratingPromptRate": {
+    "message": "Arvostele"
+  },
+  "ratingPromptNotNow": {
+    "message": "Ei nyt"
   }
 }

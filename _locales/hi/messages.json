@@ -111,5 +111,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "अगर HoverTranslate से आपको सीखने में मदद मिलती है, तो एक रेटिंग दूसरे सीखने वालों को इसे ढूँढने में मदद करती है।"
+  },
+  "ratingPromptRate": {
+    "message": "रेट करें"
+  },
+  "ratingPromptNotNow": {
+    "message": "अभी नहीं"
   }
 }

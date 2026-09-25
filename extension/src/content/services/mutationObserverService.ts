@@ -8,6 +8,7 @@ import { SubtitleCore } from "../core/subtitleCore";
 import { VideoController } from "../core/videoController";
 import { TooltipService } from "./tooltipService.ts";
 import { CoveredCaptionPointerService } from "./coveredCaptionPointerService.ts";
+import { RatingPromptService } from "./ratingPromptService.ts";
 import { debugLog } from "../utils/debugLog.ts";
 
 const RETRY_CONFIG = {
@@ -58,6 +59,7 @@ export class MutationObserverService {
     private readonly subtitleCore: SubtitleCore,
     private readonly videoController: VideoController,
     private readonly tooltipService: TooltipService,
+    private readonly ratingPromptService: RatingPromptService,
   ) {
     this.observer = new MutationObserver(this.handleMutations);
 
@@ -105,6 +107,7 @@ export class MutationObserverService {
     });
 
     this.videoController.destroy();
+    this.ratingPromptService.removeCard();
 
     this.tooltipService.deleteActiveTooltip();
     this.tooltipService.clearSelectedWords();
@@ -429,6 +432,9 @@ export class MutationObserverService {
     if (this.currentHref === newHref) return;
 
     this.currentHref = newHref;
+    // The rating card belongs to the page it was shown on; with the video
+    // paused it would otherwise stay over the next one.
+    this.ratingPromptService.removeCard();
     this.startObserving();
     debugLog(LOG_MESSAGES.URL_CHANGED);
   };

@@ -97,5 +97,14 @@
         "example": "DeepL"
       }
     }
+  },
+  "ratingPromptText": {
+    "message": "如果 HoverTranslate 对你的学习有帮助，给它评个分能让更多学习者找到它。"
+  },
+  "ratingPromptRate": {
+    "message": "评分"
+  },
+  "ratingPromptNotNow": {
+    "message": "以后再说"
   }
 }

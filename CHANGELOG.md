@@ -8,8 +8,14 @@ All notable changes to this project will be documented in this file.
 
 - The Bing translator is back. HoverTranslate asks for access to <www.bing.com> only when you pick Bing in the settings, and no longer asks every user for it. If Bing was already your translator, pick it in the settings once more to allow that access: opening the settings switches you to Google and says so. Until then, words are translated with Google, as in the previous version, and a notice on the video says so once each time you start the browser.
 
+### Added
+
+- A request to rate HoverTranslate, the same for everyone and only once it has been in use for a while — never in the first week after installing or updating. In the settings, a card with "Rate", "Don't ask again" and a link for reporting a problem on GitHub; it stays until you answer it, and closing it puts it off for a month, at most three times. On the video, a small card once ever — when the tenth word is saved to your list, or, if you only hover over words, once you have translated thirty — unless notifications are off; the video pauses while the pointer is on it, as over the subtitles, and "Rate" leaves the video paused where it was. "Rate", "Don't ask again", or "Rate us" on the About page end the request for good.
+
 ### Fixed
 
+- "Rate us" on the About page opened a page that does not exist when HoverTranslate was installed in Edge from the Chrome Web Store, and in Firefox a reviews page where a rating cannot be given. It now opens the page of the store HoverTranslate was installed from, where it can be rated.
+- "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down. They are now shown at the top-left of the visible part of the video.
 - In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player, rolled out from March 2026, placed its controls layer over the subtitles: no translation, no auto-pause, and a click did not save the word. Now it shows the translation, pauses the video and saves the word, as on YouTube itself, and a click anywhere else in the player still works as before.
 
 ## [1.1.14] - 2026-09-24

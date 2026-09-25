@@ -6,6 +6,8 @@ import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
 import CoffeeIcon from "@mui/icons-material/Coffee";
 import { useTranslation } from "react-i18next";
+import { RATING_PROMPT_DONE_KEY, getReviewPageUrl } from "@extension/common/ratingPrompt.ts";
+import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 
 interface SupportProjectProps {
   openModal: () => void;
@@ -14,41 +16,18 @@ interface SupportProjectProps {
 export const SupportProject: FC<SupportProjectProps> = (props) => {
   const { openModal } = props;
   const { t } = useTranslation("about");
+  const { set } = useStorage();
   
-  const browser = useMemo(() => {
-    if (typeof chrome !== "undefined") {
-      const url = chrome.runtime.getURL("");
-      if (url.startsWith("moz-extension://")) {
-        return "firefox";
-      } else if (url.startsWith("chrome-extension://")) {
-        if (navigator.userAgent.includes("Edg/")) {
-          return "edge";
-        }
-        return "chrome";
-      }
-    }
+  // Null in an unpacked build: its id belongs to no store.
+  const reviewUrl = useMemo(() => getReviewPageUrl(chrome.runtime.getURL(""), chrome.runtime.id), []);
 
-    return "unknown";
-  }, []);
-  
-  const reviewUrl = useMemo(() => {
-    switch (browser) {
-    case "chrome":
-      return `https://chromewebstore.google.com/detail/${chrome.runtime.id}/reviews`;
-    case "firefox":
-      return "https://addons.mozilla.org/en-US/firefox/addon/hovertranslate/reviews";
-    case "edge":
-      return `https://microsoftedge.microsoft.com/addons/detail/${chrome.runtime.id}`;
-    default:
-      return null;
-    }
-  }, [browser]);
+  const openReviewPage = async () => {
+    if (!reviewUrl) return;
 
-  const openReviewPage = () => {
-    if (!reviewUrl) {
-      console.error("Unsupported browser or review URL not available.");
-      return;
-    }
+    // Whoever rates from here is not asked again by the rating cards. Written
+    // first: the browser closes the popup as soon as the tab opens.
+    await set(RATING_PROMPT_DONE_KEY, true, "sync")
+      .catch((error) => console.error("Could not remember that the rating request is done", error));
 
     chrome.tabs.create({
       url: reviewUrl,
