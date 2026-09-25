@@ -8,19 +8,19 @@
  * replacement's codes — so hovering keeps working without a trip to the
  * settings.
  *
- * Bing, in 1.1.14: 1.1.11 made www.bing.com a required host permission, Chrome
+ * Nothing is withdrawn now; the mechanism is kept for the next time. Bing was,
+ * in 1.1.14 only: 1.1.11 made www.bing.com a required host permission, Chrome
  * disabled the extension on update for everyone who did not accept it, and
  * Chrome only re-enables it by itself once an update no longer asks for that
- * host at all — declaring it optional instead is not enough. So 1.1.14 carries
- * no Bing permission, and Bing comes back as an optional permission in the
- * release after it. How to bring it back: `BING_RESTORE.md`.
+ * host at all — declaring it optional instead is not enough. So 1.1.14 carried
+ * no Bing permission, and 1.2.0 brought Bing back with its host as an optional
+ * permission (see `PermissionFallbackTranslator` for a viewer who has not
+ * granted it).
  *
  * Kept apart from `TranslatorFactory` so the popup can read it without pulling
  * in the translators' HTTP client.
  */
-export const WITHDRAWN_TRANSLATORS: Partial<Record<string, string>> = {
-  bing: "google",
-};
+export const WITHDRAWN_TRANSLATORS: Partial<Record<string, string>> = {};
 
 export const isTranslatorWithdrawn = (translatorKey: string): boolean =>
   Boolean(WITHDRAWN_TRANSLATORS[translatorKey]);

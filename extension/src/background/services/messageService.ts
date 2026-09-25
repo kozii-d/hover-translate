@@ -18,6 +18,16 @@ const answerTranslatorRequest = <T>(request: () => Promise<T>) =>
     .then(request)
     .catch(serializeTranslatorError);
 
+/**
+ * The translators whose "answering through the fallback" notice was already
+ * shown in this browser session: `{ bing: true }`, in `session` storage, which
+ * outlives restarts of the background worker and is cleared when the browser
+ * closes.
+ */
+const PERMISSION_FALLBACK_NOTICES_STORAGE_KEY = "permissionFallbackNotices";
+
+const getSessionStorage = () => (chrome.storage as { session?: typeof chrome.storage.local }).session;
+
 export class MessageService {
   // Translators keep short-lived credentials in memory, so the same instance is
   // reused instead of being rebuilt for every message.
@@ -30,6 +40,10 @@ export class MessageService {
 
   // The only writer of `apiKeys` — see `SetApiKeyMessage`.
   private readonly apiKeyService = new ApiKeyService();
+
+  // Claims are answered one after the other: two tabs asking at once must not
+  // both read "not shown yet".
+  private noticeClaims: Promise<unknown> = Promise.resolve();
 
   constructor(
     // private readonly tokenService: TokenService = new TokenService(),
@@ -57,6 +71,31 @@ export class MessageService {
     }
 
     return translator;
+  }
+
+  /** See `ClaimPermissionFallbackNoticeMessage`. */
+  private claimPermissionFallbackNotice(translatorKey: string): Promise<{ claimed: boolean }> {
+    const claim = this.noticeClaims.then(async () => {
+      const session = getSessionStorage();
+
+      // No `storage.session`: every page tells the viewer once.
+      if (!session) return { claimed: true };
+
+      const stored = (await session.get(PERMISSION_FALLBACK_NOTICES_STORAGE_KEY))[PERMISSION_FALLBACK_NOTICES_STORAGE_KEY] as
+        Partial<Record<string, boolean>> | undefined;
+
+      if (stored?.[translatorKey]) return { claimed: false };
+
+      await session.set({ [PERMISSION_FALLBACK_NOTICES_STORAGE_KEY]: { ...stored, [translatorKey]: true } });
+
+      return { claimed: true };
+    })
+      // Better told twice than not at all.
+      .catch(() => ({ claimed: true }));
+
+    this.noticeClaims = claim;
+
+    return claim;
   }
 
   private setupMessageListeners(): void {
@@ -128,6 +167,10 @@ export class MessageService {
             context,
           ))
           .finally(() => this.activeTranslations.delete(requestId));
+      }
+
+      if (message?.action === "claimPermissionFallbackNotice") {
+        return this.claimPermissionFallbackNotice(message.value.translatorKey);
       }
 
       if (message?.action === "abortTranslate") {

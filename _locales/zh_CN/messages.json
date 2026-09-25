@@ -54,6 +54,23 @@
       }
     }
   },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$ 需要访问 $HOST$ 的权限，请在 HoverTranslate 设置中允许。在此之前将使用 $FALLBACK$",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
   "errorUnsupportedLanguage": {
     "message": "$TRANSLATOR$ 不支持所选语言",
     "placeholders": {

@@ -68,6 +68,23 @@
       }
     }
   },
+  "noticePermissionFallback": {
+    "message": "O $TRANSLATOR$ precisa de acesso a $HOST$: permita nas configurações do HoverTranslate. Enquanto isso, o $FALLBACK$ está sendo usado",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
   "errorUnsupportedLanguage": {
     "message": "O $TRANSLATOR$ não oferece suporte ao idioma selecionado",
     "placeholders": {

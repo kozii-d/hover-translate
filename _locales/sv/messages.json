@@ -68,6 +68,23 @@
       }
     }
   },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$ behöver åtkomst till $HOST$ – tillåt det i HoverTranslates inställningar. Under tiden används $FALLBACK$",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
   "errorUnsupportedLanguage": {
     "message": "$TRANSLATOR$ stöder inte det valda språket",
     "placeholders": {

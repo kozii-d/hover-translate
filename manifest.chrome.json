@@ -10,7 +10,8 @@
   "permissions": ["storage"],
   "optional_host_permissions": [
     "https://api-free.deepl.com/*",
-    "https://api.deepl.com/*"
+    "https://api.deepl.com/*",
+    "https://www.bing.com/*"
   ],
   "content_scripts": [
     {

@@ -6,6 +6,12 @@ export interface TranslatedData {
   dictionary?: string;
   transliteration?: string;
   transcription?: string;
+  /**
+   * The translator that made this translation, when a stand-in may have
+   * answered instead of the one asked (see `PermissionFallbackTranslator`).
+   * The translation is cached and labelled under it.
+   */
+  answeredBy?: { key: string; name: string };
 }
 
 export abstract class BaseTranslator {

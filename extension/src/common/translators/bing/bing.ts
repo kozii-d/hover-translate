@@ -1,5 +1,6 @@
 import ky, { HTTPError } from "ky";
 import { BaseTranslator } from "../baseTranslator.ts";
+import { TranslatorError } from "../translatorError.ts";
 import {
   BingAvailableLanguagesResponse,
   BingCredentials,
@@ -11,6 +12,10 @@ import {
 // a hover doesn't have to pay for a retry.
 const CREDENTIALS_SAFETY_MARGIN_MS = 60_000;
 const DEFAULT_CREDENTIALS_LIFETIME_MS = 3_600_000;
+
+// An optional permission everywhere: requested when the viewer picks Bing, and
+// never a required one — see "Browser differences" in CLAUDE.md.
+const BING_ORIGIN = "https://www.bing.com/*";
 
 export class BingTranslator extends BaseTranslator {
   // The anonymous auth endpoint this translator used to rely on
@@ -103,6 +108,25 @@ export class BingTranslator extends BaseTranslator {
     return this.pendingCredentials;
   }
 
+  /**
+   * Without the permission the request fails as an anonymous "Failed to
+   * fetch"; checking first is what lets the viewer be told to grant it — and
+   * what lets a hover answer through Google meanwhile.
+   */
+  private async ensurePermission(): Promise<void> {
+    let granted = true;
+
+    try {
+      granted = await chrome.permissions.contains({ origins: [BING_ORIGIN] });
+    } catch {
+      // A browser that cannot answer: let the request itself find out.
+    }
+
+    if (!granted) {
+      throw new TranslatorError("permission-missing", "The extension has no permission to reach www.bing.com");
+    }
+  }
+
   private isTranslationResponse(data: unknown): data is BingTranslationResponse {
     return Array.isArray(data) && Boolean(data[0]?.translations?.length);
   }
@@ -163,6 +187,9 @@ export class BingTranslator extends BaseTranslator {
     targetLanguageCode: string,
     signal?: AbortSignal
   ): Promise<BingTranslationResponse> {
+    // Both /translator and /ttranslatev3 are on www.bing.com.
+    await this.ensurePermission();
+
     const attempt = async (refresh: boolean) => {
       if (refresh) {
         this.credentials = null;

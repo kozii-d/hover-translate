@@ -206,9 +206,13 @@ export class TranslationCore {
    * is serialised into `local` storage on every flush, and a caption line in
    * each key would multiply its size. Without context the key is exactly what
    * it always was, so Google and Bing keep their accumulated cache.
+   *
+   * `translatorKey` is the translator that answered, when a stand-in may have
+   * (see `TranslatedData.answeredBy`): Google's answer for a Bing viewer
+   * without access must not be served as Bing's once access is granted.
    */
-  private getCacheKey(normalizedText: string, context?: string): string {
-    const key = `${normalizedText}_${state.settings.sourceLanguageCode}_${state.settings.targetLanguageCode}_${this.translator.key}`;
+  private getCacheKey(normalizedText: string, context?: string, translatorKey = this.translator.key): string {
+    const key = `${normalizedText}_${state.settings.sourceLanguageCode}_${state.settings.targetLanguageCode}_${translatorKey}`;
 
     return context ? `${key}_${hashString(context)}` : key;
   }
@@ -260,6 +264,8 @@ export class TranslationCore {
         return null;
       }
 
+      const answeredBy = translatedData.answeredBy ?? this.translator;
+
       const result: TranslationCacheData = {
         sourceLanguageCode: translatedData.detectedLanguageCode,
         targetLanguageCode: state.settings.targetLanguageCode,
@@ -268,10 +274,13 @@ export class TranslationCore {
         dictionary: translatedData.dictionary,
         transliteration: translatedData.transliteration,
         transcription: translatedData.transcription,
-        translatorName: this.translator.name,
+        translatorName: answeredBy.name,
       };
 
-      this.translationCache.set(cacheKey, result);
+      this.translationCache.set(
+        translatedData.answeredBy ? this.getCacheKey(normalizedText, effectiveContext, answeredBy.key) : cacheKey,
+        result,
+      );
       this.scheduleCacheWrite();
 
       return result;

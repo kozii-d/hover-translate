@@ -70,6 +70,19 @@ export interface RemoveApiKeyMessage {
   };
 }
 
+/**
+ * Sent by a page whose translator answers through its fallback because a host
+ * permission is missing (`PermissionFallbackTranslator`). Answered with
+ * `{ claimed: true }` only for the first such page of the browser session, so
+ * the viewer is told once rather than in every tab, reload and embedded player.
+ */
+export interface ClaimPermissionFallbackNoticeMessage {
+  action: "claimPermissionFallbackNotice";
+  value: {
+    translatorKey: string;
+  };
+}
+
 export type ExtensionMessage =
   | OpenPopupMessage
   | GetAvailableLanguagesMessage
@@ -78,7 +91,8 @@ export type ExtensionMessage =
   | VerifyApiKeyMessage
   | GetApiKeyUsageMessage
   | SetApiKeyMessage
-  | RemoveApiKeyMessage;
+  | RemoveApiKeyMessage
+  | ClaimPermissionFallbackNoticeMessage;
 
 export interface GetAvailableLanguagesResponse {
   availableLanguages: AvailableLanguages;

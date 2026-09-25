@@ -118,6 +118,7 @@
     "translatorFallbackReason": "{{reason}} Wechsel zu {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} bleibt ausgewählt.",
     "translatorWithdrawn": "Der Übersetzer {{translatorName}} ist in dieser Version von HoverTranslate nicht verfügbar und kehrt mit dem nächsten Update zurück. Wechsel zu {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "{{translatorName}} braucht Zugriff auf {{host}}. Wählen Sie {{translatorName}} in der Liste aus, um ihn zu erlauben. Wechsel zu {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Auf diesem Gerät wurde kein {{translatorName}}-API-Schlüssel hinzugefügt.",
       "apiKeyInvalid": "{{translatorName}} hat den API-Schlüssel nicht akzeptiert. Prüfen Sie, ob er vollständig kopiert wurde.",

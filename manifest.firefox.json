@@ -14,7 +14,8 @@
   "permissions": ["storage"],
   "optional_permissions": [
     "https://api-free.deepl.com/*",
-    "https://api.deepl.com/*"
+    "https://api.deepl.com/*",
+    "https://www.bing.com/*"
   ],
   "content_scripts": [
     {

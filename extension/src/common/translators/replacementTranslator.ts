@@ -4,14 +4,16 @@ import { defaultSettings } from "../consts/defaultValues.ts";
 import { AvailableLanguages } from "../types/languages.ts";
 
 /**
- * Answers for a withdrawn translator (see `WITHDRAWN_TRANSLATORS`) until the
- * viewer opens the settings, which move them to the replacement for good.
+ * Answers for a translator the settings still name but that cannot answer
+ * itself: a withdrawn one (see `WITHDRAWN_TRANSLATORS`) until the viewer opens
+ * the settings, which move them to the replacement for good, or one whose host
+ * permission was not granted (see `PermissionFallbackTranslator`).
  *
- * Until then the settings keep the withdrawn translator's language codes, and
- * the replacement may not take them: Google answers 400 to Bing's `prs`, `lzh`
- * or `tlh-Latn`. Each request is carried over to the replacement's codes by
- * the rule the settings page applies when it switches translators, so a hover
- * translates into the language the settings page will then save.
+ * The settings keep that translator's language codes, and the replacement may
+ * not take them: Google answers 400 to Bing's `prs`, `lzh` or `tlh-Latn`. Each
+ * request is carried over to the replacement's codes by the rule the settings
+ * page applies when it switches translators, so a hover translates into the
+ * language the settings page would then save.
  */
 export class ReplacementTranslator extends BaseTranslator {
   private availableLanguages: Promise<AvailableLanguages> | null = null;

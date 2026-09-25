@@ -118,6 +118,7 @@
     "translatorFallbackReason": "{{reason}} Перемикання на {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} Залишається {{previousTranslatorName}}.",
     "translatorWithdrawn": "Перекладач {{translatorName}} недоступний у цій версії HoverTranslate і повернеться в наступному оновленні. Перемикання на {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "Для {{translatorName}} потрібен доступ до {{host}}. Щоб дозволити його, виберіть {{translatorName}} у списку. Перемикання на {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "На цьому пристрої не додано API-ключ {{translatorName}}.",
       "apiKeyInvalid": "{{translatorName}} не прийняв API-ключ. Перевірте, чи скопійовано його повністю.",

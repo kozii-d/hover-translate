@@ -54,6 +54,23 @@
       }
     }
   },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$ tarvitsee pääsyn osoitteeseen $HOST$ – salli se HoverTranslaten asetuksissa. Sillä välin käytetään palvelua $FALLBACK$",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
   "errorUnsupportedLanguage": {
     "message": "$TRANSLATOR$ ei tue valittua kieltä",
     "placeholders": {

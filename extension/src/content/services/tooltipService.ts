@@ -17,6 +17,7 @@ import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
 import { TranslationCacheData, TranslationData } from "../../common/types/translations.ts";
 import { TranslatorErrorCode, isTranslatorError } from "../../common/translators/translatorError.ts";
+import { PermissionFallbackNotice } from "../../common/translators/permissionFallbackTranslator.ts";
 
 interface AbortableElement extends HTMLElement {
   abortController?: AbortController;
@@ -591,6 +592,21 @@ export class TooltipService {
       ACTIONABLE_ERROR_DURATION,
     );
   }
+
+  /**
+   * Tells the viewer why their translator's words come from another one — Bing
+   * without access to www.bing.com, answered by Google — and where to fix it.
+   * Called once per browser session (see `ClaimPermissionFallbackNoticeMessage`).
+   * Shown like an error, notifications setting or not: otherwise the switch
+   * goes unexplained.
+   */
+  public reportPermissionFallback = ({ translatorName, host, fallbackTranslatorName }: PermissionFallbackNotice) => {
+    this.showNotificationTooltip(
+      chrome.i18n.getMessage("noticePermissionFallback", [translatorName, host, fallbackTranslatorName]),
+      true,
+      ACTIONABLE_ERROR_DURATION,
+    );
+  };
 
   private isSameSavedTranslation = (translationData1: TranslationData, translationData2: TranslationData) => {
     return translationData1.sourceLanguageCode === translationData2.sourceLanguageCode &&

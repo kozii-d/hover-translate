@@ -68,6 +68,23 @@
       }
     }
   },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$을(를) 사용하려면 $HOST$ 접근 권한이 필요합니다. HoverTranslate 설정에서 허용하세요. 그동안은 $FALLBACK$을(를) 사용합니다",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
   "errorUnsupportedLanguage": {
     "message": "$TRANSLATOR$은(는) 선택한 언어를 지원하지 않습니다",
     "placeholders": {

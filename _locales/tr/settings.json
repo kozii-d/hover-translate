@@ -118,6 +118,7 @@
     "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} çevirmenine geçiliyor.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} kullanılmaya devam ediyor.",
     "translatorWithdrawn": "{{translatorName}} çevirmeni HoverTranslate'in bu sürümünde kullanılamıyor ve bir sonraki güncellemede geri gelecek. {{fallbackTranslatorName}} çevirmenine geçiliyor.",
+    "translatorPermissionFallback": "{{translatorName}} için {{host}} erişimi gerekiyor. İzin vermek için listeden {{translatorName}} seçeneğini seçin. {{fallbackTranslatorName}} çevirmenine geçiliyor.",
     "translator": {
       "apiKeyMissing": "Bu cihaza {{translatorName}} API anahtarı eklenmemiş.",
       "apiKeyInvalid": "{{translatorName}} API anahtarını kabul etmedi. Anahtarın tamamen kopyalandığından emin olun.",

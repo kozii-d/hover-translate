@@ -7,6 +7,14 @@ import { VideoController } from "./core/videoController.ts";
 import { MutationObserverService } from "./services/mutationObserverService.ts";
 import { TranslatorFactory } from "../common/translators/TranslatorFactory.ts";
 import { ProxyTranslator } from "../common/translators/proxyTranslator.ts";
+import { ReplacementTranslator } from "../common/translators/replacementTranslator.ts";
+import {
+  PERMISSION_FALLBACKS,
+  PermissionFallbackNotice,
+  PermissionFallbackTranslator,
+} from "../common/translators/permissionFallbackTranslator.ts";
+import { BaseTranslator } from "../common/translators/baseTranslator.ts";
+import { sendMessageToBackground } from "../common/services/messagingService.ts";
 import { Settings } from "../common/types/settings.ts";
 import { state } from "./state/stateManager.ts";
 
@@ -40,6 +48,55 @@ const PLAYER_PATH = /^\/(watch|embed|e|v|shorts|live|clip)(\/|$)/;
 const canHostPlayer = (): boolean =>
   window.top === window.self || PLAYER_PATH.test(document.location.pathname);
 
+/**
+ * The translator for `translatorKey` as the page uses it. Translators whose
+ * hosts reject cross-origin requests from the page run in the background
+ * service worker; one whose host is an optional permission answers through its
+ * fallback until the viewer grants it (`PERMISSION_FALLBACKS`).
+ */
+const createTranslator = (
+  translatorKey: string,
+  onPermissionFallback: (notice: PermissionFallbackNotice) => void,
+): BaseTranslator => {
+  const inPage = (key: string) => {
+    const translator = TranslatorFactory.create(key);
+    return translator.needsBackgroundProxy ? new ProxyTranslator(translator) : translator;
+  };
+
+  const translator = inPage(translatorKey);
+  const permissionFallback = PERMISSION_FALLBACKS[translatorKey];
+
+  if (!permissionFallback) {
+    return translator;
+  }
+
+  return new PermissionFallbackTranslator(
+    translator,
+    new ReplacementTranslator(inPage(permissionFallback.translatorKey)),
+    permissionFallback.host,
+    onPermissionFallback,
+  );
+};
+
+/**
+ * Shows the "answering through the fallback" notice if no other page has in
+ * this browser session — the background keeps the count, see
+ * `ClaimPermissionFallbackNoticeMessage`.
+ */
+const announcePermissionFallback = (
+  translatorKey: string,
+  notice: PermissionFallbackNotice,
+  tooltipService: TooltipService,
+) => {
+  sendMessageToBackground<{ claimed: boolean }>({ action: "claimPermissionFallbackNotice", value: { translatorKey } })
+    .then(({ claimed }) => claimed)
+    // No answer: better told twice than not at all.
+    .catch(() => true)
+    .then((claimed) => {
+      if (claimed) tooltipService.reportPermissionFallback(notice);
+    });
+};
+
 const main = async () => {
   const generation = ++initGeneration;
 
@@ -52,13 +109,12 @@ const main = async () => {
     // this one would only install a pipeline that is already out of date.
     if (generation !== initGeneration) return;
 
-    const selectedTranslator = TranslatorFactory.create(translatorKey);
-
-    // Translators whose hosts reject cross-origin requests from the page have to
-    // run in the background service worker.
-    const translator = selectedTranslator.needsBackgroundProxy
-      ? new ProxyTranslator(selectedTranslator)
-      : selectedTranslator;
+    // The notice is only ever called from a hover, long after the tooltip
+    // service below exists.
+    const translator = createTranslator(
+      translatorKey,
+      (notice) => announcePermissionFallback(translatorKey, notice, tooltipService),
+    );
 
     const translationCore = new TranslationCore(translator);
     const tooltipService = new TooltipService(translationCore);

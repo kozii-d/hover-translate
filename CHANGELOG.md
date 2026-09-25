@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [1.2.0] - unreleased
 
+### Changed
+
+- The Bing translator is back. HoverTranslate asks for access to <www.bing.com> only when you pick Bing in the settings, and no longer asks every user for it. If Bing was already your translator, pick it in the settings once more to allow that access: opening the settings switches you to Google and says so. Until then, words are translated with Google, as in the previous version, and a notice on the video says so once each time you start the browser.
+
 ### Fixed
 
 - In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player, rolled out from March 2026, placed its controls layer over the subtitles: no translation, no auto-pause, and a click did not save the word. Now it shows the translation, pauses the video and saves the word, as on YouTube itself, and a click anywhere else in the player still works as before.

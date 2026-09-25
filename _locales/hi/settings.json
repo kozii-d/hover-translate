@@ -118,6 +118,7 @@
     "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} ही चुना रहेगा।",
     "translatorWithdrawn": "{{translatorName}} अनुवादक HoverTranslate के इस संस्करण में उपलब्ध नहीं है और अगले अपडेट में वापस आएगा। {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
+    "translatorPermissionFallback": "{{translatorName}} को {{host}} तक पहुँच चाहिए। अनुमति देने के लिए सूची में {{translatorName}} चुनें। {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
     "translator": {
       "apiKeyMissing": "इस डिवाइस पर कोई {{translatorName}} API कुंजी नहीं जोड़ी गई है।",
       "apiKeyInvalid": "{{translatorName}} ने API कुंजी स्वीकार नहीं की। जाँचें कि वह पूरी कॉपी हुई है।",

@@ -5,6 +5,8 @@ import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { requestAvailableLanguages } from "@/shared/lib/helpers/translatorRequests.ts";
 import { describeTranslatorError, isApiKeyProblem } from "@/shared/lib/helpers/translatorErrors.ts";
 import { apiKeyService } from "@/shared/lib/helpers/apiKeys.ts";
+import { getOriginHosts, getTranslatorOrigins } from "@/shared/lib/helpers/permissions.ts";
+import { requiresApiKey } from "@extension/common/translators/apiKeyProviders.ts";
 import { isTranslatorError } from "@extension/common/translators/translatorError.ts";
 import { isTranslatorWithdrawn, resolveTranslatorKey } from "@extension/common/translators/withdrawnTranslators.ts";
 import { matchSelectedLanguages } from "../lib/helpers/findClosestLanguage.ts";
@@ -124,6 +126,29 @@ const SettingsPage: FC = () => {
         }), "warning");
 
         await fallBackTo(settings, replacement);
+        return;
+      }
+
+      // A translator whose host is an optional permission the viewer has not
+      // granted: Bing for a Chrome user who kept it through 1.1.14 (Chrome
+      // dropped the host then) or a Firefox user who never allowed it. Its
+      // language list needs no permission, so it cannot tell. The page cannot
+      // ask either — the prompt needs a user gesture — so the viewer is moved
+      // to Google and told that picking the translator again is that gesture.
+      // Key-based translators find out through their own requests below.
+      const origins = getTranslatorOrigins(settings.translator);
+      if (
+        !requiresApiKey(settings.translator)
+        && origins.length
+        && !(await chrome.permissions.contains({ origins }).catch(() => true))
+      ) {
+        showFallbackNotice(t("errors.translatorPermissionFallback", {
+          translatorName: getTranslatorLabel(settings.translator),
+          host: getOriginHosts(origins),
+          fallbackTranslatorName: getTranslatorLabel(FALLBACK_TRANSLATOR),
+        }), "warning");
+
+        await fallBackTo(settings, FALLBACK_TRANSLATOR);
         return;
       }
 

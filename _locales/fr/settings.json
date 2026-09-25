@@ -118,6 +118,7 @@
     "translatorFallbackReason": "{{reason}} Passage à {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} reste sélectionné.",
     "translatorWithdrawn": "Le traducteur {{translatorName}} n'est pas disponible dans cette version de HoverTranslate et reviendra dans la prochaine mise à jour. Passage à {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "{{translatorName}} a besoin d'accéder à {{host}}. Choisissez {{translatorName}} dans la liste pour l'autoriser. Passage à {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Aucune clé API {{translatorName}} n'a été ajoutée sur cet appareil.",
       "apiKeyInvalid": "{{translatorName}} n'a pas accepté la clé API. Vérifiez qu'elle a été copiée en entier.",

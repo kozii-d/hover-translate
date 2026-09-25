@@ -82,6 +82,7 @@
     "translatorFallbackReason": "{{reason}} Vaihdetaan kääntäjään {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} pysyy valittuna.",
     "translatorWithdrawn": "Kääntäjä {{translatorName}} ei ole käytettävissä tässä HoverTranslaten versiossa, ja se palaa seuraavassa päivityksessä. Vaihdetaan kääntäjään {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "{{translatorName}} tarvitsee pääsyn osoitteeseen {{host}}. Salli se valitsemalla {{translatorName}} luettelosta. Vaihdetaan kääntäjään {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Tälle laitteelle ei ole lisätty palvelun {{translatorName}} API-avainta.",
       "apiKeyInvalid": "{{translatorName}} ei hyväksynyt API-avainta. Tarkista, että se kopioitiin kokonaan.",

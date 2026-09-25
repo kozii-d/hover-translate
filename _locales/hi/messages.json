@@ -68,6 +68,23 @@
       }
     }
   },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$ को $HOST$ तक पहुँच चाहिए — HoverTranslate सेटिंग्स में अनुमति दें। तब तक $FALLBACK$ का उपयोग किया जा रहा है",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
   "errorUnsupportedLanguage": {
     "message": "$TRANSLATOR$ चुनी गई भाषा का समर्थन नहीं करता",
     "placeholders": {

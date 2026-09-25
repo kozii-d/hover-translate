@@ -90,6 +90,7 @@
     "translatorFallbackReason": "{{reason}}正在切换到 {{fallbackTranslatorName}}。",
     "translatorSwitchFailedReason": "{{reason}}仍使用 {{previousTranslatorName}}。",
     "translatorWithdrawn": "此版本的 HoverTranslate 暂不提供 {{translatorName}} 翻译器，它将在下次更新中回归。正在切换到 {{fallbackTranslatorName}}。",
+    "translatorPermissionFallback": "{{translatorName}} 需要访问 {{host}} 的权限。在列表中选择 {{translatorName}} 即可允许。正在切换到 {{fallbackTranslatorName}}。",
     "translator": {
       "apiKeyMissing": "此设备上尚未添加 {{translatorName}} API 密钥。",
       "apiKeyInvalid": "{{translatorName}} 未接受该 API 密钥。请检查密钥是否已完整复制。",
