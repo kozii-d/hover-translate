@@ -79,8 +79,15 @@ export class VideoController {
    * The video started playing again without us. Whoever did it — the viewer, the
    * player's own controls — the debt is settled, so a later `pointerleave` must
    * not resume a video they have since paused on purpose.
+   *
+   * The event comes a task after the `play()` that caused it. When the video
+   * is paused again by then, it is not playing and the claim still stands —
+   * typically the event is our own: dragging the caption window moves it
+   * under the pointer, and a `pointerleave` resumes the video right before a
+   * `pointerenter` pauses and claims it again.
    */
   private handleExternalPlay = (): void => {
+    if (this.claimedVideo?.paused) return;
     this.releaseClaim();
   };
 

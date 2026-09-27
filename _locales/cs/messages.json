@@ -1,6 +1,6 @@
 {
   "name": { "message": "HoverTranslate - Překladač titulků na YouTube" },
-  "description": { "message": "Překládejte slova v titulcích na YouTube pouhým najetím myši. Ideální pro studium jazyků. Zdarma a bez registrace." },
+  "description": { "message": "Překlad titulků na YouTube: najeďte myší na slovo a hned uvidíte jeho překlad. Pro výuku angličtiny i dalších jazyků. Zdarma." },
   "translationSaved": { "message": "Překlad uložen" },
   "originalTextCopied": { "message": "Původní text zkopírován" },
   "translatedTextCopied": { "message": "Přeložený text zkopírován" },

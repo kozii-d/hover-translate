@@ -3,7 +3,9 @@ import { AvailableLanguages, Language } from "../types/languages.ts";
 /**
  * Codes that name the same language in the spellings the translators use:
  * Google's legacy `iw` / `jw`, Bing's `fil`, Norwegian Bokmål (`nb` in the
- * browsers, DeepL and Bing, `no` in Google), Central Kurdish in Arabic script
+ * browsers, DeepL and Bing, `no` in Google) and Nynorsk (`nn`, the other
+ * written Norwegian, which no translator offers and whose readers read Bokmål
+ * freely), Central Kurdish in Arabic script
  * (`ku-Arab` in the browsers, `ckb` in Google — Google's `ku` is Kurmanji in
  * Latin script), and the regional Chinese codes that stand for a script
  * (`zh-CN` is simplified, `zh-TW` traditional).
@@ -13,6 +15,7 @@ const CANONICAL_CODES: Record<string, string> = {
   "jw": "jv",
   "fil": "tl",
   "nb": "no",
+  "nn": "no",
   "ku-arab": "ckb",
   "zh-cn": "zh-hans",
   "zh-sg": "zh-hans",

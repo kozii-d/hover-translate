@@ -43,6 +43,9 @@ function createSourceArchive() {
       "*.swp",
       "*.swo",
       "notes/*",
+      // Not needed for the build: the README's GIFs and the store listing material
+      "docs/*",
+      "store-assets/*",
     ]
       .map((pattern) => `"${pattern}"`)
       .join(" ");

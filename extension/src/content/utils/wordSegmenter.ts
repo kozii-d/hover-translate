@@ -37,9 +37,10 @@ let cachedSegmenter: Intl.Segmenter | null | undefined;
 
 /**
  * `Intl.Segmenter` reached Chrome in 87 and Firefox only in 125, while the
- * add-on still supports Firefox 109 (the 115 ESR line is ~1.5% of the Firefox
- * users and cannot upgrade — it is the last line for Windows 7/8). Those get the
- * old whole-line behaviour instead of a broken caption.
+ * add-on still supports Firefox 115–124 (`strict_min_version` is 115; the 115
+ * ESR line is ~1.5% of the Firefox users and cannot upgrade — it is the last
+ * line for Windows 7/8). Those get the old whole-line behaviour instead of a
+ * broken caption.
  */
 const getSegmenter = (): Intl.Segmenter | null => {
   if (cachedSegmenter !== undefined) return cachedSegmenter;

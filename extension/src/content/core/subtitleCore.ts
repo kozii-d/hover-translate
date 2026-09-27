@@ -142,7 +142,10 @@ export class SubtitleCore {
     let startY = 0;
     const DRAG_THRESHOLD = 5;
 
+    // Only the main button acts on the word: a right click opens the context
+    // menu, and a middle click is not a click on the word either.
     wordSpan.addEventListener("pointerdown", (e: PointerEvent) => {
+      if (e.button !== 0) return;
       // Save the initial coordinates and reset the "drag" flag
       isDrag = false;
       startX = e.clientX;
@@ -159,9 +162,9 @@ export class SubtitleCore {
       }
     });
 
-    wordSpan.addEventListener("pointerup", () => {
+    wordSpan.addEventListener("pointerup", (e: PointerEvent) => {
       // If the user is dragging the subtitles, don't save the translation or copy the text
-      if (!isDrag) {
+      if (e.button === 0 && !isDrag) {
         switch (state.settings.leftClickAction) {
         case "save-to-dictionary":
           this.tooltipService.saveTranslationToDictionary(wordSpan);

@@ -17,6 +17,9 @@ All notable changes to this project will be documented in this file.
 - "Rate us" on the About page opened a page that does not exist when HoverTranslate was installed in Edge from the Chrome Web Store, and in Firefox a reviews page where a rating cannot be given. It now opens the page of the store HoverTranslate was installed from, where it can be rated.
 - "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down. They are now shown at the top-left of the visible part of the video.
 - In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player, rolled out from March 2026, placed its controls layer over the subtitles: no translation, no auto-pause, and a click did not save the word. Now it shows the translation, pauses the video and saves the word, as on YouTube itself, and a click anywhere else in the player still works as before.
+- A right or middle click on a subtitle word saved or copied it, as a left click does, while YouTube opened its menu. Only the left click acts on the word now.
+- After the subtitles were dragged to another place in the player, the video could stay paused when the pointer left them, instead of playing on as auto-pause intends.
+- On a first install in Norwegian Nynorsk (Firefox), the translation language was set to English: no translator offers Nynorsk. It is now set to Norwegian (Bokmål), which Nynorsk readers read freely.
 
 ## [1.1.14] - 2026-09-24
 
