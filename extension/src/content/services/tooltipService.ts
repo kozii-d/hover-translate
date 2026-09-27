@@ -155,6 +155,9 @@ export class TooltipService {
 
     const tooltip = document.createElement("div");
     tooltip.className = TOOLTIP_CLASS;
+    // The translation's own direction, not the page's: Arabic into an English
+    // YouTube, English into an Arabic one.
+    tooltip.dir = "auto";
     tooltip.textContent = translatedData.translatedText;
 
     tooltip.style.visibility = "hidden";
@@ -191,6 +194,9 @@ export class TooltipService {
 
     const tooltip = document.createElement("div");
     tooltip.className = NOTIFICATION_TOOLTIP_CLASS;
+    // Not "@@bidi_dir": that is the browser's language, and a browser in a
+    // language the extension is not translated into gets English messages.
+    tooltip.dir = "auto";
     tooltip.textContent = text;
 
     tooltip.style.visibility = "hidden";
@@ -274,8 +280,12 @@ export class TooltipService {
     tooltip.style.boxSizing = "border-box";
     tooltip.style.overflowWrap = "break-word";
 
-    // Set initial horizontal position aligned with anchor word
-    tooltip.style.left = `${rectAnchorWord.left + window.scrollX}px`;
+    // Over the start of the selection, extending the way the line reads: the
+    // first word of a right-to-left caption is its rightmost one.
+    const anchorLeft = getComputedStyle(anchorWordNode).direction === "rtl"
+      ? rectAnchorWord.right - tooltip.offsetWidth
+      : rectAnchorWord.left;
+    tooltip.style.left = `${anchorLeft + window.scrollX}px`;
 
     // Position tooltip above or below subtitles based on screen location
     const tooltipHeight = tooltip.offsetHeight;

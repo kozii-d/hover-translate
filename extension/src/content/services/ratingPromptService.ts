@@ -166,6 +166,8 @@ export class RatingPromptService {
   private createCard(): HTMLElement {
     const card = document.createElement("div");
     card.className = RATING_CARD_CLASS;
+    // The direction of the message, whatever the page's (see the notification).
+    card.dir = "auto";
     card.style.visibility = "hidden";
     card.style.left = "0";
     card.style.top = "0";

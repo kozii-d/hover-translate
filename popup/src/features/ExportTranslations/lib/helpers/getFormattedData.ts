@@ -76,5 +76,8 @@ export const getCSVToExport = async (): Promise<string> => {
     csv.push(row.join(","));
   });
 
-  return csv.join("\n");
+  // Without the byte order mark Excel reads the file in the system's legacy
+  // code page, and every non-Latin word (Arabic, Cyrillic, Chinese) comes out
+  // garbled. LibreOffice skips it when it reads the file as UTF-8, its default.
+  return `\uFEFF${csv.join("\n")}`;
 };
