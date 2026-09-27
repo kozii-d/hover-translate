@@ -15,7 +15,7 @@
       "copyAddress": { "text": "复制" },
       "copyAddressSuccess": { "text": "已复制！" }
     },
-    "labels": { "address": "地址" },
+    "labels": { "address": "{{networkType}} 地址" },
     "notifications": { "copyAddress": "地址已复制到剪贴板！" },
     "warnings": {
       "verifyNetwork": "发送前请务必核对网络和代币类型",

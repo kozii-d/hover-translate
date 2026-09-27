@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Cím"
+      "address": "{{networkType}} Cím"
     },
     "notifications": {
       "copyAddress": "A cím a vágólapra került!"

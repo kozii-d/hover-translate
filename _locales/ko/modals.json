@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "주소"
+      "address": "{{networkType}} 주소"
     },
     "notifications": {
       "copyAddress": "주소가 클립보드에 복사되었습니다!"

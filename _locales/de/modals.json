@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Adresse"
+      "address": "{{networkType}} Adresse"
     },
     "notifications": {
       "copyAddress": "Adresse in die Zwischenablage kopiert!"

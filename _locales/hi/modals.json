@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "पता"
+      "address": "{{networkType}} पता"
     },
     "notifications": {
       "copyAddress": "पता क्लिपबोर्ड में कॉपी हो गया!"

@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Адрес"
+      "address": "{{networkType}} Адрес"
     },
     "notifications": {
       "copyAddress": "Адрес скопирован в буфер обмена!"

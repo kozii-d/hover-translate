@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Link from "@mui/material/Link";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useTheme } from "@mui/material/styles";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
@@ -46,6 +47,7 @@ export const ApiKeyForm: FC<ApiKeyFormProps> = ({
   removeDescription = "",
 }) => {
   const { t } = useTranslation("settings");
+  const { direction } = useTheme();
 
   const [apiKey, setApiKey] = useState(initialApiKey);
   const [showApiKey, setShowApiKey] = useState(false);
@@ -116,7 +118,8 @@ export const ApiKeyForm: FC<ApiKeyFormProps> = ({
             sx={{ display: "inline-flex", alignItems: "center", gap: 0.5, alignSelf: "flex-start" }}
           >
             {t("apiKey.getKey", { translatorName })}
-            <OpenInNewIcon fontSize="inherit" />
+            {/* The arrow points out of the page, the way the text runs: Chrome mirrors it too. */}
+            <OpenInNewIcon fontSize="inherit" sx={{ transform: direction === "rtl" ? "scaleX(-1)" : undefined }} />
           </Link>
         )}
         <TextField
@@ -139,6 +142,9 @@ export const ApiKeyForm: FC<ApiKeyFormProps> = ({
           error={Boolean(error)}
           helperText={error || t("apiKey.privacy", { translatorName })}
           slotProps={{
+            // A key is Latin letters and digits: typed and shown left to right
+            // in a right-to-left popup as well.
+            htmlInput: { dir: "ltr" },
             input: {
               endAdornment: (
                 <InputAdornment position="end">

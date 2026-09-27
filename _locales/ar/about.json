@@ -1,0 +1,37 @@
+{
+  "pageTitle": "حول",
+  "tabLabel": "حول",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "وسّع مفرداتك وأنت تشاهد YouTube!",
+      "thank-you": "شكرًا لاختيارك إضافتي!"
+    },
+    "support": {
+      "title": "ادعم المشروع",
+      "actions": {
+        "review": {
+          "text": "قيّمنا"
+        },
+        "donate": {
+          "text": "اشترِ لي قهوة"
+        }
+      }
+    },
+    "contacts": {
+      "title": "تواصل معنا",
+      "github": "الشيفرة المصدرية على GitHub",
+      "reportIssues": "الإبلاغ عن مشكلة على GitHub"
+    },
+    "tips": {
+      "title": "نصائح سريعة",
+      "multipleSelection": "ترجمة العبارات: اضغط مع الاستمرار على Shift أو فعِّل التحديد المتعدد في الإعدادات",
+      "saveToDictionary": "انقر على الكلمات لحفظها في قاموسك الشخصي",
+      "exportDictionary": "صدِّر كلماتك من علامة التبويب \"القاموس\" بتنسيق JSON أو CSV"
+    }
+  },
+  "footer": {
+    "version": "الإصدار",
+    "changelog": "سجلّ التغييرات"
+  }
+}

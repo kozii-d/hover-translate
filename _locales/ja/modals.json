@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "アドレス"
+      "address": "{{networkType}} アドレス"
     },
     "notifications": {
       "copyAddress": "アドレスをクリップボードにコピーしました！"

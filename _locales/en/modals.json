@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Address"
+      "address": "{{networkType}} Address"
     },
     "notifications": {
       "copyAddress": "Address copied to clipboard!"

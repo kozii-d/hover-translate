@@ -1,0 +1,146 @@
+{
+  "pageTitle": "الإعدادات",
+  "tabLabel": "الإعدادات",
+  "actions": {
+    "reset": {
+      "text": "إعادة الضبط",
+      "tooltip": "استعادة الإعدادات التلقائية"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "الترجمة إلى",
+      "tooltip": "اللغة التي يُترجَم إليها النص"
+    },
+    "sourceLanguageCode": {
+      "label": "الترجمة من",
+      "tooltip": "اللغة التي يُترجَم منها النص"
+    },
+    "translator": {
+      "label": "خدمة الترجمة",
+      "tooltip": "الخدمة التي تُستخدَم للترجمة"
+    },
+    "autoPause": {
+      "label": "الإيقاف المؤقت التلقائي",
+      "tooltip": "إيقاف الفيديو مؤقتًا تلقائيًا عند تمرير المؤشر فوق ترجمة الفيديو",
+      "helperText": "إيقاف الفيديو مؤقتًا تلقائيًا عند تمرير المؤشر فوق ترجمة الفيديو"
+    },
+    "leftClickAction": {
+      "label": "عند النقر بالزر الأيسر",
+      "tooltip": "ما يحدث عند النقر بالزر الأيسر على كلمة في ترجمة الفيديو",
+      "options": {
+        "saveToDictionary": "الحفظ في القاموس",
+        "copyOriginal": "نسخ النص الأصلي إلى الحافظة",
+        "copyTranslation": "نسخ النص المترجَم إلى الحافظة",
+        "nothing": "لا شيء"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "تفعيل التحديد المتعدد دائمًا",
+      "tooltip": "تحديد عدة كلمات دون الضغط مع الاستمرار على Shift",
+      "helperText": "عند تفعيل هذا الإعداد، يمكنك تحديد عدة كلمات دون الضغط مع الاستمرار على Shift"
+    },
+    "showNotifications": {
+      "label": "عرض الإشعارات",
+      "tooltip": "عرض إشعار عند حفظ الكلمات في القاموس أو نسخها إلى الحافظة",
+      "helperText": "عند إيقاف هذا الإعداد، لن تظهر إشعارات عند حفظ الكلمات أو نسخها"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "هل تريد إعادة ضبط الإعدادات؟",
+      "description": "ستتم استعادة القيم التلقائية لجميع الإعدادات.",
+      "action": "إعادة الضبط"
+    }
+  },
+  "tips": {
+    "multipleSelection": "لتحديد عدة كلمات، اضغط مع الاستمرار على Shift ومرّر المؤشر فوق الكلمات التي تريدها، أو شغِّل الإعداد \"تفعيل التحديد المتعدد دائمًا\".",
+    "dismiss": "إخفاء هذه النصيحة"
+  },
+  "apiKey": {
+    "requiredHint": "تتطلّب مفتاح API الخاص بك",
+    "title": "ربط {{translatorName}}",
+    "description": "تعمل خدمة {{translatorName}} باستخدام مفتاح API الخاص بك. أنشئ حسابًا على موقع {{translatorName}} (تتوفّر خطة مجانية) وانسخ المفتاح من صفحة حسابك.",
+    "getKey": "الحصول على مفتاح API",
+    "field": {
+      "label": "مفتاح API",
+      "placeholder": "الصق مفتاحك هنا",
+      "show": "إظهار المفتاح",
+      "hide": "إخفاء المفتاح"
+    },
+    "privacy": "يُحفَظ على هذا الجهاز فقط، ولا يُرسَل إلا إلى {{translatorName}}.",
+    "actions": {
+      "connect": "ربط",
+      "connecting": "جارٍ التحقّق…",
+      "cancel": "إلغاء",
+      "change": "تغيير المفتاح",
+      "remove": "إزالة المفتاح"
+    },
+    "status": {
+      "connected": "تم ربط {{translatorName}}",
+      "plan": {
+        "free": "الخطة المجانية",
+        "pro": "خطة Pro"
+      }
+    },
+    "usage": {
+      "label": "الأحرف المستخدَمة في فترة الفوترة هذه: {{used}} من {{limit}}",
+      "unavailable": "تعذّر تحميل بيانات الاستخدام. {{reason}}",
+      "exhausted": "تم استنفاد الحدّ، ولن تترجم خدمة {{translatorName}} حتى يتجدّد."
+    },
+    "notifications": {
+      "connected": "تم ربط {{translatorName}}",
+      "removed": "تمت إزالة مفتاح API الخاص بـ {{translatorName}}، وتم التبديل إلى {{fallbackTranslatorName}}.",
+      "removedFromDevice": "تمت إزالة مفتاح API الخاص بـ {{translatorName}} من هذا الجهاز."
+    },
+    "modals": {
+      "remove": {
+        "title": "هل تريد إزالة مفتاح API الخاص بـ {{translatorName}}؟",
+        "description": "سيُحذَف المفتاح من هذا الجهاز، وستتم الترجمة عبر {{fallbackTranslatorName}}.",
+        "descriptionInactive": "سيُحذَف المفتاح من هذا الجهاز.",
+        "action": "إزالة"
+      }
+    },
+    "errors": {
+      "empty": "أدخِل مفتاح API",
+      "permissionDenied": "لا يمكن لـ HoverTranslate التحقّق من المفتاح دون إذن الوصول إلى {{translatorName}}. انقر على \"ربط\" مرة أخرى واسمح بالوصول.",
+      "saveFailed": "تعذّر حفظ المفتاح. حاول مرة أخرى.",
+      "removeFailed": "تعذّرت إزالة المفتاح. حاول مرة أخرى.",
+      "settingsSaveFailed": "تم حفظ المفتاح، لكن تعذّر حفظ الإعدادات. انقر على \"ربط\" للمحاولة مرة أخرى."
+    }
+  },
+  "errors": {
+    "sourceLanguageCode": "لا تتوفّر اللغة {{incorrectLanguage}} كلغة مصدر في خدمة {{translatorName}}. سيتم التبديل إلى {{defaultLanguage}}.",
+    "targetLanguageCode": "لا تتوفّر اللغة {{incorrectLanguage}} كلغة هدف في خدمة {{translatorName}}. سيتم التبديل إلى {{defaultLanguage}}.",
+    "translatorUnavailable": "خدمة الترجمة {{translatorName}} غير متاحة: {{errorMessage}}",
+    "translatorFallback": "خدمة الترجمة {{translatorName}} غير متاحة: {{errorMessage}}. سيتم الرجوع إلى {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "تعذّر التبديل إلى {{translatorName}}: {{errorMessage}}. سيستمر استخدام {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} سيتم التبديل إلى {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} سيستمر استخدام {{previousTranslatorName}}.",
+    "translatorWithdrawn": "خدمة الترجمة {{translatorName}} غير متاحة في هذا الإصدار من HoverTranslate، وستعود في التحديث القادم. سيتم التبديل إلى {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "تحتاج خدمة {{translatorName}} إلى الوصول إلى {{host}}. اختر {{translatorName}} من القائمة للسماح بذلك. سيتم التبديل إلى {{fallbackTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "لم تتم إضافة مفتاح API لـ {{translatorName}} على هذا الجهاز.",
+      "apiKeyInvalid": "لم تقبل خدمة {{translatorName}} مفتاح API. تأكّد من أنه منسوخ بالكامل.",
+      "quotaExceeded": "تم استنفاد حدّ الأحرف في {{translatorName}} لفترة الفوترة هذه.",
+      "rateLimited": "تلقّت خدمة {{translatorName}} طلبات كثيرة جدًا. حاول مرة أخرى بعد قليل.",
+      "permissionMissing": "لا يُسمح لـ HoverTranslate بالاتصال بـ {{translatorName}}.",
+      "unsupportedLanguage": "لا تدعم خدمة {{translatorName}} اللغة المحدّدة.",
+      "network": "تعذّر الوصول إلى {{translatorName}}. تحقّق من اتصالك بالإنترنت.",
+      "serviceUnavailable": "خدمة {{translatorName}} غير متاحة مؤقتًا. حاول مرة أخرى لاحقًا."
+    }
+  },
+  "contextHint": {
+    "text": "تترجم DeepL الكلمة مع مراعاة سطر ترجمة الفيديو كاملًا، فتحصل الكلمة التي لها عدة معانٍ على معناها في هذا السطر بالذات.",
+    "keyNote": "تعمل باستخدام مفتاح DeepL API الخاص بك، والخطة المجانية تكفي.",
+    "connect": "ربط DeepL",
+    "switch": "التبديل إلى DeepL"
+  },
+  "ratingPrompt": {
+    "text": "إذا كانت HoverTranslate تساعدك في التعلّم، فتقييمك يساعد متعلّمين آخرين في العثور عليها.",
+    "rate": "تقييم",
+    "dontAskAgain": "عدم السؤال مرة أخرى",
+    "notNow": "ليس الآن",
+    "reportProblem": "هل هناك مشكلة؟ أخبرنا على GitHub"
+  }
+}

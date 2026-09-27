@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Địa chỉ"
+      "address": "{{networkType}} Địa chỉ"
     },
     "notifications": {
       "copyAddress": "Đã sao chép địa chỉ vào bảng nhớ tạm!"

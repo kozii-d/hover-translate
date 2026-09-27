@@ -113,7 +113,8 @@ export const CryptoCard: FC<CryptoCardProps> = (props) => {
             color="text.secondary"
             textTransform="uppercase"
           >
-            {networkType} {t("support.labels.address")}
+            {/* One string: the word order is the language's («ERC-20 Address», «عنوان ERC-20»). */}
+            {t("support.labels.address", { networkType })}
           </Typography>
         </Box>
         <Box mb={warningKey ? 1 : 2}>

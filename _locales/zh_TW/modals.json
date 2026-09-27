@@ -15,7 +15,7 @@
       "copyAddress": { "text": "複製" },
       "copyAddressSuccess": { "text": "已複製！" }
     },
-    "labels": { "address": "地址" },
+    "labels": { "address": "{{networkType}} 地址" },
     "notifications": { "copyAddress": "地址已複製到剪貼簿！" },
     "warnings": {
       "verifyNetwork": "發送前請務必核對網路和代幣類型",

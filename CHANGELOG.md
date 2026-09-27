@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 
 - A request to rate HoverTranslate, the same for everyone and only once it has been in use for a while — never in the first week after installing or updating. In the settings, a card with "Rate", "Don't ask again" and a link for reporting a problem on GitHub; it stays until you answer it, and closing it puts it off for a month, at most three times. On the video, a small card once ever — when the tenth word is saved to your list, or, if you only hover over words, once you have translated thirty — unless notifications are off; the video pauses while the pointer is on it, as over the subtitles, and "Rate" leaves the video paused where it was. "Rate", "Don't ask again", or "Rate us" on the About page end the request for good.
 - The settings are now available in Vietnamese, Indonesian, Hungarian and Greek.
+- The settings are now available in Arabic, laid out from right to left, and so are the messages on the video.
 
 ### Fixed
 

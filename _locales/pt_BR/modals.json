@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Endereço"
+      "address": "{{networkType}} Endereço"
     },
     "notifications": {
       "copyAddress": "Endereço copiado para a área de transferência!"

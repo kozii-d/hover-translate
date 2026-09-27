@@ -146,7 +146,8 @@ export const ApiKeyStatus: FC<ApiKeyStatusProps> = ({
           )}
         </Stack>
         <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "monospace" }}>
-          {maskApiKey(apiKey)}
+          {/* Left to right even in a right-to-left popup, or the dots move to the end. */}
+          <span dir="ltr">{maskApiKey(apiKey)}</span>
         </Typography>
         {renderUsage()}
         <Stack direction="row" spacing={1} justifyContent="flex-end">

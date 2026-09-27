@@ -15,7 +15,7 @@
       "copyAddress": { "text": "Kopioi" },
       "copyAddressSuccess": { "text": "Kopioitu!" }
     },
-    "labels": { "address": "Osoite" },
+    "labels": { "address": "{{networkType}} Osoite" },
     "notifications": { "copyAddress": "Osoite kopioitu leikepöydälle!" },
     "warnings": {
       "verifyNetwork": "Varmista verkko ja token ennen lähettämistä",

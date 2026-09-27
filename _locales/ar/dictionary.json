@@ -1,0 +1,39 @@
+{
+  "pageTitle": "القاموس",
+  "tabLabel": "القاموس",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "حذف الترجمة"
+    },
+    "clearAll": {
+      "text": "مسح الكل",
+      "tooltip": "مسح كل الترجمات"
+    },
+    "showMore": {
+      "text": "عرض المزيد",
+      "tooltip": "عرض المزيد من الترجمات"
+    },
+    "export": {
+      "tooltip": "تصدير الترجمات"
+    },
+    "exportJSON": {
+      "text": "تصدير JSON",
+      "tooltip": "تصدير الترجمات إلى ملف JSON"
+    },
+    "exportCSV": {
+      "text": "تصدير CSV",
+      "tooltip": "تصدير الترجمات إلى ملف CSV"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "هل تريد مسح كل الترجمات؟",
+      "description": "سيتم حذف كل الترجمات نهائيًا.",
+      "action": "مسح"
+    }
+  },
+  "emptyState": {
+    "title": "القاموس فارغ",
+    "description": "انقر على كلمة أو عبارة في ترجمة الفيديو لحفظها في القاموس"
+  }
+}

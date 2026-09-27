@@ -34,6 +34,9 @@ import "dayjs/locale/vi";
 import "dayjs/locale/zh-cn";
 import "dayjs/locale/zh-tw";
 
+// Right to left
+import "dayjs/locale/ar";
+
 import dayjs from "dayjs";
 
 const languageDetector = new LanguageDetector();
@@ -69,6 +72,9 @@ const supportedLanguages = [
   "vi",
   "zh_CN",
   "zh_TW",
+
+  // Right to left
+  "ar",
 ];
 
 /**

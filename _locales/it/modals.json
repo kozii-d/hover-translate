@@ -15,7 +15,7 @@
       "copyAddress": { "text": "Copia" },
       "copyAddressSuccess": { "text": "Copiato!" }
     },
-    "labels": { "address": "Indirizzo" },
+    "labels": { "address": "{{networkType}} Indirizzo" },
     "notifications": { "copyAddress": "Indirizzo copiato negli appunti!" },
     "warnings": {
       "verifyNetwork": "Verifica la rete e il token prima di inviare",

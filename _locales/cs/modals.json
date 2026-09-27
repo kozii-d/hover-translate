@@ -15,7 +15,7 @@
       "copyAddress": { "text": "Kopírovat" },
       "copyAddressSuccess": { "text": "Zkopírováno!" }
     },
-    "labels": { "address": "Adresa" },
+    "labels": { "address": "{{networkType}} Adresa" },
     "notifications": { "copyAddress": "Adresa zkopírována do schránky!" },
     "warnings": {
       "verifyNetwork": "Před odesláním ověřte síť a token",

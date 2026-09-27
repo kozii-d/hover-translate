@@ -1,0 +1,124 @@
+{
+  "name": {
+    "message": "HoverTranslate - ترجمة يوتيوب لتعلّم اللغات"
+  },
+  "description": {
+    "message": "تعلّم اللغات على يوتيوب: مرّر المؤشر فوق كلمة في ترجمة الفيديو لترى معناها، واحفظها في قائمة كلماتك. مجانية وبدون حساب."
+  },
+  "translationSaved": {
+    "message": "تم الحفظ في القاموس"
+  },
+  "originalTextCopied": {
+    "message": "تم نسخ النص الأصلي"
+  },
+  "translatedTextCopied": {
+    "message": "تم نسخ النص المترجَم"
+  },
+  "copyFailed": {
+    "message": "تعذّر النسخ"
+  },
+  "saveFailed": {
+    "message": "تعذّر الحفظ"
+  },
+  "translationFailed": {
+    "message": "تعذّرت الترجمة"
+  },
+  "errorApiKeyMissing": {
+    "message": "أضِف مفتاح API الخاص بـ $TRANSLATOR$ في إعدادات HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "لم تقبل خدمة $TRANSLATOR$ مفتاح API الخاص بك. تحقّق منه في إعدادات HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "تم استنفاد حدّ الأحرف في $TRANSLATOR$ لفترة الفوترة هذه",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "طلبات كثيرة جدًا إلى $TRANSLATOR$، حاول مرة أخرى بعد قليل",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "لا يُسمح لـ HoverTranslate بالاتصال بـ $TRANSLATOR$. اسمح بذلك في إعدادات HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "noticePermissionFallback": {
+    "message": "تحتاج خدمة $TRANSLATOR$ إلى الوصول إلى $HOST$، ويمكنك السماح بذلك في إعدادات HoverTranslate. تتم الترجمة عبر $FALLBACK$ حتى ذلك الحين",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "لا تدعم خدمة $TRANSLATOR$ اللغة المحدّدة",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "تعذّر الوصول إلى $TRANSLATOR$. تحقّق من اتصالك بالإنترنت",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "خدمة $TRANSLATOR$ غير متاحة مؤقتًا",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "ratingPromptText": {
+    "message": "إذا كانت HoverTranslate تساعدك في التعلّم، فتقييمك يساعد متعلّمين آخرين في العثور عليها."
+  },
+  "ratingPromptRate": {
+    "message": "تقييم"
+  },
+  "ratingPromptNotNow": {
+    "message": "ليس الآن"
+  }
+}

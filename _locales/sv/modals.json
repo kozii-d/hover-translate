@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Adress"
+      "address": "{{networkType}} Adress"
     },
     "notifications": {
       "copyAddress": "Adressen kopierad till urklipp!"

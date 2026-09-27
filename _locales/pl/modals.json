@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Adres"
+      "address": "{{networkType}} Adres"
     },
     "notifications": {
       "copyAddress": "Adres skopiowany do schowka!"

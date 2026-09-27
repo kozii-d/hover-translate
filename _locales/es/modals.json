@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Dirección"
+      "address": "{{networkType}} Dirección"
     },
     "notifications": {
       "copyAddress": "¡Dirección copiada al portapapeles!"

@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Alamat"
+      "address": "{{networkType}} Alamat"
     },
     "notifications": {
       "copyAddress": "Alamat disalin ke papan klip!"

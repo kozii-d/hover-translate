@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "Διεύθυνση"
+      "address": "{{networkType}} Διεύθυνση"
     },
     "notifications": {
       "copyAddress": "Η διεύθυνση αντιγράφηκε στο πρόχειρο!"

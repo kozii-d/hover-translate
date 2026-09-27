@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "إغلاق"
+      },
+      "confirm": {
+        "text": "تأكيد"
+      }
+    }
+  },
+  "support": {
+    "title": "اشترِ لي قهوة",
+    "description": "شكرًا لدعمك HoverTranslate!\nاختر العملة المشفّرة التي تفضّلها أدناه",
+    "footer": "كل فنجان قهوة يساعدني على تطوير HoverTranslate",
+    "actions": {
+      "showQR": {
+        "text": "عرض رمز QR"
+      },
+      "hideQR": {
+        "text": "إخفاء رمز QR"
+      },
+      "copyAddress": {
+        "text": "نسخ"
+      },
+      "copyAddressSuccess": {
+        "text": "تم النسخ!"
+      }
+    },
+    "labels": {
+      "address": "عنوان {{networkType}}"
+    },
+    "notifications": {
+      "copyAddress": "تم نسخ العنوان إلى الحافظة!"
+    },
+    "warnings": {
+      "verifyNetwork": "تحقّق من الشبكة والعملة قبل الإرسال",
+      "bnb": "العنوان نفسه كما في Ethereum، لكن الشبكة مختلفة!"
+    }
+  }
+}
