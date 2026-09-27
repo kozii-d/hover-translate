@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Névjegy",
+  "tabLabel": "Névjegy",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Bővítsd a szókincsedet YouTube-nézés közben!",
+      "thank-you": "Köszönöm, hogy a bővítményemet választottad!"
+    },
+    "support": {
+      "title": "Támogasd a projektet",
+      "actions": {
+        "review": {
+          "text": "Értékelj minket"
+        },
+        "donate": {
+          "text": "Hívj meg egy kávéra"
+        }
+      }
+    },
+    "contacts": {
+      "title": "Kapcsolat",
+      "github": "Forráskód a GitHubon",
+      "reportIssues": "Hiba bejelentése a GitHubon"
+    },
+    "tips": {
+      "title": "Gyors tippek",
+      "multipleSelection": "Kifejezések fordítása: tartsd lenyomva a Shiftet, vagy kapcsold be a Beállításokban a több szó kijelölését",
+      "saveToDictionary": "Kattints a szavakra, és bekerülnek a saját szótáradba",
+      "exportDictionary": "A szótáradat a Szótár lapon exportálhatod JSON- vagy CSV-fájlba"
+    }
+  },
+  "footer": {
+    "version": "Verzió",
+    "changelog": "Változásnapló"
+  }
+}

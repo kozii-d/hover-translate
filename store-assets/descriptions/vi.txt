@@ -1,0 +1,25 @@
+HoverTranslate – tiện ích dịch phụ đề YouTube cho người học ngoại ngữ qua video
+
+Bạn đang xem video có phụ đề tiếng Anh và gặp một từ chưa biết? Chỉ cần di chuột vào từ đó, bản dịch sẽ hiện ngay phía trên phụ đề. Video tự tạm dừng trong lúc bạn đọc và phát tiếp ngay khi bạn rời chuột đi. Không phải chép từ sang công cụ dịch, không bị lỡ mạch câu chuyện – bạn cứ xem tiếp và hiểu nhiều hơn. HoverTranslate không dịch phụ đề YouTube cả câu một lúc mà dịch đúng từ hoặc cụm từ bạn đang trỏ vào. Dù bạn luyện nghe cho IELTS, TOEIC hay học tiếng Anh để đi làm, học tiếng Anh qua YouTube sẽ nhẹ nhàng hơn nhiều.
+
+HoverTranslate làm được gì:
+• Dịch cả từ đơn lẫn cụm từ. Gặp thành ngữ hay cụm từ cố định? Hãy giữ Shift và lướt chuột qua các từ. Nếu không muốn giữ Shift, bạn có thể bật chế độ này trong phần cài đặt.
+• Sổ từ vựng của riêng bạn. Nhấp vào một từ, từ đó sẽ được lưu cùng bản dịch. Bạn có thể xuất sổ từ vựng ra CSV hoặc JSON để ôn lại từ mới sau này.
+• Dùng được cả với phụ đề tự động – loại phụ đề YouTube tự tạo – nên những video không có phụ đề của tác giả cũng xem được.
+• Không chỉ trên YouTube: khi video được nhúng vào blog, khóa học trực tuyến hay bài báo, bạn cũng chỉ cần di chuột vào từ như vậy.
+• Hiểu cả tiếng Trung, tiếng Nhật và tiếng Thái: dù các ngôn ngữ này viết liền, không có dấu cách giữa các từ, bạn vẫn nhận được bản dịch của một từ chứ không phải cả dòng.
+• Dịch sang hơn 180 ngôn ngữ và tự nhận biết ngôn ngữ của phụ đề.
+• Hòa vào khung hình: bản dịch trông giống hệt phụ đề YouTube của bạn. Muốn khác đi? Hãy tự chọn phông chữ, màu sắc và cỡ chữ.
+• Theo thói quen xem của bạn: có thể tắt chế độ tự động tạm dừng, và khi nhấp vào từ, tiện ích có thể sao chép từ hoặc bản dịch thay vì lưu.
+
+Bản dịch hiểu ngữ cảnh
+Bạn có thể dịch bằng Google, Bing hoặc DeepL. Với DeepL (cần khóa API miễn phí của riêng bạn), mỗi từ được dịch dựa trên cả dòng phụ đề, nên từ nhiều nghĩa sẽ được dịch đúng nghĩa trong câu: “bank” trong “we sat on the bank of the river” là “bờ sông”, không phải “ngân hàng”. Khóa của bạn chỉ được lưu trên thiết bị của bạn.
+
+Miễn phí, không cần đăng ký
+HoverTranslate hoàn toàn miễn phí: không tài khoản, không gói thuê bao, không quảng cáo. Đây là dự án mã nguồn mở, mã nguồn có trên GitHub.
+
+Câu hỏi và góp ý: hovertranslate@gmail.com
+Mã nguồn: https://github.com/kozii-d/hover-translate
+Nhật ký thay đổi: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+Hãy cài HoverTranslate, mở một video bất kỳ có phụ đề và di chuột vào từ đầu tiên bạn chưa biết. Chúc bạn xem video vui vẻ!

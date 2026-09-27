@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Kamus",
+  "tabLabel": "Kamus",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Hapus terjemahan"
+    },
+    "clearAll": {
+      "text": "Hapus semua",
+      "tooltip": "Hapus semua terjemahan"
+    },
+    "showMore": {
+      "text": "Tampilkan lebih banyak",
+      "tooltip": "Tampilkan terjemahan lainnya"
+    },
+    "export": {
+      "tooltip": "Ekspor terjemahan"
+    },
+    "exportJSON": {
+      "text": "Ekspor JSON",
+      "tooltip": "Ekspor terjemahan ke JSON"
+    },
+    "exportCSV": {
+      "text": "Ekspor CSV",
+      "tooltip": "Ekspor terjemahan ke CSV"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Hapus semua terjemahan?",
+      "description": "Semua terjemahan akan dihapus secara permanen.",
+      "action": "Hapus"
+    }
+  },
+  "emptyState": {
+    "title": "Kamus masih kosong",
+    "description": "Klik kata atau frasa di subtitle untuk menyimpannya ke kamus"
+  }
+}

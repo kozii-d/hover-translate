@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Szótár",
+  "tabLabel": "Szótár",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Fordítás törlése"
+    },
+    "clearAll": {
+      "text": "Összes törlése",
+      "tooltip": "Az összes fordítás törlése"
+    },
+    "showMore": {
+      "text": "Továbbiak",
+      "tooltip": "További fordítások megjelenítése"
+    },
+    "export": {
+      "tooltip": "Fordítások exportálása"
+    },
+    "exportJSON": {
+      "text": "JSON-export",
+      "tooltip": "Fordítások exportálása JSON-fájlba"
+    },
+    "exportCSV": {
+      "text": "CSV-export",
+      "tooltip": "Fordítások exportálása CSV-fájlba"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Törlöd az összes fordítást?",
+      "description": "Ezzel minden fordítás végleg törlődik.",
+      "action": "Törlés"
+    }
+  },
+  "emptyState": {
+    "title": "A szótár üres",
+    "description": "Kattints egy szóra vagy kifejezésre a feliratban, és bekerül a szótárba"
+  }
+}

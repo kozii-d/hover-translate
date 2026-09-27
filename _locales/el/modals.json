@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Κλείσιμο"
+      },
+      "confirm": {
+        "text": "Επιβεβαίωση"
+      }
+    }
+  },
+  "support": {
+    "title": "Κεράστε με έναν καφέ",
+    "description": "Σας ευχαριστώ που στηρίζετε το HoverTranslate!\nΕπιλέξτε το κρυπτονόμισμα που προτιμάτε",
+    "footer": "Κάθε καφές με βοηθά να κάνω το HoverTranslate καλύτερο",
+    "actions": {
+      "showQR": {
+        "text": "Εμφάνιση QR"
+      },
+      "hideQR": {
+        "text": "Απόκρυψη QR"
+      },
+      "copyAddress": {
+        "text": "Αντιγραφή"
+      },
+      "copyAddressSuccess": {
+        "text": "Αντιγράφηκε!"
+      }
+    },
+    "labels": {
+      "address": "Διεύθυνση"
+    },
+    "notifications": {
+      "copyAddress": "Η διεύθυνση αντιγράφηκε στο πρόχειρο!"
+    },
+    "warnings": {
+      "verifyNetwork": "Ελέγξτε το δίκτυο και το token πριν από την αποστολή",
+      "bnb": "Ίδια διεύθυνση με το Ethereum, αλλά διαφορετικό δίκτυο!"
+    }
+  }
+}

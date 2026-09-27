@@ -1,0 +1,25 @@
+HoverTranslate – terjemahan subtitle YouTube untuk Anda yang belajar bahasa dari video
+
+Sedang menonton video dengan subtitle bahasa Inggris lalu menemukan kata yang belum Anda ketahui? Cukup arahkan kursor ke kata itu, dan terjemahannya langsung muncul di atas subtitle. Video otomatis berhenti selama Anda membaca, lalu berlanjut begitu kursor Anda pindahkan. Tidak perlu menyalin kata ke penerjemah dan kehilangan alur cerita – Anda cukup terus menonton dan makin banyak yang Anda pahami. HoverTranslate tidak menerjemahkan subtitle YouTube satu kalimat penuh sekaligus, melainkan kata atau frasa yang sedang Anda tunjuk. Cocok untuk belajar bahasa Inggris dari YouTube, baik untuk persiapan TOEFL atau IELTS, kuliah, maupun pekerjaan.
+
+Yang bisa dilakukan HoverTranslate:
+• Kata atau frasa, dua-duanya bisa. Menemukan idiom atau ungkapan tetap? Tahan Shift dan geser kursor di atas kata-katanya. Kalau lebih nyaman tanpa Shift, fitur ini bisa diaktifkan di setelan.
+• Kamus pribadi yang terisi sambil menonton. Klik sebuah kata, dan kata itu tersimpan bersama terjemahannya. Kamus bisa diekspor ke CSV atau JSON agar kosakata baru mudah diulang nanti.
+• Subtitle otomatis juga bisa, yaitu subtitle yang dibuat sendiri oleh YouTube. Jadi video yang tidak diberi subtitle oleh pembuatnya pun tetap bisa dipakai.
+• Tidak hanya di YouTube: kalau videonya disematkan di blog, kursus online, atau artikel berita, cukup arahkan kursor ke kata dengan cara yang sama.
+• Bahasa Mandarin, Jepang, dan Thai pun bisa: meski kata-katanya ditulis tanpa spasi, yang diterjemahkan tetap satu kata, bukan seluruh baris.
+• Menerjemahkan ke lebih dari 180 bahasa dan mengenali bahasa subtitle secara otomatis.
+• Menyatu dengan video: terjemahan terlihat sama seperti subtitle YouTube Anda. Ingin tampilan lain? Pilih sendiri font, warna, dan ukurannya.
+• Mengikuti kebiasaan Anda: jeda otomatis bisa dimatikan, dan klik pada kata bisa menyalin kata atau terjemahannya alih-alih menyimpannya.
+
+Terjemahan yang memahami konteks
+Anda bisa menerjemahkan dengan Google, Bing, atau DeepL. Dengan DeepL (perlu kunci API gratis milik Anda sendiri), setiap kata diterjemahkan dengan memperhatikan seluruh baris subtitle, sehingga kata yang punya beberapa arti mendapat arti yang tepat: “bank” dalam “we sat on the bank of the river” berarti “tepi sungai”, bukan bank tempat menabung. Kunci Anda hanya disimpan di perangkat Anda.
+
+Gratis, tanpa perlu mendaftar
+HoverTranslate sepenuhnya gratis: tanpa akun, tanpa langganan, dan tanpa iklan. Ini proyek sumber terbuka, dan kodenya ada di GitHub.
+
+Pertanyaan dan saran: hovertranslate@gmail.com
+Kode sumber: https://github.com/kozii-d/hover-translate
+Catatan perubahan: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+Pasang HoverTranslate, buka video apa saja yang ada subtitle-nya, lalu arahkan kursor ke kata pertama yang belum Anda ketahui. Selamat menonton!

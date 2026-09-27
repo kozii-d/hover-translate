@@ -1,0 +1,39 @@
+{
+  "pageTitle": "Sổ từ vựng",
+  "tabLabel": "Sổ từ vựng",
+  "actions": {
+    "deleteTranslation": {
+      "tooltip": "Xóa bản dịch"
+    },
+    "clearAll": {
+      "text": "Xóa tất cả",
+      "tooltip": "Xóa tất cả bản dịch"
+    },
+    "showMore": {
+      "text": "Xem thêm",
+      "tooltip": "Xem thêm bản dịch"
+    },
+    "export": {
+      "tooltip": "Xuất các bản dịch"
+    },
+    "exportJSON": {
+      "text": "Xuất JSON",
+      "tooltip": "Xuất các bản dịch sang JSON"
+    },
+    "exportCSV": {
+      "text": "Xuất CSV",
+      "tooltip": "Xuất các bản dịch sang CSV"
+    }
+  },
+  "modals": {
+    "clearAll": {
+      "title": "Xóa tất cả bản dịch?",
+      "description": "Tất cả bản dịch sẽ bị xóa vĩnh viễn.",
+      "action": "Xóa"
+    }
+  },
+  "emptyState": {
+    "title": "Sổ từ vựng đang trống",
+    "description": "Nhấp vào một từ hoặc cụm từ trong phụ đề để lưu vào sổ từ vựng"
+  }
+}

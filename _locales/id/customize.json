@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Tampilan",
+  "tabLabel": "Tampilan",
+  "actions": {
+    "reset": {
+      "text": "Setel ulang",
+      "tooltip": "Setel ulang setelan tampilan ke default"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Gunakan setelan YouTube",
+      "tooltip": "Gunakan setelan subtitle YouTube untuk kotak terjemahan",
+      "helperText": "Kotak terjemahan akan terlihat sama seperti subtitle, sesuai setelan Anda di YouTube"
+    },
+    "fontFamily": {
+      "label": "Jenis font",
+      "tooltip": "Jenis font untuk kotak terjemahan"
+    },
+    "fontSize": {
+      "label": "Ukuran font",
+      "tooltip": "Ukuran font untuk kotak terjemahan"
+    },
+    "fontColor": {
+      "label": "Warna font",
+      "tooltip": "Warna font untuk kotak terjemahan"
+    },
+    "fontOpacity": {
+      "label": "Opasitas font",
+      "tooltip": "Tingkat opasitas font di kotak terjemahan"
+    },
+    "backgroundColor": {
+      "label": "Warna latar belakang",
+      "tooltip": "Warna latar belakang kotak terjemahan"
+    },
+    "backgroundOpacity": {
+      "label": "Opasitas latar belakang",
+      "tooltip": "Tingkat opasitas latar belakang kotak terjemahan"
+    },
+    "characterEdgeStyle": {
+      "label": "Gaya tepi karakter",
+      "tooltip": "Gaya tepi karakter di kotak terjemahan"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Setel ulang setelan tampilan ke default?",
+      "description": "Semua setelan tampilan akan dikembalikan ke nilai default.",
+      "action": "Setel ulang"
+    }
+  }
+}

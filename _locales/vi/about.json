@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Giới thiệu",
+  "tabLabel": "Giới thiệu",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Mở rộng vốn từ trong lúc xem YouTube!",
+      "thank-you": "Cảm ơn bạn đã chọn tiện ích do mình làm ra!"
+    },
+    "support": {
+      "title": "Ủng hộ dự án",
+      "actions": {
+        "review": {
+          "text": "Đánh giá"
+        },
+        "donate": {
+          "text": "Mời mình một ly cà phê"
+        }
+      }
+    },
+    "contacts": {
+      "title": "Liên hệ",
+      "github": "Xem mã nguồn trên GitHub",
+      "reportIssues": "Báo lỗi trên GitHub"
+    },
+    "tips": {
+      "title": "Mẹo nhanh",
+      "multipleSelection": "Dịch cụm từ: giữ Shift hoặc bật chọn nhiều từ trong phần Cài đặt",
+      "saveToDictionary": "Nhấp vào từ để lưu vào sổ từ vựng của bạn",
+      "exportDictionary": "Xuất sổ từ vựng dưới dạng JSON hoặc CSV trong thẻ Sổ từ vựng"
+    }
+  },
+  "footer": {
+    "version": "Phiên bản",
+    "changelog": "Nhật ký thay đổi"
+  }
+}

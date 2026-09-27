@@ -1,0 +1,146 @@
+{
+  "pageTitle": "Cài đặt",
+  "tabLabel": "Cài đặt",
+  "actions": {
+    "reset": {
+      "text": "Đặt lại mặc định",
+      "tooltip": "Đặt lại cài đặt về mặc định"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Dịch sang",
+      "tooltip": "Ngôn ngữ mà văn bản sẽ được dịch sang"
+    },
+    "sourceLanguageCode": {
+      "label": "Dịch từ",
+      "tooltip": "Ngôn ngữ của văn bản cần dịch"
+    },
+    "translator": {
+      "label": "Công cụ dịch",
+      "tooltip": "Công cụ dùng để dịch"
+    },
+    "autoPause": {
+      "label": "Tự động tạm dừng",
+      "tooltip": "Tự động tạm dừng video khi di chuột vào phụ đề",
+      "helperText": "Tự động tạm dừng video khi di chuột vào phụ đề"
+    },
+    "leftClickAction": {
+      "label": "Khi nhấp chuột trái",
+      "tooltip": "Việc cần làm khi nhấp chuột trái vào một từ trong phụ đề",
+      "options": {
+        "saveToDictionary": "Lưu vào sổ từ vựng",
+        "copyOriginal": "Sao chép văn bản gốc vào bảng nhớ tạm",
+        "copyTranslation": "Sao chép bản dịch vào bảng nhớ tạm",
+        "nothing": "Không làm gì"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "Luôn chọn nhiều từ",
+      "tooltip": "Chọn nhiều từ mà không cần giữ Shift",
+      "helperText": "Khi bật, bạn có thể chọn nhiều từ mà không cần giữ Shift"
+    },
+    "showNotifications": {
+      "label": "Hiện thông báo",
+      "tooltip": "Hiện thông báo khi lưu từ vào sổ từ vựng hoặc sao chép vào bảng nhớ tạm",
+      "helperText": "Khi tắt, sẽ không có thông báo nào khi bạn lưu hoặc sao chép từ"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Đặt lại cài đặt về mặc định?",
+      "description": "Mọi cài đặt sẽ trở về giá trị mặc định.",
+      "action": "Đặt lại"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Để chọn nhiều từ, hãy giữ Shift và di chuột qua những từ bạn cần. Hoặc bật tùy chọn “Luôn chọn nhiều từ”.",
+    "dismiss": "Ẩn mẹo này"
+  },
+  "apiKey": {
+    "requiredHint": "Cần khóa API của bạn",
+    "title": "Kết nối {{translatorName}}",
+    "description": "{{translatorName}} hoạt động với khóa API cá nhân của bạn. Hãy tạo tài khoản trên trang web của {{translatorName}} (có gói miễn phí) rồi sao chép khóa từ trang tài khoản.",
+    "getKey": "Lấy khóa API",
+    "field": {
+      "label": "Khóa API",
+      "placeholder": "Dán khóa vào đây",
+      "show": "Hiện khóa",
+      "hide": "Ẩn khóa"
+    },
+    "privacy": "Khóa chỉ được lưu trên thiết bị này và chỉ được gửi đến {{translatorName}}.",
+    "actions": {
+      "connect": "Kết nối",
+      "connecting": "Đang kiểm tra…",
+      "cancel": "Hủy",
+      "change": "Đổi khóa",
+      "remove": "Xóa khóa"
+    },
+    "status": {
+      "connected": "Đã kết nối {{translatorName}}",
+      "plan": {
+        "free": "Gói miễn phí",
+        "pro": "Gói Pro"
+      }
+    },
+    "usage": {
+      "label": "Đã dùng {{used}} trên {{limit}} ký tự trong kỳ thanh toán này",
+      "unavailable": "Không tải được mức sử dụng. {{reason}}",
+      "exhausted": "Đã dùng hết hạn mức — {{translatorName}} sẽ không dịch cho đến khi hạn mức được làm mới."
+    },
+    "notifications": {
+      "connected": "Đã kết nối {{translatorName}}",
+      "removed": "Đã xóa khóa API của {{translatorName}}. Đã chuyển sang {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Đã xóa khóa API của {{translatorName}} khỏi thiết bị này."
+    },
+    "modals": {
+      "remove": {
+        "title": "Xóa khóa API của {{translatorName}}?",
+        "description": "Khóa sẽ bị xóa khỏi thiết bị này và việc dịch sẽ chuyển sang {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Khóa sẽ bị xóa khỏi thiết bị này.",
+        "action": "Xóa"
+      }
+    },
+    "errors": {
+      "empty": "Hãy nhập khóa API",
+      "permissionDenied": "HoverTranslate không thể kiểm tra khóa nếu không có quyền truy cập {{translatorName}}. Hãy nhấp lại vào “Kết nối” và cho phép truy cập.",
+      "saveFailed": "Không lưu được khóa. Hãy thử lại.",
+      "removeFailed": "Không xóa được khóa. Hãy thử lại.",
+      "settingsSaveFailed": "Đã lưu khóa nhưng không lưu được cài đặt. Hãy nhấp vào “Kết nối” để thử lại."
+    }
+  },
+  "errors": {
+    "sourceLanguageCode": "Công cụ dịch {{translatorName}} không hỗ trợ {{incorrectLanguage}} làm ngôn ngữ nguồn. Đang chuyển sang {{defaultLanguage}}.",
+    "targetLanguageCode": "Công cụ dịch {{translatorName}} không hỗ trợ {{incorrectLanguage}} làm ngôn ngữ đích. Đang chuyển sang {{defaultLanguage}}.",
+    "translatorUnavailable": "Công cụ dịch {{translatorName}} không khả dụng: {{errorMessage}}",
+    "translatorFallback": "Công cụ dịch {{translatorName}} không khả dụng: {{errorMessage}}. Đang chuyển lại sang {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Không chuyển được sang {{translatorName}}: {{errorMessage}}. Vẫn dùng {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} Đang chuyển sang {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Vẫn dùng {{previousTranslatorName}}.",
+    "translatorWithdrawn": "Công cụ dịch {{translatorName}} không có trong phiên bản HoverTranslate này và sẽ quay lại trong bản cập nhật tới. Đang chuyển sang {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "{{translatorName}} cần quyền truy cập {{host}}. Hãy chọn {{translatorName}} trong danh sách để cho phép. Đang chuyển sang {{fallbackTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "Chưa có khóa API của {{translatorName}} trên thiết bị này.",
+      "apiKeyInvalid": "{{translatorName}} không chấp nhận khóa API. Hãy kiểm tra xem khóa đã được sao chép đầy đủ chưa.",
+      "quotaExceeded": "Đã dùng hết số ký tự của {{translatorName}} trong kỳ thanh toán này.",
+      "rateLimited": "{{translatorName}} nhận quá nhiều yêu cầu. Hãy thử lại sau giây lát.",
+      "permissionMissing": "HoverTranslate chưa được phép kết nối với {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} không hỗ trợ ngôn ngữ đã chọn.",
+      "network": "Không kết nối được với {{translatorName}}. Hãy kiểm tra kết nối Internet.",
+      "serviceUnavailable": "{{translatorName}} tạm thời không hoạt động. Hãy thử lại sau."
+    }
+  },
+  "contextHint": {
+    "text": "DeepL dịch một từ dựa trên cả dòng phụ đề, nên từ có nhiều nghĩa sẽ được dịch đúng nghĩa của nó trong câu đó.",
+    "keyNote": "Bạn cần khóa API DeepL của riêng mình — gói miễn phí là đủ.",
+    "connect": "Kết nối DeepL",
+    "switch": "Chuyển sang DeepL"
+  },
+  "ratingPrompt": {
+    "text": "Nếu HoverTranslate giúp ích cho việc học của bạn, một lượt đánh giá sẽ giúp những người học khác tìm thấy tiện ích này.",
+    "rate": "Đánh giá",
+    "dontAskAgain": "Không hỏi lại",
+    "notNow": "Để sau",
+    "reportProblem": "Có gì không ổn? Hãy báo cho mình trên GitHub"
+  }
+}

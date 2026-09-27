@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Đóng"
+      },
+      "confirm": {
+        "text": "Xác nhận"
+      }
+    }
+  },
+  "support": {
+    "title": "Mời mình một ly cà phê",
+    "description": "Cảm ơn bạn đã ủng hộ HoverTranslate!\nHãy chọn loại tiền mã hóa bạn muốn dùng",
+    "footer": "Mỗi ly cà phê giúp mình làm HoverTranslate tốt hơn",
+    "actions": {
+      "showQR": {
+        "text": "Hiện mã QR"
+      },
+      "hideQR": {
+        "text": "Ẩn mã QR"
+      },
+      "copyAddress": {
+        "text": "Sao chép"
+      },
+      "copyAddressSuccess": {
+        "text": "Đã sao chép!"
+      }
+    },
+    "labels": {
+      "address": "Địa chỉ"
+    },
+    "notifications": {
+      "copyAddress": "Đã sao chép địa chỉ vào bảng nhớ tạm!"
+    },
+    "warnings": {
+      "verifyNetwork": "Hãy kiểm tra mạng và token trước khi gửi",
+      "bnb": "Cùng địa chỉ với Ethereum, nhưng khác mạng!"
+    }
+  }
+}

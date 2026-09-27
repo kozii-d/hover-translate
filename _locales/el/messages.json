@@ -1,0 +1,124 @@
+{
+  "name": {
+    "message": "HoverTranslate - Μετάφραση υποτίτλων YouTube"
+  },
+  "description": {
+    "message": "Μάθετε γλώσσες στο YouTube: δείξτε μια λέξη στους υπότιτλους, δείτε τη μετάφραση, σώστε τη λέξη στο λεξικό. Δωρεάν, χωρίς εγγραφή."
+  },
+  "translationSaved": {
+    "message": "Η μετάφραση αποθηκεύτηκε"
+  },
+  "originalTextCopied": {
+    "message": "Το αρχικό κείμενο αντιγράφηκε"
+  },
+  "translatedTextCopied": {
+    "message": "Η μετάφραση αντιγράφηκε"
+  },
+  "copyFailed": {
+    "message": "Η αντιγραφή απέτυχε"
+  },
+  "saveFailed": {
+    "message": "Η αποθήκευση απέτυχε"
+  },
+  "translationFailed": {
+    "message": "Η μετάφραση απέτυχε"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: προσθέστε το κλειδί API στις ρυθμίσεις του HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "Το $TRANSLATOR$ δεν δέχτηκε το κλειδί API σας. Ελέγξτε το στις ρυθμίσεις του HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: εξαντλήθηκε το όριο χαρακτήρων για αυτή την περίοδο χρέωσης",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: πάρα πολλά αιτήματα, δοκιμάστε ξανά σε λίγο",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "Το HoverTranslate δεν έχει άδεια σύνδεσης με το $TRANSLATOR$. Επιτρέψτε τη σύνδεση στις ρυθμίσεις του HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "noticePermissionFallback": {
+    "message": "Το $TRANSLATOR$ χρειάζεται πρόσβαση στο $HOST$ — επιτρέψτε την στις ρυθμίσεις του HoverTranslate. Μέχρι τότε, η μετάφραση γίνεται με το $FALLBACK$",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "Το $TRANSLATOR$ δεν υποστηρίζει την επιλεγμένη γλώσσα",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Δεν ήταν δυνατή η σύνδεση με το $TRANSLATOR$. Ελέγξτε τη σύνδεσή σας",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "Το $TRANSLATOR$ δεν είναι διαθέσιμο προσωρινά",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "ratingPromptText": {
+    "message": "Αν το HoverTranslate σάς βοηθά στη μάθηση, μια αξιολόγηση θα βοηθήσει κι άλλους να το βρουν."
+  },
+  "ratingPromptRate": {
+    "message": "Αξιολόγηση"
+  },
+  "ratingPromptNotNow": {
+    "message": "Όχι τώρα"
+  }
+}

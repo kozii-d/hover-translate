@@ -1,0 +1,37 @@
+{
+  "pageTitle": "Tentang",
+  "tabLabel": "Tentang",
+  "blocks": {
+    "description": {
+      "title": "HoverTranslate",
+      "subtitle": "Tambah kosakata sambil menonton YouTube!",
+      "thank-you": "Terima kasih telah memilih ekstensi saya!"
+    },
+    "support": {
+      "title": "Dukung proyek ini",
+      "actions": {
+        "review": {
+          "text": "Beri rating"
+        },
+        "donate": {
+          "text": "Traktir saya kopi"
+        }
+      }
+    },
+    "contacts": {
+      "title": "Kontak",
+      "github": "Lihat kode sumber di GitHub",
+      "reportIssues": "Laporkan masalah di GitHub"
+    },
+    "tips": {
+      "title": "Tips singkat",
+      "multipleSelection": "Terjemahkan frasa: tahan Shift atau aktifkan “Selalu pilih beberapa kata” di Setelan",
+      "saveToDictionary": "Klik kata untuk menyimpannya ke kamus pribadi Anda",
+      "exportDictionary": "Ekspor kosakata Anda dari tab Kamus dalam format JSON atau CSV"
+    }
+  },
+  "footer": {
+    "version": "Versi",
+    "changelog": "Catatan perubahan"
+  }
+}

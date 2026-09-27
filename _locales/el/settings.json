@@ -1,0 +1,146 @@
+{
+  "pageTitle": "Ρυθμίσεις",
+  "tabLabel": "Ρυθμίσεις",
+  "actions": {
+    "reset": {
+      "text": "Επαναφορά προεπιλογών",
+      "tooltip": "Επαναφορά των προεπιλεγμένων ρυθμίσεων"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Μετάφραση σε",
+      "tooltip": "Η γλώσσα στην οποία θα μεταφράζεται το κείμενο"
+    },
+    "sourceLanguageCode": {
+      "label": "Μετάφραση από",
+      "tooltip": "Η γλώσσα από την οποία θα μεταφράζεται το κείμενο"
+    },
+    "translator": {
+      "label": "Μεταφραστής",
+      "tooltip": "Η υπηρεσία που κάνει τη μετάφραση"
+    },
+    "autoPause": {
+      "label": "Αυτόματη παύση",
+      "tooltip": "Αυτόματη παύση του βίντεο όταν ο δείκτης βρίσκεται πάνω στους υπότιτλους",
+      "helperText": "Αυτόματη παύση του βίντεο όταν ο δείκτης βρίσκεται πάνω στους υπότιτλους"
+    },
+    "leftClickAction": {
+      "label": "Αριστερό κλικ",
+      "tooltip": "Τι γίνεται όταν κάνετε αριστερό κλικ σε λέξη των υποτίτλων",
+      "options": {
+        "saveToDictionary": "Αποθήκευση στο λεξικό",
+        "copyOriginal": "Αντιγραφή του αρχικού κειμένου στο πρόχειρο",
+        "copyTranslation": "Αντιγραφή της μετάφρασης στο πρόχειρο",
+        "nothing": "Τίποτα"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "Πολλαπλή επιλογή πάντα ενεργή",
+      "tooltip": "Επιλογή πολλών λέξεων χωρίς να κρατάτε πατημένο το Shift",
+      "helperText": "Όταν είναι ενεργό, μπορείτε να επιλέγετε πολλές λέξεις χωρίς να κρατάτε πατημένο το Shift"
+    },
+    "showNotifications": {
+      "label": "Εμφάνιση ειδοποιήσεων",
+      "tooltip": "Ειδοποίηση όταν μια λέξη αποθηκεύεται στο λεξικό ή αντιγράφεται στο πρόχειρο",
+      "helperText": "Όταν είναι ανενεργό, δεν εμφανίζονται ειδοποιήσεις κατά την αποθήκευση ή την αντιγραφή λέξεων"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Επαναφορά των προεπιλεγμένων ρυθμίσεων;",
+      "description": "Όλες οι ρυθμίσεις θα επανέλθουν στις προεπιλεγμένες τιμές τους.",
+      "action": "Επαναφορά"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Για να επιλέξετε πολλές λέξεις, κρατήστε πατημένο το Shift και περάστε τον δείκτη πάνω από τις λέξεις που θέλετε. Ή ενεργοποιήστε τη ρύθμιση «Πολλαπλή επιλογή πάντα ενεργή».",
+    "dismiss": "Απόκρυψη συμβουλής"
+  },
+  "apiKey": {
+    "requiredHint": "Απαιτεί δικό σας κλειδί API",
+    "title": "Σύνδεση του {{translatorName}}",
+    "description": "Το {{translatorName}} λειτουργεί με το προσωπικό σας κλειδί API. Δημιουργήστε λογαριασμό στον ιστότοπο του {{translatorName}} (υπάρχει δωρεάν πρόγραμμα) και αντιγράψτε το κλειδί από τη σελίδα του λογαριασμού σας.",
+    "getKey": "Λήψη κλειδιού API",
+    "field": {
+      "label": "Κλειδί API",
+      "placeholder": "Επικολλήστε το κλειδί εδώ",
+      "show": "Εμφάνιση κλειδιού",
+      "hide": "Απόκρυψη κλειδιού"
+    },
+    "privacy": "Αποθηκεύεται μόνο σε αυτή τη συσκευή και αποστέλλεται μόνο στο {{translatorName}}.",
+    "actions": {
+      "connect": "Σύνδεση",
+      "connecting": "Έλεγχος…",
+      "cancel": "Ακύρωση",
+      "change": "Αλλαγή κλειδιού",
+      "remove": "Κατάργηση κλειδιού"
+    },
+    "status": {
+      "connected": "Το {{translatorName}} είναι συνδεδεμένο",
+      "plan": {
+        "free": "Δωρεάν πρόγραμμα",
+        "pro": "Πρόγραμμα Pro"
+      }
+    },
+    "usage": {
+      "label": "Έχουν χρησιμοποιηθεί {{used}} από {{limit}} χαρακτήρες σε αυτή την περίοδο χρέωσης",
+      "unavailable": "Δεν ήταν δυνατή η φόρτωση της χρήσης. {{reason}}",
+      "exhausted": "Το όριο εξαντλήθηκε — το {{translatorName}} δεν θα μεταφράζει μέχρι να ανανεωθεί."
+    },
+    "notifications": {
+      "connected": "Το {{translatorName}} συνδέθηκε",
+      "removed": "Το κλειδί API του {{translatorName}} καταργήθηκε. Έγινε εναλλαγή στο {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Το κλειδί API του {{translatorName}} καταργήθηκε από αυτή τη συσκευή."
+    },
+    "modals": {
+      "remove": {
+        "title": "Κατάργηση του κλειδιού API του {{translatorName}};",
+        "description": "Το κλειδί θα διαγραφεί από αυτή τη συσκευή και η μετάφραση θα γίνεται με το {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Το κλειδί θα διαγραφεί από αυτή τη συσκευή.",
+        "action": "Κατάργηση"
+      }
+    },
+    "errors": {
+      "empty": "Εισαγάγετε το κλειδί API",
+      "permissionDenied": "Χωρίς πρόσβαση στο {{translatorName}}, το HoverTranslate δεν μπορεί να ελέγξει το κλειδί. Πατήστε ξανά «Σύνδεση» και επιτρέψτε την πρόσβαση.",
+      "saveFailed": "Δεν ήταν δυνατή η αποθήκευση του κλειδιού. Δοκιμάστε ξανά.",
+      "removeFailed": "Δεν ήταν δυνατή η κατάργηση του κλειδιού. Δοκιμάστε ξανά.",
+      "settingsSaveFailed": "Το κλειδί αποθηκεύτηκε, αλλά οι ρυθμίσεις όχι. Πατήστε «Σύνδεση» για να δοκιμάσετε ξανά."
+    }
+  },
+  "errors": {
+    "sourceLanguageCode": "Ο μεταφραστής {{translatorName}} δεν μεταφράζει από {{incorrectLanguage}}. Αλλαγή σε {{defaultLanguage}}.",
+    "targetLanguageCode": "Ο μεταφραστής {{translatorName}} δεν μεταφράζει σε {{incorrectLanguage}}. Αλλαγή σε {{defaultLanguage}}.",
+    "translatorUnavailable": "Ο μεταφραστής {{translatorName}} δεν είναι διαθέσιμος: {{errorMessage}}",
+    "translatorFallback": "Ο μεταφραστής {{translatorName}} δεν είναι διαθέσιμος: {{errorMessage}}. Επιστροφή στο {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Δεν ήταν δυνατή η εναλλαγή στο {{translatorName}}: {{errorMessage}}. Παραμένει το {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} Εναλλαγή στο {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Παραμένει το {{previousTranslatorName}}.",
+    "translatorWithdrawn": "Ο μεταφραστής {{translatorName}} δεν είναι διαθέσιμος σε αυτή την έκδοση του HoverTranslate και θα επιστρέψει στην επόμενη ενημέρωση. Εναλλαγή στο {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "Το {{translatorName}} χρειάζεται πρόσβαση στο {{host}}. Για να την επιτρέψετε, επιλέξτε το {{translatorName}} στη λίστα. Εναλλαγή στο {{fallbackTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "Δεν έχει προστεθεί κλειδί API του {{translatorName}} σε αυτή τη συσκευή.",
+      "apiKeyInvalid": "Το {{translatorName}} δεν δέχτηκε το κλειδί API. Ελέγξτε ότι το αντιγράψατε ολόκληρο.",
+      "quotaExceeded": "Εξαντλήθηκε το όριο χαρακτήρων του {{translatorName}} για αυτή την περίοδο χρέωσης.",
+      "rateLimited": "Το {{translatorName}} δέχτηκε πάρα πολλά αιτήματα. Δοκιμάστε ξανά σε λίγο.",
+      "permissionMissing": "Το HoverTranslate δεν έχει άδεια σύνδεσης με το {{translatorName}}.",
+      "unsupportedLanguage": "Το {{translatorName}} δεν υποστηρίζει την επιλεγμένη γλώσσα.",
+      "network": "Δεν ήταν δυνατή η σύνδεση με το {{translatorName}}. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.",
+      "serviceUnavailable": "Το {{translatorName}} δεν είναι διαθέσιμο προσωρινά. Δοκιμάστε ξανά αργότερα."
+    }
+  },
+  "contextHint": {
+    "text": "Το DeepL μεταφράζει τη λέξη λαμβάνοντας υπόψη ολόκληρη τη γραμμή των υποτίτλων, οπότε μια λέξη με πολλές σημασίες αποδίδεται με τη σημασία που έχει στη συγκεκριμένη φράση.",
+    "keyNote": "Χρειάζεται δικό σας κλειδί API του DeepL — το δωρεάν πρόγραμμα αρκεί.",
+    "connect": "Σύνδεση του DeepL",
+    "switch": "Εναλλαγή στο DeepL"
+  },
+  "ratingPrompt": {
+    "text": "Αν το HoverTranslate σάς βοηθά στη μάθηση, μια αξιολόγηση θα βοηθήσει κι άλλους να το βρουν.",
+    "rate": "Αξιολόγηση",
+    "dontAskAgain": "Να μην ερωτηθώ ξανά",
+    "notNow": "Όχι τώρα",
+    "reportProblem": "Κάτι δεν λειτουργεί; Πείτε μας στο GitHub"
+  }
+}

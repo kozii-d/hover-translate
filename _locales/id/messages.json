@@ -1,0 +1,124 @@
+{
+  "name": {
+    "message": "HoverTranslate - Terjemahan Subtitle YouTube"
+  },
+  "description": {
+    "message": "Belajar bahasa di YouTube: arahkan kursor ke kata di subtitle untuk melihat terjemahannya, lalu simpan ke kamus. Gratis, tanpa akun."
+  },
+  "translationSaved": {
+    "message": "Terjemahan disimpan"
+  },
+  "originalTextCopied": {
+    "message": "Teks asli disalin"
+  },
+  "translatedTextCopied": {
+    "message": "Terjemahan disalin"
+  },
+  "copyFailed": {
+    "message": "Gagal menyalin"
+  },
+  "saveFailed": {
+    "message": "Gagal menyimpan"
+  },
+  "translationFailed": {
+    "message": "Gagal menerjemahkan"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: tambahkan kunci API Anda di setelan HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ tidak menerima kunci API Anda. Periksa kunci tersebut di setelan HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: batas karakter untuk periode penagihan ini sudah habis",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: terlalu banyak permintaan, coba lagi sebentar lagi",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate tidak diizinkan terhubung ke $TRANSLATOR$. Izinkan di setelan HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$ memerlukan akses ke $HOST$ — izinkan di setelan HoverTranslate. Sementara itu, terjemahan menggunakan $FALLBACK$",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ tidak mendukung bahasa yang dipilih",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Tidak dapat terhubung ke $TRANSLATOR$. Periksa koneksi Anda",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ untuk sementara tidak tersedia",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "ratingPromptText": {
+    "message": "Jika HoverTranslate membantu Anda belajar, rating dari Anda akan membantu pelajar lain menemukannya."
+  },
+  "ratingPromptRate": {
+    "message": "Beri rating"
+  },
+  "ratingPromptNotNow": {
+    "message": "Nanti saja"
+  }
+}

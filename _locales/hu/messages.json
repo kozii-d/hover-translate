@@ -1,0 +1,124 @@
+{
+  "name": {
+    "message": "HoverTranslate - YouTube-feliratok fordítása"
+  },
+  "description": {
+    "message": "Nyelvtanulás a YouTube-on: vidd az egeret egy szóra a feliratban, és látod a fordítását. Mentsd a szótáradba. Ingyenes, fiók nélkül."
+  },
+  "translationSaved": {
+    "message": "Fordítás mentve"
+  },
+  "originalTextCopied": {
+    "message": "Eredeti szöveg kimásolva"
+  },
+  "translatedTextCopied": {
+    "message": "Fordítás kimásolva"
+  },
+  "copyFailed": {
+    "message": "Nem sikerült másolni"
+  },
+  "saveFailed": {
+    "message": "Nem sikerült menteni"
+  },
+  "translationFailed": {
+    "message": "Nem sikerült lefordítani"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: add meg az API-kulcsodat a HoverTranslate beállításaiban",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "A(z) $TRANSLATOR$ nem fogadta el az API-kulcsodat. Ellenőrizd a HoverTranslate beállításaiban",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: elfogyott az ebben a számlázási időszakban felhasználható karakterkeret",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: túl sok kérés, próbáld újra egy kicsit később",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "A HoverTranslate nem kapcsolódhat a(z) $TRANSLATOR$ szolgáltatáshoz. Engedélyezd a HoverTranslate beállításaiban",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "noticePermissionFallback": {
+    "message": "A(z) $TRANSLATOR$ használatához hozzáférés kell ehhez: $HOST$ – engedélyezd a HoverTranslate beállításaiban. Addig a(z) $FALLBACK$ fordít",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "A(z) $TRANSLATOR$ nem támogatja a kiválasztott nyelvet",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Nem sikerült elérni a(z) $TRANSLATOR$ szolgáltatást. Ellenőrizd az internetkapcsolatot",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "A(z) $TRANSLATOR$ átmenetileg nem érhető el",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "ratingPromptText": {
+    "message": "Ha a HoverTranslate segít a tanulásban, egy értékeléssel más nyelvtanulóknak is segítesz rátalálni."
+  },
+  "ratingPromptRate": {
+    "message": "Értékelés"
+  },
+  "ratingPromptNotNow": {
+    "message": "Most nem"
+  }
+}

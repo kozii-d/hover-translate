@@ -1,0 +1,25 @@
+HoverTranslate – YouTube-feliratok fordítása azoknak, akik videókból tanulnak nyelvet
+
+Angol feliratos videót nézel, és ismeretlen szóba botlasz? Csak vidd rá az egeret, és a fordítás rögtön megjelenik a felirat fölött. Amíg olvasol, a videó megáll, és amint elviszed az egeret, folytatódik. Nem kell a szót fordítóba másolnod, és a fonalat sem veszíted el: nézed tovább, és egyre többet értesz. A HoverTranslate nem az egész YouTube-feliratot fordítja le egyszerre, hanem azt a szót vagy kifejezést, amelyre éppen mutatsz. Jól jön, ha nyelvvizsgára vagy érettségire készülsz, ha a munkádhoz kell az angol – és akkor is, ha németül tanulsz.
+
+Mit tud a HoverTranslate?
+• Szavakat és teljes kifejezéseket is fordít. Idiómába vagy állandósult szókapcsolatba futottál? Tartsd lenyomva a Shiftet, és húzd végig az egeret a szavakon. Ha kényelmesebb Shift nélkül, ezt a beállításokban bekapcsolhatod.
+• Saját szótár, amely nézés közben bővül. Kattints egy szóra, és a fordításával együtt elmentődik. A szótárat CSV- vagy JSON-fájlba exportálhatod, hogy később átismételd az új szavakat.
+• Az automatikus feliratokkal is működik – azokkal, amelyeket a YouTube maga készít –, így azok a videók is jók, amelyekhez a készítőjük nem adott feliratot.
+• Nemcsak magán a YouTube-on: ha a videó egy blogba, online kurzusba vagy hírcikkbe van beágyazva, ott is elég az egeret a szóra vinni.
+• A kínaival, a japánnal és a thaival is boldogul: bár ezekben a nyelvekben a szavak között nincs szóköz, egyetlen szó fordítását kapod, nem az egész sorét.
+• Több mint 180 nyelvre fordít, a felirat nyelvét pedig magától felismeri.
+• Nem lóg ki a képből: a fordítás ugyanúgy néz ki, mint a feliratod a YouTube-on. Másképp szeretnéd? Válassz saját betűtípust, színt és méretet.
+• Alkalmazkodik a szokásaidhoz: az automatikus szüneteltetés kikapcsolható, a kattintás pedig mentés helyett a szót vagy a fordítását is kimásolhatja.
+
+Fordítás, amely érti a szövegkörnyezetet
+Fordíthatsz a Google, a Bing vagy a DeepL segítségével. A DeepL (ehhez saját, ingyenes API-kulcs kell) a teljes feliratsort figyelembe véve fordítja a szavakat, így a többjelentésű szó a helyes jelentését kapja: a „we sat on the bank of the river” mondatban a „bank” folyópartot jelent, nem pénzintézetet. A kulcsod csak a saját eszközödön tárolódik.
+
+Ingyenes, regisztráció nélkül
+A HoverTranslate teljesen ingyenes: nincs fiók, előfizetés és reklám. Nyílt forráskódú projekt, a kódja a GitHubon található.
+
+Kérdések és javaslatok: hovertranslate@gmail.com
+Forráskód: https://github.com/kozii-d/hover-translate
+Változásnapló: https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md
+
+Telepítsd a HoverTranslate-et, nyiss meg egy feliratos videót, és vidd az egeret az első ismeretlen szóra. Jó szórakozást!

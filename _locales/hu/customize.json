@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Megjelenés",
+  "tabLabel": "Megjelenés",
+  "actions": {
+    "reset": {
+      "text": "Visszaállítás",
+      "tooltip": "A megjelenés alapértelmezett beállításainak visszaállítása"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "YouTube-beállítások használata",
+      "tooltip": "A felugró fordítás a YouTube feliratbeállításait követi",
+      "helperText": "A felugró fordítás ugyanúgy néz ki, mint a felirat a YouTube-on megadott beállításaid szerint"
+    },
+    "fontFamily": {
+      "label": "Betűtípuscsalád",
+      "tooltip": "A felugró fordítás betűtípuscsaládja"
+    },
+    "fontSize": {
+      "label": "Betűméret",
+      "tooltip": "A felugró fordítás betűmérete"
+    },
+    "fontColor": {
+      "label": "Betűszín",
+      "tooltip": "A felugró fordítás betűszíne"
+    },
+    "fontOpacity": {
+      "label": "Betűk átlátszatlansága",
+      "tooltip": "A felugró fordítás betűinek átlátszatlansága"
+    },
+    "backgroundColor": {
+      "label": "Háttérszín",
+      "tooltip": "A felugró fordítás háttérszíne"
+    },
+    "backgroundOpacity": {
+      "label": "Háttér átlátszatlansága",
+      "tooltip": "A felugró fordítás hátterének átlátszatlansága"
+    },
+    "characterEdgeStyle": {
+      "label": "Karakterszegély stílusa",
+      "tooltip": "A felugró fordítás karakterszegélyének stílusa"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Visszaállítod a megjelenés alapértelmezett beállításait?",
+      "description": "A megjelenés minden beállítása visszakapja az alapértelmezett értékét.",
+      "action": "Visszaállítás"
+    }
+  }
+}

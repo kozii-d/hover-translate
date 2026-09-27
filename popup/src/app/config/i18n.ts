@@ -9,9 +9,11 @@ import "dayjs/locale/en";
 // European
 import "dayjs/locale/cs";
 import "dayjs/locale/de";
+import "dayjs/locale/el";
 import "dayjs/locale/es";
 import "dayjs/locale/fi";
 import "dayjs/locale/fr";
+import "dayjs/locale/hu";
 import "dayjs/locale/it";
 import "dayjs/locale/pl";
 import "dayjs/locale/pt";
@@ -25,8 +27,10 @@ import "dayjs/locale/uk";
 
 // Asian
 import "dayjs/locale/hi";
+import "dayjs/locale/id";
 import "dayjs/locale/ja";
 import "dayjs/locale/ko";
+import "dayjs/locale/vi";
 import "dayjs/locale/zh-cn";
 import "dayjs/locale/zh-tw";
 
@@ -41,9 +45,11 @@ const supportedLanguages = [
   // European
   "cs",
   "de",
+  "el",
   "es",
   "fi",
   "fr",
+  "hu",
   "it",
   "pl",
   "pt_BR",
@@ -57,8 +63,10 @@ const supportedLanguages = [
 
   // Asian
   "hi",
+  "id",
   "ja",
   "ko",
+  "vi",
   "zh_CN",
   "zh_TW",
 ];
@@ -199,6 +207,9 @@ const DAYJS_LOCALES: Record<string, string> = {
 
 i18n.on("languageChanged", (lang) => {
   dayjs.locale(DAYJS_LOCALES[lang] ?? lang.toLowerCase());
+  // The uppercase tabs and buttons follow the language's rules only when the
+  // page says which language it is: Greek capitals drop their accents.
+  document.documentElement.lang = lang.replace(/_/g, "-");
 });
 
 export default i18n;

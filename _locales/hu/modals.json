@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Bezárás"
+      },
+      "confirm": {
+        "text": "Megerősítés"
+      }
+    }
+  },
+  "support": {
+    "title": "Hívj meg egy kávéra",
+    "description": "Köszönöm, hogy támogatod a HoverTranslate-et!\nAlább kiválaszthatod, melyik kriptovalutát használnád",
+    "footer": "Minden kávé segít jobbá tenni a HoverTranslate-et",
+    "actions": {
+      "showQR": {
+        "text": "QR-kód megjelenítése"
+      },
+      "hideQR": {
+        "text": "QR-kód elrejtése"
+      },
+      "copyAddress": {
+        "text": "Másolás"
+      },
+      "copyAddressSuccess": {
+        "text": "Kimásolva!"
+      }
+    },
+    "labels": {
+      "address": "Cím"
+    },
+    "notifications": {
+      "copyAddress": "A cím a vágólapra került!"
+    },
+    "warnings": {
+      "verifyNetwork": "Küldés előtt ellenőrizd a hálózatot és a tokent",
+      "bnb": "Ugyanaz a cím, mint az Ethereumnál, de más a hálózat!"
+    }
+  }
+}

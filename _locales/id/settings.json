@@ -1,0 +1,146 @@
+{
+  "pageTitle": "Setelan",
+  "tabLabel": "Setelan",
+  "actions": {
+    "reset": {
+      "text": "Setel ulang ke default",
+      "tooltip": "Setel ulang setelan ke default"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Terjemahkan ke",
+      "tooltip": "Bahasa tujuan terjemahan"
+    },
+    "sourceLanguageCode": {
+      "label": "Terjemahkan dari",
+      "tooltip": "Bahasa sumber teks yang akan diterjemahkan"
+    },
+    "translator": {
+      "label": "Penerjemah",
+      "tooltip": "Layanan yang digunakan untuk menerjemahkan"
+    },
+    "autoPause": {
+      "label": "Jeda otomatis",
+      "tooltip": "Otomatis menjeda video saat kursor berada di atas subtitle",
+      "helperText": "Otomatis menjeda video saat kursor berada di atas subtitle"
+    },
+    "leftClickAction": {
+      "label": "Aksi klik kiri",
+      "tooltip": "Yang terjadi saat Anda mengklik kiri kata di subtitle",
+      "options": {
+        "saveToDictionary": "Simpan ke kamus",
+        "copyOriginal": "Salin teks asli ke papan klip",
+        "copyTranslation": "Salin terjemahan ke papan klip",
+        "nothing": "Tidak melakukan apa pun"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "Selalu pilih beberapa kata",
+      "tooltip": "Pilih beberapa kata tanpa menahan Shift",
+      "helperText": "Jika diaktifkan, Anda dapat memilih beberapa kata tanpa menahan Shift"
+    },
+    "showNotifications": {
+      "label": "Tampilkan notifikasi",
+      "tooltip": "Tampilkan notifikasi saat kata disimpan ke kamus atau disalin ke papan klip",
+      "helperText": "Jika dinonaktifkan, tidak ada notifikasi saat kata disimpan atau disalin"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Setel ulang setelan ke default?",
+      "description": "Semua setelan akan dikembalikan ke nilai default.",
+      "action": "Setel ulang"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Untuk memilih beberapa kata, tahan Shift dan arahkan kursor ke kata-kata yang Anda perlukan. Atau aktifkan setelan “Selalu pilih beberapa kata”.",
+    "dismiss": "Sembunyikan tips ini"
+  },
+  "apiKey": {
+    "requiredHint": "Memerlukan kunci API Anda",
+    "title": "Hubungkan {{translatorName}}",
+    "description": "{{translatorName}} menggunakan kunci API pribadi Anda. Buat akun di situs {{translatorName}} (tersedia paket gratis), lalu salin kunci dari halaman akun Anda.",
+    "getKey": "Dapatkan kunci API",
+    "field": {
+      "label": "Kunci API",
+      "placeholder": "Tempel kunci di sini",
+      "show": "Tampilkan kunci",
+      "hide": "Sembunyikan kunci"
+    },
+    "privacy": "Hanya disimpan di perangkat ini dan hanya dikirim ke {{translatorName}}.",
+    "actions": {
+      "connect": "Hubungkan",
+      "connecting": "Memeriksa…",
+      "cancel": "Batal",
+      "change": "Ganti kunci",
+      "remove": "Hapus kunci"
+    },
+    "status": {
+      "connected": "{{translatorName}} terhubung",
+      "plan": {
+        "free": "Paket gratis",
+        "pro": "Paket Pro"
+      }
+    },
+    "usage": {
+      "label": "{{used}} dari {{limit}} karakter terpakai dalam periode penagihan ini",
+      "unavailable": "Data penggunaan tidak dapat dimuat. {{reason}}",
+      "exhausted": "Batasnya sudah habis — {{translatorName}} tidak akan menerjemahkan sampai batas diperbarui."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} sudah terhubung",
+      "removed": "Kunci API {{translatorName}} dihapus. Beralih ke {{fallbackTranslatorName}}.",
+      "removedFromDevice": "Kunci API {{translatorName}} dihapus dari perangkat ini."
+    },
+    "modals": {
+      "remove": {
+        "title": "Hapus kunci API {{translatorName}}?",
+        "description": "Kunci akan dihapus dari perangkat ini dan terjemahan akan beralih ke {{fallbackTranslatorName}}.",
+        "descriptionInactive": "Kunci akan dihapus dari perangkat ini.",
+        "action": "Hapus"
+      }
+    },
+    "errors": {
+      "empty": "Masukkan kunci API Anda",
+      "permissionDenied": "HoverTranslate tidak dapat memeriksa kunci tanpa akses ke {{translatorName}}. Klik “Hubungkan” lagi dan izinkan akses.",
+      "saveFailed": "Kunci tidak dapat disimpan. Coba lagi.",
+      "removeFailed": "Kunci tidak dapat dihapus. Coba lagi.",
+      "settingsSaveFailed": "Kunci sudah disimpan, tetapi setelan tidak dapat disimpan. Klik “Hubungkan” untuk mencoba lagi."
+    }
+  },
+  "errors": {
+    "sourceLanguageCode": "{{incorrectLanguage}} tidak tersedia sebagai bahasa sumber untuk penerjemah {{translatorName}}. Beralih ke {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} tidak tersedia sebagai bahasa tujuan untuk penerjemah {{translatorName}}. Beralih ke {{defaultLanguage}}.",
+    "translatorUnavailable": "Penerjemah {{translatorName}} tidak tersedia: {{errorMessage}}",
+    "translatorFallback": "Penerjemah {{translatorName}} tidak tersedia: {{errorMessage}}. Kembali ke {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Tidak dapat beralih ke {{translatorName}}: {{errorMessage}}. Tetap menggunakan {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} Beralih ke {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Tetap menggunakan {{previousTranslatorName}}.",
+    "translatorWithdrawn": "Penerjemah {{translatorName}} tidak tersedia di versi HoverTranslate ini dan akan kembali di pembaruan berikutnya. Beralih ke {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "{{translatorName}} memerlukan akses ke {{host}}. Pilih {{translatorName}} di daftar untuk mengizinkannya. Beralih ke {{fallbackTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "Belum ada kunci API {{translatorName}} yang ditambahkan di perangkat ini.",
+      "apiKeyInvalid": "{{translatorName}} tidak menerima kunci API. Pastikan kunci disalin seluruhnya.",
+      "quotaExceeded": "Batas karakter {{translatorName}} untuk periode penagihan ini sudah habis.",
+      "rateLimited": "{{translatorName}} menerima terlalu banyak permintaan. Coba lagi sebentar lagi.",
+      "permissionMissing": "HoverTranslate tidak diizinkan terhubung ke {{translatorName}}.",
+      "unsupportedLanguage": "{{translatorName}} tidak mendukung bahasa yang dipilih.",
+      "network": "Tidak dapat terhubung ke {{translatorName}}. Periksa koneksi internet Anda.",
+      "serviceUnavailable": "{{translatorName}} untuk sementara tidak tersedia. Coba lagi nanti."
+    }
+  },
+  "contextHint": {
+    "text": "DeepL menerjemahkan kata dengan memperhatikan seluruh baris subtitle, sehingga kata yang punya beberapa arti mendapat arti yang sesuai di kalimat tersebut.",
+    "keyNote": "Fitur ini memerlukan kunci API DeepL Anda sendiri — paket gratis sudah cukup.",
+    "connect": "Hubungkan DeepL",
+    "switch": "Beralih ke DeepL"
+  },
+  "ratingPrompt": {
+    "text": "Jika HoverTranslate membantu Anda belajar, rating dari Anda akan membantu pelajar lain menemukannya.",
+    "rate": "Beri rating",
+    "dontAskAgain": "Jangan tanya lagi",
+    "notNow": "Nanti saja",
+    "reportProblem": "Ada yang tidak berfungsi? Beri tahu kami di GitHub"
+  }
+}

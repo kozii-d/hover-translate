@@ -1,0 +1,52 @@
+{
+  "pageTitle": "Tùy chỉnh",
+  "tabLabel": "Tùy chỉnh",
+  "actions": {
+    "reset": {
+      "text": "Đặt lại",
+      "tooltip": "Đặt lại tùy chỉnh về mặc định"
+    }
+  },
+  "fields": {
+    "useYouTubeSettings": {
+      "label": "Dùng cài đặt của YouTube",
+      "tooltip": "Dùng cài đặt phụ đề của YouTube cho khung dịch",
+      "helperText": "Khung dịch sẽ trông giống phụ đề theo cài đặt của bạn trên YouTube"
+    },
+    "fontFamily": {
+      "label": "Họ phông chữ",
+      "tooltip": "Họ phông chữ của khung dịch"
+    },
+    "fontSize": {
+      "label": "Cỡ chữ",
+      "tooltip": "Cỡ chữ của khung dịch"
+    },
+    "fontColor": {
+      "label": "Màu phông chữ",
+      "tooltip": "Màu phông chữ của khung dịch"
+    },
+    "fontOpacity": {
+      "label": "Độ mờ phông chữ",
+      "tooltip": "Độ mờ của phông chữ trong khung dịch"
+    },
+    "backgroundColor": {
+      "label": "Màu nền",
+      "tooltip": "Màu nền của khung dịch"
+    },
+    "backgroundOpacity": {
+      "label": "Độ mờ của nền",
+      "tooltip": "Độ mờ của nền khung dịch"
+    },
+    "characterEdgeStyle": {
+      "label": "Kiểu viền ký tự",
+      "tooltip": "Kiểu viền ký tự trong khung dịch"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Đặt lại tùy chỉnh về mặc định?",
+      "description": "Mọi tùy chỉnh sẽ trở về giá trị mặc định.",
+      "action": "Đặt lại"
+    }
+  }
+}

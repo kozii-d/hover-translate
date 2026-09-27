@@ -1,0 +1,146 @@
+{
+  "pageTitle": "Beállítások",
+  "tabLabel": "Beállítások",
+  "actions": {
+    "reset": {
+      "text": "Visszaállítás",
+      "tooltip": "Az alapértelmezett beállítások visszaállítása"
+    }
+  },
+  "fields": {
+    "targetLanguageCode": {
+      "label": "Célnyelv",
+      "tooltip": "Erre a nyelvre készül a fordítás"
+    },
+    "sourceLanguageCode": {
+      "label": "Forrásnyelv",
+      "tooltip": "A lefordítandó szöveg nyelve"
+    },
+    "translator": {
+      "label": "Fordító",
+      "tooltip": "A fordításhoz használt szolgáltatás"
+    },
+    "autoPause": {
+      "label": "Automatikus szüneteltetés",
+      "tooltip": "A videó automatikusan megáll, amikor az egeret a feliratra viszed",
+      "helperText": "A videó automatikusan megáll, amikor az egeret a feliratra viszed"
+    },
+    "leftClickAction": {
+      "label": "Bal kattintásra",
+      "tooltip": "Mi történjen, ha bal gombbal egy feliratban lévő szóra kattintasz",
+      "options": {
+        "saveToDictionary": "Mentés a szótárba",
+        "copyOriginal": "Az eredeti szöveg másolása a vágólapra",
+        "copyTranslation": "A fordítás másolása a vágólapra",
+        "nothing": "Semmi"
+      }
+    },
+    "alwaysMultipleSelection": {
+      "label": "Mindig több szó kijelölése",
+      "tooltip": "Több szó kijelölése a Shift lenyomva tartása nélkül",
+      "helperText": "Ha be van kapcsolva, a Shift lenyomva tartása nélkül is kijelölhetsz több szót"
+    },
+    "showNotifications": {
+      "label": "Értesítések megjelenítése",
+      "tooltip": "Értesítés jelenik meg, amikor szót mentesz a szótárba vagy a vágólapra másolsz",
+      "helperText": "Ha ki van kapcsolva, mentéskor és másoláskor nem jelenik meg értesítés"
+    }
+  },
+  "modals": {
+    "reset": {
+      "title": "Visszaállítod az alapértelmezett beállításokat?",
+      "description": "Minden beállítás visszakapja az alapértelmezett értékét.",
+      "action": "Visszaállítás"
+    }
+  },
+  "tips": {
+    "multipleSelection": "Több szó kijelöléséhez tartsd lenyomva a Shiftet, és húzd végig az egeret a kívánt szavakon. Vagy kapcsold be a „Mindig több szó kijelölése” beállítást.",
+    "dismiss": "Tipp elrejtése"
+  },
+  "apiKey": {
+    "requiredHint": "Saját API-kulcs kell hozzá",
+    "title": "{{translatorName}} csatlakoztatása",
+    "description": "A(z) {{translatorName}} a saját API-kulcsoddal működik. Hozz létre fiókot a(z) {{translatorName}} webhelyén (van ingyenes csomag), és másold ki a kulcsot a fiókod oldaláról.",
+    "getKey": "API-kulcs igénylése",
+    "field": {
+      "label": "API-kulcs",
+      "placeholder": "Illeszd be ide a kulcsot",
+      "show": "Kulcs megjelenítése",
+      "hide": "Kulcs elrejtése"
+    },
+    "privacy": "Csak ezen az eszközön tárolódik, és csak a(z) {{translatorName}} kapja meg.",
+    "actions": {
+      "connect": "Csatlakoztatás",
+      "connecting": "Ellenőrzés…",
+      "cancel": "Mégse",
+      "change": "Kulcs cseréje",
+      "remove": "Kulcs eltávolítása"
+    },
+    "status": {
+      "connected": "{{translatorName}} csatlakoztatva",
+      "plan": {
+        "free": "Ingyenes csomag",
+        "pro": "Pro csomag"
+      }
+    },
+    "usage": {
+      "label": "Ebben a számlázási időszakban felhasznált karakterek: {{used}} / {{limit}}",
+      "unavailable": "Nem sikerült betölteni a keret felhasználását. {{reason}}",
+      "exhausted": "Elfogyott a keret – a(z) {{translatorName}} addig nem fordít, amíg a keret meg nem újul."
+    },
+    "notifications": {
+      "connected": "{{translatorName}} csatlakoztatva",
+      "removed": "A(z) {{translatorName}} API-kulcsa eltávolítva. Átváltás erre: {{fallbackTranslatorName}}.",
+      "removedFromDevice": "A(z) {{translatorName}} API-kulcsa eltávolítva erről az eszközről."
+    },
+    "modals": {
+      "remove": {
+        "title": "Eltávolítod a(z) {{translatorName}} API-kulcsát?",
+        "description": "A kulcs törlődik erről az eszközről, a fordítást pedig a(z) {{fallbackTranslatorName}} veszi át.",
+        "descriptionInactive": "A kulcs törlődik erről az eszközről.",
+        "action": "Eltávolítás"
+      }
+    },
+    "errors": {
+      "empty": "Add meg az API-kulcsot",
+      "permissionDenied": "A HoverTranslate a(z) {{translatorName}} elérése nélkül nem tudja ellenőrizni a kulcsot. Kattints újra a „Csatlakoztatás” gombra, és engedélyezd a hozzáférést.",
+      "saveFailed": "Nem sikerült menteni a kulcsot. Próbáld újra.",
+      "removeFailed": "Nem sikerült eltávolítani a kulcsot. Próbáld újra.",
+      "settingsSaveFailed": "A kulcs mentve, de a beállításokat nem sikerült menteni. Kattints a „Csatlakoztatás” gombra, és próbáld újra."
+    }
+  },
+  "errors": {
+    "sourceLanguageCode": "A(z) {{translatorName}} fordítóban nem választható forrásnyelvként: {{incorrectLanguage}}. Átváltás erre: {{defaultLanguage}}.",
+    "targetLanguageCode": "A(z) {{translatorName}} fordítóban nem választható célnyelvként: {{incorrectLanguage}}. Átváltás erre: {{defaultLanguage}}.",
+    "translatorUnavailable": "A(z) {{translatorName}} fordító nem érhető el: {{errorMessage}}",
+    "translatorFallback": "A(z) {{translatorName}} fordító nem érhető el: {{errorMessage}}. Visszaváltás erre: {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Nem sikerült a(z) {{translatorName}} fordítóra váltani: {{errorMessage}}. Marad a(z) {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} Átváltás erre: {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Marad a(z) {{previousTranslatorName}}.",
+    "translatorWithdrawn": "A(z) {{translatorName}} fordító a HoverTranslate ezen verziójában nem érhető el, a következő frissítésben visszatér. Átváltás erre: {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "A(z) {{translatorName}} használatához hozzáférés kell ehhez: {{host}}. Az engedélyezéshez válaszd ki a(z) {{translatorName}} fordítót a listában. Átváltás erre: {{fallbackTranslatorName}}.",
+    "translator": {
+      "apiKeyMissing": "Ezen az eszközön nincs megadva {{translatorName}} API-kulcs.",
+      "apiKeyInvalid": "A(z) {{translatorName}} nem fogadta el az API-kulcsot. Ellenőrizd, hogy a teljes kulcsot kimásoltad-e.",
+      "quotaExceeded": "Elfogyott a(z) {{translatorName}} karakterkerete ebben a számlázási időszakban.",
+      "rateLimited": "A(z) {{translatorName}} túl sok kérést kapott. Próbáld újra egy kicsit később.",
+      "permissionMissing": "A HoverTranslate nem kapcsolódhat a(z) {{translatorName}} szolgáltatáshoz.",
+      "unsupportedLanguage": "A(z) {{translatorName}} nem támogatja a kiválasztott nyelvet.",
+      "network": "Nem sikerült elérni a(z) {{translatorName}} szolgáltatást. Ellenőrizd az internetkapcsolatot.",
+      "serviceUnavailable": "A(z) {{translatorName}} átmenetileg nem érhető el. Próbáld újra később."
+    }
+  },
+  "contextHint": {
+    "text": "A DeepL a teljes feliratsort figyelembe véve fordítja a szót, így a többjelentésű szó azt a jelentést kapja, amelyben ott szerepel.",
+    "keyNote": "Ehhez saját DeepL API-kulcs kell – az ingyenes csomag is elég.",
+    "connect": "DeepL csatlakoztatása",
+    "switch": "Váltás a DeepL-re"
+  },
+  "ratingPrompt": {
+    "text": "Ha a HoverTranslate segít a tanulásban, egy értékeléssel más nyelvtanulóknak is segítesz rátalálni.",
+    "rate": "Értékelés",
+    "dontAskAgain": "Ne kérdezze újra",
+    "notNow": "Most nem",
+    "reportProblem": "Valami nem működik? Írd meg nekünk a GitHubon"
+  }
+}

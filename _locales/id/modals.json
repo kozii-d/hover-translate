@@ -1,0 +1,41 @@
+{
+  "confirmation": {
+    "actions": {
+      "close": {
+        "text": "Tutup"
+      },
+      "confirm": {
+        "text": "Konfirmasi"
+      }
+    }
+  },
+  "support": {
+    "title": "Traktir saya kopi",
+    "description": "Terima kasih telah mendukung HoverTranslate!\nPilih mata uang kripto yang Anda inginkan di bawah ini",
+    "footer": "Setiap kopi membantu saya membuat HoverTranslate lebih baik",
+    "actions": {
+      "showQR": {
+        "text": "Tampilkan QR"
+      },
+      "hideQR": {
+        "text": "Sembunyikan QR"
+      },
+      "copyAddress": {
+        "text": "Salin"
+      },
+      "copyAddressSuccess": {
+        "text": "Disalin!"
+      }
+    },
+    "labels": {
+      "address": "Alamat"
+    },
+    "notifications": {
+      "copyAddress": "Alamat disalin ke papan klip!"
+    },
+    "warnings": {
+      "verifyNetwork": "Periksa jaringan dan token sebelum mengirim",
+      "bnb": "Alamatnya sama dengan Ethereum, tetapi jaringannya berbeda!"
+    }
+  }
+}

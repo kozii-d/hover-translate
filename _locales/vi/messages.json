@@ -1,0 +1,124 @@
+{
+  "name": {
+    "message": "HoverTranslate - Dịch phụ đề YouTube"
+  },
+  "description": {
+    "message": "Học ngoại ngữ trên YouTube: di chuột vào một từ trong phụ đề để xem bản dịch và lưu vào sổ từ vựng. Miễn phí, không cần tài khoản."
+  },
+  "translationSaved": {
+    "message": "Đã lưu bản dịch"
+  },
+  "originalTextCopied": {
+    "message": "Đã sao chép văn bản gốc"
+  },
+  "translatedTextCopied": {
+    "message": "Đã sao chép bản dịch"
+  },
+  "copyFailed": {
+    "message": "Không sao chép được"
+  },
+  "saveFailed": {
+    "message": "Không lưu được"
+  },
+  "translationFailed": {
+    "message": "Không dịch được"
+  },
+  "errorApiKeyMissing": {
+    "message": "$TRANSLATOR$: hãy thêm khóa API trong phần cài đặt HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorApiKeyInvalid": {
+    "message": "$TRANSLATOR$ không chấp nhận khóa API của bạn. Hãy kiểm tra lại khóa trong phần cài đặt HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorQuotaExceeded": {
+    "message": "$TRANSLATOR$: đã dùng hết số ký tự của kỳ thanh toán này",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorRateLimited": {
+    "message": "$TRANSLATOR$: quá nhiều yêu cầu, hãy thử lại sau giây lát",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorPermissionMissing": {
+    "message": "HoverTranslate chưa được phép kết nối với $TRANSLATOR$. Hãy cho phép trong phần cài đặt HoverTranslate",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "noticePermissionFallback": {
+    "message": "$TRANSLATOR$ cần quyền truy cập $HOST$ — hãy cho phép trong phần cài đặt HoverTranslate. Tạm thời dùng $FALLBACK$",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "Bing"
+      },
+      "host": {
+        "content": "$2",
+        "example": "www.bing.com"
+      },
+      "fallback": {
+        "content": "$3",
+        "example": "Google"
+      }
+    }
+  },
+  "errorUnsupportedLanguage": {
+    "message": "$TRANSLATOR$ không hỗ trợ ngôn ngữ đã chọn",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorNetwork": {
+    "message": "Không kết nối được với $TRANSLATOR$. Hãy kiểm tra kết nối Internet",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "errorServiceUnavailable": {
+    "message": "$TRANSLATOR$ tạm thời không hoạt động",
+    "placeholders": {
+      "translator": {
+        "content": "$1",
+        "example": "DeepL"
+      }
+    }
+  },
+  "ratingPromptText": {
+    "message": "Nếu HoverTranslate giúp ích cho việc học của bạn, một lượt đánh giá sẽ giúp những người học khác tìm thấy tiện ích này."
+  },
+  "ratingPromptRate": {
+    "message": "Đánh giá"
+  },
+  "ratingPromptNotNow": {
+    "message": "Để sau"
+  }
+}
