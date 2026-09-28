@@ -7,7 +7,7 @@
   },
   "support": {
     "title": "请我喝杯咖啡",
-    "description": "感谢您支持 HoverTranslate！\n请在下方选择您偏好的加密货币",
+    "description": "感谢你支持 HoverTranslate！\n请在下方选择你偏好的加密货币",
     "footer": "每一杯咖啡都能帮助我改进 HoverTranslate",
     "actions": {
       "showQR": { "text": "显示二维码" },
@@ -19,7 +19,7 @@
     "notifications": { "copyAddress": "地址已复制到剪贴板！" },
     "warnings": {
       "verifyNetwork": "发送前请务必核对网络和代币类型",
-      "bnb": "地址与以太坊相同 - 但网络不同！"
+      "bnb": "地址与以太坊相同，但网络不同！"
     }
   }
 }

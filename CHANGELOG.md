@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file.
 - On a first install in Norwegian Nynorsk (Firefox), the translation language was set to English: no translator offers Nynorsk. It is now set to Norwegian (Bokmål), which Nynorsk readers read freely.
 - Right-to-left text. A translation into Arabic, Hebrew, Persian or another right-to-left language is now shown right to left, with its final full stop or question mark at the left end instead of the right. An English translation, "Translation saved" and the rating card no longer turn right to left when YouTube itself is in Arabic or Hebrew. With Arabic or Hebrew subtitles, the translation of several words selected with Shift is placed over those words: it used to start at the first word and run off to the right of the selection. On the Dictionary page, each word and its translation are aligned in their own direction.
 - The CSV export opened in Excel with garbled text in place of every word not written in Latin letters — Arabic, Cyrillic, Chinese and others. It now opens correctly.
+- Wording of the settings in Korean, Japanese and Chinese. The appearance settings now use YouTube's own names — in Korean and Simplified Chinese the opacity settings were described as transparency, the opposite. Traditional Chinese uses Taiwanese words instead of mainland ones. In Korean, Japanese and Traditional Chinese, the tab with your saved words is now called the same as in the store: word list, not dictionary.
 
 ## [1.1.14] - 2026-09-24
 

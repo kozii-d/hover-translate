@@ -6,32 +6,32 @@
   },
   "fields": {
     "targetLanguageCode": { "label": "翻譯為", "tooltip": "目標語言" },
-    "sourceLanguageCode": { "label": "原文語言", "tooltip": "源語言" },
-    "translator": { "label": "翻譯引擎", "tooltip": "用於翻譯的服務商" },
-    "autoPause": { "label": "自動暫停", "tooltip": "懸停在字幕上時自動暫停影片", "helperText": "懸停在字幕上時自動暫停影片" },
+    "sourceLanguageCode": { "label": "原文語言", "tooltip": "來源語言" },
+    "translator": { "label": "翻譯引擎", "tooltip": "翻譯時使用的引擎" },
+    "autoPause": { "label": "自動暫停", "tooltip": "滑鼠移到字幕上時自動暫停影片", "helperText": "滑鼠移到字幕上時自動暫停影片" },
     "leftClickAction": {
       "label": "左鍵點擊操作",
       "tooltip": "點擊字幕單字時的操作",
       "options": {
-        "saveToDictionary": "儲存到生字本",
+        "saveToDictionary": "儲存到單字本",
         "copyOriginal": "複製原文",
         "copyTranslation": "複製譯文",
         "nothing": "無操作"
       }
     },
-    "alwaysMultipleSelection": { "label": "始終開啟多選", "tooltip": "無需按住 Shift 即可選擇多個單字", "helperText": "開啟後，您可以直接選擇多個單字而無需按住 Shift 鍵" },
-    "showNotifications": { "label": "顯示通知", "tooltip": "儲存單字或複製文本時顯示通知", "helperText": "關閉後，儲存或複製時將不再彈出通知" }
+    "alwaysMultipleSelection": { "label": "一律開啟多選", "tooltip": "無需按住 Shift 即可選擇多個單字", "helperText": "開啟後，你可以直接選擇多個單字而無需按住 Shift 鍵" },
+    "showNotifications": { "label": "顯示通知", "tooltip": "儲存單字或複製文字時顯示通知", "helperText": "關閉後，儲存或複製時將不再彈出通知" }
   },
   "modals": {
-    "reset": { "title": "重置為預設設定？", "description": "這將把所有設定恢復為預設值。", "action": "重置" }
+    "reset": { "title": "重設為預設設定？", "description": "這將把所有設定恢復為預設值。", "action": "重設" }
   },
   "tips": {
-    "multipleSelection": "如需選擇多個單字，請按住 Shift 鍵並懸停。或者在設定中開啟‘始終開啟多選’。",
+    "multipleSelection": "如需選擇多個單字，請按住 Shift 鍵，再把滑鼠移到需要的單字上。或者在設定中開啟「一律開啟多選」。",
     "dismiss": "隱藏提示"
   },
   "apiKey": {
     "requiredHint": "需要你的 API 金鑰",
-    "title": "連接 {{translatorName}}",
+    "title": "連結 {{translatorName}}",
     "description": "{{translatorName}} 需要使用你個人的 API 金鑰。請在 {{translatorName}} 網站上建立帳戶（提供免費方案），然後從帳戶頁面複製金鑰。",
     "getKey": "取得 API 金鑰",
     "field": {
@@ -42,14 +42,14 @@
     },
     "privacy": "僅儲存在此裝置上，且僅傳送給 {{translatorName}}。",
     "actions": {
-      "connect": "連接",
+      "connect": "連結",
       "connecting": "正在檢查…",
       "cancel": "取消",
       "change": "更換金鑰",
       "remove": "移除金鑰"
     },
     "status": {
-      "connected": "已連接 {{translatorName}}",
+      "connected": "已連結 {{translatorName}}",
       "plan": {
         "free": "免費方案",
         "pro": "Pro 方案"
@@ -58,10 +58,10 @@
     "usage": {
       "label": "本計費週期已使用 {{used}} / {{limit}} 個字元",
       "unavailable": "無法載入用量。{{reason}}",
-      "exhausted": "額度已用完 — 在額度重設之前 {{translatorName}} 將無法翻譯。"
+      "exhausted": "額度已用完，在額度重設之前 {{translatorName}} 將無法翻譯。"
     },
     "notifications": {
-      "connected": "已連接 {{translatorName}}",
+      "connected": "已連結 {{translatorName}}",
       "removed": "已移除 {{translatorName}} API 金鑰，並切換到 {{fallbackTranslatorName}}。",
       "removedFromDevice": "已從此裝置移除 {{translatorName}} API 金鑰。"
     },
@@ -75,28 +75,28 @@
     },
     "errors": {
       "empty": "請輸入 API 金鑰",
-      "permissionDenied": "沒有 {{translatorName}} 的存取權限，HoverTranslate 無法檢查金鑰。請再次點選「連接」並允許存取。",
+      "permissionDenied": "沒有 {{translatorName}} 的存取權限，HoverTranslate 無法檢查金鑰。請再次點選「連結」並允許存取。",
       "saveFailed": "無法儲存金鑰，請再試一次。",
       "removeFailed": "無法移除金鑰，請再試一次。",
-      "settingsSaveFailed": "金鑰已儲存，但設定未能儲存。請再次點選「連接」重試。"
+      "settingsSaveFailed": "金鑰已儲存，但設定未能儲存。請再次點選「連結」重試。"
     }
   },
   "errors": {
-    "sourceLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為源語言。已切換至 {{defaultLanguage}}。",
+    "sourceLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為來源語言。已切換至 {{defaultLanguage}}。",
     "targetLanguageCode": "{{translatorName}} 翻譯引擎不支援將 {{incorrectLanguage}} 作為目標語言。已切換至 {{defaultLanguage}}。",
-    "translatorUnavailable": "{{translatorName}} 翻譯器無法使用：{{errorMessage}}",
-    "translatorFallback": "{{translatorName}} 翻譯器無法使用：{{errorMessage}}。正在切換回 {{fallbackTranslatorName}}。",
+    "translatorUnavailable": "{{translatorName}} 翻譯引擎無法使用：{{errorMessage}}",
+    "translatorFallback": "{{translatorName}} 翻譯引擎無法使用：{{errorMessage}}。正在切換回 {{fallbackTranslatorName}}。",
     "translatorSwitchFailed": "無法切換至 {{translatorName}}：{{errorMessage}}。繼續使用 {{previousTranslatorName}}。",
     "translatorFallbackReason": "{{reason}}正在切換到 {{fallbackTranslatorName}}。",
     "translatorSwitchFailedReason": "{{reason}}仍使用 {{previousTranslatorName}}。",
-    "translatorWithdrawn": "此版本的 HoverTranslate 暫不提供 {{translatorName}} 翻譯器，它將在下次更新中回歸。正在切換到 {{fallbackTranslatorName}}。",
+    "translatorWithdrawn": "此版本的 HoverTranslate 暫不提供 {{translatorName}} 翻譯引擎，它將在下次更新中回歸。正在切換到 {{fallbackTranslatorName}}。",
     "translatorPermissionFallback": "{{translatorName}} 需要存取 {{host}} 的權限。在清單中選擇 {{translatorName}} 即可允許。正在切換到 {{fallbackTranslatorName}}。",
     "translator": {
       "apiKeyMissing": "此裝置上尚未新增 {{translatorName}} API 金鑰。",
       "apiKeyInvalid": "{{translatorName}} 未接受該 API 金鑰。請檢查金鑰是否已完整複製。",
       "quotaExceeded": "本計費週期的 {{translatorName}} 字元額度已用完。",
       "rateLimited": "{{translatorName}} 收到的請求過多，請稍後再試。",
-      "permissionMissing": "HoverTranslate 沒有連接到 {{translatorName}} 的權限。",
+      "permissionMissing": "HoverTranslate 沒有連線至 {{translatorName}} 的權限。",
       "unsupportedLanguage": "{{translatorName}} 不支援所選語言。",
       "network": "無法連線到 {{translatorName}}。請檢查網路連線。",
       "serviceUnavailable": "{{translatorName}} 暫時無法使用，請稍後再試。"
@@ -105,7 +105,7 @@
   "contextHint": {
     "text": "DeepL 會結合整行字幕來翻譯單字，因此多義詞會依照它在句中的實際含義來翻譯。",
     "keyNote": "需要你自己的 DeepL API 金鑰，免費方案即可。",
-    "connect": "連接 DeepL",
+    "connect": "連結 DeepL",
     "switch": "切換到 DeepL"
   },
   "ratingPrompt": {

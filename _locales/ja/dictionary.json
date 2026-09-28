@@ -1,6 +1,6 @@
 {
-  "pageTitle": "辞書",
-  "tabLabel": "辞書",
+  "pageTitle": "単語帳",
+  "tabLabel": "単語帳",
   "actions": {
     "deleteTranslation": {
       "tooltip": "翻訳を削除"
@@ -10,19 +10,19 @@
       "tooltip": "すべての翻訳をクリア"
     },
     "showMore": {
-      "text": "もっと表示",
-      "tooltip": "より多くの翻訳を表示"
+      "text": "さらに表示",
+      "tooltip": "さらに翻訳を表示"
     },
     "export": {
       "tooltip": "翻訳をエクスポート"
     },
     "exportJSON": {
-      "text": "JSONエクスポート",
-      "tooltip": "翻訳をJSON形式でエクスポート"
+      "text": "JSON エクスポート",
+      "tooltip": "翻訳を JSON 形式でエクスポート"
     },
     "exportCSV": {
-      "text": "CSVエクスポート",
-      "tooltip": "翻訳をCSV形式でエクスポート"
+      "text": "CSV エクスポート",
+      "tooltip": "翻訳を CSV 形式でエクスポート"
     }
   },
   "modals": {
@@ -33,7 +33,7 @@
     }
   },
   "emptyState": {
-    "title": "辞書は空です",
-    "description": "字幕の単語やフレーズをクリックして辞書に保存してください"
+    "title": "単語帳は空です",
+    "description": "字幕の単語やフレーズをクリックして単語帳に保存してください"
   }
 }

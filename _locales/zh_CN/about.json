@@ -5,7 +5,7 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "边看 YouTube 边记单词！",
-      "thank-you": "感谢您选择我的插件！"
+      "thank-you": "感谢你选择我的扩展程序！"
     },
     "support": {
       "title": "支持本项目",
@@ -20,10 +20,10 @@
       "reportIssues": "在 GitHub 上反馈问题"
     },
     "tips": {
-      "title": "快速提示",
-      "multipleSelection": "翻译短语：按住 Shift 键或在设置中启用多选模式",
+      "title": "使用技巧",
+      "multipleSelection": "翻译短语：按住 Shift 键，或在设置中开启多选",
       "saveToDictionary": "点击单词即可将其保存到个人生词本",
-      "exportDictionary": "可以从‘生词本’选项卡将词汇导出为 JSON 或 CSV 格式"
+      "exportDictionary": "可以从“生词本”选项卡将词汇导出为 JSON 或 CSV 格式"
     }
   },
   "footer": {

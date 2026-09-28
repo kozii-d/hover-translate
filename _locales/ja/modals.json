@@ -11,14 +11,14 @@
   },
   "support": {
     "title": "コーヒーをおごる",
-    "description": "HoverTranslateをサポートしていただきありがとうございます！\nお好きな暗号通貨をお選びください",
-    "footer": "いただいたコーヒーでHoverTranslateを改善します",
+    "description": "HoverTranslate をサポートしていただきありがとうございます！\nお好きな暗号通貨をお選びください",
+    "footer": "いただいたコーヒーで HoverTranslate を改善します",
     "actions": {
       "showQR": {
-        "text": "QR表示"
+        "text": "QR コードを表示"
       },
       "hideQR": {
-        "text": "QR非表示"
+        "text": "QR コードを非表示"
       },
       "copyAddress": {
         "text": "コピー"
@@ -35,7 +35,7 @@
     },
     "warnings": {
       "verifyNetwork": "送信前にネットワークとトークンを確認してください",
-      "bnb": "Ethereumと同じアドレス - 異なるネットワーク！"
+      "bnb": "Ethereum と同じアドレスですが、ネットワークが異なります！"
     }
   }
 }

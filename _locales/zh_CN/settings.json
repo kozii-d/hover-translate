@@ -7,7 +7,7 @@
   "fields": {
     "targetLanguageCode": { "label": "翻译为", "tooltip": "目标语言" },
     "sourceLanguageCode": { "label": "原文语言", "tooltip": "源语言" },
-    "translator": { "label": "翻译引擎", "tooltip": "用于翻译的服务商" },
+    "translator": { "label": "翻译引擎", "tooltip": "翻译时使用的引擎" },
     "autoPause": { "label": "自动暂停", "tooltip": "悬停在字幕上时自动暂停视频", "helperText": "悬停在字幕上时自动暂停视频" },
     "leftClickAction": {
       "label": "左键点击操作",
@@ -19,14 +19,14 @@
         "nothing": "无操作"
       }
     },
-    "alwaysMultipleSelection": { "label": "始终开启多选", "tooltip": "无需按住 Shift 即可选择多个单词", "helperText": "开启后，您可以直接选择多个单词而无需按住 Shift 键" },
+    "alwaysMultipleSelection": { "label": "始终开启多选", "tooltip": "无需按住 Shift 即可选择多个单词", "helperText": "开启后，你可以直接选择多个单词而无需按住 Shift 键" },
     "showNotifications": { "label": "显示通知", "tooltip": "保存单词或复制文本时显示通知", "helperText": "关闭后，保存或复制时将不再弹出通知" }
   },
   "modals": {
     "reset": { "title": "重置为默认设置？", "description": "这将把所有设置恢复为默认值。", "action": "重置" }
   },
   "tips": {
-    "multipleSelection": "如需选择多个单词，请按住 Shift 键并悬停。或者在设置中开启‘始终开启多选’。",
+    "multipleSelection": "如需选择多个单词，请按住 Shift 键，再把鼠标移到需要的单词上。或者在设置中开启“始终开启多选”。",
     "dismiss": "隐藏提示"
   },
   "apiKey": {
@@ -58,7 +58,7 @@
     "usage": {
       "label": "本计费周期已使用 {{used}} / {{limit}} 个字符",
       "unavailable": "无法加载用量。{{reason}}",
-      "exhausted": "额度已用完 — 在额度重置之前 {{translatorName}} 将无法翻译。"
+      "exhausted": "额度已用完，在额度重置之前 {{translatorName}} 将无法翻译。"
     },
     "notifications": {
       "connected": "已连接 {{translatorName}}",
@@ -84,12 +84,12 @@
   "errors": {
     "sourceLanguageCode": "{{translatorName}} 翻译引擎不支持将 {{incorrectLanguage}} 作为源语言。已切换至 {{defaultLanguage}}。",
     "targetLanguageCode": "{{translatorName}} 翻译引擎不支持将 {{incorrectLanguage}} 作为目标语言。已切换至 {{defaultLanguage}}。",
-    "translatorUnavailable": "{{translatorName}} 翻译器不可用：{{errorMessage}}",
-    "translatorFallback": "{{translatorName}} 翻译器不可用：{{errorMessage}}。正在切换回 {{fallbackTranslatorName}}。",
+    "translatorUnavailable": "{{translatorName}} 翻译引擎不可用：{{errorMessage}}",
+    "translatorFallback": "{{translatorName}} 翻译引擎不可用：{{errorMessage}}。正在切换回 {{fallbackTranslatorName}}。",
     "translatorSwitchFailed": "无法切换到 {{translatorName}}：{{errorMessage}}。继续使用 {{previousTranslatorName}}。",
     "translatorFallbackReason": "{{reason}}正在切换到 {{fallbackTranslatorName}}。",
     "translatorSwitchFailedReason": "{{reason}}仍使用 {{previousTranslatorName}}。",
-    "translatorWithdrawn": "此版本的 HoverTranslate 暂不提供 {{translatorName}} 翻译器，它将在下次更新中回归。正在切换到 {{fallbackTranslatorName}}。",
+    "translatorWithdrawn": "此版本的 HoverTranslate 暂不提供 {{translatorName}} 翻译引擎，它将在下次更新中回归。正在切换到 {{fallbackTranslatorName}}。",
     "translatorPermissionFallback": "{{translatorName}} 需要访问 {{host}} 的权限。在列表中选择 {{translatorName}} 即可允许。正在切换到 {{fallbackTranslatorName}}。",
     "translator": {
       "apiKeyMissing": "此设备上尚未添加 {{translatorName}} API 密钥。",

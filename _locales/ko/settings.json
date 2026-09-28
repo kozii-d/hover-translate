@@ -14,22 +14,22 @@
     },
     "sourceLanguageCode": {
       "label": "번역 원본 언어",
-      "tooltip": "텍스트가 번역될 원본 언어"
+      "tooltip": "번역할 텍스트의 언어"
     },
     "translator": {
       "label": "번역기",
       "tooltip": "번역에 사용할 번역기"
     },
     "autoPause": {
-      "label": "자동 일시정지",
-      "tooltip": "자막에 마우스를 올릴 때 동영상을 자동으로 일시정지",
-      "helperText": "자막에 마우스를 올릴 때 동영상을 자동으로 일시정지합니다"
+      "label": "자동 일시중지",
+      "tooltip": "자막에 마우스를 올릴 때 동영상을 자동으로 일시중지",
+      "helperText": "자막에 마우스를 올릴 때 동영상을 자동으로 일시중지합니다"
     },
     "leftClickAction": {
       "label": "왼쪽 클릭 동작",
       "tooltip": "자막의 단어를 왼쪽 클릭할 때 수행할 동작",
       "options": {
-        "saveToDictionary": "사전에 저장",
+        "saveToDictionary": "단어장에 저장",
         "copyOriginal": "원본 텍스트를 클립보드에 복사",
         "copyTranslation": "번역된 텍스트를 클립보드에 복사",
         "nothing": "없음"
@@ -42,7 +42,7 @@
     },
     "showNotifications": {
       "label": "알림 표시",
-      "tooltip": "단어가 사전에 저장되거나 클립보드에 복사될 때 알림 표시",
+      "tooltip": "단어가 단어장에 저장되거나 클립보드에 복사될 때 알림 표시",
       "helperText": "비활성화하면 단어가 저장되거나 복사될 때 알림이 표시되지 않습니다"
     }
   },
@@ -54,7 +54,7 @@
     }
   },
   "tips": {
-    "multipleSelection": "여러 단어를 선택하려면 Shift 키를 누른 상태에서 필요한 단어들에 마우스를 올리세요. 또는 '항상 다중 선택 활성화' 설정을 켜세요.",
+    "multipleSelection": "여러 단어를 선택하려면 Shift 키를 누른 상태에서 필요한 단어들에 마우스를 올리세요. 또는 \"항상 다중 선택 활성화\" 설정을 켜세요.",
     "dismiss": "팁 숨기기"
   },
   "apiKey": {

@@ -9,37 +9,37 @@
   },
   "fields": {
     "useYouTubeSettings": {
-      "label": "YouTube設定を使用",
-      "tooltip": "翻訳ツールチップにYouTube設定を使用",
-      "helperText": "翻訳ツールチップの外観設定にYouTubeの字幕設定と同じものを使用します"
+      "label": "YouTube の設定を使用",
+      "tooltip": "翻訳ツールチップに YouTube の設定を使用",
+      "helperText": "翻訳ツールチップの見た目を YouTube の字幕設定に合わせます"
     },
     "fontFamily": {
-      "label": "フォントファミリー",
-      "tooltip": "翻訳ツールチップに使用するフォントファミリー"
+      "label": "フォント ファミリー",
+      "tooltip": "翻訳ツールチップに使用するフォント ファミリー"
     },
     "fontSize": {
-      "label": "フォントサイズ",
-      "tooltip": "翻訳ツールチップに使用するフォントサイズ"
+      "label": "フォント サイズ",
+      "tooltip": "翻訳ツールチップに使用するフォント サイズ"
     },
     "fontColor": {
-      "label": "フォント色",
-      "tooltip": "翻訳ツールチップに使用するフォント色"
+      "label": "フォントの色",
+      "tooltip": "翻訳ツールチップに使用するフォントの色"
     },
     "fontOpacity": {
-      "label": "フォント透明度",
-      "tooltip": "翻訳ツールチップのフォント透明度レベル"
+      "label": "フォントの透過度",
+      "tooltip": "翻訳ツールチップのフォントの透過度"
     },
     "backgroundColor": {
       "label": "背景色",
       "tooltip": "翻訳ツールチップの背景色"
     },
     "backgroundOpacity": {
-      "label": "背景透明度",
-      "tooltip": "翻訳ツールチップの背景透明度レベル"
+      "label": "背景の透過度",
+      "tooltip": "翻訳ツールチップの背景の透過度"
     },
     "characterEdgeStyle": {
-      "label": "文字縁取りスタイル",
-      "tooltip": "翻訳ツールチップの文字縁取りスタイル"
+      "label": "文字装飾スタイル",
+      "tooltip": "翻訳ツールチップの文字装飾スタイル"
     }
   },
   "modals": {

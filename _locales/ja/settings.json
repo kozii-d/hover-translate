@@ -29,7 +29,7 @@
       "label": "左クリック操作",
       "tooltip": "字幕の単語を左クリックしたときに実行する操作",
       "options": {
-        "saveToDictionary": "辞書に保存",
+        "saveToDictionary": "単語帳に保存",
         "copyOriginal": "元のテキストをクリップボードにコピー",
         "copyTranslation": "翻訳されたテキストをクリップボードにコピー",
         "nothing": "何もしない"
@@ -37,13 +37,13 @@
     },
     "alwaysMultipleSelection": {
       "label": "常に複数選択を有効化",
-      "tooltip": "Shiftキーを押さずに複数の単語を選択可能",
-      "helperText": "有効にすると、Shiftキーを押さずに複数の単語を選択できます"
+      "tooltip": "Shift キーを押さずに複数の単語を選択可能",
+      "helperText": "有効にすると、Shift キーを押さずに複数の単語を選択できます"
     },
     "showNotifications": {
       "label": "通知を表示",
-      "tooltip": "単語が辞書に保存されたりクリップボードにコピーされた際に通知を表示",
-      "helperText": "無効にすると、単語が保存やコピーされた際に通知が表示されません"
+      "tooltip": "単語を単語帳に保存したときやクリップボードにコピーしたときに通知を表示",
+      "helperText": "無効にすると、単語を保存・コピーしても通知は表示されません"
     }
   },
   "modals": {
@@ -54,13 +54,13 @@
     }
   },
   "tips": {
-    "multipleSelection": "複数の単語を選択するには、Shiftキーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。",
+    "multipleSelection": "複数の単語を選択するには、Shift キーを押しながら必要な単語にマウスを重ねてください。または「常に複数選択を有効化」設定を有効にしてください。",
     "dismiss": "ヒントを非表示"
   },
   "apiKey": {
     "requiredHint": "API キーが必要です",
     "title": "{{translatorName}} に接続",
-    "description": "{{translatorName}} はあなた個人の API キーで動作します。{{translatorName}} のウェブサイトでアカウントを作成し（無料プランがあります）、アカウントページからキーをコピーしてください。",
+    "description": "{{translatorName}} はご自身の API キーで動作します。{{translatorName}} のウェブサイトでアカウントを作成し（無料プランがあります）、アカウントページからキーをコピーしてください。",
     "getKey": "API キーを取得",
     "field": {
       "label": "API キー",
@@ -110,8 +110,8 @@
     }
   },
   "errors": {
-    "sourceLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳元言語として利用できません。{{defaultLanguage}}に切り替えます。",
-    "targetLanguageCode": "{{incorrectLanguage}}は{{translatorName}}翻訳機の翻訳先言語として利用できません。{{defaultLanguage}}に切り替えます。",
+    "sourceLanguageCode": "{{incorrectLanguage}} は {{translatorName}} 翻訳エンジンの翻訳元言語として利用できません。{{defaultLanguage}} に切り替えます。",
+    "targetLanguageCode": "{{incorrectLanguage}} は {{translatorName}} 翻訳エンジンの翻訳先言語として利用できません。{{defaultLanguage}} に切り替えます。",
     "translatorUnavailable": "{{translatorName}} 翻訳エンジンを利用できません: {{errorMessage}}",
     "translatorFallback": "{{translatorName}} 翻訳エンジンを利用できません: {{errorMessage}}。{{fallbackTranslatorName}} に戻します。",
     "translatorSwitchFailed": "{{translatorName}} に切り替えられませんでした: {{errorMessage}}。{{previousTranslatorName}} のままにします。",
