@@ -2,7 +2,7 @@
 node scripts/check-deps.js
 
 # Ignored on purpose (generated, secret or private), but `git add -f` gets past .gitignore.
-forced=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^manifest\.json$|(^|/)\.env$|^(releases|notes)/' || true)
+forced=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^manifest\.json$|(^|/)\.env$|^(releases|work)/|^\.claude/settings\.local\.json$' || true)
 if [ -n "$forced" ]; then
   echo "These files are in .gitignore and must not be committed:" >&2
   echo "$forced" >&2

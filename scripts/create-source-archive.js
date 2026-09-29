@@ -48,7 +48,7 @@ function createSourceArchive() {
       "*~",
       "*.swp",
       "*.swo",
-      "notes/*",
+      "work/*",
       // Not needed for the build: the README's GIFs and the store listing material
       "docs/*",
       "store-assets/*",

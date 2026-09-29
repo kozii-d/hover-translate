@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run verify)",
+      "Bash(npm run build)",
+      "Bash(npm run build:dev)",
+      "Bash(npm run test:e2e)",
+      "Bash(npm run lint)",
+      "Bash(npm run check:listing)",
+      "Bash(npm run check:version)",
+      "Bash(npm run setup:chrome)",
+      "Bash(npm run setup:firefox)",
+      "Bash(npm run setup:edge)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git archive *)",
+      "Bash(rm -rf work/runs/*)"
+    ],
+    "deny": [
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git reset *)",
+      "Bash(git clean *)",
+      "Bash(git stash *)",
+      "Bash(git restore *)",
+      "Bash(git checkout *)",
+      "Bash(git rebase *)",
+      "Bash(npm run update:amo *)"
+    ]
+  }
+}

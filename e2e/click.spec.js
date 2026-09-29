@@ -77,7 +77,7 @@ test("right and middle clicks on a word save nothing", async ({ openPlayer, stor
 
   // Saved first: the drag guard of a word never pressed would stop the other
   // buttons by chance (it measures from 0, 0), and a word the viewer saved and
-  // then right-clicks is the case to cover (task 13).
+  // then right-clicks is the case to cover.
   await player.word("life").click();
   await expect.poll(() => savedWords(storage)).toEqual(["life"]);
   const [{ id }] = await storage.get("local", "savedTranslations");
@@ -152,7 +152,7 @@ for (const dragMode of ["drag and drop", "mousemove"]) {
       await expect.poll(() => savedWords(storage)).toEqual(["life", "run"]);
       await expect(player.tooltip).toHaveText("[ru] life");
       expect((await player.tooltip.boundingBox()).y).toBeGreaterThan(windowBox.y + windowBox.height);
-      // Held by the auto-pause while the pointer is on the captions (task 13)…
+      // Held by the auto-pause while the pointer is on the captions…
       expect(await player.isPaused()).toBe(true);
 
       // …and handed back once it leaves.

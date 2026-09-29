@@ -188,7 +188,7 @@ const test = base.extend({
  * and runs in a process of its own, and for a moment after it loads Chromium
  * still gives the mouse to the page around it: a click on a word right away
  * went, whole, to the host page's `<iframe>` element (1 full run in 3 on 4
- * CPUs; notes/harness/19). A viewer is never that quick. The pointer is moved
+ * CPUs). A viewer is never that quick. The pointer is moved
  * over the top left of the player, away from the captions, until the frame
  * sees it.
  */

@@ -89,9 +89,10 @@ Then load the **repository root** as an unpacked extension (`chrome://extensions
 ```bash
 npm test             # the tests of all three packages (Vitest, node:test)
 npm run verify       # lint, types, tests, store listing limits, versions
+npm run test:e2e     # the extension in Playwright's Chromium on local copies of YouTube's player (run npm run build first)
 ```
 
-`npm ci` in the root also installs the git hooks: a commit is checked in a few seconds (ESLint on the changed files, locale JSON, listing limits, versions), a push runs `npm run verify`. GitHub Actions runs the same on every push and pull request, plus the store packages and `web-ext lint`.
+`npm ci` in the root also installs the git hooks: a commit is checked in a few seconds (ESLint on the changed files, locale JSON, listing limits, versions), a push runs `npm run verify`. GitHub Actions runs the same on every push and pull request, plus the store packages, `web-ext lint` and the end-to-end tests.
 
 ## Acknowledgements
 

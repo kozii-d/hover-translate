@@ -16,8 +16,7 @@ const deeplLanguages: AvailableLanguages = {
 };
 const codes = (list: { code: string }[]) => list.map(({ code }) => code);
 
-// The UI language the browser reports → the target language picked on install
-// (tasks 02, 09 and 13; the stand of task 02 has the full table).
+// The UI language the browser reports → the target language picked on install.
 const GOOGLE_TABLE: [string, string][] = [
   ["en-US", "en"], ["en-GB", "en"], ["en", "en"],
   ["pt-BR", "pt"], ["pt-PT", "pt"], ["pt", "pt"],

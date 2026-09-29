@@ -160,7 +160,7 @@
   // pixels after the press the browser starts a drag of its own: the pointer
   // gets `pointercancel` and no `pointerup`, and the window follows
   // `dragover`. So it went on the live watch page in Playwright's Chromium
-  // (2026-09-29, notes/harness/19).
+  // (2026-09-29).
   //
   // "mousemove": no drag of the browser's; the page's script moves the window
   // on `mousemove`. The browser has placed that move before the window
@@ -168,7 +168,7 @@
   // window is under it again, comes back — a `pointerleave` and a
   // `pointerenter` a few milliseconds apart, and never a `pointermove` on the
   // word, as recorded on the live watch page in Brave over plain CDP
-  // (notes/harness/13/drag.mjs). The window is not `draggable` here only
+  // (2026-09-27). The window is not `draggable` here only
   // because Playwright would otherwise turn the moves into a drag and drop of
   // its own.
   let pressed = null;

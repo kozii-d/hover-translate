@@ -1,6 +1,6 @@
 const { test, expect } = require("./extension.js");
 
-// The request for a rating on the video (task 08): once ever, with the save
+// The request for a rating on the video: once ever, with the save
 // that brings the word list to ten, a week after the install.
 
 const MONTH_AGO = Date.now() - 30 * 24 * 60 * 60 * 1000;

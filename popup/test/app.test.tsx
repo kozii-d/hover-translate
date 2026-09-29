@@ -68,7 +68,7 @@ describe.each([
     expect(document.documentElement.lang).toBe(language);
     expect(errors).not.toHaveBeenCalled();
     // Known, and development-only: the settings form is drawn once before the
-    // language lists arrive (notes/TASKS.md, "Найдено по дороге").
+    // language lists arrive.
     const knownWarning = /^MUI: You have provided an out-of-range value `[\w-]+` for the select component/;
     expect(warnings.mock.calls.filter(([message]) => !knownWarning.test(String(message)))).toEqual([]);
   });

@@ -6,7 +6,7 @@ import {
 } from "../../src/common/ratingPrompt.ts";
 import { CHROME_WEB_STORE_ID, EDGE_ADD_ONS_ID, UNPACKED_ID } from "../fakeChrome.ts";
 
-// The table of task 08 ("Как проверить", item 1) and its stand.
+// When each rating card may appear, and which store page "Rate" opens, case by case.
 const DAY = 24 * 60 * 60 * 1000;
 const now = Date.UTC(2026, 8, 29, 12);
 const daysAgo = (days: number) => now - days * DAY;

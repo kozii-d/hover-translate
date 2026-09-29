@@ -1,6 +1,5 @@
 node_modules/
 .idea/
-.claude/
 .DS_Store
 .env
 dist/
@@ -11,5 +10,10 @@ coverage/
 *.tsbuildinfo
 manifest.json
 /releases/
-CLAUDE.md
-/notes/
+# Claude Code: only what the agents work by is shared, the rest stays local
+/.claude/*
+!/.claude/skills/
+!/.claude/agents/
+!/.claude/settings.json
+# Working documents: tasks, reports, store statistics — private
+/work/
