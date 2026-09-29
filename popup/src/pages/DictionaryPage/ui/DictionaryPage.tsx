@@ -13,7 +13,7 @@ import { DictionaryContentSkeleton } from "./skeletons/DictionaryContentSkeleton
 import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
 import { useTranslation } from "react-i18next";
 import { ExportData } from "@/features/ExportTranslations";
-import { useNotifications } from "@toolpad/core/useNotifications";
+import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 

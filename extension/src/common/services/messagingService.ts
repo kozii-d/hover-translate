@@ -1,4 +1,5 @@
 import { ExtensionMessage } from "../types/messages.ts";
+import { TranslatorErrorResponse, unwrapTranslatorResponse } from "../translators/translatorError.ts";
 
 const DEFAULT_TIMEOUT_MS = 20_000;
 
@@ -11,10 +12,11 @@ const createAbortError = () => {
 /**
  * Sends a message to the background service worker and resolves with its reply.
  *
- * The webextension-polyfill turns a rejection thrown by the background listener
- * into a rejection here, so failures surface to the caller. The timeout covers
- * the remaining case where nothing answers at all (a listener that never
- * responds would otherwise leave the caller waiting forever).
+ * A handler that failed in the background answers with an error envelope
+ * (`MessageService`), turned back into a rejection here, so failures surface
+ * to the caller. The timeout covers the remaining case where nothing answers
+ * at all (a listener that never responds would otherwise leave the caller
+ * waiting forever).
  */
 export const sendMessageToBackground = async <T>(
   message: ExtensionMessage,
@@ -47,7 +49,7 @@ export const sendMessageToBackground = async <T>(
 
   try {
     const response = await Promise.race([
-      chrome.runtime.sendMessage<ExtensionMessage, T | undefined>(message),
+      chrome.runtime.sendMessage<ExtensionMessage, T | TranslatorErrorResponse | undefined>(message),
       failEarly,
     ]);
 
@@ -57,7 +59,7 @@ export const sendMessageToBackground = async <T>(
       );
     }
 
-    return response;
+    return unwrapTranslatorResponse(response);
   } finally {
     clearTimeout(timeoutId);
     if (handleAbort) {

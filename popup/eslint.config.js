@@ -15,7 +15,6 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.webextensions,
         ...globals.node,
-        __API_URL__: "readonly",
       },
     },
     plugins: {
@@ -23,7 +22,11 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      // The two rules of hooks, without the React Compiler rules that the
+      // plugin's `recommended` preset has included since 7.0: the popup does
+      // not use the compiler.
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

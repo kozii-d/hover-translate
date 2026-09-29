@@ -1,8 +1,4 @@
 import { sendMessage } from "./sendMessage.ts";
-import {
-  TranslatorErrorResponse,
-  unwrapTranslatorResponse,
-} from "@extension/common/translators/translatorError.ts";
 import { AvailableLanguages } from "@extension/common/types/languages.ts";
 import { ApiKeyUsage, ApiKeyVerification } from "@extension/common/types/apiKeys.ts";
 
@@ -14,50 +10,42 @@ import { ApiKeyUsage, ApiKeyVerification } from "@extension/common/types/apiKeys
  */
 
 export const requestAvailableLanguages = async (translatorKey: string): Promise<AvailableLanguages> => {
-  const response = await sendMessage<{ availableLanguages: AvailableLanguages } | TranslatorErrorResponse>({
+  const { availableLanguages } = await sendMessage<{ availableLanguages: AvailableLanguages }>({
     action: "getAvailableLanguages",
     value: translatorKey,
   });
 
-  return unwrapTranslatorResponse(response).availableLanguages;
+  return availableLanguages;
 };
 
 export const requestApiKeyVerification = async (
   translatorKey: string,
   apiKey: string,
 ): Promise<ApiKeyVerification> => {
-  const response = await sendMessage<ApiKeyVerification | TranslatorErrorResponse>({
+  return sendMessage<ApiKeyVerification>({
     action: "verifyApiKey",
     value: { translatorKey, apiKey },
   });
-
-  return unwrapTranslatorResponse(response);
 };
 
 /** Stores a key through the background worker, the only writer of `apiKeys`. */
 export const requestApiKeySave = async (translatorKey: string, apiKey: string): Promise<void> => {
-  const response = await sendMessage<{ success: true } | TranslatorErrorResponse>({
+  await sendMessage<{ success: true }>({
     action: "setApiKey",
     value: { translatorKey, apiKey },
   });
-
-  unwrapTranslatorResponse(response);
 };
 
 export const requestApiKeyRemoval = async (translatorKey: string): Promise<void> => {
-  const response = await sendMessage<{ success: true } | TranslatorErrorResponse>({
+  await sendMessage<{ success: true }>({
     action: "removeApiKey",
     value: { translatorKey },
   });
-
-  unwrapTranslatorResponse(response);
 };
 
 export const requestApiKeyUsage = async (translatorKey: string): Promise<ApiKeyUsage> => {
-  const response = await sendMessage<ApiKeyUsage | TranslatorErrorResponse>({
+  return sendMessage<ApiKeyUsage>({
     action: "getApiKeyUsage",
     value: { translatorKey },
   });
-
-  return unwrapTranslatorResponse(response);
 };

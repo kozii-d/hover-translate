@@ -5,7 +5,7 @@ import { Page } from "@/shared/ui/Page/Page.tsx";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
-import { useNotifications } from "@toolpad/core/useNotifications";
+import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 
 const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);

@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=24.12.0",
+    "npm": ">=11.6.2"
+  },
   "scripts": {
     "build": "rm -rf dist && tsc && vite build --mode=production --config=vite.background.config.ts && vite build --mode=production --config=vite.content.config.ts",
     "build:dev": "rm -rf dist && tsc && vite build --mode=development --config=vite.background.config.ts && vite build --mode=development --config=vite.content.config.ts",
@@ -13,26 +17,21 @@
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@types/chrome": "^0.0.287",
-    "@types/node": "^22.10.2",
-    "@types/webextension-polyfill": "^0.12.3",
-    "concurrently": "^9.1.2",
-    "dotenv": "^16.4.7",
-    "eslint": "^9.17.0",
-    "globals": "^15.14.0",
-    "rollup-plugin-copy": "^3.5.0",
-    "typescript": "~5.6.2",
-    "typescript-eslint": "^8.18.2",
-    "vite": "^6.3.5"
+    "@eslint/js": "10.0.1",
+    "@types/chrome": "0.3.0",
+    "@types/node": "24.13.6",
+    "concurrently": "10.0.5",
+    "eslint": "10.11.0",
+    "globals": "17.12.0",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.1",
+    "vite": "7.3.6"
   },
   "dependencies": {
-    "color-alpha": "^2.0.0",
-    "color-rgba": "^3.0.0",
-    "headers-polyfill": "^4.0.3",
-    "jwt-decode": "^4.0.0",
-    "ky": "^1.8.1",
-    "quick-lru": "^7.0.0",
-    "webextension-polyfill": "^0.12.0"
+    "color-alpha": "2.0.0",
+    "color-rgba": "3.0.0",
+    "headers-polyfill": "4.0.3",
+    "ky": "1.14.3",
+    "quick-lru": "7.0.0"
   }
 }

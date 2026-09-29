@@ -2,7 +2,6 @@ import { BaseTranslator, TranslatedData } from "./baseTranslator.ts";
 import { AvailableLanguages } from "../types/languages.ts";
 import { GetAvailableLanguagesResponse } from "../types/messages.ts";
 import { sendMessageToBackground } from "../services/messagingService.ts";
-import { TranslatorErrorResponse, unwrapTranslatorResponse } from "./translatorError.ts";
 
 /**
  * Runs a translator's requests in the background service worker instead of in
@@ -52,7 +51,7 @@ export class ProxyTranslator extends BaseTranslator {
     signal?.addEventListener("abort", handleAbort, { once: true });
 
     try {
-      const response = await sendMessageToBackground<TranslatedData | TranslatorErrorResponse>(
+      return await sendMessageToBackground<TranslatedData>(
         {
           action: "translate",
           value: {
@@ -66,20 +65,17 @@ export class ProxyTranslator extends BaseTranslator {
         },
         signal,
       );
-
-      return unwrapTranslatorResponse(response);
     } finally {
       signal?.removeEventListener("abort", handleAbort);
     }
   }
 
   public async getAvailableLanguages(): Promise<AvailableLanguages> {
-    const response =
-      await sendMessageToBackground<GetAvailableLanguagesResponse | TranslatorErrorResponse>({
-        action: "getAvailableLanguages",
-        value: this.key,
-      });
+    const { availableLanguages } = await sendMessageToBackground<GetAvailableLanguagesResponse>({
+      action: "getAvailableLanguages",
+      value: this.key,
+    });
 
-    return unwrapTranslatorResponse(response).availableLanguages;
+    return availableLanguages;
   }
 }

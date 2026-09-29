@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 interface ConfirmationModalProps {
   title: string;
   description: string;
-  trigger: ReactElement;
+  trigger: ReactElement<{ onClick?: () => void }>;
   actionText?: string;
   onConfirm: () => void;
 }

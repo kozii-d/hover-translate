@@ -25,7 +25,7 @@ import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 import { useTranslation } from "react-i18next";
 import { MenuItemType } from "@/shared/types/types.ts";
-import { useNotifications } from "@toolpad/core";
+import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 import {
   FALLBACK_TRANSLATOR,
   TRANSLATORS_OPTIONS,
@@ -324,14 +324,14 @@ export const SettingsForm: FC<SettingsFormProps> = ({
         verification = await requestApiKeyVerification(translator, apiKey);
       } catch (error) {
         console.warn(`The ${translator} API key could not be verified`, error);
-        throw new Error(describeError(error, translator));
+        throw new Error(describeError(error, translator), { cause: error });
       }
 
       try {
         await requestApiKeySave(translator, apiKey);
       } catch (error) {
         console.error(`Could not save the ${translator} API key`, error);
-        throw new Error(t("apiKey.errors.saveFailed"));
+        throw new Error(t("apiKey.errors.saveFailed"), { cause: error });
       }
 
       setApiKeys((keys) => ({ ...keys, [translator]: apiKey }));
@@ -351,7 +351,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
         await saveSettings(nextValues);
       } catch (error) {
         console.error(`Could not switch the settings to ${translator}`, error);
-        throw new Error(t("apiKey.errors.settingsSaveFailed"));
+        throw new Error(t("apiKey.errors.settingsSaveFailed"), { cause: error });
       }
 
       applyAvailableLanguages(verification.availableLanguages);

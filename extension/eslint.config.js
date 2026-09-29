@@ -11,7 +11,6 @@ export default [
       ...globals.webextensions,
       ...globals.node,
       chrome: "readonly",
-      __API_URL__: "readonly",
     },
   } },
   pluginJs.configs.recommended,

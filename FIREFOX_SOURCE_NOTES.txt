@@ -1,9 +1,11 @@
 Please see BUILD_INSTRUCTIONS.md for complete build instructions.
 
+Requires Node.js 24.12.0 or newer and npm 11.6.2 or newer (see .nvmrc).
+
 Quick Start:
-1. npm install
-2. cd extension && npm install && cd ..
-3. cd popup && npm install && cd ..
+1. npm ci
+2. cd extension && npm ci && cd ..
+3. cd popup && npm ci && cd ..
 4. npm run setup:firefox
 5. npm run build
 

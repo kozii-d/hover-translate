@@ -18,7 +18,7 @@ import {
 } from "../model/consts/translators.ts";
 import { useTranslation } from "react-i18next";
 import { SettingsForm } from "./SettingsForm.tsx";
-import { useNotifications } from "@toolpad/core";
+import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 
 const SettingsPage: FC = () => {
   const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);

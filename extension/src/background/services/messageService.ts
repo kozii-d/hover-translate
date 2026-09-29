@@ -1,5 +1,3 @@
-// import { TokenService } from "./tokenService.ts";
-
 import { TranslatorFactory } from "../../common/translators/TranslatorFactory.ts";
 import { BaseTranslator } from "../../common/translators/baseTranslator.ts";
 import { ApiKeyTranslator, isApiKeyTranslator } from "../../common/translators/apiKeyTranslator.ts";
@@ -41,9 +39,7 @@ export class MessageService {
   // The only writer of `apiKeys` — see `SetApiKeyMessage`.
   private readonly apiKeyService = new ApiKeyService();
 
-  constructor(
-    // private readonly tokenService: TokenService = new TokenService(),
-  ) {
+  constructor() {
     this.setupMessageListeners();
   }
 
@@ -82,102 +78,100 @@ export class MessageService {
   }
 
   private setupMessageListeners(): void {
-    // Returning a promise is the webextension-polyfill contract: it forwards the
-    // resolved value to the sender and — the part the callback style used to drop
-    // — turns a rejection into a rejection on the sender's side, so a failing
-    // translator reports an error instead of leaving the caller waiting forever.
-    // Translator requests go one step further and resolve with their error (see
-    // `answerTranslatorRequest`), since a rejection loses the error's code.
-    chrome.runtime.onMessage.addListener((message: ExtensionMessage) => {
-      // if (message.action === "restoreIdToken") {
-      //   return this.tokenService.restoreToken().then(() => ({ success: true }));
-      // }
+    // Answered through `sendResponse` and `return true`, which every Chrome and
+    // Firefox accepts. Returning the promise itself is not enough: Chrome ignores
+    // it before 147 (developer.chrome.com, "Message passing", says 148, rolling
+    // out gradually), and the sender gets `undefined`. A handler that fails is answered with the same envelope
+    // as a failing translator — `sendResponse` carries a value, not a rejection —
+    // and the senders turn it back into an error (`unwrapTranslatorResponse`).
+    chrome.runtime.onMessage.addListener((message: ExtensionMessage, _sender, sendResponse) => {
+      const reply = this.reply(message);
+      if (!reply) return false;
 
-      if (message?.action === "openPopup") {
-        return chrome.action
-          .openPopup()
-          .then(() => ({ success: true }))
-          .catch(() => ({ success: false }));
-      }
+      reply.catch(serializeTranslatorError).then(sendResponse);
+      return true;
+    });
+  }
 
-      if (message?.action === "getAvailableLanguages") {
-        return answerTranslatorRequest(() => this.getTranslator(message.value)
-          .getAvailableLanguages()
-          .then((availableLanguages) => ({ availableLanguages })));
-      }
+  /** The answer to a message, or `false` when this listener does not handle it. */
+  private reply(message: ExtensionMessage): Promise<unknown> | false {
+    if (message?.action === "getAvailableLanguages") {
+      return answerTranslatorRequest(() => this.getTranslator(message.value)
+        .getAvailableLanguages()
+        .then((availableLanguages) => ({ availableLanguages })));
+    }
 
-      if (message?.action === "verifyApiKey") {
-        const { translatorKey, apiKey } = message.value;
+    if (message?.action === "verifyApiKey") {
+      const { translatorKey, apiKey } = message.value;
 
-        return answerTranslatorRequest(() => this.getApiKeyTranslator(translatorKey).verifyApiKey(apiKey));
-      }
+      return answerTranslatorRequest(() => this.getApiKeyTranslator(translatorKey).verifyApiKey(apiKey));
+    }
 
-      if (message?.action === "setApiKey") {
-        const { translatorKey, apiKey } = message.value;
+    if (message?.action === "setApiKey") {
+      const { translatorKey, apiKey } = message.value;
 
-        return answerTranslatorRequest(() => this.apiKeyService.set(translatorKey, apiKey)
-          .then(() => ({ success: true })));
-      }
+      return answerTranslatorRequest(() => this.apiKeyService.set(translatorKey, apiKey)
+        .then(() => ({ success: true })));
+    }
 
-      if (message?.action === "removeApiKey") {
-        return answerTranslatorRequest(() => this.apiKeyService.remove(message.value.translatorKey)
-          .then(() => ({ success: true })));
-      }
+    if (message?.action === "removeApiKey") {
+      return answerTranslatorRequest(() => this.apiKeyService.remove(message.value.translatorKey)
+        .then(() => ({ success: true })));
+    }
 
-      if (message?.action === "getApiKeyUsage") {
-        return answerTranslatorRequest(() => this.getApiKeyTranslator(message.value.translatorKey).getUsage());
-      }
+    if (message?.action === "getApiKeyUsage") {
+      return answerTranslatorRequest(() => this.getApiKeyTranslator(message.value.translatorKey).getUsage());
+    }
 
-      if (message?.action === "translate") {
-        const {
-          requestId,
-          translatorKey,
+    if (message?.action === "translate") {
+      const {
+        requestId,
+        translatorKey,
+        text,
+        sourceLanguageCode,
+        targetLanguageCode,
+        context,
+      } = message.value;
+
+      const abortController = new AbortController();
+      this.activeTranslations.set(requestId, abortController);
+
+      return answerTranslatorRequest(() => this.getTranslator(translatorKey)
+        .translate(
           text,
           sourceLanguageCode,
           targetLanguageCode,
+          abortController.signal,
           context,
-        } = message.value;
+        ))
+        .finally(() => this.activeTranslations.delete(requestId));
+    }
 
-        const abortController = new AbortController();
-        this.activeTranslations.set(requestId, abortController);
+    if (message?.action === "hasPermissions") {
+      return chrome.permissions.contains({ origins: message.value.origins })
+        .then((granted) => ({ granted }));
+    }
 
-        return answerTranslatorRequest(() => this.getTranslator(translatorKey)
-          .translate(
-            text,
-            sourceLanguageCode,
-            targetLanguageCode,
-            abortController.signal,
-            context,
-          ))
-          .finally(() => this.activeTranslations.delete(requestId));
-      }
+    if (message?.action === "claimSessionNotice") {
+      return this.claimSessionNotice(message.value.noticeId);
+    }
 
-      if (message?.action === "hasPermissions") {
-        return chrome.permissions.contains({ origins: message.value.origins })
-          .then((granted) => ({ granted }));
-      }
+    if (message?.action === "openReviewPage") {
+      const url = getReviewPageUrl(chrome.runtime.getURL(""), chrome.runtime.id);
+      if (!url) return Promise.resolve({ success: false });
 
-      if (message?.action === "claimSessionNotice") {
-        return this.claimSessionNotice(message.value.noticeId);
-      }
+      return chrome.tabs.create({ url }).then(() => ({ success: true }));
+    }
 
-      if (message?.action === "openReviewPage") {
-        const url = getReviewPageUrl(chrome.runtime.getURL(""), chrome.runtime.id);
-        if (!url) return Promise.resolve({ success: false });
+    if (message?.action === "abortTranslate") {
+      // An unknown id means the request has already finished — or, in theory,
+      // that the abort overtook it. Either way there is nothing left to stop.
+      this.activeTranslations.get(message.value.requestId)?.abort();
+      this.activeTranslations.delete(message.value.requestId);
 
-        return chrome.tabs.create({ url }).then(() => ({ success: true }));
-      }
+      return Promise.resolve({ success: true });
+    }
 
-      if (message?.action === "abortTranslate") {
-        // An unknown id means the request has already finished — or, in theory,
-        // that the abort overtook it. Either way there is nothing left to stop.
-        this.activeTranslations.get(message.value.requestId)?.abort();
-        this.activeTranslations.delete(message.value.requestId);
-
-        return Promise.resolve({ success: true });
-      }
-
-      return false;
-    });
+    return false;
   }
 }

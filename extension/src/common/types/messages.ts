@@ -1,9 +1,5 @@
 import { AvailableLanguages } from "./languages.ts";
 
-export interface OpenPopupMessage {
-  action: "openPopup";
-}
-
 export interface GetAvailableLanguagesMessage {
   action: "getAvailableLanguages";
   value: string;
@@ -104,7 +100,6 @@ export interface OpenReviewPageMessage {
 }
 
 export type ExtensionMessage =
-  | OpenPopupMessage
   | GetAvailableLanguagesMessage
   | TranslateMessage
   | AbortTranslateMessage

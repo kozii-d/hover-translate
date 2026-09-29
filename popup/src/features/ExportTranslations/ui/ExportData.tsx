@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { downloadFile } from "@/shared/lib/helpers/downloadFiles.ts";
 import { getCSVToExport, getJSONToExport } from "../lib/helpers/getFormattedData.ts";
 import { generateShortHash } from "@/shared/lib/helpers/generateShortHash.ts";
-import { useNotifications } from "@toolpad/core/useNotifications";
+import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 
 export const ExportData: FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

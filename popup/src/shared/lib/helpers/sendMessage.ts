@@ -1,12 +1,18 @@
+import {
+  TranslatorErrorResponse,
+  unwrapTranslatorResponse,
+} from "@extension/common/translators/translatorError.ts";
+
 const DEFAULT_TIMEOUT_MS = 20_000;
 
 /**
  * Sends a message to the background script and resolves with its reply.
  *
- * The webextension-polyfill rejects this promise when the background listener
- * rejects, so a failing handler surfaces as an error. The timeout covers the
- * remaining case where nothing answers at all — without it a caller waits
- * forever, which is what used to leave the settings page stuck on its skeleton.
+ * A handler that failed in the background answers with an error envelope
+ * (`MessageService`), turned back into a rejection here, so a failing handler
+ * surfaces as an error. The timeout covers the remaining case where nothing
+ * answers at all — without it a caller waits forever, which is what used to
+ * leave the settings page stuck on its skeleton.
  */
 export const sendMessage = async <T>(
   message: unknown,
@@ -23,7 +29,7 @@ export const sendMessage = async <T>(
 
   try {
     const response = await Promise.race([
-      chrome.runtime.sendMessage<unknown, T | undefined>(message),
+      chrome.runtime.sendMessage<unknown, T | TranslatorErrorResponse | undefined>(message),
       timeout,
     ]);
 
@@ -31,7 +37,7 @@ export const sendMessage = async <T>(
       throw new Error("The background script did not respond");
     }
 
-    return response;
+    return unwrapTranslatorResponse(response);
   } finally {
     clearTimeout(timeoutId);
   }

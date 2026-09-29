@@ -58,7 +58,7 @@ const main = async () => {
   const generation = ++initGeneration;
 
   try {
-    const settings = await chrome.storage.sync.get("settings");
+    const settings = await chrome.storage.sync.get<{ settings?: Settings }>("settings");
 
     const translatorKey = settings?.settings?.translator || "google";
 

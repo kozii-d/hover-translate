@@ -38,11 +38,12 @@ export const isTranslatorError = (error: unknown): error is TranslatorError =>
 /**
  * A failure as it travels between the background worker and its callers.
  *
- * The webextension-polyfill turns a rejected listener promise into a rejection
- * on the sender's side, but it only carries `message` across — the `code` that
- * tells a revoked key from a dropped connection would be lost on the way. So a
- * failing translator request is answered with this envelope instead, and the
- * caller turns it back into an error with `unwrapTranslatorResponse`.
+ * The background answers every message through `sendResponse`, which carries a
+ * value, not a rejection — and a bare error message would lose the `code` that
+ * tells a revoked key from a dropped connection. So a handler that fails
+ * answers with this envelope, and the senders (`sendMessageToBackground`, the
+ * popup's `sendMessage`) turn it back into an error with
+ * `unwrapTranslatorResponse`.
  */
 export interface TranslatorErrorResponse {
   translatorError: {

@@ -4,18 +4,19 @@ import svgr from "vite-plugin-svgr";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 
-import dotenv from "dotenv";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-dotenv.config({ path: resolve(__dirname, "../.env") });
 
 export default defineConfig({
   plugins: [react(), svgr()],
   base: "./",
-  define: {
-    __API_URL__: JSON.stringify(process.env.API_URL),
+  // Keep the libraries' license comments (@license, /*!) in the bundles, as
+  // Vite 6 did; Vite 7 drops them by default.
+  esbuild: { legalComments: "inline" },
+  build: {
+    // Transpiled for browsers older than the oldest we support (Chrome/Edge 102,
+    // Firefox 115): Vite 6's default, which Vite 7 raised to Chrome 107.
+    target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
   },
   resolve: {
     alias: {
@@ -24,7 +25,6 @@ export default defineConfig({
       // storage wrapper today. Only `extension/src/common` is meant to be
       // reached this way.
       "@extension": resolve(__dirname, "../extension/src"),
-      "chrome": "webextension-polyfill"
     },
   },
 });

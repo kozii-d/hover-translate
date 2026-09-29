@@ -77,7 +77,7 @@ If HoverTranslate helps you learn, a rating in the [Chrome Web Store](https://ch
 Three npm packages (`extension/`, `popup/` and the root), built with Vite and TypeScript; the popup uses React.
 
 ```bash
-npm install && (cd extension && npm install) && (cd popup && npm install)
+npm ci && (cd extension && npm ci) && (cd popup && npm ci)
 npm run setup:chrome   # or setup:edge / setup:firefox — picks the browser's manifest
 npm run watch          # rebuilds on change
 ```

@@ -4,9 +4,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import rtlPlugin from "stylis-plugin-rtl";
-import { AppProvider } from "@toolpad/core";
 import { useTranslation } from "react-i18next";
 import { getFromStorage, setToStorage } from "@/shared/lib/helpers/storage.ts";
+import { NotificationsProvider } from "@/shared/ui/Notifications/Notifications.tsx";
 import {
   POPUP_THEME_STORAGE_KEY,
   PopupTheme,
@@ -238,10 +238,10 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
     <CacheProvider value={direction === "rtl" ? RTL_CACHE : LTR_CACHE}>
       <ThemeModeContext.Provider value={themeMode}>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AppProvider theme={theme}>
+          <CssBaseline enableColorScheme />
+          <NotificationsProvider>
             {children}
-          </AppProvider>
+          </NotificationsProvider>
         </ThemeProvider>
       </ThemeModeContext.Provider>
     </CacheProvider>

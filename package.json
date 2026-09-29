@@ -3,6 +3,10 @@
   "version": "1.2.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=24.12.0",
+    "npm": ">=11.6.2"
+  },
   "scripts": {
     "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green,yellow\" \"cd extension && npm run watch:content\" \"cd extension && npm run watch:background\" \"cd popup && npm run watch\"",
     "build": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"cd extension && npm run build\" \"cd popup && npm run build\"",
@@ -27,6 +31,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "10.0.5"
   }
 }

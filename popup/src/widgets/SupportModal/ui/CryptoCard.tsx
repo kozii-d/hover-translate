@@ -14,7 +14,7 @@ import ContentCopyIcon from  "@mui/icons-material/ContentCopy";
 import CloseIcon from "@mui/icons-material/Close";
 import QrCodeIcon from "@mui/icons-material/QrCode2";
 import QRCode from "qrcode";
-import { useNotifications } from "@toolpad/core/useNotifications";
+import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 import { useTranslation } from "react-i18next";
 
 interface CryptoCardProps {

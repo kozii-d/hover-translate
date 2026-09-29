@@ -4,9 +4,13 @@ This document provides step-by-step instructions to build the HoverTranslate ext
 
 ## Prerequisites
 
-- **Node.js**: Version 18 or higher
-- **npm**: Version 8 or higher
+- **Node.js**: 24.12.0 or newer (the version in `.nvmrc`)
+- **npm**: 11.6.2 or newer
 - **Operating System**: Windows, macOS, or Linux
+
+`.npmrc` sets `engine-strict`, so `npm ci` stops with an error on an older Node.js or npm.
+
+The submitted package was built on Linux x86_64 with Node.js 24.12.0 and npm 11.6.2. The same steps with Node.js 24.14.0 and npm 11.9.0 produce byte-identical `extension/dist/` and `popup/dist/`.
 
 ## Project Structure
 
@@ -28,17 +32,19 @@ hover-translate/
 
 ## Installation Steps
 
+`npm ci` installs exactly the versions in each `package-lock.json`.
+
 ### 1. Install Root Dependencies
 
 ```bash
-npm install
+npm ci
 ```
 
 ### 2. Install Extension Dependencies
 
 ```bash
 cd extension
-npm install
+npm ci
 cd ..
 ```
 
@@ -46,7 +52,7 @@ cd ..
 
 ```bash
 cd popup
-npm install
+npm ci
 cd ..
 ```
 
@@ -118,11 +124,13 @@ To verify the build matches the submitted extension:
 
 ## Dependencies
 
-All dependencies are explicitly listed in:
+All dependencies are listed with exact versions in:
 
 - `package.json` (root - build tools)
 - `extension/package.json` (extension runtime dependencies)
 - `popup/package.json` (popup UI dependencies)
+
+Each has a `package-lock.json` next to it.
 
 No external CDN resources are used during the build process.
 
@@ -138,9 +146,9 @@ The build process is configured through:
 
 **Common Issues:**
 
-1. **Node version**: Ensure Node.js 18+ is installed
+1. **Node version**: Ensure Node.js 24.12.0 or newer is installed (`nvm use` reads `.nvmrc`)
 2. **Permission errors**: Run with appropriate permissions
-3. **Missing dependencies**: Run `npm install` in all directories
+3. **Missing dependencies**: Run `npm ci` in all three directories
 4. **Build failures**: Check that all source files are present
 
 **Support:**

@@ -18,6 +18,6 @@ export async function generateShortHash(input: string): Promise<string> {
   } catch (error) {
     const errorMessage = "Failed to generate short hash";
     console.error(errorMessage, error);
-    throw new Error(errorMessage);
+    throw new Error(errorMessage, { cause: error });
   }
 }
