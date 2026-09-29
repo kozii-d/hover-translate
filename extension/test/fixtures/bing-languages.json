@@ -1,0 +1,74 @@
+{
+  "translation": {
+    "en": {
+      "name": "English",
+      "nativeName": "English",
+      "dir": "ltr"
+    },
+    "es": {
+      "name": "Spanish",
+      "nativeName": "Español",
+      "dir": "ltr"
+    },
+    "ja": {
+      "name": "Japanese",
+      "nativeName": "日本語",
+      "dir": "ltr"
+    },
+    "ru": {
+      "name": "Russian",
+      "nativeName": "Русский",
+      "dir": "ltr"
+    },
+    "uk": {
+      "name": "Ukrainian",
+      "nativeName": "Українська",
+      "dir": "ltr"
+    },
+    "zh-Hans": {
+      "name": "Chinese Simplified",
+      "nativeName": "中文 (简体)",
+      "dir": "ltr"
+    },
+    "prs": {
+      "name": "Dari",
+      "nativeName": "دری",
+      "dir": "rtl"
+    },
+    "lzh": {
+      "name": "Chinese (Literary)",
+      "nativeName": "中文 (文言文)",
+      "dir": "ltr"
+    },
+    "tlh-Latn": {
+      "name": "Klingon (Latin)",
+      "nativeName": "Klingon (Latin)",
+      "dir": "ltr"
+    },
+    "pt": {
+      "name": "Portuguese (Brazil)",
+      "nativeName": "Português (Brasil)",
+      "dir": "ltr"
+    },
+    "pt-PT": {
+      "name": "Portuguese (Portugal)",
+      "nativeName": "Português (Portugal)",
+      "dir": "ltr"
+    },
+    "nb": {
+      "name": "Norwegian",
+      "nativeName": "Norsk Bokmål",
+      "dir": "ltr"
+    },
+    "fil": {
+      "name": "Filipino",
+      "nativeName": "Filipino",
+      "dir": "ltr"
+    },
+    "he": {
+      "name": "Hebrew",
+      "nativeName": "עברית",
+      "dir": "rtl"
+    }
+  }
+}

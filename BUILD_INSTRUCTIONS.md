@@ -40,6 +40,8 @@ hover-translate/
 npm ci
 ```
 
+It also sets up the git hooks used during development (husky). Outside a git checkout, such as the unpacked source archive, it prints `.git can't be found` and the install carries on; the build does not use them.
+
 ### 2. Install Extension Dependencies
 
 ```bash

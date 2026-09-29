@@ -25,12 +25,22 @@
     "source-archive": "node scripts/create-source-archive.js",
     "check:listing": "node scripts/check-listing.js",
     "version:set": "node scripts/set-version.js",
-    "update:amo": "node scripts/update-amo-listing.js"
+    "update:amo": "node scripts/update-amo-listing.js",
+    "prepare": "husky",
+    "lint": "npm run lint --prefix extension && npm run lint --prefix popup",
+    "typecheck": "npm run typecheck --prefix extension && npm run typecheck --prefix popup",
+    "test": "npm run test:scripts && npm test --prefix extension && npm test --prefix popup",
+    "test:scripts": "node --test scripts/*.test.js",
+    "coverage": "npm run coverage --prefix extension && npm run coverage --prefix popup",
+    "check:version": "node scripts/set-version.js --check",
+    "verify": "node scripts/check-deps.js && npm run lint && npm run typecheck && npm run test:scripts && npm run coverage && npm run check:listing && npm run check:version"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "10.0.5"
+    "concurrently": "10.0.5",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0"
   }
 }

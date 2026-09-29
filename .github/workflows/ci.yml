@@ -1,0 +1,59 @@
+# The same checks as the pre-push hook, then the store packages as a release
+# builds them. No secrets: nothing here publishes anything.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    env:
+      # The git hooks are for commits made on a developer's machine.
+      HUSKY: 0
+    steps:
+      # Actions pinned to a commit, the version in the comment.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            extension/package-lock.json
+            popup/package-lock.json
+
+      - name: Install the three packages
+        run: |
+          npm ci
+          npm ci --prefix extension
+          npm ci --prefix popup
+
+      - name: Lint, types, tests with coverage, listing limits, versions
+        run: npm run verify
+
+      - name: Production build and the store packages for Chrome, Edge and Firefox
+        run: npm run release
+
+      # Pinned, and run through npx rather than installed: only CI needs it, and
+      # as a dependency its 329 packages (82 MB) would come with every root
+      # `npm ci` — every developer's and every AMO reviewer's — against 26 now.
+      - name: web-ext lint on the Firefox package
+        run: |
+          version=$(node -p "require('./package.json').version")
+          rm -rf releases/firefox-lint
+          unzip -q "releases/$version/hover-translate-firefox-production.xpi" -d releases/firefox-lint
+          npx --yes web-ext@10.7.0 lint --source-dir releases/firefox-lint
+
+      # Also when a step failed: a coverage threshold missed is when the report is needed.
+      - if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: coverage
+          path: |
+            extension/coverage
+            popup/coverage

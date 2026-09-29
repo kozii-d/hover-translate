@@ -37,6 +37,9 @@ function createSourceArchive() {
       "*.log",
       "*.tsbuildinfo",
       "coverage/*",
+      "*/coverage/*",
+      // What husky generates for the git hooks on `npm ci`.
+      ".husky/_/*",
       ".nyc_output/*",
       "manifest.json",
       "*~",

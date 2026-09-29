@@ -1,0 +1,4 @@
+{
+  "*.{ts,tsx}": "eslint --max-warnings=0",
+  "{package.json,src/**/*.json,test/**/*.json}": "node ../scripts/check-json.js"
+}

@@ -1,0 +1,18 @@
+# Seconds, not minutes: the whole check (`npm run verify`) runs before a push.
+node scripts/check-deps.js
+
+# Ignored on purpose (generated, secret or private), but `git add -f` gets past .gitignore.
+forced=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^manifest\.json$|(^|/)\.env$|^(releases|notes)/' || true)
+if [ -n "$forced" ]; then
+  echo "These files are in .gitignore and must not be committed:" >&2
+  echo "$forced" >&2
+  exit 1
+fi
+
+# The whole listing, not only the staged files: a deleted locale file breaks it
+# too, and lint-staged never sees deletions. Offline, a fraction of a second.
+node scripts/check-listing.js
+
+# ESLint on the changed files of each package, JSON, versions: the
+# .lintstagedrc.json files at the root, in extension/ and in popup/.
+npx --no lint-staged

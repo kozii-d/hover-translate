@@ -14,18 +14,25 @@
     "watch:content": "vite build --mode=development --watch --config=vite.content.config.ts",
     "watch": "concurrently --prefix \"[{time}]\" --prefix-colors \"blue,green\" \"npm run watch:background\" \"npm run watch:content\"",
     "lint": "eslint '**/*.{ts,tsx}'",
-    "lint:fix": "eslint '**/*.{ts,tsx}' --fix"
+    "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.test.json",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "@types/chrome": "0.3.0",
     "@types/node": "24.13.6",
+    "@vitest/coverage-v8": "4.1.11",
     "concurrently": "10.0.5",
     "eslint": "10.11.0",
     "globals": "17.12.0",
+    "jsdom": "29.1.1",
     "typescript": "5.9.3",
     "typescript-eslint": "8.70.1",
-    "vite": "7.3.6"
+    "vite": "7.3.6",
+    "vitest": "4.1.11"
   },
   "dependencies": {
     "color-alpha": "2.0.0",

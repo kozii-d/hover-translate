@@ -1,0 +1,4 @@
+{
+  "*.json": "node scripts/check-json.js",
+  "{package.json,package-lock.json,manifest.*.json}": "node scripts/set-version.js --check"
+}

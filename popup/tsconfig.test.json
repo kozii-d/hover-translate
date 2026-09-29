@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "types": ["@types/chrome", "node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@extension/*": ["../extension/src/*"],
+      "@extension-test/*": ["../extension/test/*"]
+    }
+  },
+  "include": ["src", "test", "vite.config.ts", "vitest.config.ts"]
+}

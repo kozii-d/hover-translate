@@ -8,6 +8,10 @@ const path = require("node:path");
 // X.Y.Z or not greater than the current one: the stores only accept a higher
 // version than the one they already serve.
 //
+// Usage: npm run check:version (node set-version.js --check)
+// Changes nothing; fails when a file that is committed carries another version
+// than package.json. Run by `npm run verify` and the pre-commit hook.
+//
 // Semver for the extension, read off the CHANGELOG section of the release:
 // only "Fixed" → patch; anything "Added" or a noticeable change → minor;
 // something the user loses or has to redo themselves → major.
@@ -39,12 +43,32 @@ const isGreater = (a, b) => {
 
 const next = process.argv[2];
 
+const current = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8")).version;
+
+if (next === "--check") {
+  const differing = FILES.filter(({ optional }) => !optional).flatMap(({ file, count }) => {
+    const text = fs.readFileSync(path.join(ROOT, file), "utf8");
+    const versions = [...text.matchAll(VERSION_FIELD)].slice(0, count).map((match) => match[2]);
+    return versions.length === count && versions.every((version) => version === current)
+      ? []
+      : [`${file}: ${versions.join(", ") || "no version"}`];
+  });
+
+  if (differing.length) {
+    console.error(`Not every file is on version ${current} (package.json):`);
+    differing.forEach((line) => console.error(`  ${line}`));
+    console.error("Set them all with npm run version:set -- X.Y.Z");
+    process.exit(1);
+  }
+
+  console.log(`Version ${current} in every file.`);
+  process.exit(0);
+}
+
 if (!/^\d+\.\d+\.\d+$/.test(next ?? "")) {
   console.error("Usage: npm run version:set -- X.Y.Z");
   process.exit(1);
 }
-
-const current = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8")).version;
 
 if (!isGreater(next, current)) {
   console.error(`${next} is not greater than the current version ${current}`);

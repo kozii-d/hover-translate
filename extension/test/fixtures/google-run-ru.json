@@ -1,0 +1,73 @@
+{
+  "sentences": [
+    {
+      "trans": "бегать",
+      "orig": "run",
+      "backend": 10
+    },
+    {
+      "translit": "begat'",
+      "src_translit": "rən"
+    }
+  ],
+  "dict": [
+    {
+      "pos": "глагол",
+      "terms": [
+        "работать",
+        "бежать",
+        "управлять",
+        "бегать",
+        "идти"
+      ],
+      "entry": [
+        {
+          "word": "работать",
+          "score": 0.0505711
+        },
+        {
+          "word": "бежать",
+          "score": 0.028814545
+        }
+      ],
+      "base_form": "run",
+      "pos_enum": 2
+    },
+    {
+      "pos": "имя существительное",
+      "terms": [
+        "пробег",
+        "бег",
+        "прогон",
+        "ход",
+        "работа"
+      ],
+      "entry": [
+        {
+          "word": "пробег",
+          "score": 0.030672923
+        },
+        {
+          "word": "бег",
+          "score": 0.020754337
+        }
+      ],
+      "base_form": "run",
+      "pos_enum": 1
+    }
+  ],
+  "src": "en",
+  "confidence": 1,
+  "spell": {},
+  "ld_result": {
+    "srclangs": [
+      "en"
+    ],
+    "srclangs_confidences": [
+      1
+    ],
+    "extended_srclangs": [
+      "en"
+    ]
+  }
+}

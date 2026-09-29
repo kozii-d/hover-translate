@@ -86,6 +86,13 @@ Then load the **repository root** as an unpacked extension (`chrome://extensions
 
 `npm run build` makes a production build. Step-by-step build instructions, as used for the Firefox Add-ons review, are in [BUILD_INSTRUCTIONS.md](BUILD_INSTRUCTIONS.md).
 
+```bash
+npm test             # the tests of all three packages (Vitest, node:test)
+npm run verify       # lint, types, tests, store listing limits, versions
+```
+
+`npm ci` in the root also installs the git hooks: a commit is checked in a few seconds (ESLint on the changed files, locale JSON, listing limits, versions), a push runs `npm run verify`. GitHub Actions runs the same on every push and pull request, plus the store packages and `web-ext lint`.
+
 ## Acknowledgements
 
 - [XTranslate](https://github.com/ixrock/XTranslate)

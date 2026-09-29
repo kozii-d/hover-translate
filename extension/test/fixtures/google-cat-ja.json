@@ -1,0 +1,45 @@
+{
+  "sentences": [
+    {
+      "trans": "cat",
+      "orig": "猫",
+      "backend": 2
+    },
+    {
+      "src_translit": "Neko"
+    }
+  ],
+  "dict": [
+    {
+      "pos": "noun",
+      "terms": [
+        "cat"
+      ],
+      "entry": [
+        {
+          "word": "cat",
+          "reverse_translation": [
+            "猫"
+          ],
+          "score": 0.91051036
+        }
+      ],
+      "base_form": "猫",
+      "pos_enum": 1
+    }
+  ],
+  "src": "ja",
+  "confidence": 0.69921875,
+  "spell": {},
+  "ld_result": {
+    "srclangs": [
+      "ja"
+    ],
+    "srclangs_confidences": [
+      0.69921875
+    ],
+    "extended_srclangs": [
+      "ja"
+    ]
+  }
+}
