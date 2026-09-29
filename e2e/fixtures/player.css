@@ -1,0 +1,159 @@
+/*
+ * The styles of YouTube's elements that decide where they are and where the
+ * pointer goes, as computed on the live pages of 2026-09-29
+ * (e2e/youtube-dom/captured/). Boxes are those of a 1280×800 window for the
+ * watch page and of a 960×540 frame for the embedded player.
+ */
+
+body {
+  margin: 0;
+  background: #0f0f0f;
+}
+
+.html5-video-player {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.html5-video-container {
+  position: relative;
+  z-index: 10;
+}
+
+.html5-main-video {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ytp-caption-window-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.caption-window {
+  position: absolute;
+  z-index: 41;
+  pointer-events: auto;
+}
+
+/* The watch page: the player under the masthead, its control bar at the bottom. */
+
+.watch #player-container {
+  position: absolute;
+  left: 16px;
+  top: 68px;
+  width: 880px;
+  height: 495px;
+}
+
+.watch #below-player {
+  position: absolute;
+  left: 0;
+  top: 563px;
+  width: 1px;
+  height: 3899px;
+}
+
+.ytp-chrome-bottom {
+  position: absolute;
+  z-index: 59;
+  left: 12px;
+  bottom: 0;
+  width: 856px;
+  height: 59px;
+}
+
+.ytp-play-button,
+.ytp-fullscreen-button {
+  width: 48px;
+  height: 48px;
+}
+
+.ytp-fullscreen-button {
+  position: absolute;
+  right: 0;
+}
+
+/* In full screen the player takes the whole screen (`<html>` is the fullscreen element). */
+.watch.fullscreen #player-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* The embedded player: the whole frame, and the controls layer over it. */
+
+.embed {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.embed #player {
+  width: 100%;
+  height: 100%;
+}
+
+#player-controls {
+  position: fixed;
+  inset: 0;
+}
+
+#player-control-overlay,
+.player-controls-background-container,
+.player-controls-background {
+  position: absolute;
+  inset: 0;
+}
+
+.player-controls-background-container {
+  z-index: 0;
+}
+
+.player-controls-background {
+  z-index: 2;
+}
+
+.player-control-play-pause-icon {
+  position: absolute;
+  z-index: 3;
+  left: 452px;
+  top: 242px;
+  width: 56px;
+  height: 56px;
+}
+
+.ytPlayerProgressBarDragContainer {
+  position: absolute;
+  z-index: 3;
+  left: 30px;
+  top: 444px;
+  width: 900px;
+  height: 44px;
+}
+
+.fullscreen-action-menu {
+  position: absolute;
+  z-index: 2;
+  left: 30px;
+  top: 480px;
+  width: 900px;
+  height: 48px;
+}
+
+.fullscreen-action-menu button {
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  width: 40px;
+  height: 40px;
+}

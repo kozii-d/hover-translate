@@ -5,6 +5,9 @@ node_modules/
 .env
 dist/
 coverage/
+# Playwright: traces and screenshots of failed tests, the HTML report
+/test-results/
+/playwright-report/
 *.tsbuildinfo
 manifest.json
 /releases/

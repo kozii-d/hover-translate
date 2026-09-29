@@ -152,19 +152,22 @@ export class SubtitleCore {
       startY = e.clientY;
     });
 
+    const isFarFromPress = (e: PointerEvent) =>
+      Math.abs(e.clientX - startX) > DRAG_THRESHOLD || Math.abs(e.clientY - startY) > DRAG_THRESHOLD;
+
     wordSpan.addEventListener("pointermove", (e: PointerEvent) => {
       // If the cursor has moved further than the threshold, set the "drag" flag
-      const diffX = Math.abs(e.clientX - startX);
-      const diffY = Math.abs(e.clientY - startY);
-
-      if (diffX > DRAG_THRESHOLD || diffY > DRAG_THRESHOLD) {
+      if (isFarFromPress(e)) {
         isDrag = true;
       }
     });
 
     wordSpan.addEventListener("pointerup", (e: PointerEvent) => {
-      // If the user is dragging the subtitles, don't save the translation or copy the text
-      if (e.button === 0 && !isDrag) {
+      // If the user is dragging the subtitles, don't save the translation or copy the text.
+      // The release is measured too: YouTube moves the caption window after
+      // the pointer, so each move of a drag lands beside the word, the word
+      // gets no `pointermove` at all, and the release is on it again.
+      if (e.button === 0 && !isDrag && !isFarFromPress(e)) {
         switch (state.settings.leftClickAction) {
         case "save-to-dictionary":
           this.tooltipService.saveTranslationToDictionary(wordSpan);

@@ -1,0 +1,990 @@
+{
+  "capturedAt": "2026-09-29",
+  "video": {
+    "tag": "video",
+    "class": "video-stream html5-main-video",
+    "style": "width: 960px; height: 540px; left: 0px; top: 0px;",
+    "position": "absolute",
+    "zIndex": "auto",
+    "pointerEvents": "auto",
+    "box": [
+      0,
+      0,
+      960,
+      540
+    ]
+  },
+  "url": "https://www.youtube.com/embed/arj7oStGLkU",
+  "captionChain": [
+    {
+      "tag": "span",
+      "class": "ytp-caption-segment",
+      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 24px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        404,
+        501,
+        153,
+        28
+      ]
+    },
+    {
+      "tag": "span",
+      "class": "caption-visual-line",
+      "style": "display: block;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        403,
+        501,
+        154,
+        28
+      ]
+    },
+    {
+      "tag": "span",
+      "class": "captions-text",
+      "style": "overflow-wrap: normal; display: block;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        403,
+        501,
+        154,
+        28
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "caption-window-_0",
+      "class": "caption-window ytp-caption-window-bottom",
+      "style": "touch-action: none; text-align: center; left: 50%; width: 154px; margin-left: -77px; bottom: 2%;",
+      "position": "absolute",
+      "zIndex": "41",
+      "pointerEvents": "auto",
+      "box": [
+        403,
+        501,
+        154,
+        28
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "ytp-caption-window-container",
+      "class": "ytp-caption-window-container",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "movie_player",
+      "class": "html5-video-player ytp-hide-controls ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-livebadge-color ytp-fit-cover-video ytp-large-width-mode playing-mode ytp-autohide",
+      "position": "relative",
+      "zIndex": "0",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "player",
+      "style": "width: 100%; height: 100%;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "body",
+      "class": "date-20260929 en_US ltr  site-center-aligned site-as-giant-card webkit webkit-537",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    }
+  ],
+  "captionWindowHtml": "<div class=\"caption-window ytp-caption-window-bottom\" id=\"caption-window-_0\" dir=\"ltr\" tabindex=\"0\" draggable=\"true\" style=\"touch-action: none; text-align: center; left: 50%; width: 154px; margin-left: -77px; bottom: 2%;\"><span class=\"captions-text\" style=\"overflow-wrap: normal; display: block;\"><span class=\"caption-visual-line\" style=\"display: block;\"><span class=\"ytp-caption-segment\" style=\"display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 24px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: &quot;YouTube Noto&quot;, Roboto, Arial, Helvetica, Verdana, &quot;PT Sans Caption&quot;, sans-serif;\">So in college,</span></span></span></div>",
+  "playerChildren": [
+    {
+      "tag": "div",
+      "class": "html5-video-container",
+      "position": "relative",
+      "zIndex": "10",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        0
+      ]
+    },
+    {
+      "tag": "button",
+      "class": "ytp-unmute ytp-popup ytp-button ytp-unmute-animated ytp-unmute-shrink",
+      "style": "display: none;",
+      "position": "absolute",
+      "zIndex": "1001",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-player-content ytp-timely-actions-content",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        12,
+        0,
+        936,
+        528
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "ytp-caption-window-container",
+      "class": "ytp-caption-window-container",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    }
+  ],
+  "onTopOfCaption": [
+    {
+      "tag": "div",
+      "class": "fullscreen-action-menu",
+      "position": "absolute",
+      "zIndex": "2",
+      "pointerEvents": "auto",
+      "box": [
+        30,
+        480,
+        900,
+        48
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "player-controls-background",
+      "position": "absolute",
+      "zIndex": "2",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "player-controls-background-container",
+      "position": "absolute",
+      "zIndex": "0",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "player-controls-content",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "player-control-overlay",
+      "class": "new-controls bigbar medium-modification animation-enabled enable-fullscreen-controls fs-watch-system fadein fullscreen-controls-always-on super-small-embeds-layout-enabled enable-fullscreen-controls-for-portrait",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "player-controls",
+      "class": "ytPlayerControlsContainerHost ytPlayerControlsContainerRendered",
+      "position": "fixed",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "span",
+      "class": "ytp-caption-segment",
+      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 24px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        404,
+        501,
+        153,
+        28
+      ]
+    },
+    {
+      "tag": "span",
+      "class": "caption-visual-line",
+      "style": "display: block;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        403,
+        501,
+        154,
+        28
+      ]
+    }
+  ],
+  "controlsChain": [
+    {
+      "tag": "div",
+      "class": "fullscreen-action-menu",
+      "position": "absolute",
+      "zIndex": "2",
+      "pointerEvents": "auto",
+      "box": [
+        30,
+        480,
+        900,
+        48
+      ]
+    },
+    {
+      "tag": "div",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        0
+      ]
+    },
+    {
+      "tag": "player-fullscreen-action-menu",
+      "class": "ytwPlayerFullscreenActionMenuHost",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        0
+      ]
+    },
+    {
+      "tag": "player-fullscreen-controls",
+      "class": "ytwPlayerFullscreenControlsHost",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        0
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "player-controls-content",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "player-control-overlay",
+      "class": "new-controls bigbar medium-modification animation-enabled enable-fullscreen-controls fs-watch-system fadein fullscreen-controls-always-on super-small-embeds-layout-enabled enable-fullscreen-controls-for-portrait",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "ytm-watch-player-controls",
+      "class": "ytmWatchPlayerControlsHost",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        0
+      ]
+    },
+    {
+      "tag": "ytm-custom-control",
+      "class": "ytmCustomControlHost",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        0
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "player-controls",
+      "class": "ytPlayerControlsContainerHost ytPlayerControlsContainerRendered",
+      "position": "fixed",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    {
+      "tag": "body",
+      "class": "date-20260929 en_US ltr  site-center-aligned site-as-giant-card webkit webkit-537",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        960,
+        540
+      ]
+    }
+  ],
+  "controlsButtons": [
+    {
+      "tag": "button",
+      "class": "ytmCuedOverlayPlayButton",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        444,
+        234,
+        72,
+        72
+      ],
+      "label": "Play video"
+    },
+    {
+      "tag": "button",
+      "id": "player-controls-a11y-toggle",
+      "class": "ytmA11yStylesHiddenButton",
+      "position": "fixed",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        12,
+        12
+      ],
+      "label": "Hide player controls"
+    },
+    {
+      "tag": "a",
+      "class": "ytmVideoInfoVideoTitle",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        78,
+        0,
+        702,
+        38
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "ytmVideoInfoChannelTitle",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        78,
+        38,
+        702,
+        13
+      ]
+    },
+    {
+      "tag": "button",
+      "class": "ytmVideoInfoLink ytmVideoInfoChannelAvatar",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        18,
+        8,
+        48,
+        48
+      ]
+    },
+    {
+      "tag": "button",
+      "class": "ytdVolumeControlsMuteIconButton",
+      "position": "relative",
+      "zIndex": "1",
+      "pointerEvents": "all",
+      "box": [
+        792,
+        0,
+        48,
+        48
+      ],
+      "label": "Mute"
+    },
+    {
+      "tag": "input",
+      "id": "volume-input",
+      "class": "ytdVolumeControlsNativeSlider",
+      "style": "--gradient-percent: 0%;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        808,
+        132,
+        18,
+        0
+      ],
+      "label": "",
+      "role": "slider"
+    },
+    {
+      "tag": "button",
+      "class": "ytmClosedCaptioningButtonButton",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        840,
+        0,
+        48,
+        48
+      ],
+      "label": "Subtitles/CC turned on"
+    },
+    {
+      "tag": "button",
+      "class": "icon-button player-settings-icon",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        888,
+        0,
+        48,
+        48
+      ],
+      "label": "Playback Settings"
+    },
+    {
+      "tag": "button",
+      "class": "ytwPlayerMiddleControlsA11ySeekButton ytmA11yStylesHiddenButton player-control-seek-icon-a11y",
+      "style": "left: 0px; right: unset;",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        418,
+        242,
+        12,
+        12
+      ],
+      "label": "Rewind 10 seconds"
+    },
+    {
+      "tag": "button",
+      "class": "icon-button player-control-play-pause-icon",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        452,
+        242,
+        56,
+        56
+      ],
+      "label": "Pause video"
+    },
+    {
+      "tag": "button",
+      "class": "ytwPlayerMiddleControlsA11ySeekButton ytmA11yStylesHiddenButton player-control-seek-icon-a11y",
+      "style": "left: unset; right: 0px;",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        530,
+        242,
+        12,
+        12
+      ],
+      "label": "Fast forward 10 seconds"
+    },
+    {
+      "tag": "button",
+      "class": "icon-button fullscreen-icon",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        888,
+        412,
+        48,
+        48
+      ],
+      "label": "Enter full screen"
+    },
+    {
+      "tag": "div",
+      "class": "ytPlayerProgressBarDragContainer",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        30,
+        444,
+        900,
+        44
+      ],
+      "label": "Seek slider",
+      "role": "slider"
+    },
+    {
+      "tag": "button",
+      "class": "ytSpecButtonShapeNextHost ytSpecButtonShapeNextText ytSpecButtonShapeNextOverlay ytSpecButtonShapeNextSizeM ytSpecButtonShapeNextIconOnlyDefault",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        908,
+        4,
+        40,
+        40
+      ],
+      "label": "Close"
+    },
+    {
+      "tag": "button",
+      "class": "ytSpecButtonShapeNextHost ytSpecButtonShapeNextText ytSpecButtonShapeNextOverlay ytSpecButtonShapeNextSizeM ytSpecButtonShapeNextIconOnlyDefault",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        38,
+        484,
+        40,
+        40
+      ],
+      "label": "Share"
+    },
+    {
+      "tag": "button",
+      "class": "ytmFullscreenRelatedVideosEntryPointViewModelButton ytmFullscreenRelatedVideosEntryPointViewModelSingleThumbnail",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        616,
+        480,
+        172,
+        48
+      ],
+      "label": "More videos"
+    },
+    {
+      "tag": "a",
+      "class": "ytSpecButtonShapeNextHost ytSpecButtonShapeNextText ytSpecButtonShapeNextMono ytSpecButtonShapeNextSizeL",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        792,
+        480,
+        138,
+        48
+      ],
+      "label": "Watch on YouTube"
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        20,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        20,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        236,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        236,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        452,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        452,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        668,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        668,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        884,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        884,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1100,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1100,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1316,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1316,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1532,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1532,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1748,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1748,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1964,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        1964,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        2180,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        2180,
+        677,
+        200,
+        57
+      ]
+    },
+    {
+      "tag": "a",
+      "class": "media-item-thumbnail-container",
+      "position": "relative",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        2396,
+        552,
+        200,
+        113
+      ]
+    },
+    {
+      "tag": "a",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        2396,
+        677,
+        200,
+        57
+      ]
+    }
+  ]
+}

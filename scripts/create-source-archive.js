@@ -38,6 +38,9 @@ function createSourceArchive() {
       "*.tsbuildinfo",
       "coverage/*",
       "*/coverage/*",
+      // What a run of the end-to-end tests leaves behind.
+      "test-results/*",
+      "playwright-report/*",
       // What husky generates for the git hooks on `npm ci`.
       ".husky/_/*",
       ".nyc_output/*",

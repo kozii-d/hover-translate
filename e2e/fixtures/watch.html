@@ -1,0 +1,33 @@
+<!doctype html>
+<!--
+  The watch page as the content script meets it: served at
+  https://www.youtube.com/watch by e2e/extension.js. Simplified from the live
+  YouTube of 2026-09-29 (e2e/youtube-dom/captured/watch.json): the classes and
+  the nesting from the player down to the caption segment are YouTube's, and so
+  are the position, z-index, pointer-events and size of each element; the rest
+  of the page is left out. Nothing lies over the captions here.
+-->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Fixture - YouTube</title>
+  <link rel="stylesheet" href="/__fixture/player.css">
+</head>
+<body class="watch">
+  <div id="player-container">
+    <div id="movie_player" class="html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption">
+      <div class="html5-video-container">
+        <video class="video-stream html5-main-video" src="/__fixture/video.webm" autoplay muted loop></video>
+      </div>
+      <div id="ytp-caption-window-container" class="ytp-caption-window-container"></div>
+      <div class="ytp-chrome-bottom">
+        <button class="ytp-play-button ytp-button" aria-label="Pause (k)"></button>
+        <button class="ytp-fullscreen-button ytp-button" aria-label="Full screen (f)"></button>
+      </div>
+    </div>
+  </div>
+  <!-- The rest of the page (description, comments): only its height, 4462 px in all. -->
+  <div id="below-player"></div>
+  <script src="/__fixture/player.js"></script>
+</body>
+</html>

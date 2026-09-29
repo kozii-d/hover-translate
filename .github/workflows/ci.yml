@@ -49,6 +49,24 @@ jobs:
           unzip -q "releases/$version/hover-translate-firefox-production.xpi" -d releases/firefox-lint
           npx --yes web-ext@10.7.0 lint --source-dir releases/firefox-lint
 
+      # The browser of the pinned @playwright/test, cached by its version. The
+      # install still runs on a cache hit: it puts in the system libraries the
+      # browser needs, which the cache does not hold.
+      - name: Version of Playwright
+        id: playwright
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+      - name: Chromium for the end-to-end tests
+        run: npx playwright install --with-deps chromium
+
+      # On the build of the release step: the extension in Chromium, on local
+      # pages with the markup of YouTube's player (e2e/).
+      - name: End-to-end tests
+        run: npm run test:e2e
+
       # Also when a step failed: a coverage threshold missed is when the report is needed.
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -57,3 +75,14 @@ jobs:
           path: |
             extension/coverage
             popup/coverage
+
+      # The trace and the screenshots of every failed end-to-end test
+      # (`npx playwright show-trace <trace.zip>`), and the HTML report.
+      - if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: e2e-results
+          path: |
+            test-results/e2e
+            playwright-report
+          if-no-files-found: ignore

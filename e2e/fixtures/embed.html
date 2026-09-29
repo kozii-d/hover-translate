@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  The embedded player of 2026: served at https://www.youtube.com/embed/… by
+  e2e/extension.js, inside a frame of a page on another site. Simplified from
+  the live YouTube of 2026-09-29 (e2e/youtube-dom/captured/embed.json): the
+  controls layer `#player-controls` is a sibling of `#movie_player`, fixed to
+  the whole frame and later in the document, so its full-size background lies
+  over the captions and takes the pointer — as `.fullscreen-action-menu` does
+  over the bottom line. Its buttons and the progress bar are on top of both.
+-->
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Fixture - YouTube</title>
+  <link rel="stylesheet" href="/__fixture/player.css">
+</head>
+<body class="embed">
+  <div id="player">
+    <div id="movie_player" class="html5-video-player ytp-hide-controls ytp-exp-bottom-control-flexbox ytp-modern-caption">
+      <div class="html5-video-container">
+        <video class="video-stream html5-main-video" src="/__fixture/video.webm" autoplay muted loop></video>
+      </div>
+      <div id="ytp-caption-window-container" class="ytp-caption-window-container"></div>
+    </div>
+  </div>
+  <div id="player-controls" class="ytPlayerControlsContainerHost ytPlayerControlsContainerRendered">
+    <div id="player-control-overlay" class="new-controls bigbar">
+      <div class="player-controls-content">
+        <div class="player-controls-background-container">
+          <div class="player-controls-background"></div>
+        </div>
+        <button class="icon-button player-control-play-pause-icon" aria-label="Pause video"></button>
+        <div class="ytPlayerProgressBarDragContainer" role="slider" aria-label="Seek slider"></div>
+        <div class="fullscreen-action-menu">
+          <button class="ytSpecButtonShapeNextHost" aria-label="Share"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/__fixture/player.js"></script>
+</body>
+</html>

@@ -31,6 +31,7 @@
     "typecheck": "npm run typecheck --prefix extension && npm run typecheck --prefix popup",
     "test": "npm run test:scripts && npm test --prefix extension && npm test --prefix popup",
     "test:scripts": "node --test scripts/*.test.js",
+    "test:e2e": "playwright test",
     "coverage": "npm run coverage --prefix extension && npm run coverage --prefix popup",
     "check:version": "node scripts/set-version.js --check",
     "verify": "node scripts/check-deps.js && npm run lint && npm run typecheck && npm run test:scripts && npm run coverage && npm run check:listing && npm run check:version"
@@ -39,6 +40,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "concurrently": "10.0.5",
     "husky": "9.1.7",
     "lint-staged": "17.6.0"
