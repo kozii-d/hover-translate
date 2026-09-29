@@ -22,7 +22,7 @@ Ask the user only what neither the code nor `CLAUDE.md` answers: what the viewer
 
 ## 3. The task file
 
-Take the next free number: the highest `NN` among `work/tasks/` and the task lines of `work/backlog.md`, plus one, two digits. Write `work/tasks/NN-short-name.md`:
+If the idea is a line of the backlog's task table that already has a number but no file, keep that number. Otherwise take the next free one: the highest `NN` among `work/tasks/` and the task lines of `work/backlog.md`, plus one, two digits. Write `work/tasks/NN-short-name.md`:
 
 ```markdown
 # NN. <Название>
@@ -44,17 +44,22 @@ Take the next free number: the highest `NN` among `work/tasks/` and the task lin
 ## Ручная проверка
 <Что проверить руками, в каком браузере, что ожидается.>
 
+## Заодно
+<Мелочи рядом, найденные при исследовании: что, файл:строка, как исправить. Изменение поведения — с тестом, как в задаче. Раздел можно опустить.>
+
 ## Вне задачи
 <Что сознательно не делается и почему.>
 ```
 
 Every item of «Готово, когда» must be something the reviewer can check by running it.
 
+A small thing found next to the task's code (a stale comment, dead code, an obvious bug of a few lines, no decision needed) goes into «Заодно», so the user sees it before the work starts. Anything bigger or elsewhere goes to «Найдено по дороге» in the backlog, or becomes a task of its own.
+
 The implementer sees only `CLAUDE.md`, its own instructions and this file — not this conversation, not your memory. Every rule it needs that is written nowhere else (the voice of store copy, a decision from `work/decisions.md`, what the user said here) goes into the file itself.
 
 ## 4. The backlog
 
-Add a line to the task table in `work/backlog.md`: number, one line of substance, status `todo`, the file. If the idea came from «Найдено по дороге», remove it from there.
+Add a line to the task table in `work/backlog.md` (or fill in the existing one): number, one line of substance, status `todo`, the file. If the idea came from «Найдено по дороге», remove it from there.
 
 A decision taken with the user along the way that will outlive the task (a rejected option, a rule for the product) goes into `work/decisions.md`: what, why, the date.
 

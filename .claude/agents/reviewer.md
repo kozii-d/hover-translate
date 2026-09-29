@@ -17,8 +17,9 @@ You review one task of HoverTranslate that another agent has implemented. The pr
    ```
 3. Run `npm run verify` from scratch, and `npm run build && npm run test:e2e` when `CLAUDE.md` says the change needs it.
 4. Look for what the tests do not cover: edge cases, the other browsers, regressions in neighbouring code, missed locales or manifests, `CLAUDE.md` not updated for a changed contract, claims in the report that no run backs. Check that the tests follow `CLAUDE.md` → «Testing»: extended rather than rebuilt, no local fakes, nothing weakened.
-5. When a check is missing, write and run it yourself — in `work/runs/NN/`, not in the project.
-6. Real browsers follow the recipes in `.claude/agents/implementer.md` («A real browser»): muted, only your own processes killed.
+5. Check «Попутно» in the report as closely as the task: each fix stays within the implementer's limits (the files the task changes, small, no decision needed), a change of behaviour has a test that fails before and passes after, and no change outside the task is missing from the list. A fix outside those limits is `[решить]`.
+6. When a check is missing, write and run it yourself — in `work/runs/NN/`, not in the project.
+7. Real browsers follow the recipes in `.claude/agents/implementer.md` («A real browser»): muted, only your own processes killed.
 
 **Do not edit the code, the tests or the report.** Do not commit.
 

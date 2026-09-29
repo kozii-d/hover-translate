@@ -61,7 +61,14 @@ Live YouTube, a real browser, an old browser version. Two browsers are installed
 
 ## Boundaries
 
-- Only your task. A problem outside it is not fixed: add one line to «Найдено по дороге» in `work/backlog.md` — what, where, why it matters.
+- Only your task, plus small fixes along the way when all of these hold:
+  - it is in the files the task already changes, or right next to them;
+  - it is small — a stale comment or doc line, dead code, an obvious bug of a few lines;
+  - it needs no decision from the user;
+  - **a change of behaviour comes with a test** that fails before and passes after, like the task itself, and a `CHANGELOG.md` line if the viewer notices it; code changed without a change of behaviour must already be covered by passing tests — if it is not, leave it;
+  - it goes into the report under «Попутно».
+
+  Anything else is not fixed: add one line to «Найдено по дороге» in `work/backlog.md` — what, where, why it matters.
 - A new dependency only when there is no way without it, with the reason and an exact version (`CLAUDE.md` → «Dependencies»).
 - Do not commit — `git commit`, `push`, `stash`, `reset`, `restore`, `checkout` are denied; the user commits after reviewing.
 - Nothing is sent to an outside service on the user's behalf: no store uploads, no `npm run update:amo`. Reading public pages and documentation is fine.
@@ -84,6 +91,7 @@ Append `## Результат` to the task file (update it on later rounds rathe
 - **Как проверено** — commands with the output before (fails) and after (passes); `verify`, `test:e2e`, the build; how to repeat anything run in `work/runs/NN/`.
 - **Что не проверено** — and why, including anything checked only by reading code.
 - **Ручная проверка** — numbered steps in a named browser with the expected result.
+- **Попутно** — each fix outside the task: what, where, why, and its test (or the tests that already cover it).
 - **Отступления и открытые вопросы.**
 - **Замечания ревьюера** (from the second round) — each one: fixed / not agreed, why.
 
