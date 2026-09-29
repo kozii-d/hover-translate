@@ -16,12 +16,15 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- In Chrome and Edge older than version 147, the settings could not load the lists of languages and DeepL did not translate: the part of HoverTranslate that runs in the background did not answer. It answers in every supported version now.
+- In Chrome 102–115 and Firefox 115–123, no word was translated at all. Translation works there again.
 - "Rate us" on the About page opened a page that does not exist when HoverTranslate was installed in Edge from the Chrome Web Store, and in Firefox a reviews page where a rating cannot be given. It now opens the page of the store HoverTranslate was installed from, where it can be rated.
 - "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down. They are now shown at the top-left of the visible part of the video.
 - In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player, rolled out from March 2026, placed its controls layer over the subtitles: no translation, no auto-pause, and a click did not save the word. Now it shows the translation, pauses the video and saves the word, as on YouTube itself, and a click anywhere else in the player still works as before.
 - A right or middle click on a subtitle word saved or copied it, as a left click does, while YouTube opened its menu. Only the left click acts on the word now.
 - After the subtitles were dragged to another place in the player, the video could stay paused when the pointer left them, instead of playing on as auto-pause intends.
 - Dragging the subtitles by a word could save that word to your list, as if it had been clicked. Only a click saves it now.
+- With auto-pause on, dragging the subtitles started the paused video for an instant at every move, sometimes with a click of sound, or let it play for as long as they were dragged. The video now stays paused throughout the drag and plays on once the pointer leaves the subtitles.
 - On a first install in Norwegian Nynorsk (Firefox), the translation language was set to English: no translator offers Nynorsk. It is now set to Norwegian (Bokmål), which Nynorsk readers read freely.
 - Right-to-left text. A translation into Arabic, Hebrew, Persian or another right-to-left language is now shown right to left, with its final full stop or question mark at the left end instead of the right. An English translation, "Translation saved" and the rating card no longer turn right to left when YouTube itself is in Arabic or Hebrew. With Arabic or Hebrew subtitles, the translation of several words selected with Shift is placed over those words: it used to start at the first word and run off to the right of the selection. On the Dictionary page, each word and its translation are aligned in their own direction.
 - The CSV export opened in Excel with garbled text in place of every word not written in Latin letters — Arabic, Cyrillic, Chinese and others. It now opens correctly.
