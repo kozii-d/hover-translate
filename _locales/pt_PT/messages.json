@@ -1,6 +1,6 @@
 {
   "name": {
-    "message": "HoverTranslate - Tradutor Legendas YouTube"
+    "message": "HoverTranslate - Tradutor de legendas do YouTube"
   },
   "description": {
     "message": "Tradutor de legendas do YouTube: passe o rato sobre uma palavra e veja logo a tradução. Para aprender inglês. Gratuito, sem conta."
@@ -42,7 +42,7 @@
     }
   },
   "errorQuotaExceeded": {
-    "message": "$TRANSLATOR$: o limite de caracteres deste período de faturação esgotou-se",
+    "message": "$TRANSLATOR$: o limite de carateres deste período de faturação esgotou-se",
     "placeholders": {
       "translator": {
         "content": "$1",

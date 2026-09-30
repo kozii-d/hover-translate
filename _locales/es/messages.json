@@ -21,7 +21,7 @@
     "message": "Error al guardar"
   },
   "translationFailed": {
-    "message": "Error de traducción"
+    "message": "Error al traducir"
   },
   "errorApiKeyMissing": {
     "message": "$TRANSLATOR$: añade tu clave de API en la configuración de HoverTranslate",
@@ -69,7 +69,7 @@
     }
   },
   "noticePermissionFallback": {
-    "message": "$TRANSLATOR$ necesita acceso a $HOST$: permítelo en la configuración de HoverTranslate. Mientras tanto se usa $FALLBACK$",
+    "message": "$TRANSLATOR$ necesita acceso a $HOST$: permítelo en la configuración de HoverTranslate. Mientras tanto, se usa $FALLBACK$",
     "placeholders": {
       "translator": {
         "content": "$1",

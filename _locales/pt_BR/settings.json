@@ -3,8 +3,8 @@
   "tabLabel": "Configurações",
   "actions": {
     "reset": {
-      "text": "Restaurar padrões",
-      "tooltip": "Restaurar configurações padrão"
+      "text": "Redefinir para o padrão",
+      "tooltip": "Redefinir as configurações para o padrão"
     }
   },
   "fields": {
@@ -35,32 +35,32 @@
       "label": "Ação do clique esquerdo",
       "tooltip": "Ação a ser executada ao clicar com o botão esquerdo nas palavras das legendas",
       "options": {
-        "saveToDictionary": "Salvar no dicionário",
+        "saveToDictionary": "Salvar no vocabulário",
         "copyOriginal": "Copiar texto original para a área de transferência",
         "copyTranslation": "Copiar texto traduzido para a área de transferência",
         "nothing": "Nada"
       }
     },
     "alwaysMultipleSelection": {
-      "label": "Sempre habilitar seleção múltipla",
-      "tooltip": "Habilitar seleção múltipla de palavras sem segurar Shift",
-      "helperText": "Quando habilitado, você pode selecionar múltiplas palavras sem segurar Shift"
+      "label": "Sempre ativar a seleção múltipla",
+      "tooltip": "Ativar a seleção de várias palavras sem segurar Shift",
+      "helperText": "Quando ativado, você pode selecionar várias palavras sem segurar Shift"
     },
     "showNotifications": {
       "label": "Mostrar notificações",
-      "tooltip": "Mostrar notificações quando palavras são salvas no dicionário ou copiadas para a área de transferência",
-      "helperText": "Quando desabilitado, nenhuma notificação aparecerá quando palavras forem salvas ou copiadas"
+      "tooltip": "Mostrar notificações ao salvar palavras no vocabulário ou copiá-las para a área de transferência",
+      "helperText": "Quando desativado, nenhuma notificação aparece ao salvar ou copiar palavras"
     }
   },
   "modals": {
     "reset": {
-      "title": "Restaurar configurações padrão?",
-      "description": "Isso irá restaurar todas as configurações para seus valores padrão.",
-      "action": "Restaurar"
+      "title": "Redefinir as configurações para o padrão?",
+      "description": "Isso vai redefinir todas as configurações para os valores padrão.",
+      "action": "Redefinir"
     }
   },
   "tips": {
-    "multipleSelection": "Para seleção múltipla de palavras, segure Shift e passe o mouse sobre as palavras necessárias. Ou habilite a configuração 'Sempre habilitar seleção múltipla'.",
+    "multipleSelection": "Para selecionar várias palavras, segure Shift e passe o mouse sobre as palavras que quiser. Ou ative a opção “Sempre ativar a seleção múltipla”.",
     "dismiss": "Ocultar dica"
   },
   "apiKey": {
@@ -96,7 +96,7 @@
     },
     "notifications": {
       "connected": "{{translatorName}} está conectado",
-      "removed": "A chave de API do {{translatorName}} foi removida. Alterado para {{fallbackTranslatorName}}.",
+      "removed": "A chave de API do {{translatorName}} foi removida. O tradutor passou a ser o {{fallbackTranslatorName}}.",
       "removedFromDevice": "A chave de API do {{translatorName}} foi removida deste dispositivo."
     },
     "modals": {
@@ -119,12 +119,12 @@
     "sourceLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de origem para o tradutor {{translatorName}}. Mudando para {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de destino para o tradutor {{translatorName}}. Mudando para {{defaultLanguage}}.",
     "translatorUnavailable": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}",
-    "translatorFallback": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}. Voltando para {{fallbackTranslatorName}}.",
-    "translatorSwitchFailed": "Não foi possível mudar para {{translatorName}}: {{errorMessage}}. Mantendo {{previousTranslatorName}}.",
-    "translatorFallbackReason": "{{reason}} Alterando para {{fallbackTranslatorName}}.",
-    "translatorSwitchFailedReason": "{{reason}} Mantendo {{previousTranslatorName}}.",
-    "translatorWithdrawn": "O tradutor {{translatorName}} não está disponível nesta versão do HoverTranslate e voltará na próxima atualização. Alterando para {{fallbackTranslatorName}}.",
-    "translatorPermissionFallback": "O {{translatorName}} precisa de acesso a {{host}}. Escolha o {{translatorName}} na lista para permitir. Alterando para {{fallbackTranslatorName}}.",
+    "translatorFallback": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}. Voltando para o {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Não foi possível mudar para o {{translatorName}}: {{errorMessage}}. Mantendo o {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} Mudando para o {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Mantendo o {{previousTranslatorName}}.",
+    "translatorWithdrawn": "O tradutor {{translatorName}} não está disponível nesta versão do HoverTranslate e voltará na próxima atualização. Mudando para o {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "O {{translatorName}} precisa de acesso a {{host}}. Escolha o {{translatorName}} na lista para permitir. Mudando para o {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Nenhuma chave de API do {{translatorName}} foi adicionada neste dispositivo.",
       "apiKeyInvalid": "O {{translatorName}} não aceitou a chave de API. Verifique se ela foi copiada por completo.",

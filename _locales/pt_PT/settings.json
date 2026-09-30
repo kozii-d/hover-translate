@@ -35,7 +35,7 @@
       "label": "Ação do clique esquerdo",
       "tooltip": "Ação a executar ao clicar com o botão esquerdo nas palavras das legendas",
       "options": {
-        "saveToDictionary": "Guardar no dicionário",
+        "saveToDictionary": "Guardar no vocabulário",
         "copyOriginal": "Copiar texto original para a área de transferência",
         "copyTranslation": "Copiar texto traduzido para a área de transferência",
         "nothing": "Nada"
@@ -44,12 +44,12 @@
     "alwaysMultipleSelection": {
       "label": "Ativar sempre seleção múltipla",
       "tooltip": "Permitir seleção múltipla de palavras sem manter premida a tecla Shift",
-      "helperText": "Quando ativado, pode selecionar múltiplas palavras sem manter premida a tecla Shift"
+      "helperText": "Quando ativado, pode selecionar várias palavras sem manter premida a tecla Shift"
     },
     "showNotifications": {
       "label": "Mostrar notificações",
-      "tooltip": "Mostrar notificações quando as palavras são guardadas no dicionário ou copiadas para a área de transferência",
-      "helperText": "Quando desativado, não aparecerão notificações quando as palavras forem guardadas ou copiadas"
+      "tooltip": "Mostrar notificações ao guardar palavras no vocabulário ou copiá-las para a área de transferência",
+      "helperText": "Quando desativado, não aparecem notificações ao guardar ou copiar palavras"
     }
   },
   "modals": {
@@ -60,7 +60,7 @@
     }
   },
   "tips": {
-    "multipleSelection": "Para seleção múltipla de palavras, mantenha premida a tecla Shift e passe o rato sobre as palavras necessárias. Ou ative a definição 'Ativar sempre seleção múltipla'.",
+    "multipleSelection": "Para selecionar várias palavras, mantenha premida a tecla Shift e passe o rato sobre as palavras que quiser. Ou ative a definição «Ativar sempre seleção múltipla».",
     "dismiss": "Ocultar sugestão"
   },
   "apiKey": {
@@ -90,13 +90,13 @@
       }
     },
     "usage": {
-      "label": "{{used}} de {{limit}} caracteres usados neste período de faturação",
+      "label": "{{used}} de {{limit}} carateres usados neste período de faturação",
       "unavailable": "Não foi possível carregar a utilização. {{reason}}",
       "exhausted": "O limite esgotou-se — o {{translatorName}} não vai traduzir até ser renovado."
     },
     "notifications": {
       "connected": "O {{translatorName}} está ligado",
-      "removed": "A chave de API do {{translatorName}} foi removida. Mudou para {{fallbackTranslatorName}}.",
+      "removed": "A chave de API do {{translatorName}} foi removida. O tradutor passou a ser o {{fallbackTranslatorName}}.",
       "removedFromDevice": "A chave de API do {{translatorName}} foi removida deste dispositivo."
     },
     "modals": {
@@ -119,16 +119,16 @@
     "sourceLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de origem para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}.",
     "targetLanguageCode": "{{incorrectLanguage}} não está disponível como idioma de destino para o tradutor {{translatorName}}. A mudar para {{defaultLanguage}}.",
     "translatorUnavailable": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}",
-    "translatorFallback": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}. A voltar para {{fallbackTranslatorName}}.",
-    "translatorSwitchFailed": "Não foi possível mudar para {{translatorName}}: {{errorMessage}}. A manter {{previousTranslatorName}}.",
-    "translatorFallbackReason": "{{reason}} A mudar para {{fallbackTranslatorName}}.",
-    "translatorSwitchFailedReason": "{{reason}} Mantém-se {{previousTranslatorName}}.",
-    "translatorWithdrawn": "O tradutor {{translatorName}} não está disponível nesta versão do HoverTranslate e voltará na próxima atualização. A mudar para {{fallbackTranslatorName}}.",
-    "translatorPermissionFallback": "O {{translatorName}} precisa de acesso a {{host}}. Escolha o {{translatorName}} na lista para o permitir. A mudar para {{fallbackTranslatorName}}.",
+    "translatorFallback": "O tradutor {{translatorName}} está indisponível: {{errorMessage}}. A voltar para o {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Não foi possível mudar para o {{translatorName}}: {{errorMessage}}. A manter o {{previousTranslatorName}}.",
+    "translatorFallbackReason": "{{reason}} A mudar para o {{fallbackTranslatorName}}.",
+    "translatorSwitchFailedReason": "{{reason}} Mantém-se o {{previousTranslatorName}}.",
+    "translatorWithdrawn": "O tradutor {{translatorName}} não está disponível nesta versão do HoverTranslate e voltará na próxima atualização. A mudar para o {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "O {{translatorName}} precisa de acesso a {{host}}. Escolha o {{translatorName}} na lista para o permitir. A mudar para o {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Não foi adicionada nenhuma chave de API do {{translatorName}} neste dispositivo.",
       "apiKeyInvalid": "O {{translatorName}} não aceitou a chave de API. Verifique se foi copiada na totalidade.",
-      "quotaExceeded": "O limite de caracteres do {{translatorName}} para este período de faturação esgotou-se.",
+      "quotaExceeded": "O limite de carateres do {{translatorName}} para este período de faturação esgotou-se.",
       "rateLimited": "O {{translatorName}} recebeu demasiados pedidos. Tente novamente dentro de momentos.",
       "permissionMissing": "O HoverTranslate não tem permissão para se ligar ao {{translatorName}}.",
       "unsupportedLanguage": "O {{translatorName}} não suporta o idioma selecionado.",

@@ -10,36 +10,36 @@
   "fields": {
     "useYouTubeSettings": {
       "label": "Utilizar definições do YouTube",
-      "tooltip": "Utilizar as definições do YouTube para as dicas de tradução",
-      "helperText": "Utilizar as mesmas definições de aparência para as dicas de tradução que as definições de legendas no YouTube"
+      "tooltip": "Utilizar as definições de legendas do YouTube na tradução",
+      "helperText": "Utilizar na tradução o mesmo aspeto das legendas no YouTube"
     },
     "fontFamily": {
-      "label": "Família de tipo de letra",
-      "tooltip": "A família de tipo de letra a utilizar para as dicas de tradução"
+      "label": "Família de tipos de letra",
+      "tooltip": "A família de tipos de letra da tradução"
     },
     "fontSize": {
-      "label": "Tamanho do tipo de letra",
-      "tooltip": "O tamanho do tipo de letra a utilizar para as dicas de tradução"
+      "label": "Tamanho da letra",
+      "tooltip": "O tamanho da letra da tradução"
     },
     "fontColor": {
       "label": "Cor do tipo de letra",
-      "tooltip": "A cor do tipo de letra a utilizar para as dicas de tradução"
+      "tooltip": "A cor do tipo de letra da tradução"
     },
     "fontOpacity": {
       "label": "Opacidade do tipo de letra",
-      "tooltip": "O nível de opacidade do tipo de letra para as dicas de tradução"
+      "tooltip": "A opacidade do tipo de letra da tradução"
     },
     "backgroundColor": {
-      "label": "Cor de fundo",
-      "tooltip": "A cor de fundo para as dicas de tradução"
+      "label": "Cor do fundo",
+      "tooltip": "A cor do fundo da tradução"
     },
     "backgroundOpacity": {
       "label": "Opacidade do fundo",
-      "tooltip": "O nível de opacidade do fundo para as dicas de tradução"
+      "tooltip": "A opacidade do fundo da tradução"
     },
     "characterEdgeStyle": {
-      "label": "Estilo de contorno dos caracteres",
-      "tooltip": "O estilo de contorno dos caracteres para as dicas de tradução"
+      "label": "Estilo do limite dos carateres",
+      "tooltip": "O estilo do limite dos carateres da tradução"
     }
   },
   "options": {

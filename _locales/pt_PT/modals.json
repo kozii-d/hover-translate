@@ -10,8 +10,8 @@
     }
   },
   "support": {
-    "title": "Oferece-me um café",
-    "description": "Obrigado por apoiar o HoverTranslate!\nEscolhe a tua criptomoeda preferida",
+    "title": "Ofereça-me um café",
+    "description": "Obrigado por apoiar o HoverTranslate!\nEscolha a sua criptomoeda preferida",
     "footer": "Cada café ajuda-me a melhorar o HoverTranslate",
     "actions": {
       "showQR": {
@@ -28,14 +28,14 @@
       }
     },
     "labels": {
-      "address": "{{networkType}} Endereço"
+      "address": "Endereço {{networkType}}"
     },
     "notifications": {
       "copyAddress": "Endereço copiado para a área de transferência!"
     },
     "warnings": {
-      "verifyNetwork": "Por favor verifica a rede e o token antes de enviar",
-      "bnb": "Mesmo endereço que Ethereum - rede diferente!"
+      "verifyNetwork": "Por favor, verifique a rede e o token antes de enviar",
+      "bnb": "Mesmo endereço que no Ethereum, mas outra rede!"
     }
   }
 }

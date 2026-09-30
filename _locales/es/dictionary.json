@@ -1,13 +1,13 @@
 {
-  "pageTitle": "Diccionario",
-  "tabLabel": "Diccionario",
+  "pageTitle": "Vocabulario",
+  "tabLabel": "Vocabulario",
   "actions": {
     "deleteTranslation": {
       "tooltip": "Eliminar traducción"
     },
     "clearAll": {
-      "text": "Limpiar todo",
-      "tooltip": "Limpiar todas las traducciones"
+      "text": "Borrar todo",
+      "tooltip": "Borrar todas las traducciones"
     },
     "showMore": {
       "text": "Mostrar más",
@@ -27,13 +27,13 @@
   },
   "modals": {
     "clearAll": {
-      "title": "¿Limpiar todas las traducciones?",
+      "title": "¿Borrar todas las traducciones?",
       "description": "Esto eliminará todas las traducciones permanentemente.",
-      "action": "Limpiar"
+      "action": "Borrar"
     }
   },
   "emptyState": {
-    "title": "El diccionario está vacío",
-    "description": "Haz clic en una palabra o frase en los subtítulos para guardarla en el diccionario"
+    "title": "Todavía no hay palabras guardadas",
+    "description": "Haz clic en una palabra o frase de los subtítulos para guardarla en tu vocabulario"
   }
 }

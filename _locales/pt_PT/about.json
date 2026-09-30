@@ -1,37 +1,37 @@
 {
-  "pageTitle": "Acerca",
-  "tabLabel": "Acerca",
+  "pageTitle": "Acerca de",
+  "tabLabel": "Acerca de",
   "blocks": {
     "description": {
       "title": "HoverTranslate",
-      "subtitle": "Constrói vocabulário enquanto vês YouTube!",
-      "thank-you": "Obrigado por escolheres a minha extensão!"
+      "subtitle": "Amplie o seu vocabulário enquanto vê o YouTube!",
+      "thank-you": "Obrigado por escolher a minha extensão!"
     },
     "support": {
-      "title": "Apoia o Projecto",
+      "title": "Apoie o projeto",
       "actions": {
         "review": {
-          "text": "Avalia-nos"
+          "text": "Avalie-nos"
         },
         "donate": {
-          "text": "Oferece-me um café"
+          "text": "Ofereça-me um café"
         }
       }
     },
     "contacts": {
-      "title": "Entra em Contacto",
-      "github": "Ver Código Fonte no GitHub",
-      "reportIssues": "Reportar Problemas no GitHub"
+      "title": "Entre em contacto",
+      "github": "Ver o código-fonte no GitHub",
+      "reportIssues": "Comunicar problemas no GitHub"
     },
     "tips": {
-      "title": "Dicas Rápidas",
-      "multipleSelection": "Traduzir frases: Mantém Shift premido ou activa selecção múltipla nas Definições",
-      "saveToDictionary": "Clica nas palavras para as guardares no teu dicionário pessoal",
-      "exportDictionary": "Exporta o teu vocabulário do separador Dicionário como JSON ou CSV"
+      "title": "Dicas rápidas",
+      "multipleSelection": "Traduzir frases: mantenha premida a tecla Shift ou ative a seleção múltipla nas Definições",
+      "saveToDictionary": "Clique nas palavras para as guardar no seu vocabulário",
+      "exportDictionary": "Exporte as suas palavras do separador Vocabulário em JSON ou CSV"
     }
   },
   "footer": {
     "version": "Versão",
-    "changelog": "Changelog"
+    "changelog": "Histórico de alterações"
   }
 }

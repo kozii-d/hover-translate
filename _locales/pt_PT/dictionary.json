@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Dicionário",
-  "tabLabel": "Dicionário",
+  "pageTitle": "Vocabulário",
+  "tabLabel": "Vocabulário",
   "actions": {
     "deleteTranslation": {
       "tooltip": "Eliminar tradução"
@@ -33,7 +33,7 @@
     }
   },
   "emptyState": {
-    "title": "O dicionário está vazio",
-    "description": "Clique numa palavra ou frase nas legendas para as guardar no dicionário"
+    "title": "Ainda não há palavras guardadas",
+    "description": "Clique numa palavra ou frase nas legendas para a guardar no seu vocabulário"
   }
 }

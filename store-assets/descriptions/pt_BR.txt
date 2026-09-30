@@ -13,7 +13,7 @@ O que o HoverTranslate faz:
 • Se adapta ao seu jeito de assistir: a pausa automática pode ser desligada, e o clique pode copiar a palavra ou a tradução em vez de salvar.
 
 Tradução que entende o contexto
-Traduza com Google, Bing ou DeepL. Com o DeepL (você vai precisar da sua própria chave de API gratuita), cada palavra é traduzida levando em conta a linha inteira da legenda: em "we sat on the bank of the river", "bank" é "margem", e não "banco". Sua chave fica salva só no seu dispositivo.
+Traduza com Google, Bing ou DeepL. Com o DeepL (você vai precisar da sua própria chave de API gratuita), cada palavra é traduzida levando em conta a linha inteira da legenda: em “we sat on the bank of the river”, “bank” é “margem”, e não “banco”. Sua chave fica salva só no seu dispositivo.
 
 Grátis e sem cadastro
 O HoverTranslate é totalmente gratuito: sem conta, sem assinatura e sem anúncios. O código é aberto e está no GitHub.

@@ -4,11 +4,11 @@
   "blocks": {
     "description": {
       "title": "HoverTranslate",
-      "subtitle": "Construa vocabulário assistindo YouTube!",
+      "subtitle": "Amplie seu vocabulário assistindo ao YouTube!",
       "thank-you": "Obrigado por escolher minha extensão!"
     },
     "support": {
-      "title": "Apoie o Projeto",
+      "title": "Apoie o projeto",
       "actions": {
         "review": {
           "text": "Nos avalie"
@@ -19,19 +19,19 @@
       }
     },
     "contacts": {
-      "title": "Entre em Contato",
-      "github": "Ver Código Fonte no GitHub",
-      "reportIssues": "Reportar Problemas no GitHub"
+      "title": "Entre em contato",
+      "github": "Ver o código-fonte no GitHub",
+      "reportIssues": "Reportar problemas no GitHub"
     },
     "tips": {
-      "title": "Dicas Rápidas",
-      "multipleSelection": "Traduzir frases: Segure Shift ou ative seleção múltipla nas Configurações",
-      "saveToDictionary": "Clique nas palavras para salvá-las no seu dicionário pessoal",
-      "exportDictionary": "Exporte seu vocabulário da aba Dicionário como JSON ou CSV"
+      "title": "Dicas rápidas",
+      "multipleSelection": "Traduzir frases: segure Shift ou ative a seleção múltipla nas Configurações",
+      "saveToDictionary": "Clique nas palavras para salvá-las no seu vocabulário",
+      "exportDictionary": "Exporte suas palavras da aba Vocabulário em JSON ou CSV"
     }
   },
   "footer": {
     "version": "Versão",
-    "changelog": "Changelog"
+    "changelog": "Histórico de mudanças"
   }
 }

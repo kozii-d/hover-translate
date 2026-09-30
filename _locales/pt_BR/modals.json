@@ -28,14 +28,14 @@
       }
     },
     "labels": {
-      "address": "{{networkType}} Endereço"
+      "address": "Endereço {{networkType}}"
     },
     "notifications": {
       "copyAddress": "Endereço copiado para a área de transferência!"
     },
     "warnings": {
       "verifyNetwork": "Por favor, verifique a rede e o token antes de enviar",
-      "bnb": "Mesmo endereço do Ethereum - rede diferente!"
+      "bnb": "Mesmo endereço do Ethereum, mas outra rede!"
     }
   }
 }
