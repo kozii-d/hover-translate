@@ -42,6 +42,35 @@
       "tooltip": "Gaya tepi karakter di kotak terjemahan"
     }
   },
+  "options": {
+    "auto": "Seperti di YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif Spasi Tunggal",
+      "proportional-serif": "Serif Proporsional",
+      "monospaced-sans-serif": "Sans-Serif Spasi Tunggal",
+      "proportional-sans-serif": "Sans-Serif Proporsional",
+      "casual": "Kasual",
+      "cursive": "Kursif",
+      "small-capitals": "Kapital Kecil"
+    },
+    "color": {
+      "white": "Putih",
+      "yellow": "Kuning",
+      "green": "Hijau",
+      "cyan": "Sian",
+      "blue": "Biru",
+      "magenta": "Magenta",
+      "red": "Merah",
+      "black": "Hitam"
+    },
+    "characterEdgeStyle": {
+      "none": "Tidak ada",
+      "drop-shadow": "Drop Shadow",
+      "raised": "Dinaikkan",
+      "depressed": "Diturunkan",
+      "outline": "Garis keliling"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Setel ulang setelan tampilan ke default?",

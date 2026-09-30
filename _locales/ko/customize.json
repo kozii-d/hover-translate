@@ -42,6 +42,35 @@
       "tooltip": "번역 툴팁의 글자 테두리 스타일"
     }
   },
+  "options": {
+    "auto": "YouTube와 동일",
+    "fontFamily": {
+      "monospaced-serif": "고정 너비 Serif",
+      "proportional-serif": "비례 너비 Serif",
+      "monospaced-sans-serif": "고정 너비 Sans-Serif",
+      "proportional-sans-serif": "비례 너비 Sans-Serif",
+      "casual": "캐주얼",
+      "cursive": "필기체",
+      "small-capitals": "작은 대문자"
+    },
+    "color": {
+      "white": "흰색",
+      "yellow": "노란색",
+      "green": "녹색",
+      "cyan": "청록색",
+      "blue": "파란색",
+      "magenta": "자홍색",
+      "red": "빨간색",
+      "black": "검은색"
+    },
+    "characterEdgeStyle": {
+      "none": "없음",
+      "drop-shadow": "그림자",
+      "raised": "높임",
+      "depressed": "낮춤",
+      "outline": "윤곽선"
+    }
+  },
   "modals": {
     "reset": {
       "title": "맞춤설정을 기본값으로 재설정하시겠습니까?",

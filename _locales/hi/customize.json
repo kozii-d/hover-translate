@@ -42,6 +42,35 @@
       "tooltip": "अनुवाद टूलटिप के लिए कैरेक्टर की एज स्टाइल"
     }
   },
+  "options": {
+    "auto": "YouTube की तरह",
+    "fontFamily": {
+      "monospaced-serif": "Monospaced Serif",
+      "proportional-serif": "Proportional Serif",
+      "monospaced-sans-serif": "Monospaced Sans-Serif",
+      "proportional-sans-serif": "Proportional Sans-Serif",
+      "casual": "Casual",
+      "cursive": "Cursive",
+      "small-capitals": "Small Capitals"
+    },
+    "color": {
+      "white": "सफ़ेद",
+      "yellow": "पीला",
+      "green": "हरा",
+      "cyan": "हरिताभ नीला",
+      "blue": "नीला",
+      "magenta": "मैजेंटा",
+      "red": "लाल",
+      "black": "काला"
+    },
+    "characterEdgeStyle": {
+      "none": "कोई नहीं",
+      "drop-shadow": "ड्रॉप शैडो",
+      "raised": "उठा हुआ",
+      "depressed": "दबा हुआ",
+      "outline": "Outline"
+    }
+  },
   "modals": {
     "reset": {
       "title": "डिफ़ॉल्ट कस्टमाइज़ेशन सेटिंग्स पर रीसेट करें?",

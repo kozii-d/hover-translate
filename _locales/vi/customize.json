@@ -42,6 +42,35 @@
       "tooltip": "Kiểu viền ký tự trong khung dịch"
     }
   },
+  "options": {
+    "auto": "Như trên YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif không cân xứng",
+      "proportional-serif": "Serif cân xứng",
+      "monospaced-sans-serif": "Sans-Serif không cân xứng",
+      "proportional-sans-serif": "Sans-Serif cân xứng",
+      "casual": "Thông thường",
+      "cursive": "Chữ thảo",
+      "small-capitals": "Chữ viết hoa nhỏ"
+    },
+    "color": {
+      "white": "Trắng",
+      "yellow": "Vàng",
+      "green": "Xanh lục",
+      "cyan": "Xanh lơ",
+      "blue": "Màu lam",
+      "magenta": "Đỏ tía",
+      "red": "Đỏ",
+      "black": "Đen"
+    },
+    "characterEdgeStyle": {
+      "none": "Không có",
+      "drop-shadow": "Bóng đổ",
+      "raised": "Tăng",
+      "depressed": "Chìm",
+      "outline": "Đường viền"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Đặt lại tùy chỉnh về mặc định?",

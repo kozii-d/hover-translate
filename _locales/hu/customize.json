@@ -42,6 +42,35 @@
       "tooltip": "A felugró fordítás karakterszegélyének stílusa"
     }
   },
+  "options": {
+    "auto": "Mint a YouTube-on",
+    "fontFamily": {
+      "monospaced-serif": "Azonos szélességű talpas",
+      "proportional-serif": "Arányos talpas",
+      "monospaced-sans-serif": "Azonos szélességű talpatlan",
+      "proportional-sans-serif": "Arányos talpatlan",
+      "casual": "Alkalmi",
+      "cursive": "Kézírás",
+      "small-capitals": "Kiskapitális"
+    },
+    "color": {
+      "white": "Fehér",
+      "yellow": "Sárga",
+      "green": "Zöld",
+      "cyan": "Világoskék",
+      "blue": "Kék",
+      "magenta": "Bíborvörös",
+      "red": "Piros",
+      "black": "Fekete"
+    },
+    "characterEdgeStyle": {
+      "none": "Nincs",
+      "drop-shadow": "Árnyékvetés",
+      "raised": "Kiemelt",
+      "depressed": "Süllyesztett",
+      "outline": "Körvonalas"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Visszaállítod a megjelenés alapértelmezett beállításait?",

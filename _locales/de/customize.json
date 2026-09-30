@@ -42,6 +42,35 @@
       "tooltip": "Der Randstil der Zeichen für Übersetzungs-Tooltips"
     }
   },
+  "options": {
+    "auto": "Wie auf YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Festbreitenschrift mit Serifen",
+      "proportional-serif": "Proportionalschrift mit Serifen",
+      "monospaced-sans-serif": "Festbreitenschrift ohne Serifen",
+      "proportional-sans-serif": "Proportionalschrift ohne Serifen",
+      "casual": "Leger",
+      "cursive": "Kursiv",
+      "small-capitals": "Kapitälchen"
+    },
+    "color": {
+      "white": "Weiß",
+      "yellow": "Gelb",
+      "green": "Grün",
+      "cyan": "Cyan",
+      "blue": "Blau",
+      "magenta": "Magenta",
+      "red": "Rot",
+      "black": "Schwarz"
+    },
+    "characterEdgeStyle": {
+      "none": "Keine Auswahl",
+      "drop-shadow": "Schlagschatten",
+      "raised": "Erhöht",
+      "depressed": "Abgesenkt",
+      "outline": "Umriss"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Auf Standard-Anpassungseinstellungen zurücksetzen?",

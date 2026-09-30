@@ -14,6 +14,35 @@
     "backgroundOpacity": { "label": "Průhlednost pozadí", "tooltip": "Úroveň průhlednosti pozadí pro bubliny s překladem" },
     "characterEdgeStyle": { "label": "Styl okrajů znaků", "tooltip": "Styl okrajů znaků pro bubliny s překladem" }
   },
+  "options": {
+    "auto": "Jako na YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Neproporcionální patkové",
+      "proportional-serif": "Proporcionální patkové",
+      "monospaced-sans-serif": "Neproporcionální bezpatkové",
+      "proportional-sans-serif": "Proporcionální bezpatkové",
+      "casual": "Neformální",
+      "cursive": "Kurzíva",
+      "small-capitals": "Kapitálky"
+    },
+    "color": {
+      "white": "Bílá",
+      "yellow": "Žlutá",
+      "green": "Zelená",
+      "cyan": "Modrozelená",
+      "blue": "Modrá",
+      "magenta": "Purpurová",
+      "red": "Červená",
+      "black": "Černá"
+    },
+    "characterEdgeStyle": {
+      "none": "Žádný",
+      "drop-shadow": "Efekt stínu",
+      "raised": "Zvýšený",
+      "depressed": "Snížený",
+      "outline": "Obrys"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Resetovat na výchozí nastavení přizpůsobení?",

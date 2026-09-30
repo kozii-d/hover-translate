@@ -42,6 +42,35 @@
       "tooltip": "The edge style of characters for translation tooltips"
     }
   },
+  "options": {
+    "auto": "As on YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Monospaced Serif",
+      "proportional-serif": "Proportional Serif",
+      "monospaced-sans-serif": "Monospaced Sans-Serif",
+      "proportional-sans-serif": "Proportional Sans-Serif",
+      "casual": "Casual",
+      "cursive": "Cursive",
+      "small-capitals": "Small Capitals"
+    },
+    "color": {
+      "white": "White",
+      "yellow": "Yellow",
+      "green": "Green",
+      "cyan": "Cyan",
+      "blue": "Blue",
+      "magenta": "Magenta",
+      "red": "Red",
+      "black": "Black"
+    },
+    "characterEdgeStyle": {
+      "none": "None",
+      "drop-shadow": "Drop Shadow",
+      "raised": "Raised",
+      "depressed": "Depressed",
+      "outline": "Outline"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Reset to default customization settings?",

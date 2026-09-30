@@ -14,6 +14,35 @@
     "backgroundOpacity": { "label": "Taustan peittävyys", "tooltip": "Taustan peittävyystaso käännöksissä" },
     "characterEdgeStyle": { "label": "Merkin reunan tyyli", "tooltip": "Merkkien reunan tyyli käännöksissä" }
   },
+  "options": {
+    "auto": "Kuten YouTubessa",
+    "fontFamily": {
+      "monospaced-serif": "Tasalevyinen Serif",
+      "proportional-serif": "Suhteellinen Serif",
+      "monospaced-sans-serif": "Tasalevyinen Sans-Serif",
+      "proportional-sans-serif": "Suhteellinen Sans-Serif",
+      "casual": "Tavallinen",
+      "cursive": "Kursiivi",
+      "small-capitals": "Kapiteelit"
+    },
+    "color": {
+      "white": "Valkoinen",
+      "yellow": "Keltainen",
+      "green": "Vihreä",
+      "cyan": "Syaani",
+      "blue": "Sininen",
+      "magenta": "Magenta",
+      "red": "Punainen",
+      "black": "Musta"
+    },
+    "characterEdgeStyle": {
+      "none": "Ei mitään",
+      "drop-shadow": "Varjostus",
+      "raised": "Korotettu",
+      "depressed": "Upotettu",
+      "outline": "Hahmotelma"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Palauta oletusasetukset?",

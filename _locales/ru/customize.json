@@ -42,6 +42,35 @@
       "tooltip": "Стиль границ символов для всплывающих подсказок перевода"
     }
   },
+  "options": {
+    "auto": "Как на YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Моноширинный с засечками",
+      "proportional-serif": "Пропорциональный с засечками",
+      "monospaced-sans-serif": "Моноширинный без засечек",
+      "proportional-sans-serif": "Пропорциональный без засечек",
+      "casual": "Обычный",
+      "cursive": "Курсив",
+      "small-capitals": "Малые прописные"
+    },
+    "color": {
+      "white": "Белый",
+      "yellow": "Желтый",
+      "green": "Зеленый",
+      "cyan": "Голубой",
+      "blue": "Синий",
+      "magenta": "Пурпурный",
+      "red": "Красный",
+      "black": "Черный"
+    },
+    "characterEdgeStyle": {
+      "none": "Без контура",
+      "drop-shadow": "С тенью",
+      "raised": "Приподнятый",
+      "depressed": "Утопленный",
+      "outline": "Границы"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Сбросить настройки кастомизации по умолчанию?",

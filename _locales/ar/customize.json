@@ -42,6 +42,35 @@
       "tooltip": "نمط حواف الأحرف في نافذة الترجمة"
     }
   },
+  "options": {
+    "auto": "كما في YouTube",
+    "fontFamily": {
+      "monospaced-serif": "خطوط Serif أحادية المسافة",
+      "proportional-serif": "خطوط Serif التناسبية",
+      "monospaced-sans-serif": "خطوط Sans-Serif أحادية المسافة",
+      "proportional-sans-serif": "خطوط Sans-Serif التناسبية",
+      "casual": "عادية",
+      "cursive": "متصلة",
+      "small-capitals": "أحرف استهلالية صغيرة"
+    },
+    "color": {
+      "white": "أبيض",
+      "yellow": "أصفر",
+      "green": "أخضر",
+      "cyan": "أزرق سماوي",
+      "blue": "أزرق",
+      "magenta": "أرجواني",
+      "red": "أحمر",
+      "black": "أسود"
+    },
+    "characterEdgeStyle": {
+      "none": "بدون حواف",
+      "drop-shadow": "تظليل القطرات",
+      "raised": "مرتفعة",
+      "depressed": "منخفضة",
+      "outline": "مخطط"
+    }
+  },
   "modals": {
     "reset": {
       "title": "هل تريد استعادة إعدادات التخصيص التلقائية؟",

@@ -42,6 +42,35 @@
       "tooltip": "Стиль країв символів для підказок перекладу"
     }
   },
+  "options": {
+    "auto": "Як на YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Моноширинний Serif",
+      "proportional-serif": "Пропорційний Serif",
+      "monospaced-sans-serif": "Моноширинний Sans-Serif",
+      "proportional-sans-serif": "Пропорційний Sans-Serif",
+      "casual": "Неофіційний",
+      "cursive": "Курсив",
+      "small-capitals": "Зменшені великі букви"
+    },
+    "color": {
+      "white": "Білий",
+      "yellow": "Жовтий",
+      "green": "Зелений",
+      "cyan": "Блакитний",
+      "blue": "Синій",
+      "magenta": "Пурпурний",
+      "red": "Червоний",
+      "black": "Чорний"
+    },
+    "characterEdgeStyle": {
+      "none": "Немає",
+      "drop-shadow": "З тінню",
+      "raised": "Випуклі",
+      "depressed": "Увігнуті",
+      "outline": "Окреслені"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Скинути налаштування кастомізації до стандартних?",

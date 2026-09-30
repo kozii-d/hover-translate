@@ -42,6 +42,35 @@
       "tooltip": "O estilo de contorno dos caracteres para as dicas de tradução"
     }
   },
+  "options": {
+    "auto": "Como no YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif monoespaçada",
+      "proportional-serif": "Serif proporcional",
+      "monospaced-sans-serif": "Sans-Serif monoespaçada",
+      "proportional-sans-serif": "Sans-Serif proporcional",
+      "casual": "Casual",
+      "cursive": "Cursivo",
+      "small-capitals": "Maiúsculas pequenas"
+    },
+    "color": {
+      "white": "Branco",
+      "yellow": "Amarelo",
+      "green": "Verde",
+      "cyan": "Azul-turquesa",
+      "blue": "Azul",
+      "magenta": "Magenta",
+      "red": "Vermelho",
+      "black": "Preto"
+    },
+    "characterEdgeStyle": {
+      "none": "Nenhum",
+      "drop-shadow": "Sombra projetada",
+      "raised": "Em relevo",
+      "depressed": "Em depressão",
+      "outline": "Contorno"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Repor definições de personalização predefinidas?",

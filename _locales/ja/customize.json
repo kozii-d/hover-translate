@@ -42,6 +42,35 @@
       "tooltip": "翻訳ツールチップの文字装飾スタイル"
     }
   },
+  "options": {
+    "auto": "YouTube と同じ",
+    "fontFamily": {
+      "monospaced-serif": "等幅セリフ",
+      "proportional-serif": "プロポーショナル セリフ",
+      "monospaced-sans-serif": "等幅サンセリフ",
+      "proportional-sans-serif": "プロポーショナル サンセリフ",
+      "casual": "カジュアル",
+      "cursive": "草書体",
+      "small-capitals": "スモール キャピタル"
+    },
+    "color": {
+      "white": "白",
+      "yellow": "黄",
+      "green": "緑",
+      "cyan": "シアン",
+      "blue": "青",
+      "magenta": "マゼンタ",
+      "red": "赤",
+      "black": "黒"
+    },
+    "characterEdgeStyle": {
+      "none": "なし",
+      "drop-shadow": "ドロップ シャドウ",
+      "raised": "浮き彫り",
+      "depressed": "沈み彫り",
+      "outline": "アウトライン"
+    }
+  },
   "modals": {
     "reset": {
       "title": "デフォルトのカスタマイズ設定に戻しますか？",

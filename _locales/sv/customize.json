@@ -42,6 +42,35 @@
       "tooltip": "Teckenkantstilen för översättningsrutor"
     }
   },
+  "options": {
+    "auto": "Som på YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif med fast bredd",
+      "proportional-serif": "Proportionell serif",
+      "monospaced-sans-serif": "Sans-serif med fast bredd",
+      "proportional-sans-serif": "Proportionell sans-serif",
+      "casual": "Diverse",
+      "cursive": "Kursiv",
+      "small-capitals": "Kapitäler"
+    },
+    "color": {
+      "white": "Vit",
+      "yellow": "Gul",
+      "green": "Grön",
+      "cyan": "Cyan",
+      "blue": "Blå",
+      "magenta": "Magenta",
+      "red": "Röd",
+      "black": "Svart"
+    },
+    "characterEdgeStyle": {
+      "none": "Inga",
+      "drop-shadow": "Skugga",
+      "raised": "Upphöjd",
+      "depressed": "Nedsänkt",
+      "outline": "Kontur"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Återställ till standardinställningar för anpassning?",

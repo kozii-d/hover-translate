@@ -20,7 +20,8 @@ const GOOGLE_CODES: Record<string, Record<string, string | null>> = {
   deepl: { pt: null },
 };
 
-const toTag = (code: string) => code.replace(/_/g, "-");
+/** A locale directory (`pt_BR`) as the language tag `Intl` takes (`pt-BR`). */
+export const toTag = (code: string) => code.replace(/_/g, "-");
 
 /**
  * Names languages in `displayLanguage` (a locale directory such as `pt_BR`

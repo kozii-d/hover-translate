@@ -42,6 +42,35 @@
       "tooltip": "Çeviri ipuçları için karakter kenar stili"
     }
   },
+  "options": {
+    "auto": "YouTube'daki gibi",
+    "fontFamily": {
+      "monospaced-serif": "Tek Aralıklı Serif",
+      "proportional-serif": "Orantılı Serif",
+      "monospaced-sans-serif": "Tek Aralıklı Sans-Serif",
+      "proportional-sans-serif": "Orantılı Sans-Serif",
+      "casual": "Klasik",
+      "cursive": "El Yazısı",
+      "small-capitals": "Küçük Boyutlu Büyük Harfler"
+    },
+    "color": {
+      "white": "Beyaz",
+      "yellow": "Sarı",
+      "green": "Yeşil",
+      "cyan": "Camgöbeği",
+      "blue": "Mavi",
+      "magenta": "Macenta",
+      "red": "Kırmızı",
+      "black": "Siyah"
+    },
+    "characterEdgeStyle": {
+      "none": "Hiçbiri",
+      "drop-shadow": "Gölge",
+      "raised": "Yükseltilmiş",
+      "depressed": "Bastırılmış",
+      "outline": "Çerçeve"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Varsayılan özelleştirme ayarlarına sıfırlansın mı?",

@@ -42,6 +42,35 @@
       "tooltip": "Το στιλ άκρων των χαρακτήρων στην αναδυόμενη μετάφραση"
     }
   },
+  "options": {
+    "auto": "Όπως στο YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif σταθερού πλάτους",
+      "proportional-serif": "Serif αναλογικού πλάτους",
+      "monospaced-sans-serif": "Sans-Serif σταθερού πλάτους",
+      "proportional-sans-serif": "Sans-Serif αναλογικού πλάτους",
+      "casual": "Απλές",
+      "cursive": "Λοξές",
+      "small-capitals": "Μικρά κεφαλαία"
+    },
+    "color": {
+      "white": "Άσπρο",
+      "yellow": "Κίτρινο",
+      "green": "Πράσινο",
+      "cyan": "Κυανό",
+      "blue": "Μπλε",
+      "magenta": "Ματζέντα",
+      "red": "Κόκκινο",
+      "black": "Μαύρο"
+    },
+    "characterEdgeStyle": {
+      "none": "Κανένα",
+      "drop-shadow": "Αναπτυσσόμενη σκιά",
+      "raised": "Ανάγλυφο",
+      "depressed": "Συμπτυγμένο",
+      "outline": "Περίγραμμα"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Επαναφορά των προεπιλεγμένων ρυθμίσεων εμφάνισης;",

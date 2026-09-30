@@ -14,6 +14,35 @@
     "backgroundOpacity": { "label": "Opacità sfondo", "tooltip": "Il livello di opacità dello sfondo per i tooltip" },
     "characterEdgeStyle": { "label": "Stile bordo caratteri", "tooltip": "Lo stile del bordo dei caratteri per i tooltip" }
   },
+  "options": {
+    "auto": "Come su YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif a spaziatura fissa",
+      "proportional-serif": "Serif proporzionale",
+      "monospaced-sans-serif": "Sans serif a spaziatura fissa",
+      "proportional-sans-serif": "Sans serif proporzionale",
+      "casual": "Informale",
+      "cursive": "Corsivo",
+      "small-capitals": "Maiuscoletto"
+    },
+    "color": {
+      "white": "Bianco",
+      "yellow": "Giallo",
+      "green": "Verde",
+      "cyan": "Ciano",
+      "blue": "Blu",
+      "magenta": "Magenta",
+      "red": "Rosso",
+      "black": "Nero"
+    },
+    "characterEdgeStyle": {
+      "none": "Nessuno",
+      "drop-shadow": "Ombra",
+      "raised": "In rilievo",
+      "depressed": "Incassato",
+      "outline": "Delineato"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Ripristinare le impostazioni predefinite?",

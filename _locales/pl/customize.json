@@ -42,6 +42,35 @@
       "tooltip": "Styl krawędzi znaków dla podpowiedzi tłumaczeń"
     }
   },
+  "options": {
+    "auto": "Jak na YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Szeryfowa o stałej szerokości",
+      "proportional-serif": "Szeryfowa proporcjonalna",
+      "monospaced-sans-serif": "Bezszeryfowa o stałej szerokości",
+      "proportional-sans-serif": "Bezszeryfowa proporcjonalna",
+      "casual": "Zwykła",
+      "cursive": "Kursywa",
+      "small-capitals": "Kapitaliki"
+    },
+    "color": {
+      "white": "Biały",
+      "yellow": "Żółty",
+      "green": "Zielony",
+      "cyan": "Turkusowy",
+      "blue": "Niebieski",
+      "magenta": "Magenta",
+      "red": "Czerwony",
+      "black": "Czarny"
+    },
+    "characterEdgeStyle": {
+      "none": "Brak",
+      "drop-shadow": "Z cieniem",
+      "raised": "Uniesione",
+      "depressed": "Opuszczone",
+      "outline": "Obrys"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Przywrócić domyślne ustawienia dostosowania?",

@@ -42,6 +42,35 @@
       "tooltip": "Le style de bordure des caractères pour les infobulles de traduction"
     }
   },
+  "options": {
+    "auto": "Comme sur YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif monospace",
+      "proportional-serif": "Serif proportionnelle",
+      "monospaced-sans-serif": "Sans Serif monospace",
+      "proportional-sans-serif": "Sans Serif proportionnelle",
+      "casual": "Casual",
+      "cursive": "Cursive",
+      "small-capitals": "Petites majuscules"
+    },
+    "color": {
+      "white": "Blanc",
+      "yellow": "Jaune",
+      "green": "Vert",
+      "cyan": "Cyan",
+      "blue": "Bleu",
+      "magenta": "Magenta",
+      "red": "Rouge",
+      "black": "Noir"
+    },
+    "characterEdgeStyle": {
+      "none": "Aucun",
+      "drop-shadow": "Ombre projetée",
+      "raised": "Surélevé",
+      "depressed": "Surbaissé",
+      "outline": "Souligné"
+    }
+  },
   "modals": {
     "reset": {
       "title": "Réinitialiser les paramètres de personnalisation par défaut ?",

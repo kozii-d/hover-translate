@@ -42,6 +42,35 @@
       "tooltip": "El estilo de borde de los caracteres para los tooltips de traducción"
     }
   },
+  "options": {
+    "auto": "Como en YouTube",
+    "fontFamily": {
+      "monospaced-serif": "Serif monoespaciada",
+      "proportional-serif": "Serif proporcional",
+      "monospaced-sans-serif": "Sans-Serif monoespaciada",
+      "proportional-sans-serif": "Sans-Serif proporcional",
+      "casual": "Casual",
+      "cursive": "Cursiva",
+      "small-capitals": "Versalitas"
+    },
+    "color": {
+      "white": "Blanco",
+      "yellow": "Amarillo",
+      "green": "Verde",
+      "cyan": "Cian",
+      "blue": "Azul",
+      "magenta": "Magenta",
+      "red": "Rojo",
+      "black": "Negro"
+    },
+    "characterEdgeStyle": {
+      "none": "Ninguno",
+      "drop-shadow": "Sombra paralela",
+      "raised": "Relieve",
+      "depressed": "Hundido",
+      "outline": "Contorno"
+    }
+  },
   "modals": {
     "reset": {
       "title": "¿Restablecer configuración de personalización por defecto?",

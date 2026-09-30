@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
+import { MenuItemType } from "@/shared/types/types.ts";
 import { CustomizeFormValues } from "../model/types/schema.ts";
 
 
@@ -9,7 +10,7 @@ interface ControlledSettingsSelectProps {
   control: Control<CustomizeFormValues>;
   label: string;
   tooltip: string;
-  options: Array<{ value: string; label: string }>;
+  options: MenuItemType[];
   disabled?: boolean;
   onSubmit: (values: CustomizeFormValues) => Promise<void>;
   setValue: (name: keyof CustomizeFormValues, value: string, options?: { shouldDirty?: boolean }) => void;

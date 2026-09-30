@@ -14,6 +14,35 @@
     "backgroundOpacity": { "label": "背景透明度", "tooltip": "翻譯提示框背景的透明度" },
     "characterEdgeStyle": { "label": "字元邊緣樣式", "tooltip": "翻譯提示框的字元邊緣樣式" }
   },
+  "options": {
+    "auto": "與 YouTube 相同",
+    "fontFamily": {
+      "monospaced-serif": "Monospaced Serif",
+      "proportional-serif": "Proportional Serif",
+      "monospaced-sans-serif": "Monospaced Sans-Serif",
+      "proportional-sans-serif": "Proportional Sans-Serif",
+      "casual": "Casual",
+      "cursive": "Cursive",
+      "small-capitals": "Small Capitals"
+    },
+    "color": {
+      "white": "白色",
+      "yellow": "黃色",
+      "green": "綠色",
+      "cyan": "青色",
+      "blue": "藍色",
+      "magenta": "洋紅色",
+      "red": "紅色",
+      "black": "黑色"
+    },
+    "characterEdgeStyle": {
+      "none": "無",
+      "drop-shadow": "投射陰影",
+      "raised": "浮凸",
+      "depressed": "內凹",
+      "outline": "外框"
+    }
+  },
   "modals": {
     "reset": { "title": "重設為預設自訂設定？", "description": "這將把所有自訂設定恢復為預設值。", "action": "重設" }
   }
