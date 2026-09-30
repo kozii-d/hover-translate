@@ -6,7 +6,7 @@ This document provides step-by-step instructions to build the HoverTranslate ext
 
 - **Node.js**: 24.12.0 or newer (the version in `.nvmrc`)
 - **npm**: 11.6.2 or newer
-- **Operating System**: Windows, macOS, or Linux
+- **Operating System**: Linux or macOS (on Windows, use WSL: the npm scripts call `cp` and `rm -rf`)
 
 `.npmrc` sets `engine-strict`, so `npm ci` stops with an error on an older Node.js or npm.
 
@@ -100,13 +100,16 @@ After running the build commands, the following files are generated:
 
 ## Source to Output Mapping
 
-| Source File                              | Output File                           |
-| ---------------------------------------- | ------------------------------------- |
-| `extension/src/background/background.ts` | `extension/dist/background.bundle.js` |
-| `extension/src/content/content.ts`       | `extension/dist/content.bundle.js`    |
-| `extension/src/content/styles.css`       | `extension/dist/styles.css`           |
-| `popup/src/App.tsx` (and dependencies)   | `popup/dist/assets/index-[hash].js`   |
-| `popup/src/index.html`                   | `popup/dist/index.html`               |
+| Source File                                                   | Output File                                                               |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `extension/src/background/background.ts`                      | `extension/dist/background.bundle.js`                                     |
+| `extension/src/content/content.ts`                            | `extension/dist/content.bundle.js`                                        |
+| `extension/src/content/styles.css`                            | `extension/dist/styles.css`                                               |
+| `popup/index.html`                                            | `popup/dist/index.html`                                                   |
+| `popup/src/main.tsx` (and dependencies)                       | `popup/dist/assets/index-[hash].js`, `popup/dist/assets/index-[hash].css` |
+| `popup/src/pages/*/ui/*.async.tsx` (and code the pages share) | the other `popup/dist/assets/*-[hash].js`                                 |
+
+Vite splits the popup into chunks: each page is loaded lazily and gets its own, and code several pages use goes into shared ones. `popup/dist/index.html` loads only `index-[hash].js` and `index-[hash].css`; that script loads the other chunks when they are needed.
 
 ## Build Tools Used
 
@@ -140,6 +143,7 @@ No external CDN resources are used during the build process.
 
 The build process is configured through:
 
+- `extension/vite.base.config.ts` - Settings shared by both extension builds
 - `extension/vite.background.config.ts` - Background script build
 - `extension/vite.content.config.ts` - Content script build
 - `popup/vite.config.ts` - Popup interface build
