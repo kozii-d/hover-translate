@@ -1,10 +1,20 @@
+/* The popup is as wide as its narrowest layout — the tab labels, which do not
+   wrap — on every page. Chrome sizes the window that way by itself; Firefox
+   asks for the width the page would like (`max-content`), which differs from
+   page to page. The scrollbar is kept for Firefox: with classic scrollbars a
+   long page would otherwise squeeze its content by the bar's width. Chrome
+   ignores it and adds its own bar to the window of a page that scrolls. */
+html {
+  overflow-y: scroll;
+}
+
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 380px;
   max-width: 550px;
-  width: fit-content;
+  width: min-content;
 }
 
 #root {

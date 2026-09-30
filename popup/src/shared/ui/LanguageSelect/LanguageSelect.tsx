@@ -60,11 +60,8 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, l
         options={options}
         onOpen={() => setOpen(true)}
       />
-      {/* No scroll lock: Chrome keeps the popup's scrollbar under `overflow: hidden`,
-          and the padding MUI adds in its place widens the popup window. */}
       <Dialog
         fullScreen
-        disableScrollLock
         open={open}
         onClose={() => setOpen(false)}
         // MUI closes the panel on Escape without `preventDefault`, and Chrome

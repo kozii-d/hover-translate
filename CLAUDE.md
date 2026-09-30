@@ -77,7 +77,7 @@ Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root*
 | Word segmentation | `extension/test/content/wordSegmenter.test.ts` |
 | Messages, install/update, migrations | `extension/test/background/{messageService,settingsService,migrations}.test.ts` |
 | Popup: mounting per language, settings and translators, export | `popup/test/{app,settings,export}.test.tsx` |
-| On the player: hover, clicks, captions, embed, errors, rating card, popup→page | `e2e/{hover,click,captions,embed,errors,rating,popup}.spec.js` |
+| On the player: hover, clicks, captions, embed, errors, rating card, popup→page; the popup's width on every page | `e2e/{hover,click,captions,embed,errors,rating,popup}.spec.js` |
 | Listing limits, version, AMO listing body, source archive, language names | `scripts/{check-listing,set-version,update-amo-listing,create-source-archive,update-language-names}.test.js` |
 
 - Tests live outside `src`, so they never reach a bundle: `extension/test/**/*.test.ts`, `popup/test/**/*.test.tsx`, `scripts/*.test.js` (`node:test`: the scripts are CommonJS in the root package, which has no Vitest). `extension/` runs in `node`; a file that needs a DOM starts with `// @vitest-environment jsdom`. `popup/` runs in jsdom and mounts the real `App` through `popup/test/renderPopup.tsx`.
@@ -138,6 +138,8 @@ The API key form and the connected-key card live in `features/TranslatorApiKey/`
 The popup theme is set in `app/providers/ThemeAppProvider`: the stored `popupTheme` if the viewer clicked the header toggle (`widgets/ThemeToggle`, through `useThemeMode()` from `shared/lib/theme/popupTheme.ts`), otherwise `prefers-color-scheme`. Colours in components go through theme tokens (`text.secondary`, `divider`, `background.paper`…) — a literal colour stays the same in both themes; single-colour SVGs use `currentColor` (see `eth-logo.svg`).
 
 Every page is laid out by `shared/ui/Page` (title, header actions, theme and language buttons, the tabs). Notifications go through `useNotifications()` (`shared/lib/notifications`): `show(message, { severity, autoHideDuration })` returns a key for `close(key)`; they are shown one at a time at the bottom, the rest queued, by the `NotificationsProvider` that `ThemeAppProvider` puts around the app.
+
+The popup is as wide as the page's `min-content` (`popup/src/index.css`), which is the tab labels: nothing on a page may be wider without wrapping (`nowrap`, a fixed width), or the window grows on that page; text of any length, such as the saved words, wraps anywhere (`overflow-wrap: anywhere`). `html` always has its vertical scrollbar (`overflow-y: scroll`, for Firefox; Chrome sizes the popup and its bar itself, so a page shorter than 600 px is 15 px narrower there). MUI's scroll lock is off in the theme (`MuiModal`, `MuiPopover`): its padding in place of the scrollbar widens Chrome's popup — never turn it back on for one component.
 
 "Translate from / to" are `shared/ui/LanguageSelect`: the field opens a full-screen panel (`Dialog`) with a search by the name in the popup's language and by the translator's English one; the short lists are `shared/ui/SettingsSelect`.
 

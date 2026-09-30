@@ -1,3 +1,5 @@
+const fs = require("node:fs");
+const path = require("node:path");
 const { test, expect } = require("./extension.js");
 
 // A change in the popup reaches a YouTube page that is already open, without
@@ -57,3 +59,51 @@ test.describe("with access to www.bing.com", () => {
     expect(new URLSearchParams(network.to("www.bing.com").at(-1).body).get("to")).toBe("ru");
   });
 });
+
+// Chrome sizes the popup window to the page, Firefox to the width the page
+// would like at 800 px (`max-content`); a tab 1280 px wide lays the page out
+// the second way. The width is the tab labels' (`body { width: min-content }`),
+// so it depends on the language and never on the page — nor on a long word
+// saved to the word list, which wraps anywhere. Scrollbars are not drawn in a
+// headless browser: they are a manual check.
+const LONG_WORDS = [
+  ["Donaudampfschifffahrtsgesellschaftskapitän", "captain of the Danube steamship company"],
+  ["https://www.example.com/some/long/path", "https://www.example.com/some/long/path"],
+];
+
+for (const language of ["en", "ja", "ar"]) {
+  test(`the popup is as wide on every page, in ${language}, long words in the word list too`, async ({ context, extensionId, storage }) => {
+    const label = (ns, key) => JSON.parse(fs.readFileSync(path.join(__dirname, "..", "_locales", language, `${ns}.json`), "utf8"))[key];
+    const popup = await context.newPage();
+    await popup.addInitScript((code) => localStorage.setItem("hoverTranslatePopupLanguage", code), language);
+    await popup.goto(`chrome-extension://${extensionId}/popup/dist/index.html`);
+
+    const widths = [];
+    for (const ns of ["settings", "customize", "dictionary", "about"]) {
+      await popup.getByRole("tab", { name: label(ns, "tabLabel"), exact: true }).click();
+      await expect(popup.getByRole("heading", { name: label(ns, "pageTitle"), exact: true })).toBeVisible();
+      await expect(popup.locator(".MuiSkeleton-root")).toHaveCount(0);
+      widths.push(await popup.evaluate(() => document.body.getBoundingClientRect().width));
+    }
+
+    await storage.set("local", {
+      savedTranslations: LONG_WORDS.map(([originalText, translatedText], index) => ({
+        id: `long-${index}`,
+        originalText,
+        translatedText,
+        sourceLanguageCode: "de",
+        targetLanguageCode: "en",
+        translatorName: "Google",
+        timestamp: Date.now() + index,
+      })),
+    });
+    await popup.getByRole("tab", { name: label("about", "tabLabel"), exact: true }).click();
+    await popup.getByRole("tab", { name: label("dictionary", "tabLabel"), exact: true }).click();
+    await expect(popup.getByText(LONG_WORDS[0][0], { exact: true })).toBeVisible();
+    widths.push(await popup.evaluate(() => document.body.getBoundingClientRect().width));
+
+    expect(widths).toEqual(Array(5).fill(widths[0]));
+    expect(widths[0]).toBeGreaterThanOrEqual(380);
+    expect(widths[0]).toBeLessThan(550);
+  });
+}

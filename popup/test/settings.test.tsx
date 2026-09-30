@@ -264,6 +264,43 @@ describe("the rating card on the Settings page", () => {
   });
 });
 
+// Chrome keeps the popup's scrollbar under `overflow: hidden`, so the padding
+// MUI's scroll lock adds in its place would widen the popup window while the
+// list or dialog is open. The lock is off in the theme, for every one of them.
+describe("an open list or dialog leaves the page's style alone", () => {
+  const expectNoScrollLock = () => {
+    expect(document.body.style.overflow).toBe("");
+    expect(document.body.style.paddingRight).toBe("");
+  };
+
+  it("the translator list", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    await user.click(await translatorSelect());
+    await screen.findByRole("option", { name: /^Bing/ });
+
+    expectNoScrollLock();
+  });
+
+  it("the confirmation of \"Reset to default\"", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    await user.click(await screen.findByRole("button", { name: "Reset to default" }));
+    await screen.findByText("Reset to default settings?");
+
+    expectNoScrollLock();
+  });
+
+  it("the menu of popup languages", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    await user.click(await screen.findByRole("button", { name: "Change popup language" }));
+    await screen.findByRole("menuitem", { name: "Русский" });
+
+    expectNoScrollLock();
+  });
+});
+
 describe("the language fields open a panel with a search", () => {
   type User = Awaited<ReturnType<typeof renderPopup>>["user"];
 

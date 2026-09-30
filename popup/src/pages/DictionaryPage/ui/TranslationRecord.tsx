@@ -23,11 +23,12 @@ export const TranslationRecord: FC<TranslationRecordProps> = (props) => {
         spacing={2}
         alignItems="center"
       >
-        {/* Each side in its own language's direction: Arabic next to English. */}
-        <Typography variant="body1" sx={{ flex: 1 }} title={translation.sourceLanguageCode} dir="auto">
+        {/* Each side in its own language's direction: Arabic next to English.
+            A long word or a link wraps anywhere, or the popup would widen on this page. */}
+        <Typography variant="body1" sx={{ flex: 1, overflowWrap: "anywhere" }} title={translation.sourceLanguageCode} dir="auto">
           {translation.originalText}
         </Typography>
-        <Typography variant="body1" sx={{ flex: 1 }} title={translation.targetLanguageCode} dir="auto">
+        <Typography variant="body1" sx={{ flex: 1, overflowWrap: "anywhere" }} title={translation.targetLanguageCode} dir="auto">
           {translation.translatedText}
         </Typography>
         <IconButton aria-label="delete" onClick={() => onRemove(translation.id)} title={t("actions.deleteTranslation.tooltip")}>

@@ -121,6 +121,16 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
           },
         },
         components: {
+          // No scroll lock under lists and dialogs: Chrome keeps the popup's
+          // scrollbar under `overflow: hidden`, and the padding MUI adds in its
+          // place widens the popup window. `Popover` (under `Menu` and `Select`)
+          // passes its own `false` to `Modal`, so it needs the default too.
+          MuiModal: {
+            defaultProps: { disableScrollLock: true },
+          },
+          MuiPopover: {
+            defaultProps: { disableScrollLock: true },
+          },
           MuiButton: {
             styleOverrides: {
               root: {

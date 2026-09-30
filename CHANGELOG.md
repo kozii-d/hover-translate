@@ -31,6 +31,7 @@ All notable changes to this project will be documented in this file.
 - The CSV export opened in Excel with garbled text in place of every word not written in Latin letters — Arabic, Cyrillic, Chinese and others. It now opens correctly.
 - Wording of the settings in Korean, Japanese and Chinese. The appearance settings now use YouTube's own names — in Korean and Simplified Chinese the opacity settings were described as transparency, the opposite. Traditional Chinese uses Taiwanese words instead of mainland ones. In Korean, Japanese and Traditional Chinese, the tab with your saved words is now called the same as in the store: word list, not dictionary.
 - The languages in the "Translate from" and "Translate to" lists were named in English whatever the language of the settings. They are now named in that language and listed in its alphabetical order, and the first item, "Auto", is now "Detect language". In the menu that changes the language of the settings, each language is now named in itself — "Русский", "日本語", "Português (Brasil)".
+- The settings window changed its width: in Firefox when moving from one tab to another, and in Chrome and Edge while a list or a dialog was open. It now keeps its width in both cases, and a long word or link in your word list wraps instead of widening it.
 
 ## [1.1.14] - 2026-09-24
 
