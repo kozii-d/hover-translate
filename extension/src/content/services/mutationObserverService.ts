@@ -145,11 +145,11 @@ export class MutationObserverService {
     // Re-adding the same listener is a no-op, so this is safe to repeat.
     captionWindow.addEventListener(
       "pointerenter",
-      this.videoController.handleVideoPause,
+      this.videoController.handleCaptionPointerEnter,
     );
     captionWindow.addEventListener(
       "pointerleave",
-      this.videoController.handleVideoPlay,
+      this.videoController.handleCaptionPointerLeave,
     );
     captionWindow.addEventListener(
       "pointerleave",
@@ -160,11 +160,11 @@ export class MutationObserverService {
   private detachCaptionWindowListeners(captionWindow: Element): void {
     captionWindow.removeEventListener(
       "pointerenter",
-      this.videoController.handleVideoPause,
+      this.videoController.handleCaptionPointerEnter,
     );
     captionWindow.removeEventListener(
       "pointerleave",
-      this.videoController.handleVideoPlay,
+      this.videoController.handleCaptionPointerLeave,
     );
     captionWindow.removeEventListener(
       "pointerleave",

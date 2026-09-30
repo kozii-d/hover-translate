@@ -244,6 +244,20 @@ class Player {
     return this.frame.evaluate(() => document.querySelector("video").paused);
   }
 
+  /** From now on, records the video's `play` and `pause` events for `videoEvents()`. */
+  recordVideoEvents() {
+    return this.frame.evaluate(() => {
+      window.videoEvents = [];
+      const video = document.querySelector("video");
+      for (const type of ["play", "pause"]) video.addEventListener(type, () => window.videoEvents.push(type));
+    });
+  }
+
+  /** The video's `play` and `pause` events since `recordVideoEvents()`, in order. */
+  videoEvents() {
+    return this.frame.evaluate(() => [...window.videoEvents]);
+  }
+
   /** What reached YouTube's own handlers in the fixture: "toggle", "button:<label>". */
   youtubeEvents() {
     return this.frame.evaluate(() => [...window.fixture.events]);

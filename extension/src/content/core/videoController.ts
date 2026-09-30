@@ -14,8 +14,22 @@ import { state } from "../state/stateManager.ts";
 export class VideoController {
   private claimedVideo: HTMLVideoElement | null = null;
 
-  public handleVideoPause = (event: Event): void => {
+  /**
+   * The pointer entering and leaving a caption window. With a mouse button
+   * held they neither pause nor resume: the viewer is dragging the captions,
+   * or passing over them on the way somewhere else. Each step of a drag moves
+   * the window from under the pointer, and resuming on that `pointerleave`
+   * started the video for an instant on every step — or, in a drag and drop,
+   * which sends no `pointerenter` until it ends, for the whole drag.
+   */
+  public handleCaptionPointerEnter = (event: Event): void => {
+    if ((event as PointerEvent).buttons) return;
     this.pauseVideo(this.getVideoElement(event));
+  };
+
+  public handleCaptionPointerLeave = (event: Event): void => {
+    if ((event as PointerEvent).buttons) return;
+    this.handleVideoPlay();
   };
 
   /**
@@ -82,9 +96,11 @@ export class VideoController {
    *
    * The event comes a task after the `play()` that caused it. When the video
    * is paused again by then, it is not playing and the claim still stands —
-   * typically the event is our own: dragging the caption window moves it
-   * under the pointer, and a `pointerleave` resumes the video right before a
-   * `pointerenter` pauses and claims it again.
+   * the event is our own: a `pointerleave` resumed the video right before a
+   * `pointerenter` paused and claimed it again, as when the pointer crosses
+   * from one caption window straight into another. Dragging the captions
+   * makes no such pair: with a button held, neither event touches the video
+   * (see `handleCaptionPointerEnter`).
    */
   private handleExternalPlay = (): void => {
     if (this.claimedVideo?.paused) return;

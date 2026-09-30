@@ -62,3 +62,27 @@ test("with \"always multiple selection\" the selection grows without Shift", asy
   await player.moveAway();
   await expect(player.frame.locator(".custom-tooltip-word-selected")).toHaveCount(0);
 });
+
+test("the pointer crossing the captions with the button held neither pauses nor resumes the video", async ({ openPlayer }) => {
+  const player = await openPlayer();
+  await player.captions("run for your life");
+  const word = await player.word("for").boundingBox();
+  const playerBox = await player.frame.locator(".html5-video-player").boundingBox();
+  const x = word.x + word.width / 2;
+  await player.recordVideoEvents();
+
+  // Pressed below the player, over the word, and released above the player:
+  // neither end is on the video, whose click would toggle it.
+  await player.page.mouse.move(x, playerBox.y + playerBox.height + 20);
+  await player.page.mouse.down();
+  await player.page.mouse.move(x, word.y + word.height / 2, { steps: 5 });
+  await player.page.mouse.move(x, playerBox.y - 20, { steps: 5 });
+  await player.page.mouse.up();
+
+  expect(await player.videoEvents()).toEqual([]);
+  expect(await player.youtubeEvents()).toEqual([]);
+
+  // Without the button, the captions pause it again.
+  await player.word("for").hover();
+  await expect.poll(() => player.isPaused()).toBe(true);
+});

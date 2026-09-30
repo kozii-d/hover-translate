@@ -159,5 +159,28 @@ for (const dragMode of ["drag and drop", "mousemove"]) {
       await player.moveAway();
       await expect.poll(() => player.isPaused()).toBe(false);
     });
+
+    test("dragging the captions does not start the video the pointer paused", async ({ openPlayer }) => {
+      const player = await openPlayer();
+      await player.fixture("dragOn", dragMode);
+      await player.captions("run for your life");
+      await player.word("your").hover();
+      await expect.poll(() => player.isPaused()).toBe(true);
+      await player.recordVideoEvents();
+
+      const released = await dragByWord(player, "your", 0, -300, 10);
+
+      // Not even for an instant: every `play` is a moment of sound.
+      expect(await player.videoEvents()).toEqual([]);
+      expect(await player.isPaused()).toBe(true);
+
+      // A drag and drop has had the pointer leave the window at its start, and
+      // it is back only on the first move after the drop. A mouse makes that
+      // move over the captions it was released on; `moveAway` alone jumps
+      // clear of them in one step.
+      await player.page.mouse.move(released.x + 1, released.y);
+      await player.moveAway();
+      await expect.poll(() => player.isPaused()).toBe(false);
+    });
   });
 }

@@ -69,3 +69,27 @@ test("the player's buttons keep their clicks, also over a word", async ({ openPl
   await expect(player.notification).toHaveCount(0);
   expect(await storage.get("local", "savedTranslations")).toBeUndefined();
 });
+
+test("a covered word the pointer crosses with the button held neither pauses nor resumes the video", async ({ openPlayer }) => {
+  const player = await openPlayer("embed");
+  await player.captions("run for your life");
+  const word = await player.word("for").boundingBox();
+  const frame = await (await player.frame.frameElement()).boundingBox();
+  await player.recordVideoEvents();
+
+  // Pressed on the controls layer away from the captions, over the word, and
+  // released outside the player: a release on the layer would be a click
+  // that toggles the video.
+  await player.page.mouse.move(frame.x + 30, frame.y + 30);
+  await player.page.mouse.down();
+  await player.page.mouse.move(word.x + word.width / 2, word.y + word.height / 2, { steps: 5 });
+  await player.page.mouse.move(frame.x - 10, frame.y + frame.height + 10, { steps: 5 });
+  await player.page.mouse.up();
+
+  expect(await player.videoEvents()).toEqual([]);
+  expect(await player.youtubeEvents()).toEqual([]);
+
+  // Without the button, the covered word pauses it again.
+  await player.word("for").hover({ force: true });
+  await expect.poll(() => player.isPaused()).toBe(true);
+});
