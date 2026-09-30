@@ -4,16 +4,14 @@ const crypto = require("crypto");
 const { assertListing } = require("./check-listing.js");
 
 // Usage: node update-amo-listing.js [--dry-run]
-const dryRun = process.argv.includes("--dry-run");
 
-// The same limits as `npm run check:listing`, before anything else
-assertListing();
+const ROOT = path.join(__dirname, "..");
 
 // --- .env loader ---
 
-const ROOT = path.join(__dirname, "..");
-const envPath = path.join(ROOT, ".env");
-if (fs.existsSync(envPath)) {
+function loadEnv() {
+  const envPath = path.join(ROOT, ".env");
+  if (!fs.existsSync(envPath)) return;
   const envContent = fs.readFileSync(envPath, "utf8");
   for (const line of envContent.split("\n")) {
     const trimmed = line.trim();
@@ -24,19 +22,6 @@ if (fs.existsSync(envPath)) {
     const value = trimmed.slice(eqIndex + 1).trim();
     if (!process.env[key]) process.env[key] = value;
   }
-}
-
-// --- Validate env ---
-
-const AMO_API_KEY = process.env.AMO_API_KEY;
-const AMO_API_SECRET = process.env.AMO_API_SECRET;
-const AMO_ADDON_ID = process.env.AMO_ADDON_ID;
-
-if (!AMO_API_KEY || !AMO_API_SECRET || !AMO_ADDON_ID) {
-  console.error(
-    "Missing required environment variables: AMO_API_KEY, AMO_API_SECRET, AMO_ADDON_ID",
-  );
-  process.exit(1);
 }
 
 // --- Locale mapping (project locale -> AMO locale) ---
@@ -81,9 +66,10 @@ const AMO_LOCALES = new Set([
 // Normalizes string | string[] to always be an array
 const toArray = (val) => (Array.isArray(val) ? val : [val]);
 
-// --- Load descriptions and summaries ---
+// --- Load names, summaries and descriptions ---
 
 function loadListings() {
+  const names = {};
   const descriptions = {};
   const summaries = {};
 
@@ -100,15 +86,16 @@ function loadListings() {
       console.error(`Messages file not found: ${msgPath}`);
       process.exit(1);
     }
-    const summary = JSON.parse(fs.readFileSync(msgPath, "utf8")).description.message;
+    const messages = JSON.parse(fs.readFileSync(msgPath, "utf8"));
 
     for (const amoLocale of toArray(amoLocales)) {
+      names[amoLocale] = messages.name.message;
+      summaries[amoLocale] = messages.description.message;
       descriptions[amoLocale] = description;
-      summaries[amoLocale] = summary;
     }
   }
 
-  return { descriptions, summaries };
+  return { names, descriptions, summaries };
 }
 
 // Locales with listing texts that LOCALE_MAP sends nowhere
@@ -130,13 +117,13 @@ function generateJWT() {
   const header = base64url(JSON.stringify({ alg: "HS256", typ: "JWT" }));
   const payload = base64url(
     JSON.stringify({
-      iss: AMO_API_KEY,
+      iss: process.env.AMO_API_KEY,
       iat: now,
       exp: now + 300,
     }),
   );
   const signature = crypto
-    .createHmac("sha256", AMO_API_SECRET)
+    .createHmac("sha256", process.env.AMO_API_SECRET)
     .update(`${header}.${payload}`)
     .digest("base64url");
   return `${header}.${payload}.${signature}`;
@@ -155,8 +142,9 @@ async function fetchCurrentLocales(token, url) {
     process.exit(1);
   }
   const data = await response.json();
-  // summary and description are objects with locale keys
+  // name, summary and description are objects with locale keys
   const locales = new Set([
+    ...Object.keys(data.name || {}),
     ...Object.keys(data.summary || {}),
     ...Object.keys(data.description || {}),
   ]);
@@ -175,12 +163,27 @@ function filterByLocales(data, supportedLocales, skipped) {
   return filtered;
 }
 
+// The PATCH body AMO gets, from the files in the repository, and the locales
+// left out of it because AMO does not accept them
+function buildPatchBody() {
+  const { names, descriptions, summaries } = loadListings();
+  const skipped = new Set();
+  const body = {
+    name: filterByLocales(names, AMO_LOCALES, skipped),
+    summary: filterByLocales(summaries, AMO_LOCALES, skipped),
+    description: filterByLocales(descriptions, AMO_LOCALES, skipped),
+  };
+  return { body, skipped };
+}
+
 // --- Main ---
 
 async function main() {
+  const dryRun = process.argv.includes("--dry-run");
+
   console.log("Loading listings...");
-  const { descriptions, summaries } = loadListings();
-  console.log(`  Loaded ${Object.keys(descriptions).length} locales`);
+  const { body, skipped } = buildPatchBody();
+  console.log(`  Loaded ${Object.keys(body.summary).length + skipped.size} locales`);
 
   const unmapped = findUnmappedLocales();
   if (unmapped.length > 0) {
@@ -190,20 +193,12 @@ async function main() {
   }
 
   const token = generateJWT();
-  const url = `https://addons.mozilla.org/api/v5/addons/addon/${AMO_ADDON_ID}/`;
+  const url = `https://addons.mozilla.org/api/v5/addons/addon/${process.env.AMO_ADDON_ID}/`;
 
   // Also checks the credentials before anything is sent
   const currentLocales = await fetchCurrentLocales(token, url);
   console.log(
     `  The add-on has ${currentLocales.size} locales on AMO: ${[...currentLocales].join(", ")}`,
-  );
-
-  const skipped = new Set();
-  const filteredSummaries = filterByLocales(summaries, AMO_LOCALES, skipped);
-  const filteredDescriptions = filterByLocales(
-    descriptions,
-    AMO_LOCALES,
-    skipped,
   );
 
   if (skipped.size > 0) {
@@ -212,27 +207,22 @@ async function main() {
     );
   }
 
-  const added = Object.keys(filteredSummaries).filter(
+  const added = Object.keys(body.summary).filter(
     (locale) => !currentLocales.has(locale),
   );
   if (added.length > 0) {
     console.log(`  New on AMO: ${added.join(", ")}`);
   }
 
-  const body = {
-    summary: filteredSummaries,
-    description: filteredDescriptions,
-  };
-
-  console.log(`  Will update ${Object.keys(filteredSummaries).length} locales`);
+  console.log(`  Will update ${Object.keys(body.summary).length} locales`);
 
   if (dryRun) {
     console.log("\n[DRY RUN] Would send PATCH to AMO API with payload:\n");
-    for (const amoLocale of Object.keys(filteredSummaries)) {
-      const summaryPreview = filteredSummaries[amoLocale].slice(0, 80);
-      const descLen = filteredDescriptions[amoLocale]?.length || 0;
+    for (const amoLocale of Object.keys(body.summary)) {
+      const summaryPreview = body.summary[amoLocale].slice(0, 80);
+      const descLen = body.description[amoLocale]?.length || 0;
       console.log(
-        `  ${amoLocale}: summary="${summaryPreview}..." (${filteredSummaries[amoLocale].length} chars), description (${descLen} chars)`,
+        `  ${amoLocale}: name="${body.name[amoLocale]}", summary="${summaryPreview}..." (${body.summary[amoLocale].length} chars), description (${descLen} chars)`,
       );
     }
     console.log("\nDry run complete. No API call made.");
@@ -261,7 +251,22 @@ async function main() {
   console.log("AMO listing updated successfully!");
 }
 
-main().catch((err) => {
-  console.error("Unexpected error:", err.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  // The same limits as `npm run check:listing`, before anything else
+  assertListing();
+  loadEnv();
+
+  if (!process.env.AMO_API_KEY || !process.env.AMO_API_SECRET || !process.env.AMO_ADDON_ID) {
+    console.error(
+      "Missing required environment variables: AMO_API_KEY, AMO_API_SECRET, AMO_ADDON_ID",
+    );
+    process.exit(1);
+  }
+
+  main().catch((err) => {
+    console.error("Unexpected error:", err.message);
+    process.exit(1);
+  });
+}
+
+module.exports = { buildPatchBody, LOCALE_MAP };

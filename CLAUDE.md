@@ -41,7 +41,7 @@ npm run check:version            # the version is the same in package.json, the 
 npm run version:set -- 1.2.0      # version in package.json, lockfile and all manifests
 npm run release                  # build + all 3 store archives + source archive
 npm run release:firefox          # single-browser archive; output lands in releases/<version>/
-npm run update:amo               # push AMO listing metadata (needs AMO_* keys in .env)
+npm run update:amo               # push the AMO listing's name, summary and description (needs AMO_* keys in .env)
 ```
 
 Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root** (not `extension/`) as an unpacked extension. The manifest points at the built bundles inside `extension/dist/` and `popup/dist/`.
@@ -77,7 +77,7 @@ Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root*
 | Messages, install/update, migrations | `extension/test/background/{messageService,settingsService,migrations}.test.ts` |
 | Popup: mounting per language, settings and translators, export | `popup/test/{app,settings,export}.test.tsx` |
 | On the player: hover, clicks, captions, embed, errors, rating card, popup→page | `e2e/{hover,click,captions,embed,errors,rating,popup}.spec.js` |
-| Listing limits, version, source archive | `scripts/{check-listing,set-version,create-source-archive}.test.js` |
+| Listing limits, version, AMO listing body, source archive | `scripts/{check-listing,set-version,update-amo-listing,create-source-archive}.test.js` |
 
 - Tests live outside `src`, so they never reach a bundle: `extension/test/**/*.test.ts`, `popup/test/**/*.test.tsx`, `scripts/*.test.js` (`node:test`: the scripts are CommonJS in the root package, which has no Vitest). `extension/` runs in `node`; a file that needs a DOM starts with `// @vitest-environment jsdom`. `popup/` runs in jsdom and mounts the real `App` through `popup/test/renderPopup.tsx`.
 - **`chrome` is faked as the global it is**, not as a module: `extension/test/fakeChrome.ts` (`installFakeChrome({ sync, local, uiLanguage, id, scheme, grantedOrigins, answerPermissionPrompt, hasSessionStorage })`; `test/setup.ts` installs an empty one before every test). Storage in both call styles with `onChanged`, `getMessage` from the real `_locales`, permissions, `tabs.create` recorded with the synced storage of that moment. A message is answered only through `sendResponse` and `return true`, as in Chrome before 147: for the background, create the real `MessageService` in the same process. The popup reaches the file through the `@extension-test` alias, so it imports nothing from npm (that would be a second copy of the package).
@@ -203,6 +203,8 @@ Firefox swaps `background.service_worker` for `background.scripts` and adds `bro
 Versions follow semver, judged by the release's `CHANGELOG.md` section: only **Fixed** → patch; anything **Added**, or a change the viewer notices → minor; something the viewer loses or has to redo → major. The version string lives in `package.json` (and `package-lock.json`) and all three manifests; set it with `npm run version:set -- X.Y.Z` (`scripts/set-version.js`), which writes all of them and refuses a version that is not higher than the current one. `scripts/archive.js` backs up the working `manifest.json`, swaps in the browser-specific one, zips (`.xpi` for Firefox), and restores the backup — so it is safe to run regardless of which `setup:` you last ran. Archives land in `releases/<version>/` (gitignored). Firefox store submissions also need the source archive (`npm run source-archive`, see `FIREFOX_SOURCE_NOTES.txt` and `BUILD_INSTRUCTIONS.md`). It is made of the files git tracks (`git ls-files`), as they are in the working tree so that it matches the build (the new version is not committed yet), so nothing untracked or ignored reaches the reviewers — a new file the build needs goes in only once it is added to git, and the script ends with a warning naming the untracked files; it leaves out `docs/`, `store-assets/`, `.claude/` and `CLAUDE.md`, which the build does not need.
 
 `npm run check:listing` (`scripts/check-listing.js`) runs first in `release`, `release:<browser>` (not `:dev`) and `update:amo`, and fails on: `name` over 50 (AMO) or `description` over 132 (Chrome/Edge cut the summary) in any `_locales/*/messages.json`; Edge search terms (`store-assets/search-terms/*.txt`) over 7 lines, 30 characters a line or 21 words; a store description outside 250–10,000 characters; a locale missing from any of the three places. `update-amo-listing.js` sends only the locales in its `AMO_LOCALES` (addons-server `PROD_LANGUAGES`; `hi` is not there) and warns about the rest.
+
+The search terms are used by Edge alone — hidden keywords in Partner Center, pasted by hand — and Edge is by far the smallest of the three stores. Keep them within the limits and about what the extension does, and spend no research on them beyond that; the descriptions, summaries and names are what matter in all three stores.
 
 ### Dependencies
 
