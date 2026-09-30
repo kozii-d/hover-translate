@@ -7,6 +7,7 @@
   "fields": {
     "targetLanguageCode": { "label": "翻譯為", "tooltip": "目標語言" },
     "sourceLanguageCode": { "label": "原文語言", "tooltip": "來源語言", "auto": "偵測語言" },
+    "languagePanel": { "search": "搜尋語言", "noResults": "找不到語言", "back": "返回" },
     "translator": { "label": "翻譯引擎", "tooltip": "翻譯時使用的引擎" },
     "autoPause": { "label": "自動暫停", "tooltip": "滑鼠移到字幕上時自動暫停影片", "helperText": "滑鼠移到字幕上時自動暫停影片" },
     "leftClickAction": {

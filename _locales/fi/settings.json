@@ -7,6 +7,7 @@
   "fields": {
     "targetLanguageCode": { "label": "Käännä kielelle", "tooltip": "Kieli, jolle teksti käännetään" },
     "sourceLanguageCode": { "label": "Käännä kielestä", "tooltip": "Kieli, josta teksti käännetään", "auto": "Tunnista kieli" },
+    "languagePanel": { "search": "Hae kieliä", "noResults": "Kieliä ei löytynyt", "back": "Takaisin" },
     "translator": { "label": "Kääntäjä", "tooltip": "Käännöksissä käytettävä kääntäjäpalvelu" },
     "autoPause": { "label": "Automaattinen tauko", "tooltip": "Pysäytä video automaattisesti, kun hiiri on tekstityksen päällä", "helperText": "Pysäyttää videon automaattisesti, kun tarkastelet tekstityksiä" },
     "leftClickAction": { "label": "Vasen klikkaus", "tooltip": "Toiminto, kun klikkaat sanaa tekstityksessä", "options": { "saveToDictionary": "Tallenna sanakirjaan", "copyOriginal": "Kopioi alkuperäinen", "copyTranslation": "Kopioi käännös", "nothing": "Ei mitään" } },

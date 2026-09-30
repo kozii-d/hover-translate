@@ -7,6 +7,7 @@
   "fields": {
     "targetLanguageCode": { "label": "Traduci in", "tooltip": "La lingua in cui verrà tradotto il testo" },
     "sourceLanguageCode": { "label": "Traduci da", "tooltip": "La lingua da cui verrà tradotto il testo", "auto": "Rileva lingua" },
+    "languagePanel": { "search": "Cerca tra le lingue", "noResults": "Nessuna lingua trovata", "back": "Indietro" },
     "translator": { "label": "Traduttore", "tooltip": "Il servizio di traduzione da utilizzare" },
     "autoPause": { "label": "Pausa automatica", "tooltip": "Metti in pausa il video automaticamente quando passi sui sottotitoli", "helperText": "Mette in pausa il video quando passi il mouse sui sottotitoli" },
     "leftClickAction": { "label": "Azione clic sinistro", "tooltip": "Azione da eseguire cliccando sulle parole nei sottotitoli", "options": { "saveToDictionary": "Salva nel dizionario", "copyOriginal": "Copia originale", "copyTranslation": "Copia traduzione", "nothing": "Nulla" } },

@@ -17,6 +17,11 @@
       "tooltip": "Språket som texten ska översättas från",
       "auto": "Identifiera språk"
     },
+    "languagePanel": {
+      "search": "Sök efter språk",
+      "noResults": "Inga språk hittades",
+      "back": "Tillbaka"
+    },
     "translator": {
       "label": "Översättare",
       "tooltip": "Översättaren som ska användas för översättningar"

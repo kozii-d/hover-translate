@@ -17,6 +17,11 @@
       "tooltip": "Metnin çevrileceği kaynak dil",
       "auto": "Dili algıla"
     },
+    "languagePanel": {
+      "search": "Dil ara",
+      "noResults": "Dil bulunamadı",
+      "back": "Geri dön"
+    },
     "translator": {
       "label": "Çevirmen",
       "tooltip": "Çeviriler için kullanılacak çeviri motoru"

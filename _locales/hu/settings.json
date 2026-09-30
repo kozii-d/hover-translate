@@ -17,6 +17,11 @@
       "tooltip": "A lefordítandó szöveg nyelve",
       "auto": "Nyelvfelismerés"
     },
+    "languagePanel": {
+      "search": "Nyelvek keresése",
+      "noResults": "Nem található nyelv",
+      "back": "Visszalépés"
+    },
     "translator": {
       "label": "Fordító",
       "tooltip": "A fordításhoz használt szolgáltatás"

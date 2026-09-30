@@ -7,6 +7,7 @@
   "fields": {
     "targetLanguageCode": { "label": "Přeložit do", "tooltip": "Jazyk, do kterého bude text přeložen" },
     "sourceLanguageCode": { "label": "Přeložit z", "tooltip": "Jazyk, ze kterého bude text přeložen", "auto": "Rozpoznat jazyk" },
+    "languagePanel": { "search": "Hledat jazyky", "noResults": "Nebyly nalezeny žádné jazyky", "back": "Zpět" },
     "translator": { "label": "Překladač", "tooltip": "Překladač použitý pro překlady" },
     "autoPause": { "label": "Automatické pozastavení", "tooltip": "Automaticky pozastavit video při najetí na titulky", "helperText": "Automaticky pozastaví video při najetí myší na titulky" },
     "leftClickAction": { "label": "Akce levého kliknutí", "tooltip": "Akce provedená při kliknutí levým tlačítkem na slova v titulcích", "options": { "saveToDictionary": "Uložit do slovníku", "copyOriginal": "Kopírovat původní text", "copyTranslation": "Kopírovat přeložený text", "nothing": "Nic" } },

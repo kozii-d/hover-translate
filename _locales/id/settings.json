@@ -17,6 +17,11 @@
       "tooltip": "Bahasa sumber teks yang akan diterjemahkan",
       "auto": "Deteksi bahasa"
     },
+    "languagePanel": {
+      "search": "Telusuri bahasa",
+      "noResults": "Bahasa tidak ditemukan",
+      "back": "Kembali"
+    },
     "translator": {
       "label": "Penerjemah",
       "tooltip": "Layanan yang digunakan untuk menerjemahkan"

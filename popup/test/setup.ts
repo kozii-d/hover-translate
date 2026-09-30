@@ -15,6 +15,7 @@ window.matchMedia = (query: string) => ({
   dispatchEvent: () => false,
 });
 window.scrollTo = () => {};
+Element.prototype.scrollIntoView = () => {};
 globalThis.ResizeObserver = class {
   observe() {}
   unobserve() {}

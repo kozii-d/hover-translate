@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { defaultSettings } from "@extension/common/consts/defaultValues.ts";
 import { BING_ORIGIN } from "@extension/common/translators/bing/bing.ts";
 import { DEEPL_FREE_API_URL } from "@extension/common/translators/deepl/consts.ts";
@@ -261,5 +261,267 @@ describe("the rating card on the Settings page", () => {
     await waitFor(() => expect(fake.storage.sync.ratingPromptPopup).toEqual({ count: 1, lastDismissedAt: expect.any(Number) }));
     expect(fake.storage.sync).not.toHaveProperty("ratingPromptDone");
     expect(fake.createdTabs).toEqual([]);
+  });
+});
+
+describe("the language fields open a panel with a search", () => {
+  type User = Awaited<ReturnType<typeof renderPopup>>["user"];
+
+  const languageField = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
+
+  /** Opens the panel of a language field, as a viewer does. */
+  const openPanel = async (user: User, label: string) => {
+    await user.click(await languageField(label));
+    return screen.findByRole("dialog", { name: label });
+  };
+
+  const optionNames = (panel: HTMLElement) => within(panel).queryAllByRole("option").map((option) => option.textContent);
+
+  const closed = () => waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+
+  it("opens on the field, named after it: the focus in the search, the current language selected and scrolled to", async () => {
+    const scrolls = vi.spyOn(Element.prototype, "scrollIntoView");
+    const errors = vi.spyOn(console, "error");
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+
+    expect(document.activeElement).toBe(within(panel).getByRole("textbox", { name: "Search languages" }));
+    expect(within(panel).getByRole("listbox", { name: "Translate to" })).toBeTruthy();
+    const selected = within(panel).getByRole("option", { selected: true });
+    expect(selected.textContent).toBe("English");
+    expect(within(panel).getAllByRole("option", { selected: true })).toHaveLength(1);
+    await waitFor(() => expect(scrolls.mock.contexts).toContain(selected));
+    expect(scrolls).toHaveBeenCalledWith({ block: "center" });
+    expect(errors).not.toHaveBeenCalled();
+  });
+
+  // Chrome keeps the popup's scrollbar under `overflow: hidden`, so the padding
+  // MUI adds in its place would widen the popup window.
+  it("leaves the page's style alone: no scroll lock, no padding in place of the scrollbar", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    await openPanel(user, "Translate to");
+
+    expect(document.body.style.overflow).toBe("");
+    expect(document.body.style.paddingRight).toBe("");
+  });
+
+  // Keyboard focus (`Mui-focusVisible`) is not reproduced by jsdom.
+  it("the selected language is marked for the theme to show, and only it", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    const options = within(panel).getAllByRole("option");
+
+    expect(options.filter((option) => option.classList.contains("Mui-selected")).map((option) => option.textContent)).toEqual(["English"]);
+  });
+
+  it("a part of the name finds the language, and Enter picks it: saved, the panel closed, the field shows it", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    await user.keyboard("germ");
+
+    expect(optionNames(within(panel).getByRole("listbox"))).toEqual(["German"]);
+    await user.keyboard("{Enter}");
+
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "de" }));
+    await closed();
+    expect((await languageField("Translate to")).textContent).toBe("German");
+  });
+
+  it("a click on a language picks it", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate from");
+    await user.click(within(panel).getByRole("option", { name: "Japanese" }));
+
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, sourceLanguageCode: "ja" }));
+    await closed();
+    expect((await languageField("Translate from")).textContent).toBe("Japanese");
+  });
+
+  it("the names that start with the search come first, then the alphabet", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    await user.keyboard("en");
+
+    const names = optionNames(panel);
+    expect(names[0]).toBe("English");
+    expect(names.indexOf("Armenian")).toBeLessThan(names.indexOf("French"));
+    expect(names.filter((name) => !/en/i.test(name ?? ""))).toEqual([]);
+  });
+
+  it("nothing found: no language, a line that says so, and Enter picks nothing", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    await user.keyboard("zzz{Enter}");
+
+    expect(within(panel).queryAllByRole("option")).toEqual([]);
+    expect(within(panel).getByText("No languages found")).toBeTruthy();
+    expect(screen.getByRole("dialog", { name: "Translate to" })).toBe(panel);
+    expect(fake.storage.sync.settings).toEqual(defaultSettings);
+  });
+
+  it("Escape closes it without a change and gives the focus back to the field; the search starts empty again", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    await openPanel(user, "Translate to");
+    await user.keyboard("zzz{Escape}");
+
+    await closed();
+    expect(document.activeElement).toBe(await languageField("Translate to"));
+    expect(fake.storage.sync.settings).toEqual(defaultSettings);
+
+    const panel = await openPanel(user, "Translate to");
+    expect(within(panel).getByRole("textbox", { name: "Search languages" })).toHaveProperty("value", "");
+    expect(optionNames(panel)).toHaveLength(194);
+  });
+
+  // Chrome closes the whole popup on an Escape the page leaves unhandled.
+  it("Escape is taken by the panel: it closes the panel, and the popup is left open", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    const notCancelled = fireEvent.keyDown(within(panel).getByRole("textbox", { name: "Search languages" }), { key: "Escape" });
+
+    expect(notCancelled).toBe(false);
+    await closed();
+  });
+
+  it("the back button closes it without a change", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    await user.click(within(panel).getByRole("button", { name: "Back" }));
+
+    await closed();
+    expect(fake.storage.sync.settings).toEqual(defaultSettings);
+  });
+
+  it("the keyboard opens it from the field and walks the two columns row by row", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    (await languageField("Translate to")).focus();
+    await user.keyboard("{Enter}");
+    const panel = await screen.findByRole("dialog", { name: "Translate to" });
+    const search = within(panel).getByRole("textbox", { name: "Search languages" });
+    const options = within(panel).getAllByRole("option");
+    expect(options.slice(0, 4).map((option) => option.textContent)).toEqual(["Abkhaz", "Acehnese", "Acholi", "Afrikaans"]);
+
+    const focused = () => document.activeElement;
+    await user.keyboard("{ArrowDown}");
+    expect(focused()).toBe(options[0]);
+    await user.keyboard("{ArrowRight}");
+    expect(focused()).toBe(options[1]);
+    await user.keyboard("{ArrowDown}");
+    expect(focused()).toBe(options[3]);
+    await user.keyboard("{ArrowLeft}");
+    expect(focused()).toBe(options[2]);
+    await user.keyboard("{ArrowUp}");
+    expect(focused()).toBe(options[0]);
+    await user.keyboard("{ArrowUp}");
+    expect(focused()).toBe(search);
+    await user.keyboard("{ArrowDown}{ArrowDown}{ArrowRight}");
+    expect(focused()).toBe(options[3]);
+    await user.keyboard("{Enter}");
+
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "af" }));
+    await closed();
+  });
+
+  it("Tab leaves the search for the selected language only, and a space picks the focused one", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    await user.tab();
+    expect(document.activeElement).toBe(within(panel).getByRole("option", { name: "English" }));
+    expect(within(panel).getAllByRole("option").filter((option) => option.tabIndex === 0)).toHaveLength(1);
+
+    await user.keyboard("{ArrowRight} ");
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "eo" }));
+    await closed();
+  });
+
+  it("with no selected language among those found, the first one is the one Tab reaches", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    await user.keyboard("germ");
+    await user.tab();
+
+    expect(document.activeElement).toBe(within(panel).getByRole("option", { name: "German" }));
+  });
+
+  it("detection is the first language of \"Translate from\", and is found by its name", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate from");
+    expect(optionNames(panel)[0]).toBe("Detect language");
+    expect(within(panel).getByRole("option", { selected: true }).textContent).toBe("Detect language");
+
+    await user.keyboard("detect");
+    expect(optionNames(panel)).toEqual(["Detect language"]);
+  });
+
+  it("in Russian: found by the Russian name and by the translator's English one", async () => {
+    const { user } = await renderPopup({ language: "ru", uiLanguage: "ru", sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Перевести на");
+    const search = within(panel).getByRole("textbox", { name: "Найти языки" });
+    await user.keyboard("jap");
+    expect(optionNames(panel)).toEqual(["Японский"]);
+
+    await user.clear(search);
+    await user.keyboard("ЯПОНС");
+    expect(optionNames(panel)).toEqual(["Японский"]);
+  });
+
+  it("in Spanish: found without the accents", async () => {
+    const { user } = await renderPopup({ language: "es", uiLanguage: "es", sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Traducir a");
+    await user.keyboard("aleman");
+
+    expect(optionNames(panel)).toEqual(["Alemán"]);
+  });
+
+  it("in Turkish: a lowercase search finds the names that start with a dotted İ", async () => {
+    const { user } = await renderPopup({ language: "tr", uiLanguage: "tr", sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Şu dile çevir");
+    const search = within(panel).getByRole("textbox", { name: "Dil ara" });
+    await user.keyboard("isp");
+    expect(optionNames(panel)).toEqual(["İspanyolca"]);
+
+    await user.clear(search);
+    await user.keyboard("ingilizce");
+    expect(optionNames(panel)).toEqual(["İngilizce"]);
+  });
+
+  it("in Japanese: the voicing mark counts, \"ド\" is not \"ト\"", async () => {
+    const { user } = await renderPopup({ language: "ja", uiLanguage: "ja", sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "翻訳先言語");
+    await user.keyboard("ド");
+
+    const names = optionNames(panel);
+    expect(names).toContain("ドイツ語");
+    expect(names).not.toContain("トルコ語");
+    expect(names.filter((name) => !name?.includes("ド"))).toEqual([]);
+  });
+
+  it("in Arabic the arrows follow the reading direction", async () => {
+    const { user } = await renderPopup({ language: "ar", uiLanguage: "ar", sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "الترجمة إلى");
+    const options = within(panel).getAllByRole("option");
+    await user.keyboard("{ArrowDown}{ArrowLeft}");
+    expect(document.activeElement).toBe(options[1]);
+    await user.keyboard("{ArrowRight}");
+    expect(document.activeElement).toBe(options[0]);
   });
 });

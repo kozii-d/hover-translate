@@ -17,6 +17,11 @@
       "tooltip": "O idioma a partir do qual o texto será traduzido",
       "auto": "Detetar idioma"
     },
+    "languagePanel": {
+      "search": "Pesquisar idiomas",
+      "noResults": "Nenhum idioma encontrado",
+      "back": "Voltar"
+    },
     "translator": {
       "label": "Tradutor",
       "tooltip": "O tradutor a utilizar para as traduções"

@@ -17,6 +17,11 @@
       "tooltip": "Ngôn ngữ của văn bản cần dịch",
       "auto": "Phát hiện ngôn ngữ"
     },
+    "languagePanel": {
+      "search": "Tìm kiếm ngôn ngữ",
+      "noResults": "Không tìm thấy ngôn ngữ nào",
+      "back": "Quay lại"
+    },
     "translator": {
       "label": "Công cụ dịch",
       "tooltip": "Công cụ dùng để dịch"

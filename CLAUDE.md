@@ -139,6 +139,8 @@ The popup theme is set in `app/providers/ThemeAppProvider`: the stored `popupThe
 
 Every page is laid out by `shared/ui/Page` (title, header actions, theme and language buttons, the tabs). Notifications go through `useNotifications()` (`shared/lib/notifications`): `show(message, { severity, autoHideDuration })` returns a key for `close(key)`; they are shown one at a time at the bottom, the rest queued, by the `NotificationsProvider` that `ThemeAppProvider` puts around the app.
 
+"Translate from / to" are `shared/ui/LanguageSelect`: the field opens a full-screen panel (`Dialog`) with a search by the name in the popup's language and by the translator's English one; the short lists are `shared/ui/SettingsSelect`.
+
 Feature-Sliced-ish: `app/` (providers, router, i18n) → `pages/` → `widgets/` → `features/` → `shared/`. Path alias `@/` → `popup/src/`.
 
 Each page exports a lazy `*.async.tsx` plus a skeleton; `routeConfig.ts` pairs `element` with `skeleton`. Adding a page means adding an entry there and a `RouterPath` constant.

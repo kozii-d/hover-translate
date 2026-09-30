@@ -17,6 +17,11 @@
       "tooltip": "テキストを翻訳する元の言語",
       "auto": "言語を検出する"
     },
+    "languagePanel": {
+      "search": "言語を検索",
+      "noResults": "言語が見つかりません",
+      "back": "戻る"
+    },
     "translator": {
       "label": "翻訳エンジン",
       "tooltip": "翻訳に使用する翻訳エンジン"

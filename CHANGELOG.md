@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - The Bing translator is back. HoverTranslate asks for access to <www.bing.com> only when you pick Bing in the settings, and no longer asks every user for it. If Bing was already your translator, pick it in the settings once more to allow that access: opening the settings switches you to Google and says so. Until then, words are translated with Google, as in the previous version, and a notice on the video says so once each time you start the browser.
+- "Translate from" and "Translate to" in the settings open a panel with a search: type a part of a language's name to find it, in the language of the settings or in English.
 
 ### Added
 

@@ -4,8 +4,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
-import Box from "@mui/material/Box";
 import { MenuItemType } from "../../types/types.ts";
+import { OptionLabel } from "../OptionLabel/OptionLabel.tsx";
 
 interface SettingsSelectProps {
   id: string;
@@ -16,28 +16,26 @@ interface SettingsSelectProps {
   tooltip?: string;
   options: MenuItemType[];
   disabled?: boolean;
+  /** Called instead of opening the menu, which then never opens: the field opens something else. */
+  onOpen?: () => void;
 }
 
 export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
-  const { id, value, onChange, error, options, label, tooltip, disabled } =
+  const { id, value, onChange, error, options, label, tooltip, disabled, onOpen } =
     props;
-
-  const renderLabel = (item: MenuItemType) => item.icon
-    ? <Box component="span" sx={{ display: "flex", alignItems: "center", gap: 1 }}>{item.label}{item.icon}</Box>
-    : item.label;
 
   const renderMenuItem = (item: MenuItemType) => (
     <MenuItem key={item.value} value={item.value}>
       {item.description
-        ? <ListItemText primary={renderLabel(item)} secondary={item.description} sx={{ my: 0 }} />
-        : renderLabel(item)}
+        ? <ListItemText primary={<OptionLabel item={item}/>} secondary={item.description} sx={{ my: 0 }} />
+        : <OptionLabel item={item}/>}
     </MenuItem>
   );
 
   // The closed select shows the label and its icon, not the menu's second line.
   const renderValue = (selected: string) => {
     const option = options.find((item) => item.value === selected);
-    return option ? renderLabel(option) : selected;
+    return option ? <OptionLabel item={option}/> : selected;
   };
 
   return (
@@ -52,6 +50,8 @@ export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
         renderValue={renderValue}
         variant="outlined"
         disabled={disabled}
+        open={onOpen ? false : undefined}
+        onOpen={onOpen}
       >
         {options.map(renderMenuItem)}
       </Select>

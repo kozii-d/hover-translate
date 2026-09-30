@@ -22,6 +22,7 @@ import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
 import { ContextHint } from "./ContextHint.tsx";
 import { DismissibleTip } from "@/shared/ui/DismissibleTip/DismissibleTip.tsx";
 import { SettingsSelect } from "@/shared/ui/SettingsSelect/SettingsSelect.tsx";
+import { LanguageOption, LanguageSelect } from "@/shared/ui/LanguageSelect/LanguageSelect.tsx";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 import { useTranslation } from "react-i18next";
@@ -152,16 +153,20 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   // The lists are the selected translator's. While a switch waits for the
   // permission prompt they are still the previous one's, and a code of
   // `GOOGLE_CODES` may be named for the new one until its lists arrive.
-  const toSortedOptions = useCallback((languages: Language[]): MenuItemType[] => {
+  const toSortedOptions = useCallback((languages: Language[]): LanguageOption[] => {
     const collator = new Intl.Collator(popupLanguage.replace(/_/g, "-"));
     return languages
-      .map((language) => ({ value: language.code, label: getLanguageLabel(language, currentTranslator) }))
+      .map((language) => ({
+        value: language.code,
+        label: getLanguageLabel(language, currentTranslator),
+        englishName: language.name,
+      }))
       .sort((a, b) => collator.compare(a.label, b.label));
   }, [currentTranslator, getLanguageLabel, popupLanguage]);
 
   const detectLanguageLabel = t("fields.sourceLanguageCode.auto");
 
-  const sourceOptions = useMemo<MenuItemType[]>(() => [
+  const sourceOptions = useMemo<LanguageOption[]>(() => [
     { value: "auto", label: detectLanguageLabel, icon: <AutoAwesomeIcon fontSize="small"/> },
     ...toSortedOptions(sourceLanguages),
   ], [detectLanguageLabel, sourceLanguages, toSortedOptions]);
@@ -461,7 +466,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
           name="sourceLanguageCode"
           control={control}
           render={({ field }) => (
-            <SettingsSelect
+            <LanguageSelect
               id="sourceLanguageCode"
               label={t("fields.sourceLanguageCode.label")}
               tooltip={t("fields.sourceLanguageCode.tooltip")}
@@ -478,7 +483,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
           name="targetLanguageCode"
           control={control}
           render={({ field }) => (
-            <SettingsSelect
+            <LanguageSelect
               id="targetLanguageCode"
               label={t("fields.targetLanguageCode.label")}
               tooltip={t("fields.targetLanguageCode.tooltip")}
