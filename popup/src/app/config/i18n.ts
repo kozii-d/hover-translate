@@ -4,41 +4,6 @@ import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import "dayjs/locale/en";
-
-// European
-import "dayjs/locale/cs";
-import "dayjs/locale/de";
-import "dayjs/locale/el";
-import "dayjs/locale/es";
-import "dayjs/locale/fi";
-import "dayjs/locale/fr";
-import "dayjs/locale/hu";
-import "dayjs/locale/it";
-import "dayjs/locale/pl";
-import "dayjs/locale/pt";
-import "dayjs/locale/pt-br";
-import "dayjs/locale/sv";
-import "dayjs/locale/tr";
-
-// Cyrillic
-import "dayjs/locale/ru";
-import "dayjs/locale/uk";
-
-// Asian
-import "dayjs/locale/hi";
-import "dayjs/locale/id";
-import "dayjs/locale/ja";
-import "dayjs/locale/ko";
-import "dayjs/locale/vi";
-import "dayjs/locale/zh-cn";
-import "dayjs/locale/zh-tw";
-
-// Right to left
-import "dayjs/locale/ar";
-
-import dayjs from "dayjs";
-
 const languageDetector = new LanguageDetector();
 const baseUrl = chrome.runtime.getURL("/");
 
@@ -201,20 +166,7 @@ i18n
     }
   });
 
-/**
- * dayjs does not name its locales the way the locale directories do, and it
- * ships European Portuguese as plain `pt`: the old `pt_PT` -> `pt-pt` guess
- * matched nothing, so dates silently stayed in the previous locale.
- */
-const DAYJS_LOCALES: Record<string, string> = {
-  "pt_BR": "pt-br",
-  "pt_PT": "pt",
-  "zh_CN": "zh-cn",
-  "zh_TW": "zh-tw",
-};
-
 i18n.on("languageChanged", (lang) => {
-  dayjs.locale(DAYJS_LOCALES[lang] ?? lang.toLowerCase());
   // The uppercase tabs and buttons follow the language's rules only when the
   // page says which language it is: Greek capitals drop their accents.
   document.documentElement.lang = lang.replace(/_/g, "-");

@@ -48,11 +48,11 @@ const SAVED = [{
 }];
 
 describe.each([
-  { language: "en", dir: "ltr" },
-  { language: "ru", dir: "ltr" },
-  { language: "ja", dir: "ltr" },
-  { language: "ar", dir: "rtl" },
-])("the popup in $language", ({ language, dir }) => {
+  { language: "en", dir: "ltr", savedOn: "Wednesday, September 23, 2026" },
+  { language: "ru", dir: "ltr", savedOn: "среда, 23 сентября 2026 г." },
+  { language: "ja", dir: "ltr", savedOn: "2026年9月23日水曜日" },
+  { language: "ar", dir: "rtl", savedOn: "الأربعاء، 23 سبتمبر 2026" },
+])("the popup in $language", ({ language, dir, savedOn }) => {
   it.each(PAGES)("$route: its title, every string translated, no errors", async ({ route, ns }) => {
     const errors = vi.spyOn(console, "error");
     const warnings = vi.spyOn(console, "warn");
@@ -72,6 +72,12 @@ describe.each([
     const knownWarning = /^MUI: You have provided an out-of-range value `[\w-]+` for the select component/;
     expect(warnings.mock.calls.filter(([message]) => !knownWarning.test(String(message)))).toEqual([]);
   });
+
+  it("/dictionary: the day above the saved words is written as the language writes dates", async () => {
+    await renderPopup({ language, route: "/dictionary", local: { savedTranslations: SAVED } });
+
+    expect(await screen.findByText(savedOn)).toBeTruthy();
+  });
 });
 
 it("the menu of popup languages names each language in itself", async () => {
@@ -81,4 +87,14 @@ it("the menu of popup languages names each language in itself", async () => {
   const names = (await screen.findAllByRole("menuitem")).map((item) => item.textContent);
 
   expect(names).toEqual(expect.arrayContaining(["English", "Русский", "日本語", "العربية", "Português (Brasil)", "中文（繁體）"]));
+});
+
+it("the day above the saved words follows a change of the popup's language at once", async () => {
+  const { user } = await renderPopup({ language: "en", route: "/dictionary", local: { savedTranslations: SAVED } });
+  await screen.findByText("Wednesday, September 23, 2026");
+
+  await user.click(screen.getByRole("button", { name: readLocale("en", "common").tooltips.languageSelector }));
+  await user.click(await screen.findByRole("menuitem", { name: "Magyar" }));
+
+  expect(await screen.findByText("2026. szeptember 23., szerda")).toBeTruthy();
 });

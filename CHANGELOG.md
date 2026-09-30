@@ -33,6 +33,7 @@ All notable changes to this project will be documented in this file.
 - The languages in the "Translate from" and "Translate to" lists were named in English whatever the language of the settings. They are now named in that language and listed in its alphabetical order, and the first item, "Auto", is now "Detect language". In the menu that changes the language of the settings, each language is now named in itself — "Русский", "日本語", "Português (Brasil)".
 - The settings window changed its width: in Firefox when moving from one tab to another, and in Chrome and Edge while a list or a dialog was open. It now keeps its width in both cases, and a long word or link in your word list wraps instead of widening it.
 - On the Customize page, the items of the lists — fonts, colors, character edge styles, sizes and opacity — were in English whatever the language of the settings. They are now in that language and named as in YouTube's own subtitle options, and "Auto" is now "As on YouTube".
+- On the Dictionary page, the date above your saved words was written the English way in every language — "срд, сент. 23, 2026" in Russian. It is now written as the language of the settings writes dates, with the day of the week and the month in full: "среда, 23 сентября 2026 г.", "2026年9月23日水曜日".
 
 ## [1.1.14] - 2026-09-24
 

@@ -8,12 +8,12 @@ import Button from "@mui/material/Button";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 import { chunkTranslationsByDay } from "../lib/helpers/chunkTranslationsByDay.ts";
 import Typography from "@mui/material/Typography";
-import dayjs from "dayjs";
 import { DictionaryContentSkeleton } from "./skeletons/DictionaryContentSkeleton.tsx";
 import { EmptyState } from "@/pages/DictionaryPage/ui/EmptyState.tsx";
 import { useTranslation } from "react-i18next";
 import { ExportData } from "@/features/ExportTranslations";
 import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
+import { toTag } from "@/shared/lib/helpers/languageNames.ts";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
@@ -21,7 +21,11 @@ const DictionaryPage: FC = () => {
   const [allTranslations, setAllTranslations] = useState<Translation[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
-  const { t } = useTranslation("dictionary");
+  const { t, i18n } = useTranslation("dictionary");
+
+  const dayFormat = useMemo(() => {
+    return new Intl.DateTimeFormat(toTag(i18n.language), { dateStyle: "full" });
+  }, [i18n.language]);
 
   const translationsToShow = useMemo(() => {
     return allTranslations.slice(0, page * MAX_TRANSLATIONS_PER_PAGE);
@@ -99,7 +103,7 @@ const DictionaryPage: FC = () => {
           return (
             <Fragment key={translations[0].timestamp}>
               <Typography color="textSecondary" align="center">
-                {dayjs(translations[0].timestamp).format("ddd, MMM D, YYYY")}
+                {dayFormat.format(translations[0].timestamp)}
               </Typography>
               {translations.map((translation, index) => {
                 return (
