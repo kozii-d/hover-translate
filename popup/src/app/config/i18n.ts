@@ -185,7 +185,9 @@ i18n
     fallbackLng: "en",
     supportedLngs: supportedLanguages,
     nonExplicitSupportedLngs: false,
-    ns: ["messages", "modals", "settings", "customize", "dictionary", "about", "common"],
+    // `languages`: Google Translate's names of the languages in this one
+    // (`npm run update:language-names`).
+    ns: ["messages", "modals", "settings", "customize", "dictionary", "about", "common", "languages"],
     backend: {
       loadPath: `${baseUrl}_locales/{{lng}}/{{ns}}.json`,
     },

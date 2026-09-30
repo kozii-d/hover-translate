@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "Översätt från",
-      "tooltip": "Språket som texten ska översättas från"
+      "tooltip": "Språket som texten ska översättas från",
+      "auto": "Identifiera språk"
     },
     "translator": {
       "label": "Översättare",

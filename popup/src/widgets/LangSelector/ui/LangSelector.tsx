@@ -4,6 +4,7 @@ import { Fragment, useState, MouseEvent, FC, useMemo } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useTranslation } from "react-i18next";
+import { languageNamesIn } from "@/shared/lib/helpers/languageNames.ts";
 
 export const LangSelector: FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,11 +30,9 @@ export const LangSelector: FC = () => {
     handleClose();
   };
 
-  const languageNames = useMemo(() => new Intl.DisplayNames(["en"], { type: "language" }), []);
-
-  const getLanguageName = (langCode: string) => {
-    return languageNames.of(langCode.replace("_", "-")) || langCode;
-  };
+  // Each language in itself, so a viewer who got the popup in a language they
+  // do not read still recognises their own.
+  const getLanguageName = (lang: string) => languageNamesIn(lang)(lang) || lang;
 
   return (
     <Fragment>

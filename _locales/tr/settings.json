@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "Şu dilden çevir",
-      "tooltip": "Metnin çevrileceği kaynak dil"
+      "tooltip": "Metnin çevrileceği kaynak dil",
+      "auto": "Dili algıla"
     },
     "translator": {
       "label": "Çevirmen",

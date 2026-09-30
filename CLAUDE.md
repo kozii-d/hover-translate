@@ -12,7 +12,7 @@ Three independently-installed npm packages plus shared static assets:
 
 - **`extension/`** — content script + background service worker (plain TypeScript, Vite, no framework)
 - **`popup/`** — extension popup UI (React 19, MUI 7, React Router 7, i18next, Vite)
-- **`_locales/<lang>/*.json`** — 24 languages, split into namespaces (`messages`, `settings`, `customize`, `dictionary`, `about`, `common`, `modals`). Shared by both i18n systems (see i18n below).
+- **`_locales/<lang>/*.json`** — 24 languages, split into namespaces (`messages`, `settings`, `customize`, `dictionary`, `about`, `common`, `modals`, `languages`). Shared by both i18n systems (see i18n below).
 - **`manifest.{chrome,edge,firefox}.json`** — `npm run setup:<browser>` copies one to `manifest.json` (gitignored, generated)
 - **`scripts/`** — `archive.js` (store zips/xpi), `create-source-archive.js` (Firefox source submission), `update-amo-listing.js`
 - **`docs/`** — only the GIFs the README shows
@@ -42,6 +42,7 @@ npm run version:set -- 1.2.0      # version in package.json, lockfile and all ma
 npm run release                  # build + all 3 store archives + source archive
 npm run release:firefox          # single-browser archive; output lands in releases/<version>/
 npm run update:amo               # push the AMO listing's name, summary and description (needs AMO_* keys in .env)
+npm run update:language-names    # download Google Translate's language names again into _locales/*/languages.json
 ```
 
 Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root** (not `extension/`) as an unpacked extension. The manifest points at the built bundles inside `extension/dist/` and `popup/dist/`.
@@ -77,7 +78,7 @@ Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root*
 | Messages, install/update, migrations | `extension/test/background/{messageService,settingsService,migrations}.test.ts` |
 | Popup: mounting per language, settings and translators, export | `popup/test/{app,settings,export}.test.tsx` |
 | On the player: hover, clicks, captions, embed, errors, rating card, popup→page | `e2e/{hover,click,captions,embed,errors,rating,popup}.spec.js` |
-| Listing limits, version, AMO listing body, source archive | `scripts/{check-listing,set-version,update-amo-listing,create-source-archive}.test.js` |
+| Listing limits, version, AMO listing body, source archive, language names | `scripts/{check-listing,set-version,update-amo-listing,create-source-archive,update-language-names}.test.js` |
 
 - Tests live outside `src`, so they never reach a bundle: `extension/test/**/*.test.ts`, `popup/test/**/*.test.tsx`, `scripts/*.test.js` (`node:test`: the scripts are CommonJS in the root package, which has no Vitest). `extension/` runs in `node`; a file that needs a DOM starts with `// @vitest-environment jsdom`. `popup/` runs in jsdom and mounts the real `App` through `popup/test/renderPopup.tsx`.
 - **`chrome` is faked as the global it is**, not as a module: `extension/test/fakeChrome.ts` (`installFakeChrome({ sync, local, uiLanguage, id, scheme, grantedOrigins, answerPermissionPrompt, hasSessionStorage })`; `test/setup.ts` installs an empty one before every test). Storage in both call styles with `onChanged`, `getMessage` from the real `_locales`, permissions, `tabs.create` recorded with the synced storage of that moment. A message is answered only through `sendResponse` and `return true`, as in Chrome before 147: for the background, create the real `MessageService` in the same process. The popup reaches the file through the `@extension-test` alias, so it imports nothing from npm (that would be a second copy of the package).
@@ -189,8 +190,10 @@ An object that several callers change entry by entry (`apiKeys`, `translatorLang
 - Extension/manifest strings use the Chrome i18n API (`__MSG_name__`, `_locales/<lang>/messages.json`).
 - The popup uses i18next with an HTTP backend loading `_locales/{{lng}}/{{ns}}.json` off `chrome.runtime.getURL("/")`, with a custom `detectUILanguage` detector over `chrome.i18n.getUILanguage()` and the choice cached in `localStorage` under `hoverTranslatePopupLanguage`.
 - Right-to-left languages are i18next's own list (`i18n.dir()`: ar, he, fa, ur…), read in `ThemeAppProvider`, which sets `<html dir>`, the MUI theme `direction` and an emotion cache with `stylis-plugin-rtl` — MUI writes its styles left to right, and the plugin mirrors them (`left`/`right`, margins, `translate`); the left-to-right cache equals emotion's default, so the other languages' CSS does not change. An icon that points somewhere (`OpenInNew` in `ApiKeyForm`) is mirrored by hand, and Latin-only values (API keys) are marked `dir="ltr"`.
+- Language names in the popup, through `shared/lib/helpers/languageNames.ts`: Google Translate's own names in the popup's language (the `languages` namespace, matched in any translator's spelling; `GOOGLE_CODES` there lists the codes a translator uses for another language than Google), then `Intl.DisplayNames` (Chrome's does not know about a quarter of Google's languages), then the translator's English name; in English the translators' own names stay, and the menu of popup languages names each one in itself.
+- `_locales/*/languages.json` is Google's answer, not a translation: `npm run update:language-names` (`scripts/update-language-names.js`) downloads it again for every locale, e.g. when Google adds languages; read its `git diff`.
 
-Adding a language means: a `_locales/<lang>/` directory with all 7 namespaces, plus entries in **both** the `supportedLanguages` array and the `dayjs/locale/...` import block in `popup/src/app/config/i18n.ts` (dayjs uses `zh-cn`-style codes where the locale dirs use `zh_CN`). Its store listing needs `store-assets/descriptions/<lang>.txt` and `store-assets/search-terms/<lang>.txt` too (`check:listing` fails `release*` without them), and a `LOCALE_MAP` entry in `scripts/update-amo-listing.js` (its AMO code) to reach AMO — `update:amo` only warns about an unmapped one. In a right-to-left language, a `messages.json` string shown on the video must not start with a Latin word (`$TRANSLATOR$`, HoverTranslate): those boxes take their direction from the first letter (`dir="auto"`).
+Adding a language means: a `_locales/<lang>/` directory with all 8 namespaces (`languages.json` from `npm run update:language-names`), plus entries in **both** the `supportedLanguages` array and the `dayjs/locale/...` import block in `popup/src/app/config/i18n.ts` (dayjs uses `zh-cn`-style codes where the locale dirs use `zh_CN`). Its store listing needs `store-assets/descriptions/<lang>.txt` and `store-assets/search-terms/<lang>.txt` too (`check:listing` fails `release*` without them), and a `LOCALE_MAP` entry in `scripts/update-amo-listing.js` (its AMO code) to reach AMO — `update:amo` only warns about an unmapped one. In a right-to-left language, a `messages.json` string shown on the video must not start with a Latin word (`$TRANSLATOR$`, HoverTranslate): those boxes take their direction from the first letter (`dir="auto"`).
 
 ### Browser differences
 

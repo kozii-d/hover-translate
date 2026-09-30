@@ -4,6 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
+import Box from "@mui/material/Box";
 import { MenuItemType } from "../../types/types.ts";
 
 interface SettingsSelectProps {
@@ -21,17 +22,23 @@ export const SettingsSelect: FC<SettingsSelectProps> = memo((props) => {
   const { id, value, onChange, error, options, label, tooltip, disabled } =
     props;
 
+  const renderLabel = (item: MenuItemType) => item.icon
+    ? <Box component="span" sx={{ display: "flex", alignItems: "center", gap: 1 }}>{item.label}{item.icon}</Box>
+    : item.label;
+
   const renderMenuItem = (item: MenuItemType) => (
     <MenuItem key={item.value} value={item.value}>
       {item.description
-        ? <ListItemText primary={item.label} secondary={item.description} sx={{ my: 0 }} />
-        : item.label}
+        ? <ListItemText primary={renderLabel(item)} secondary={item.description} sx={{ my: 0 }} />
+        : renderLabel(item)}
     </MenuItem>
   );
 
-  // The closed select shows the label alone, not the menu's second line.
-  const renderValue = (selected: string) =>
-    options.find((option) => option.value === selected)?.label ?? selected;
+  // The closed select shows the label and its icon, not the menu's second line.
+  const renderValue = (selected: string) => {
+    const option = options.find((item) => item.value === selected);
+    return option ? renderLabel(option) : selected;
+  };
 
   return (
     <FormControl fullWidth error={error} title={tooltip || label}>

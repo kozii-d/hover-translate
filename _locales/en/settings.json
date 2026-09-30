@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "Translate from",
-      "tooltip": "The language from which the text will be translated"
+      "tooltip": "The language from which the text will be translated",
+      "auto": "Detect language"
     },
     "translator": {
       "label": "Translator",

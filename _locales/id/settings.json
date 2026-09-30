@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "Terjemahkan dari",
-      "tooltip": "Bahasa sumber teks yang akan diterjemahkan"
+      "tooltip": "Bahasa sumber teks yang akan diterjemahkan",
+      "auto": "Deteksi bahasa"
     },
     "translator": {
       "label": "Penerjemah",

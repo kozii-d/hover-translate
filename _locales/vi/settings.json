@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "Dịch từ",
-      "tooltip": "Ngôn ngữ của văn bản cần dịch"
+      "tooltip": "Ngôn ngữ của văn bản cần dịch",
+      "auto": "Phát hiện ngôn ngữ"
     },
     "translator": {
       "label": "Công cụ dịch",

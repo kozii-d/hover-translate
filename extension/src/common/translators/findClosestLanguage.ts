@@ -24,13 +24,14 @@ const CANONICAL_CODES: Record<string, string> = {
   "zh-mo": "zh-hant",
 };
 
-const canonical = (code: string) => {
+/** One spelling for the codes above, in lower case: `zh-CN` and `zh-Hans` are both `zh-hans`. */
+export const canonicalLanguageCode = (code: string) => {
   const lowerCased = code.toLowerCase();
   return CANONICAL_CODES[lowerCased] ?? lowerCased;
 };
 
 // Canonical again for a regional code whose language has two spellings (`nb-NO`).
-const primaryLanguage = (code: string) => canonical(canonical(code).split("-")[0]);
+const primaryLanguage = (code: string) => canonicalLanguageCode(canonicalLanguageCode(code).split("-")[0]);
 
 /**
  * The language in `languages` that best stands for `code`, or null when the
@@ -53,16 +54,16 @@ export const findClosestLanguage = (
   const same = languages.find((language) => language.code === code);
   if (same) return same;
 
-  const wanted = canonical(code);
+  const wanted = canonicalLanguageCode(code);
 
-  const exact = languages.find((language) => canonical(language.code) === wanted);
+  const exact = languages.find((language) => canonicalLanguageCode(language.code) === wanted);
   if (exact) return exact;
 
   const variants = languages.filter((language) => primaryLanguage(language.code) === primaryLanguage(code));
   if (!variants.length) return null;
 
-  return variants.find((language) => canonical(language.code) === primaryLanguage(code))
-    ?? variants.find((language) => canonical(language.code) === canonical(uiLanguage))
+  return variants.find((language) => canonicalLanguageCode(language.code) === primaryLanguage(code))
+    ?? variants.find((language) => canonicalLanguageCode(language.code) === canonicalLanguageCode(uiLanguage))
     ?? variants[0];
 };
 

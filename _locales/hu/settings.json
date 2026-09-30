@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "Forrásnyelv",
-      "tooltip": "A lefordítandó szöveg nyelve"
+      "tooltip": "A lefordítandó szöveg nyelve",
+      "auto": "Nyelvfelismerés"
     },
     "translator": {
       "label": "Fordító",

@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "번역 원본 언어",
-      "tooltip": "번역할 텍스트의 언어"
+      "tooltip": "번역할 텍스트의 언어",
+      "auto": "언어 감지"
     },
     "translator": {
       "label": "번역기",

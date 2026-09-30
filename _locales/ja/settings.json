@@ -14,7 +14,8 @@
     },
     "sourceLanguageCode": {
       "label": "翻訳元言語",
-      "tooltip": "テキストを翻訳する元の言語"
+      "tooltip": "テキストを翻訳する元の言語",
+      "auto": "言語を検出する"
     },
     "translator": {
       "label": "翻訳エンジン",

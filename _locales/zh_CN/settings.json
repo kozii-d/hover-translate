@@ -6,7 +6,7 @@
   },
   "fields": {
     "targetLanguageCode": { "label": "翻译为", "tooltip": "目标语言" },
-    "sourceLanguageCode": { "label": "原文语言", "tooltip": "源语言" },
+    "sourceLanguageCode": { "label": "原文语言", "tooltip": "源语言", "auto": "检测语言" },
     "translator": { "label": "翻译引擎", "tooltip": "翻译时使用的引擎" },
     "autoPause": { "label": "自动暂停", "tooltip": "悬停在字幕上时自动暂停视频", "helperText": "悬停在字幕上时自动暂停视频" },
     "leftClickAction": {

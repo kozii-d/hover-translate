@@ -73,3 +73,12 @@ describe.each([
     expect(warnings.mock.calls.filter(([message]) => !knownWarning.test(String(message)))).toEqual([]);
   });
 });
+
+it("the menu of popup languages names each language in itself", async () => {
+  const { user } = await renderPopup({ language: "ru" });
+
+  await user.click(await screen.findByRole("button", { name: readLocale("ru", "common").tooltips.languageSelector }));
+  const names = (await screen.findAllByRole("menuitem")).map((item) => item.textContent);
+
+  expect(names).toEqual(expect.arrayContaining(["English", "Русский", "日本語", "العربية", "Português (Brasil)", "中文（繁體）"]));
+});

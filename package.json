@@ -26,6 +26,7 @@
     "check:listing": "node scripts/check-listing.js",
     "version:set": "node scripts/set-version.js",
     "update:amo": "node scripts/update-amo-listing.js",
+    "update:language-names": "node scripts/update-language-names.js",
     "prepare": "husky",
     "lint": "npm run lint --prefix extension && npm run lint --prefix popup",
     "typecheck": "npm run typecheck --prefix extension && npm run typecheck --prefix popup",

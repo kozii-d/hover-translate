@@ -8,6 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import Switch from "@mui/material/Switch";
 import Collapse from "@mui/material/Collapse";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 import {
   ApiKeyPrompt,
@@ -33,6 +34,7 @@ import {
   getTranslatorLabel,
 } from "../model/consts/translators.ts";
 import { ensureTranslatorPermissions } from "@/shared/lib/helpers/permissions.ts";
+import { languageNamesIn } from "@/shared/lib/helpers/languageNames.ts";
 import {
   requestApiKeyRemoval,
   requestApiKeySave,
@@ -86,7 +88,8 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   fellBack,
   loading,
 }) => {
-  const { t } = useTranslation("settings");
+  // `languages`: Google Translate's names of the languages, loaded with the strings.
+  const { t, i18n } = useTranslation(["settings", "languages"]);
   const { control, handleSubmit, setValue, getValues, watch, reset } = useForm<SettingsFormValues>({
     defaultValues: initialValues,
   });
@@ -134,28 +137,36 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     }
   }, [apiKeyPrompt]);
 
-  // One instance for both lists: building `Intl.DisplayNames` is expensive and the
-  // translators offer close to two hundred languages each.
-  const languageNames = useMemo(() => new Intl.DisplayNames("en", { type: "language" }), []);
+  const popupLanguage = i18n.language;
 
-  const getLanguageLabel = useCallback((language: Language) =>
-    language.name || languageNames.of(language.code) || language.code, [languageNames]);
+  // In English the translators' own names stay: Google's are the ones its site
+  // shows, and Bing's and DeepL's are already English.
+  const languageNames = useMemo(() => popupLanguage === "en"
+    ? undefined
+    : languageNamesIn(popupLanguage, i18n.getResourceBundle(popupLanguage, "languages")), [i18n, popupLanguage]);
 
-  const sourceOptions = useMemo(() => {
-    const result = sourceLanguages.map((language) => ({
-      value: language.code,
-      label: getLanguageLabel(language),
-    }));
-    result.unshift({ value: "auto", label: "Auto" });
-    return result;
-  }, [getLanguageLabel, sourceLanguages]);
+  /** `translator`: the one whose language this is — a code can mean another language elsewhere. */
+  const getLanguageLabel = useCallback((language: Language, translator: Translator) =>
+    languageNames?.(language.code, translator) || language.name || language.code, [languageNames]);
 
-  const targetOptions = useMemo(() => {
-    return targetLanguages.map((language) => ({
-      value: language.code,
-      label: getLanguageLabel(language),
-    }));
-  }, [getLanguageLabel, targetLanguages]);
+  // The lists are the selected translator's. While a switch waits for the
+  // permission prompt they are still the previous one's, and a code of
+  // `GOOGLE_CODES` may be named for the new one until its lists arrive.
+  const toSortedOptions = useCallback((languages: Language[]): MenuItemType[] => {
+    const collator = new Intl.Collator(popupLanguage.replace(/_/g, "-"));
+    return languages
+      .map((language) => ({ value: language.code, label: getLanguageLabel(language, currentTranslator) }))
+      .sort((a, b) => collator.compare(a.label, b.label));
+  }, [currentTranslator, getLanguageLabel, popupLanguage]);
+
+  const detectLanguageLabel = t("fields.sourceLanguageCode.auto");
+
+  const sourceOptions = useMemo<MenuItemType[]>(() => [
+    { value: "auto", label: detectLanguageLabel, icon: <AutoAwesomeIcon fontSize="small"/> },
+    ...toSortedOptions(sourceLanguages),
+  ], [detectLanguageLabel, sourceLanguages, toSortedOptions]);
+
+  const targetOptions = useMemo(() => toSortedOptions(targetLanguages), [targetLanguages, toSortedOptions]);
 
   const translatorOptions = useMemo<MenuItemType<Translator>[]>(() =>
     TRANSLATORS_OPTIONS.filter((option) => !isTranslatorWithdrawn(option.value)).map((option) => ({
@@ -188,7 +199,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
       notifications.show(t("errors.sourceLanguageCode", {
         incorrectLanguage: sourceOptions.find((option) => option.value === previous.sourceLanguageCode)?.label || "Unknown",
         translatorName,
-        defaultLanguage: "'Auto'",
+        defaultLanguage: `'${detectLanguageLabel}'`,
       }), { severity: "warning", autoHideDuration: 5000 });
     }
 
@@ -196,10 +207,10 @@ export const SettingsForm: FC<SettingsFormProps> = ({
       notifications.show(t("errors.targetLanguageCode", {
         incorrectLanguage: targetOptions.find((option) => option.value === previous.targetLanguageCode)?.label || "Unknown",
         translatorName,
-        defaultLanguage: getLanguageLabel(match.targetReplacement),
+        defaultLanguage: getLanguageLabel(match.targetReplacement, translator),
       }), { severity: "warning", autoHideDuration: 5000 });
     }
-  }, [getLanguageLabel, notifications, sourceOptions, t, targetOptions]);
+  }, [detectLanguageLabel, getLanguageLabel, notifications, sourceOptions, t, targetOptions]);
 
   /** The selected languages as the translator whose lists these are spells them. */
   const matchLanguages = useCallback((availableLanguages: AvailableLanguages) => {
