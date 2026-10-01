@@ -5,14 +5,14 @@
     "reset": { "text": "Palauta", "tooltip": "Palauta mukautusasetukset" }
   },
   "fields": {
-    "useYouTubeSettings": { "label": "Käytä YouTuben asetuksia", "tooltip": "Käytä YouTuben asetuksia käännöstyökaluille", "helperText": "Käytä samoja ulkoasuasetuksia käännöksille kuin YouTuben tekstityksille" },
+    "useYouTubeSettings": { "label": "Käytä YouTuben asetuksia", "tooltip": "Käytä käännöksille YouTuben tekstitysasetuksia", "helperText": "Käytä samoja ulkoasuasetuksia käännöksille kuin YouTuben tekstityksille" },
     "fontFamily": { "label": "Fonttiperhe", "tooltip": "Käännöksissä käytettävä fonttiperhe" },
     "fontSize": { "label": "Fonttikoko", "tooltip": "Käännöksissä käytettävä fonttikoko" },
     "fontColor": { "label": "Fontin väri", "tooltip": "Käännöksissä käytettävä fontin väri" },
-    "fontOpacity": { "label": "Fontin peittävyys", "tooltip": "Fontin peittävyystaso käännöksissä" },
+    "fontOpacity": { "label": "Fontin läpinäkymättömyys", "tooltip": "Fontin läpinäkymättömyys käännöksissä" },
     "backgroundColor": { "label": "Taustaväri", "tooltip": "Käännösten taustaväri" },
-    "backgroundOpacity": { "label": "Taustan peittävyys", "tooltip": "Taustan peittävyystaso käännöksissä" },
-    "characterEdgeStyle": { "label": "Merkin reunan tyyli", "tooltip": "Merkkien reunan tyyli käännöksissä" }
+    "backgroundOpacity": { "label": "Taustan läpinäkymättömyys", "tooltip": "Taustan läpinäkymättömyys käännöksissä" },
+    "characterEdgeStyle": { "label": "Merkkien reunojen tyyli", "tooltip": "Merkkien reunojen tyyli käännöksissä" }
   },
   "options": {
     "auto": "Kuten YouTubessa",
@@ -45,7 +45,7 @@
   },
   "modals": {
     "reset": {
-      "title": "Palauta oletusasetukset?",
+      "title": "Palautetaanko mukautukset oletusarvoihin?",
       "description": "Tämä palauttaa kaikki mukautusasetukset oletusarvoihin.",
       "action": "Palauta"
     }

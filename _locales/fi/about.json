@@ -5,12 +5,12 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "Kasvata sanavarastoasi YouTubea katsellessasi!",
-      "thank-you": "Kiitos, että valitsit laajennuksemme!"
+      "thank-you": "Kiitos, että valitsit laajennukseni!"
     },
     "support": {
       "title": "Tue projektia",
       "actions": {
-        "review": { "text": "Arvostele meidät" },
+        "review": { "text": "Anna arvio" },
         "donate": { "text": "Osta minulle kahvi" }
       }
     },
@@ -21,13 +21,13 @@
     },
     "tips": {
       "title": "Pikavinkit",
-      "multipleSelection": "Lauseiden kääntäminen: Pidä Shift-näppäintä painettuna tai ota vähittäinen valinta käyttöön asetuksista",
-      "saveToDictionary": "Klikkaa sanoja tallentaaksesi ne omaan sanakirjaasi",
-      "exportDictionary": "Vie sanavarastosi Sanakirja-välilehdeltä JSON- tai CSV-muodossa"
+      "multipleSelection": "Fraasien kääntäminen: pidä Vaihto-näppäintä painettuna tai ota monivalinta käyttöön asetuksista",
+      "saveToDictionary": "Klikkaa sanaa, niin se tallentuu omaan sanalistaasi",
+      "exportDictionary": "Vie sanasi Sanalista-välilehdeltä JSON- tai CSV-muodossa"
     }
   },
   "footer": {
     "version": "Versio",
-    "changelog": "Muutosloki"
+    "changelog": "Muutoshistoria"
   }
 }

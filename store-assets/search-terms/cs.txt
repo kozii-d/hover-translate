@@ -4,4 +4,4 @@ angličtina youtube
 výuka angličtiny
 překladač slov
 anglická slovíčka
-anglické titulky
+automatické titulky youtube

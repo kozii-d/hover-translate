@@ -15,11 +15,11 @@
       "copyAddress": { "text": "Kopioi" },
       "copyAddressSuccess": { "text": "Kopioitu!" }
     },
-    "labels": { "address": "{{networkType}} Osoite" },
+    "labels": { "address": "{{networkType}}-osoite" },
     "notifications": { "copyAddress": "Osoite kopioitu leikepöydälle!" },
     "warnings": {
       "verifyNetwork": "Varmista verkko ja token ennen lähettämistä",
-      "bnb": "Sama osoite kuin Ethereumilla - eri verkko!"
+      "bnb": "Sama osoite kuin Ethereumilla – eri verkko!"
     }
   }
 }

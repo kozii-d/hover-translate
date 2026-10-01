@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Slovník",
-  "tabLabel": "Slovník",
+  "pageTitle": "Slovíčka",
+  "tabLabel": "Slovíčka",
   "actions": {
     "deleteTranslation": { "tooltip": "Smazat překlad" },
     "clearAll": { "text": "Vymazat vše", "tooltip": "Vymazat všechny překlady" },
@@ -17,7 +17,7 @@
     }
   },
   "emptyState": {
-    "title": "Slovník je prázdný",
-    "description": "Kliknutím na slovo nebo frázi v titulcích je uložíte do slovníku"
+    "title": "Zatím tu nejsou žádná slovíčka",
+    "description": "Klikněte v titulcích na slovo nebo frázi a uloží se mezi vaše slovíčka"
   }
 }

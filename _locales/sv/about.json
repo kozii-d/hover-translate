@@ -25,13 +25,13 @@
     },
     "tips": {
       "title": "Snabbtips",
-      "multipleSelection": "Översätt fraser: Håll Shift eller aktivera flerval i Inställningar",
-      "saveToDictionary": "Klicka på ord för att spara dem i din personliga ordlista",
-      "exportDictionary": "Exportera ditt ordförråd från fliken Ordlista som JSON eller CSV"
+      "multipleSelection": "Översätt fraser: håll ned Skift eller aktivera flerval i inställningarna",
+      "saveToDictionary": "Klicka på ett ord för att spara det bland dina glosor",
+      "exportDictionary": "Exportera dina glosor från fliken Mina glosor som JSON eller CSV"
     }
   },
   "footer": {
     "version": "Version",
-    "changelog": "Ändringslogg"
+    "changelog": "Ändringshistorik"
   }
 }

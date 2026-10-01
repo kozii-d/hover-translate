@@ -9,19 +9,19 @@
     "sourceLanguageCode": { "label": "Käännä kielestä", "tooltip": "Kieli, josta teksti käännetään", "auto": "Tunnista kieli" },
     "languagePanel": { "search": "Hae kieliä", "noResults": "Kieliä ei löytynyt", "back": "Takaisin" },
     "translator": { "label": "Kääntäjä", "tooltip": "Käännöksissä käytettävä kääntäjäpalvelu" },
-    "autoPause": { "label": "Automaattinen tauko", "tooltip": "Pysäytä video automaattisesti, kun hiiri on tekstityksen päällä", "helperText": "Pysäyttää videon automaattisesti, kun tarkastelet tekstityksiä" },
-    "leftClickAction": { "label": "Vasen klikkaus", "tooltip": "Toiminto, kun klikkaat sanaa tekstityksessä", "options": { "saveToDictionary": "Tallenna sanakirjaan", "copyOriginal": "Kopioi alkuperäinen", "copyTranslation": "Kopioi käännös", "nothing": "Ei mitään" } },
-    "alwaysMultipleSelection": { "label": "Aina monivalinta käytössä", "tooltip": "Valitse useita sanoja ilman Shift-näppäintä", "helperText": "Voit valita useita sanoja kerralla ilman Shiftin pohjassa pitoa" },
-    "showNotifications": { "label": "Näytä ilmoitukset", "tooltip": "Näytä ilmoitus, kun sana tallennetaan tai kopioidaan", "helperText": "Kun pois päältä, ilmoituksia ei näytetä sanojen tallentamisen tai kopioinnin yhteydessä" }
+    "autoPause": { "label": "Automaattinen pysäytys", "tooltip": "Pysäytä video automaattisesti, kun hiiri on tekstityksen päällä", "helperText": "Pysäyttää videon automaattisesti, kun viet hiiren tekstityksen päälle" },
+    "leftClickAction": { "label": "Vasen klikkaus", "tooltip": "Toiminto, kun klikkaat sanaa tekstityksessä", "options": { "saveToDictionary": "Tallenna sanalistaan", "copyOriginal": "Kopioi alkuperäinen", "copyTranslation": "Kopioi käännös", "nothing": "Ei mitään" } },
+    "alwaysMultipleSelection": { "label": "Monivalinta aina käytössä", "tooltip": "Valitse useita sanoja ilman Vaihto-näppäintä", "helperText": "Voit valita useita sanoja kerralla pitämättä Vaihto-näppäintä painettuna" },
+    "showNotifications": { "label": "Näytä ilmoitukset", "tooltip": "Näytä ilmoitus, kun sana tallennetaan tai kopioidaan", "helperText": "Kun asetus on pois päältä, ilmoituksia ei näytetä sanojen tallentamisen tai kopioinnin yhteydessä" }
   },
   "modals": {
     "reset": {
-      "title": "Palauta oletusasetukset?",
+      "title": "Palautetaanko oletusasetukset?",
       "description": "Tämä palauttaa kaikki asetukset oletusarvoihin.",
       "action": "Palauta"
     }
   },
-  "tips": { "multipleSelection": "Valitaksesi useita sanoja, pidä Shift-näppäintä ja vie hiiri sanojen yli. Tai ota käyttöön 'Aina monivalinta käytössä' -asetus.", "dismiss": "Piilota vinkki" },
+  "tips": { "multipleSelection": "Kun haluat valita useita sanoja, pidä Vaihto-näppäintä painettuna ja vie hiiri sanojen päälle. Voit myös ottaa käyttöön asetuksen ”Monivalinta aina käytössä”.", "dismiss": "Piilota vinkki" },
   "apiKey": {
     "requiredHint": "Vaatii oman API-avaimesi",
     "title": "Yhdistä {{translatorName}}",
@@ -51,7 +51,7 @@
     "usage": {
       "label": "{{used}} / {{limit}} merkkiä käytetty tällä laskutuskaudella",
       "unavailable": "Käyttötietoja ei voitu ladata. {{reason}}",
-      "exhausted": "Raja on täynnä — {{translatorName}} ei käännä ennen kuin se nollautuu."
+      "exhausted": "Raja on käytetty loppuun – {{translatorName}} ei käännä ennen kuin se nollautuu."
     },
     "notifications": {
       "connected": "{{translatorName}} on yhdistetty",
@@ -68,10 +68,10 @@
     },
     "errors": {
       "empty": "Anna API-avaimesi",
-      "permissionDenied": "Ilman pääsyä palveluun {{translatorName}} HoverTranslate ei voi tarkistaa avainta. Napsauta uudelleen ”Yhdistä” ja salli pääsy.",
+      "permissionDenied": "Ilman pääsyä palveluun {{translatorName}} HoverTranslate ei voi tarkistaa avainta. Klikkaa uudelleen ”Yhdistä” ja salli pääsy.",
       "saveFailed": "Avainta ei voitu tallentaa. Yritä uudelleen.",
       "removeFailed": "Avainta ei voitu poistaa. Yritä uudelleen.",
-      "settingsSaveFailed": "Avain tallennettiin, mutta asetuksia ei voitu tallentaa. Yritä uudelleen napsauttamalla ”Yhdistä”."
+      "settingsSaveFailed": "Avain tallennettiin, mutta asetuksia ei voitu tallentaa. Yritä uudelleen klikkaamalla ”Yhdistä”."
     }
   },
   "errors": {
@@ -87,7 +87,7 @@
     "translator": {
       "apiKeyMissing": "Tälle laitteelle ei ole lisätty palvelun {{translatorName}} API-avainta.",
       "apiKeyInvalid": "{{translatorName}} ei hyväksynyt API-avainta. Tarkista, että se kopioitiin kokonaan.",
-      "quotaExceeded": "Palvelun {{translatorName}} merkkiraja tälle laskutuskaudelle on täynnä.",
+      "quotaExceeded": "Palvelun {{translatorName}} merkkiraja tälle laskutuskaudelle on käytetty loppuun.",
       "rateLimited": "{{translatorName}} sai liikaa pyyntöjä. Yritä hetken kuluttua uudelleen.",
       "permissionMissing": "HoverTranslatella ei ole lupaa muodostaa yhteyttä palveluun {{translatorName}}.",
       "unsupportedLanguage": "{{translatorName}} ei tue valittua kieltä.",

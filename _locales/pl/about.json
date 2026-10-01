@@ -1,14 +1,14 @@
 {
-  "pageTitle": "O nas",
-  "tabLabel": "O nas",
+  "pageTitle": "Informacje",
+  "tabLabel": "Informacje",
   "blocks": {
     "description": {
       "title": "HoverTranslate",
-      "subtitle": "Buduj słownictwo oglądając YouTube!",
+      "subtitle": "Poszerzaj słownictwo, oglądając YouTube!",
       "thank-you": "Dziękuję za wybór mojego rozszerzenia!"
     },
     "support": {
-      "title": "Wesprzyj Projekt",
+      "title": "Wesprzyj projekt",
       "actions": {
         "review": {
           "text": "Oceń nas"
@@ -19,19 +19,19 @@
       }
     },
     "contacts": {
-      "title": "Skontaktuj się",
-      "github": "Zobacz kod źródłowy na GitHub",
-      "reportIssues": "Zgłoś problemy na GitHub"
+      "title": "Kontakt",
+      "github": "Zobacz kod źródłowy na GitHubie",
+      "reportIssues": "Zgłoś problemy na GitHubie"
     },
     "tips": {
-      "title": "Szybkie wskazówki",
-      "multipleSelection": "Tłumacz frazy: Przytrzymaj Shift lub włącz wielokrotny wybór w Ustawieniach",
-      "saveToDictionary": "Kliknij na słowa, aby zapisać je w swoim osobistym słowniku",
-      "exportDictionary": "Eksportuj swoje słownictwo z zakładki Słownik jako JSON lub CSV"
+      "title": "Wskazówki",
+      "multipleSelection": "Tłumaczenie wyrażeń: przytrzymaj Shift lub włącz zaznaczanie wielu słów w Ustawieniach",
+      "saveToDictionary": "Kliknij słowo, aby zapisać je na swojej liście słówek",
+      "exportDictionary": "Wyeksportuj swoje słówka z zakładki „Słówka” jako JSON lub CSV"
     }
   },
   "footer": {
     "version": "Wersja",
-    "changelog": "Changelog"
+    "changelog": "Historia zmian"
   }
 }

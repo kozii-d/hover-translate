@@ -28,45 +28,45 @@
     },
     "autoPause": {
       "label": "Automatyczna pauza",
-      "tooltip": "Automatycznie wstrzymaj wideo po najechaniu na napisy",
-      "helperText": "Automatycznie wstrzymaj wideo po najechaniu na napisy"
+      "tooltip": "Automatycznie wstrzymuj film po najechaniu kursorem na napisy",
+      "helperText": "Automatycznie wstrzymuj film po najechaniu kursorem na napisy"
     },
     "leftClickAction": {
       "label": "Akcja lewego kliknięcia",
       "tooltip": "Akcja wykonywana po kliknięciu lewym przyciskiem myszy na słowa w napisach",
       "options": {
-        "saveToDictionary": "Zapisz w słowniku",
+        "saveToDictionary": "Zapisz na liście słówek",
         "copyOriginal": "Kopiuj oryginalny tekst do schowka",
         "copyTranslation": "Kopiuj przetłumaczony tekst do schowka",
         "nothing": "Nic"
       }
     },
     "alwaysMultipleSelection": {
-      "label": "Zawsze włącz wielokrotny wybór",
-      "tooltip": "Włącz wielokrotny wybór słów bez trzymania Shift",
-      "helperText": "Gdy włączone, możesz wybierać wiele słów bez trzymania Shift"
+      "label": "Zawsze zaznaczaj wiele słów",
+      "tooltip": "Zaznaczaj wiele słów bez przytrzymywania klawisza Shift",
+      "helperText": "Gdy ta opcja jest włączona, możesz zaznaczać wiele słów bez przytrzymywania klawisza Shift"
     },
     "showNotifications": {
-      "label": "Pokaż powiadomienia",
-      "tooltip": "Pokazuj powiadomienia gdy słowa są zapisywane do słownika lub kopiowane do schowka",
-      "helperText": "Gdy wyłączone, żadne powiadomienia nie będą wyświetlane podczas zapisywania lub kopiowania słów"
+      "label": "Pokazuj powiadomienia",
+      "tooltip": "Pokazuj powiadomienia, gdy słowa są zapisywane na liście słówek lub kopiowane do schowka",
+      "helperText": "Gdy ta opcja jest wyłączona, przy zapisywaniu i kopiowaniu słów nie pojawiają się żadne powiadomienia"
     }
   },
   "modals": {
     "reset": {
       "title": "Przywrócić ustawienia domyślne?",
-      "description": "To przywróci wszystkie ustawienia do ich domyślnych wartości.",
+      "description": "Wszystkie ustawienia zostaną przywrócone do wartości domyślnych.",
       "action": "Przywróć"
     }
   },
   "tips": {
-    "multipleSelection": "Aby wybrać wiele słów, trzymaj Shift i najedź na potrzebne słowa. Lub włącz ustawienie 'Zawsze włącz wielokrotny wybór'.",
+    "multipleSelection": "Aby zaznaczyć kilka słów, przytrzymaj Shift i najedź kursorem na kolejne słowa. Możesz też włączyć opcję „Zawsze zaznaczaj wiele słów”.",
     "dismiss": "Ukryj wskazówkę"
   },
   "apiKey": {
     "requiredHint": "Wymaga Twojego klucza API",
     "title": "Połącz z {{translatorName}}",
-    "description": "{{translatorName}} działa z Twoim osobistym kluczem API. Załóż konto na stronie {{translatorName}} (jest bezpłatny plan) i skopiuj klucz ze strony swojego konta.",
+    "description": "{{translatorName}} działa z Twoim osobistym kluczem API. Załóż konto na stronie {{translatorName}} (dostępny jest bezpłatny plan) i skopiuj klucz ze strony swojego konta.",
     "getKey": "Uzyskaj klucz API",
     "field": {
       "label": "Klucz API",
@@ -92,7 +92,7 @@
     "usage": {
       "label": "Wykorzystano {{used}} z {{limit}} znaków w tym okresie rozliczeniowym",
       "unavailable": "Nie udało się wczytać wykorzystania. {{reason}}",
-      "exhausted": "Limit został wyczerpany — {{translatorName}} nie będzie tłumaczyć, dopóki się nie odnowi."
+      "exhausted": "Limit został wyczerpany – {{translatorName}} nie będzie tłumaczyć, dopóki się nie odnowi."
     },
     "notifications": {
       "connected": "Połączono z {{translatorName}}",

@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Ordlista",
-  "tabLabel": "Ordlista",
+  "pageTitle": "Mina glosor",
+  "tabLabel": "Mina glosor",
   "actions": {
     "deleteTranslation": {
       "tooltip": "Ta bort översättning"
@@ -28,12 +28,12 @@
   "modals": {
     "clearAll": {
       "title": "Rensa alla översättningar?",
-      "description": "Detta kommer att radera alla översättningar permanent.",
+      "description": "Alla översättningar raderas permanent.",
       "action": "Rensa"
     }
   },
   "emptyState": {
-    "title": "Ordlistan är tom",
-    "description": "Klicka på ett ord eller en fras i undertexterna för att spara dem i ordlistan"
+    "title": "Du har inga glosor än",
+    "description": "Klicka på ett ord eller en fras i undertexterna för att spara det som glosa"
   }
 }

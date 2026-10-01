@@ -5,7 +5,7 @@
     "description": {
       "title": "HoverTranslate",
       "subtitle": "Budujte si slovní zásobu při sledování YouTube!",
-      "thank-you": "Děkujeme, že jste si vybrali naše rozšíření!"
+      "thank-you": "Děkuji, že jste si vybrali moje rozšíření!"
     },
     "support": {
       "title": "Podpořte projekt",
@@ -15,19 +15,19 @@
       }
     },
     "contacts": {
-      "title": "Zůstaňte v kontaktu",
+      "title": "Kontakt",
       "github": "Zobrazit zdrojový kód na GitHubu",
       "reportIssues": "Nahlásit problémy na GitHubu"
     },
     "tips": {
-      "title": "Rychlé tipy",
-      "multipleSelection": "Překlad frází: Podržte Shift nebo povolte vícenásobný výběr v Nastavení",
-      "saveToDictionary": "Kliknutím na slova je uložíte do svého osobního slovníku",
-      "exportDictionary": "Exportujte svou slovní zásobu z karty Slovník jako JSON nebo CSV"
+      "title": "Tipy",
+      "multipleSelection": "Překlad frází: podržte Shift nebo v Nastavení povolte vícenásobný výběr",
+      "saveToDictionary": "Kliknutím na slovo si ho uložíte mezi svá slovíčka",
+      "exportDictionary": "Exportujte svá slovíčka z karty Slovíčka jako JSON nebo CSV"
     }
   },
   "footer": {
     "version": "Verze",
-    "changelog": "Seznam změn"
+    "changelog": "Historie změn"
   }
 }

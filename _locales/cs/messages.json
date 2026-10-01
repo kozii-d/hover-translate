@@ -55,7 +55,7 @@
     }
   },
   "noticePermissionFallback": {
-    "message": "$TRANSLATOR$ potřebuje přístup k $HOST$ — povolte ho v nastavení HoverTranslate. Mezitím se používá $FALLBACK$",
+    "message": "$TRANSLATOR$ potřebuje přístup k $HOST$ – povolte ho v nastavení HoverTranslate. Mezitím se používá $FALLBACK$",
     "placeholders": {
       "translator": {
         "content": "$1",

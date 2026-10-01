@@ -27,15 +27,15 @@
       "tooltip": "Översättaren som ska användas för översättningar"
     },
     "autoPause": {
-      "label": "Auto-paus",
-      "tooltip": "Pausa videon automatiskt när du hovrar över undertexter",
-      "helperText": "Pausa videon automatiskt när du hovrar över undertexter"
+      "label": "Automatisk paus",
+      "tooltip": "Pausa videon automatiskt när du håller muspekaren över undertexterna",
+      "helperText": "Pausa videon automatiskt när du håller muspekaren över undertexterna"
     },
     "leftClickAction": {
       "label": "Vänsterklicksåtgärd",
       "tooltip": "Åtgärd vid vänsterklick på ord i undertexter",
       "options": {
-        "saveToDictionary": "Spara i ordlistan",
+        "saveToDictionary": "Spara som glosa",
         "copyOriginal": "Kopiera originaltext till urklipp",
         "copyTranslation": "Kopiera översatt text till urklipp",
         "nothing": "Ingenting"
@@ -43,24 +43,24 @@
     },
     "alwaysMultipleSelection": {
       "label": "Aktivera alltid flerval",
-      "tooltip": "Aktivera flerval av ord utan att hålla Shift",
-      "helperText": "När aktiverat kan du välja flera ord utan att hålla Shift"
+      "tooltip": "Välj flera ord utan att hålla ned Skift",
+      "helperText": "När det här är aktiverat kan du välja flera ord utan att hålla ned Skift"
     },
     "showNotifications": {
       "label": "Visa aviseringar",
-      "tooltip": "Visa aviseringar när ord sparas i ordlistan eller kopieras till urklipp",
-      "helperText": "När inaktiverat visas inga aviseringar när ord sparas eller kopieras"
+      "tooltip": "Visa aviseringar när ord sparas som glosor eller kopieras till urklipp",
+      "helperText": "När det här är avstängt visas inga aviseringar när ord sparas eller kopieras"
     }
   },
   "modals": {
     "reset": {
       "title": "Återställ till standardinställningar?",
-      "description": "Detta kommer att återställa alla inställningar till sina standardvärden.",
+      "description": "Alla inställningar återställs till standardvärdena.",
       "action": "Återställ"
     }
   },
   "tips": {
-    "multipleSelection": "För att välja flera ord, håll Shift och hovra över orden du behöver. Eller aktivera inställningen 'Aktivera alltid flerval'.",
+    "multipleSelection": "Om du vill välja flera ord håller du ned Skift och för muspekaren över orden. Du kan också aktivera inställningen ”Aktivera alltid flerval”.",
     "dismiss": "Dölj tipset"
   },
   "apiKey": {
@@ -92,7 +92,7 @@
     "usage": {
       "label": "{{used}} av {{limit}} tecken använda under den här faktureringsperioden",
       "unavailable": "Användningen kunde inte läsas in. {{reason}}",
-      "exhausted": "Gränsen är nådd — {{translatorName}} översätter inte förrän den återställs."
+      "exhausted": "Gränsen är nådd – {{translatorName}} översätter inte förrän den återställs."
     },
     "notifications": {
       "connected": "{{translatorName}} är anslutet",
@@ -143,7 +143,7 @@
     "switch": "Byt till DeepL"
   },
   "ratingPrompt": {
-    "text": "Om HoverTranslate hjälper dig att lära dig gör ett betyg det lättare för andra att hitta det.",
+    "text": "Om HoverTranslate hjälper dig att lära dig, gör ett betyg det lättare för andra att hitta det.",
     "rate": "Betygsätt",
     "dontAskAgain": "Fråga inte igen",
     "notNow": "Inte nu",

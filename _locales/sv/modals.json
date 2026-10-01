@@ -28,14 +28,14 @@
       }
     },
     "labels": {
-      "address": "{{networkType}} Adress"
+      "address": "{{networkType}}-adress"
     },
     "notifications": {
       "copyAddress": "Adressen kopierad till urklipp!"
     },
     "warnings": {
       "verifyNetwork": "Verifiera nätverk och token innan du skickar",
-      "bnb": "Samma adress som Ethereum - annat nätverk!"
+      "bnb": "Samma adress som Ethereum – annat nätverk!"
     }
   }
 }

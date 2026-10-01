@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Słownik",
-  "tabLabel": "Słownik",
+  "pageTitle": "Słówka",
+  "tabLabel": "Słówka",
   "actions": {
     "deleteTranslation": {
       "tooltip": "Usuń tłumaczenie"
@@ -28,12 +28,12 @@
   "modals": {
     "clearAll": {
       "title": "Wyczyścić wszystkie tłumaczenia?",
-      "description": "To trwale usunie wszystkie tłumaczenia.",
+      "description": "Wszystkie tłumaczenia zostaną trwale usunięte.",
       "action": "Wyczyść"
     }
   },
   "emptyState": {
-    "title": "Słownik jest pusty",
-    "description": "Kliknij na słowo lub frazę w napisach, aby zapisać je do słownika"
+    "title": "Lista słówek jest pusta",
+    "description": "Kliknij słowo lub wyrażenie w napisach, aby zapisać je na liście słówek"
   }
 }

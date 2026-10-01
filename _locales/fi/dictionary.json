@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Sanakirja",
-  "tabLabel": "Sanakirja",
+  "pageTitle": "Sanalista",
+  "tabLabel": "Sanalista",
   "actions": {
     "deleteTranslation": { "tooltip": "Poista käännös" },
     "clearAll": { "text": "Tyhjennä kaikki", "tooltip": "Tyhjennä kaikki käännökset" },
@@ -11,13 +11,13 @@
   },
   "modals": {
     "clearAll": {
-      "title": "Tyhjennä kaikki käännökset?",
+      "title": "Tyhjennetäänkö kaikki käännökset?",
       "description": "Tämä poistaa kaikki tallennetut sanat pysyvästi.",
       "action": "Tyhjennä"
     }
   },
   "emptyState": {
-    "title": "Sanakirja on tyhjä",
-    "description": "Klikkaa sanaa tai lausetta tekstityksissä tallentaaksesi ne sanakirjaan"
+    "title": "Sanalista on tyhjä",
+    "description": "Klikkaa tekstityksessä sanaa tai fraasia, niin se tallentuu sanalistaan"
   }
 }

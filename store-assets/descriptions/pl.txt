@@ -4,16 +4,16 @@ Oglądasz film z angielskimi napisami i trafiasz na słowo, którego nie znasz? 
 
 Co potrafi HoverTranslate:
 • Pojedyncze słowa i całe wyrażenia. Trafił się idiom albo stały zwrot? Przytrzymaj Shift i przeciągnij kursorem po słowach. Jeśli wolisz bez Shifta, włączysz to w ustawieniach.
-• Twój własny słowniczek. Kliknij słowo, a zapisze się razem z tłumaczeniem. Listę możesz wyeksportować do CSV lub JSON i później powtórzyć nowe słówka.
+• Twoja własna lista słówek. Kliknij słowo, a zapisze się razem z tłumaczeniem. Listę możesz wyeksportować do CSV lub JSON i później powtórzyć nowe słówka.
 • Działa też z napisami automatycznymi, czyli tymi, które YouTube tworzy sam, więc nadają się nawet filmy bez napisów od autora.
 • Nie tylko na samym YouTube: jeśli film jest osadzony na blogu, w kursie online albo w artykule, wystarczy tak samo najechać kursorem na słowo.
 • Radzi sobie z chińskim, japońskim i tajskim: choć słowa pisze się w nich bez spacji, dostajesz tłumaczenie jednego słowa, a nie całej linijki.
 • Tłumaczy na ponad 180 języków, a język napisów rozpoznaje sam.
-• Nie gryzie się z obrazem: tłumaczenie wygląda tak jak twoje napisy na YouTube. Chcesz inaczej? Wybierz własną czcionkę, kolor i rozmiar.
-• Dopasowuje się do ciebie: autopauzę można wyłączyć, a kliknięcie może kopiować słowo lub tłumaczenie zamiast je zapisywać.
+• Nie gryzie się z obrazem: tłumaczenie wygląda tak jak Twoje napisy na YouTube. Chcesz inaczej? Wybierz własną czcionkę, kolor i rozmiar.
+• Dopasowuje się do Ciebie: autopauzę można wyłączyć, a kliknięcie może kopiować słowo lub tłumaczenie zamiast je zapisywać.
 
 Tłumaczenie z kontekstem
-Tłumaczyć możesz przez Google, Bing albo DeepL. Z DeepL (potrzebny będzie twój własny darmowy klucz API) każde słowo jest tłumaczone z uwzględnieniem całej linijki napisów: w „we sat on the bank of the river” słowo „bank” to „brzeg”, a nie „bank”. Klucz jest przechowywany tylko na twoim urządzeniu.
+Tłumaczyć możesz przez Google, Bing albo DeepL. Z DeepL (potrzebny będzie Twój własny darmowy klucz API) każde słowo jest tłumaczone z uwzględnieniem całej linijki napisów: w „we sat on the bank of the river” słowo „bank” to „brzeg”, a nie „bank”. Klucz jest przechowywany tylko na Twoim urządzeniu.
 
 Za darmo i bez rejestracji
 HoverTranslate jest całkowicie darmowy: bez kont, subskrypcji i reklam. To projekt open source, a jego kod znajdziesz na GitHubie.

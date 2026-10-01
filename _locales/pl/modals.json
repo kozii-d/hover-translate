@@ -28,14 +28,14 @@
       }
     },
     "labels": {
-      "address": "{{networkType}} Adres"
+      "address": "Adres {{networkType}}"
     },
     "notifications": {
       "copyAddress": "Adres skopiowany do schowka!"
     },
     "warnings": {
       "verifyNetwork": "Przed wysłaniem zweryfikuj sieć i token",
-      "bnb": "Ten sam adres co Ethereum - inna sieć!"
+      "bnb": "Ten sam adres co Ethereum – inna sieć!"
     }
   }
 }

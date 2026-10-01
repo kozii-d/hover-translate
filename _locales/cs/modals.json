@@ -15,11 +15,11 @@
       "copyAddress": { "text": "Kopírovat" },
       "copyAddressSuccess": { "text": "Zkopírováno!" }
     },
-    "labels": { "address": "{{networkType}} Adresa" },
+    "labels": { "address": "Adresa {{networkType}}" },
     "notifications": { "copyAddress": "Adresa zkopírována do schránky!" },
     "warnings": {
       "verifyNetwork": "Před odesláním ověřte síť a token",
-      "bnb": "Stejná adresa jako Ethereum - jiná síť!"
+      "bnb": "Stejná adresa jako Ethereum – jiná síť!"
     }
   }
 }

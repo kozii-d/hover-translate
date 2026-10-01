@@ -1,16 +1,16 @@
-HoverTranslate – YouTube-tekstitysten kääntäjä ja oma sanalista kielten opiskeluun
+HoverTranslate – YouTube-tekstitys suomeksi sana kerrallaan ja oma sanalista kielten opiskeluun
 
 Katsot videota englanninkielisellä tekstityksellä, ja vastaan tulee sana, jota et tunne? Vie hiiri sen päälle, niin käännös ilmestyy heti tekstityksen yläpuolelle. Video pysähtyy siksi aikaa, kun luet, ja jatkuu, kun siirrät hiiren pois. Sanoja ei tarvitse kopioida kääntäjään eikä ajatus katkea: jatkat katsomista ja ymmärrät yhä enemmän. Näin opit englantia YouTubesta – tai ruotsia tai mitä tahansa muuta kieltä.
 
 Mitä HoverTranslate osaa:
-• Yksittäiset sanat ja kokonaiset fraasit. Tuliko vastaan idiomi tai vakiintunut ilmaus? Pidä Shift-näppäintä pohjassa ja vedä hiiri sanojen yli. Jos haluat valita sanoja ilman Shiftiä, sen voi ottaa käyttöön asetuksista.
-• Oma sanalista. Napsauta sanaa, niin se tallentuu käännöksen kanssa. Listan voi viedä CSV- tai JSON-muodossa, jotta voit kerrata uudet sanat myöhemmin.
+• Yksittäiset sanat ja kokonaiset fraasit. Tuliko vastaan idiomi tai vakiintunut ilmaus? Pidä Vaihto-näppäintä (Shift) painettuna ja vie hiiri sanojen yli. Jos haluat valita sanoja ilman Vaihto-näppäintä, sen voi ottaa käyttöön asetuksista.
+• Oma sanalista. Klikkaa sanaa, niin se tallentuu käännöksen kanssa. Listan voi viedä CSV- tai JSON-muodossa, jotta voit kerrata uudet sanat myöhemmin.
 • Toimii myös automaattisen tekstityksen kanssa eli sen, jonka YouTube luo itse. Sopivia ovat siis nekin videot, joihin tekijä ei ole lisännyt tekstitystä.
 • Ei vain itse YouTubessa: kun video on upotettu blogiin, verkkokurssille tai uutisartikkeliin, riittää, että viet hiiren sanan päälle samalla tavalla.
 • Pärjää kiinan, japanin ja thain kanssa: vaikka niissä sanojen väliin ei tule välilyöntejä, saat käännöksen yhdelle sanalle etkä koko riville.
 • Kääntää yli 180 kielelle ja tunnistaa tekstityksen kielen itse.
 • Sulautuu kuvaan: käännös näyttää samalta kuin YouTube-tekstityksesi. Haluatko toisenlaisen? Valitse oma fontti, väri ja koko.
-• Mukautuu tapoihisi: automaattisen pysäytyksen voi kytkeä pois, ja napsautus voi tallentamisen sijaan kopioida sanan tai sen käännöksen.
+• Mukautuu tapoihisi: automaattisen pysäytyksen voi kytkeä pois, ja klikkaus voi tallentamisen sijaan kopioida sanan tai sen käännöksen.
 
 Käännös, joka ymmärtää asiayhteyden
 Kääntäjäksi voi valita Googlen, Bingin tai DeepL:n. DeepL:llä (tarvitset oman ilmaisen API-avaimen) jokainen sana käännetään koko tekstitysrivin asiayhteydessä: lauseessa ”we sat on the bank of the river” sana ”bank” on ”ranta” eikä ”pankki”. Avain tallennetaan vain omalle laitteellesi.

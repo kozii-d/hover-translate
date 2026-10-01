@@ -1,6 +1,6 @@
 {
   "name": {
-    "message": "HoverTranslate - YouTube Undertextöversättare"
+    "message": "HoverTranslate - YouTube-undertextöversättare"
   },
   "description": {
     "message": "Lär dig språk med YouTube: håll muspekaren över ett ord i undertexterna så visas översättningen direkt. Gratis och utan konto."
@@ -113,7 +113,7 @@
     }
   },
   "ratingPromptText": {
-    "message": "Om HoverTranslate hjälper dig att lära dig gör ett betyg det lättare för andra att hitta det."
+    "message": "Om HoverTranslate hjälper dig att lära dig, gör ett betyg det lättare för andra att hitta det."
   },
   "ratingPromptRate": {
     "message": "Betygsätt"

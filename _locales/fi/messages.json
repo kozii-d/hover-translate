@@ -28,7 +28,7 @@
     }
   },
   "errorQuotaExceeded": {
-    "message": "$TRANSLATOR$: tämän laskutuskauden merkkiraja on täynnä",
+    "message": "$TRANSLATOR$: tämän laskutuskauden merkkiraja on käytetty loppuun",
     "placeholders": {
       "translator": {
         "content": "$1",

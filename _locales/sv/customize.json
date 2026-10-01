@@ -14,20 +14,20 @@
       "helperText": "Använd samma utseendeinställningar för översättningsrutor som för undertexter på YouTube"
     },
     "fontFamily": {
-      "label": "Typsnittsfamilj",
-      "tooltip": "Typsnittsfamiljen som ska användas för översättningsrutor"
+      "label": "Fontfamilj",
+      "tooltip": "Fontfamiljen som ska användas för översättningsrutor"
     },
     "fontSize": {
       "label": "Teckenstorlek",
       "tooltip": "Teckenstorleken för översättningsrutor"
     },
     "fontColor": {
-      "label": "Textfärg",
-      "tooltip": "Textfärgen för översättningsrutor"
+      "label": "Teckenfärg",
+      "tooltip": "Teckenfärgen för översättningsrutor"
     },
     "fontOpacity": {
-      "label": "Textens opacitet",
-      "tooltip": "Opacitetsnivån för texten i översättningsrutor"
+      "label": "Tecknens opacitet",
+      "tooltip": "Opacitetsnivån för tecknen i översättningsrutor"
     },
     "backgroundColor": {
       "label": "Bakgrundsfärg",
@@ -38,8 +38,8 @@
       "tooltip": "Opacitetsnivån för bakgrunden i översättningsrutor"
     },
     "characterEdgeStyle": {
-      "label": "Teckenkantstil",
-      "tooltip": "Teckenkantstilen för översättningsrutor"
+      "label": "Stil för teckenkant",
+      "tooltip": "Stil för teckenkant i översättningsrutor"
     }
   },
   "options": {
@@ -74,7 +74,7 @@
   "modals": {
     "reset": {
       "title": "Återställ till standardinställningar för anpassning?",
-      "description": "Detta kommer att återställa alla anpassningsinställningar till sina standardvärden.",
+      "description": "Alla anpassningsinställningar återställs till standardvärdena.",
       "action": "Återställ"
     }
   }

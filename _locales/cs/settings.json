@@ -10,9 +10,9 @@
     "languagePanel": { "search": "Hledat jazyky", "noResults": "Nebyly nalezeny žádné jazyky", "back": "Zpět" },
     "translator": { "label": "Překladač", "tooltip": "Překladač použitý pro překlady" },
     "autoPause": { "label": "Automatické pozastavení", "tooltip": "Automaticky pozastavit video při najetí na titulky", "helperText": "Automaticky pozastaví video při najetí myší na titulky" },
-    "leftClickAction": { "label": "Akce levého kliknutí", "tooltip": "Akce provedená při kliknutí levým tlačítkem na slova v titulcích", "options": { "saveToDictionary": "Uložit do slovníku", "copyOriginal": "Kopírovat původní text", "copyTranslation": "Kopírovat přeložený text", "nothing": "Nic" } },
-    "alwaysMultipleSelection": { "label": "Vždy povolit vícenásobný výběr", "tooltip": "Povolit výběr více slov bez držení klávesy Shift", "helperText": "Když je povoleno, můžete vybírat více slov bez držení Shiftu" },
-    "showNotifications": { "label": "Zobrazovat oznámení", "tooltip": "Zobrazovat oznámení při uložení slov do slovníku nebo kopírování", "helperText": "Když je vypnuto, nebudou se zobrazovat žádná oznámení" }
+    "leftClickAction": { "label": "Akce levého kliknutí", "tooltip": "Akce provedená při kliknutí levým tlačítkem na slova v titulcích", "options": { "saveToDictionary": "Uložit mezi slovíčka", "copyOriginal": "Kopírovat původní text", "copyTranslation": "Kopírovat přeložený text", "nothing": "Nic" } },
+    "alwaysMultipleSelection": { "label": "Vždy povolit vícenásobný výběr", "tooltip": "Povolit výběr více slov bez držení klávesy Shift", "helperText": "Když je tato možnost zapnutá, můžete vybírat více slov bez držení klávesy Shift" },
+    "showNotifications": { "label": "Zobrazovat oznámení", "tooltip": "Zobrazovat oznámení, když se slovo uloží mezi slovíčka nebo zkopíruje do schránky", "helperText": "Když je tato možnost vypnutá, při ukládání nebo kopírování slov se nezobrazí žádná oznámení" }
   },
   "modals": {
     "reset": {
@@ -21,7 +21,7 @@
       "action": "Obnovit"
     }
   },
-  "tips": { "multipleSelection": "Pro výběr více slov podržte Shift a najeďte na požadovaná slova. Nebo povolte nastavení 'Vždy povolit vícenásobný výběr'.", "dismiss": "Skrýt tip" },
+  "tips": { "multipleSelection": "Chcete-li vybrat více slov, podržte Shift a najeďte myší na požadovaná slova. Nebo zapněte nastavení „Vždy povolit vícenásobný výběr“.", "dismiss": "Skrýt tip" },
   "apiKey": {
     "requiredHint": "Vyžaduje váš klíč API",
     "title": "Připojit {{translatorName}}",
@@ -51,7 +51,7 @@
     "usage": {
       "label": "Využito {{used}} z {{limit}} znaků v tomto zúčtovacím období",
       "unavailable": "Využití se nepodařilo načíst. {{reason}}",
-      "exhausted": "Limit je vyčerpán — {{translatorName}} nebude překládat, dokud se neobnoví."
+      "exhausted": "Limit je vyčerpán – {{translatorName}} nebude překládat, dokud se neobnoví."
     },
     "notifications": {
       "connected": "{{translatorName}} je připojen",
