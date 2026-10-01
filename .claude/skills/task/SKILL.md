@@ -22,7 +22,11 @@ Ask the user only what neither the code nor `CLAUDE.md` answers: what the viewer
 
 ## 3. The task file
 
-If the idea is a line of the backlog's task table that already has a number but no file, keep that number. Otherwise take the next free one: the highest `NN` among `work/tasks/` and the task lines of `work/backlog.md`, plus one, two digits. Write `work/tasks/NN-short-name.md`:
+If the idea is a line of the backlog's task table that already has a number but no file, keep that number. Otherwise take the next free one: the highest `NN` among `work/tasks/` and the task lines of `work/backlog.md`, plus one, two digits. Write `work/tasks/NN-short-name.md`.
+
+Other sessions write tasks at the same time, so a number counted during research may be gone by the time you write. Count it right before writing the file, list `work/tasks/` again right after, and if another file now has your `NN`, take the next free one and rename yours (the file and its heading). The same goes for `work/backlog.md` and `work/decisions.md`: read them again just before changing them and change only your own lines with Edit, never by rewriting the whole file, so another session's line is not lost.
+
+The file:
 
 ```markdown
 # NN. <Название>
@@ -59,7 +63,7 @@ The implementer sees only `CLAUDE.md`, its own instructions and this file — no
 
 ## 4. The backlog
 
-Add a line to the task table in `work/backlog.md` (or fill in the existing one): number, one line of substance, status `todo`, the file. If the idea came from «Найдено по дороге», remove it from there.
+Add a line to the task table in `work/backlog.md` (or fill in the existing one): number, one line of substance, status `todo`, the file. If the idea came from «Найдено по дороге», remove it from there. Then check the table once more: exactly one line with your number, and it points at your file.
 
 A decision taken with the user along the way that will outlive the task (a rejected option, a rule for the product) goes into `work/decisions.md`: what, why, the date.
 
