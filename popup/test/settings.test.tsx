@@ -75,6 +75,15 @@ describe("the settings opened with Bing selected and no access to it", () => {
   });
 });
 
+it("the settings page shows its skeleton until the language lists are loaded, not fields with nothing to pick", async () => {
+  const warn = vi.spyOn(console, "warn");
+  await renderPopup({ sync: { settings: defaultSettings } });
+
+  await translatorSelect();
+  // MUI's warning about a select whose value is not among its options: the target language with an empty list.
+  expect(warn).not.toHaveBeenCalledWith(expect.stringContaining("out-of-range value"));
+});
+
 describe("the language lists are named in the popup's language", () => {
   const sourceSelect = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
 

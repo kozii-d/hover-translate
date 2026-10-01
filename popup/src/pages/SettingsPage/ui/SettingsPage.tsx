@@ -26,7 +26,9 @@ const SettingsPage: FC = () => {
   const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
   const [targetLanguages, setTargetLanguages] = useState<Language[]>([]);
   const [loadingLanguages, setLoadingLanguages] = useState<boolean>(false);
-  const [loadingSettings, setLoadingSettings] = useState<boolean>(false);
+  // From the first frame: the effect that loads them runs after it, and the form
+  // would be drawn with empty language lists until then.
+  const [loadingSettings, setLoadingSettings] = useState<boolean>(true);
   const loading = loadingLanguages || loadingSettings;
   const [apiKeyPrompt, setApiKeyPrompt] = useState<ApiKeyPrompt | null>(null);
 
@@ -110,10 +112,8 @@ const SettingsPage: FC = () => {
   const setInitialSettings = useCallback(async () => {
     setLoadingSettings(true);
     try {
-      const settings = await get<SettingsFormValues>("settings", "sync");
-      if (!settings) {
-        return;
-      }
+      // None stored yet: the defaults on screen still need their language lists.
+      const settings = await get<SettingsFormValues>("settings", "sync") ?? initialFormValues;
 
       setInitialValues(settings);
 

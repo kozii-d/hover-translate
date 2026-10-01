@@ -67,10 +67,7 @@ describe.each([
     expect(document.documentElement.dir).toBe(dir);
     expect(document.documentElement.lang).toBe(language);
     expect(errors).not.toHaveBeenCalled();
-    // Known, and development-only: the settings form is drawn once before the
-    // language lists arrive.
-    const knownWarning = /^MUI: You have provided an out-of-range value `[\w-]+` for the select component/;
-    expect(warnings.mock.calls.filter(([message]) => !knownWarning.test(String(message)))).toEqual([]);
+    expect(warnings).not.toHaveBeenCalled();
   });
 
   it("/dictionary: the day above the saved words is written as the language writes dates", async () => {
