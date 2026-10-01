@@ -219,6 +219,11 @@ class Player {
     await expect(this.frame.locator(".ytp-caption-segment .custom-tooltip-word").first()).toBeVisible();
   }
 
+  /** Puts another player before this one in the document (`window.fixture.preview`). */
+  preview() {
+    return this.fixture("preview");
+  }
+
   fixture(method, ...args) {
     return this.frame.evaluate(([method, args]) => window.fixture[method](...args), [method, args]);
   }
@@ -241,14 +246,14 @@ class Player {
   }
 
   isPaused() {
-    return this.frame.evaluate(() => document.querySelector("video").paused);
+    return this.frame.evaluate(() => document.querySelector("#movie_player video").paused);
   }
 
   /** From now on, records the video's `play` and `pause` events for `videoEvents()`. */
   recordVideoEvents() {
     return this.frame.evaluate(() => {
       window.videoEvents = [];
-      const video = document.querySelector("video");
+      const video = document.querySelector("#movie_player video");
       for (const type of ["play", "pause"]) video.addEventListener(type, () => window.videoEvents.push(type));
     });
   }
@@ -265,7 +270,7 @@ class Player {
 
   /** Moves the mouse onto the video, by its left edge: away from captions, which are centred. */
   async moveAway() {
-    const box = await this.frame.locator("video").boundingBox();
+    const box = await this.frame.locator("#movie_player video").boundingBox();
     await this.page.mouse.move(box.x + 30, box.y + box.height / 2, { steps: 5 });
   }
 }

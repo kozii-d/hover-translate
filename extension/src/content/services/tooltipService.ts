@@ -8,7 +8,7 @@ import {
   NOTIFICATION_TOOLTIP_CLASS,
   VIDEO_PLAYER,
 } from "../consts/consts.ts";
-import { getOverlayContainer, getVisibleRect, isCaptionWindowInUpperHalf, placeAt } from "../utils/domUtils.ts";
+import { getOverlayContainer, getPlayerVideo, getVisibleRect, isCaptionWindowInUpperHalf, placeAt } from "../utils/domUtils.ts";
 import { styleTooltip } from "../utils/tooltipTheme.ts";
 import { isShiftHeld } from "../utils/shiftKey.ts";
 import { RatingPromptService } from "./ratingPromptService.ts";
@@ -268,7 +268,7 @@ export class TooltipService {
     tooltip.style.visibility = "hidden";
     tooltip.style.position = "absolute";
 
-    const video = document.querySelector("video");
+    const video = getPlayerVideo(subtitlesContainer);
     if (!video) return;
 
     const TOOLTIP_MARGIN = 10;

@@ -30,6 +30,33 @@ test("hovering a word shows its translation above it and pauses the video; leavi
   await expect.poll(() => player.isPaused()).toBe(false);
 });
 
+test("another player earlier in the page, such as a thumbnail preview, neither moves nor narrows the tooltip", async ({ openPlayer, network }) => {
+  const player = await openPlayer();
+  // Wider than the preview's video, and still fits right of the word in the
+  // player's ("run" would get Google's recorded one-word answer).
+  network.translate("ru", "save", "спасать, сохранять, беречь, экономить");
+  await player.preview();
+  await player.captions("save your life");
+
+  const word = player.word("save");
+  await word.hover();
+
+  await expect(player.tooltip).toHaveText("спасать, сохранять, беречь, экономить");
+  // The video of the player with the captions is the one auto-pause stops.
+  expect(await player.isPaused()).toBe(true);
+
+  // The preview is 360 px wide and ends left of the word: held to it, the
+  // tooltip was squeezed to its width and pushed away from the word.
+  const wordBox = await word.boundingBox();
+  const tooltipBox = await player.tooltip.boundingBox();
+  const videoBox = await player.frame.locator("#movie_player video").boundingBox();
+  const previewBox = await player.frame.locator("video").first().boundingBox();
+  expect(tooltipBox.width).toBeGreaterThan(previewBox.width);
+  expect(tooltipBox.x).toBeCloseTo(wordBox.x, 0);
+  expect(tooltipBox.x).toBeGreaterThanOrEqual(videoBox.x);
+  expect(tooltipBox.x + tooltipBox.width).toBeLessThanOrEqual(videoBox.x + videoBox.width);
+});
+
 test("Shift carries the selection across words, and the phrase is translated", async ({ openPlayer, network }) => {
   const player = await openPlayer();
   network.translate("ru", "for your life", "ради своей жизни");

@@ -1,5 +1,5 @@
-import { VIDEO_PLAYER } from "../consts/consts.ts";
 import { state } from "../state/stateManager.ts";
+import { getPlayerVideo } from "../utils/domUtils.ts";
 
 /**
  * Auto-pause while the pointer is over the captions.
@@ -24,7 +24,8 @@ export class VideoController {
    */
   public handleCaptionPointerEnter = (event: Event): void => {
     if ((event as PointerEvent).buttons) return;
-    this.pauseVideo(this.getVideoElement(event));
+    const target = event.currentTarget;
+    this.pauseVideo(getPlayerVideo(target instanceof Element ? target : null));
   };
 
   public handleCaptionPointerLeave = (event: Event): void => {
@@ -106,22 +107,4 @@ export class VideoController {
     if (this.claimedVideo?.paused) return;
     this.releaseClaim();
   };
-
-  /**
-   * The video of the player these captions belong to.
-   *
-   * `document.querySelector("video")` returns the first video in the document,
-   * which is not necessarily the one being watched: YouTube keeps the
-   * miniplayer and the inline preview a hovered thumbnail starts alive at the
-   * same time. The caption window sits inside its own player, so walking up from
-   * the event target picks the right one; the document-wide lookup stays as a
-   * fallback in case that markup changes.
-   */
-  private getVideoElement(event: Event): HTMLVideoElement | null {
-    const target = event.currentTarget;
-    const player =
-      target instanceof Element ? target.closest(`.${VIDEO_PLAYER}`) : null;
-
-    return player?.querySelector("video") ?? document.querySelector("video");
-  }
 }

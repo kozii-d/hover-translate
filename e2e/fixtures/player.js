@@ -6,7 +6,7 @@
 // can tell a click the extension kept for a word from one YouTube got.
 (() => {
   const container = document.querySelector(".ytp-caption-window-container");
-  const video = document.querySelector("video");
+  const video = document.querySelector("#movie_player video");
   const events = [];
   let windowCount = 0;
   // How the caption window is dragged, see the handlers at the end.
@@ -108,6 +108,16 @@
         text.append(line);
       });
       fit(lastWindow());
+    },
+
+    // Another player first in the document, without captions: YouTube keeps
+    // several alive at once. On the live site (2026-10-01) the miniplayer came
+    // before the inline preview a hovered thumbnail plays, which has a caption
+    // container of its own; any order has to work.
+    preview() {
+      const player = element("div", "html5-video-player", "position: absolute; left: 0; top: 0; width: 360px; height: 202px;");
+      player.append(element("video", "video-stream html5-main-video"));
+      document.body.prepend(player);
     },
 
     // "drag and drop" (the default) or "mousemove": the two ways YouTube's

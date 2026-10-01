@@ -1,4 +1,15 @@
-import { CAPTION_WINDOW_CONTAINER } from "../consts/consts.ts";
+import { CAPTION_WINDOW_CONTAINER, VIDEO_PLAYER } from "../consts/consts.ts";
+
+/**
+ * The video of the player `element` sits in. Not simply the first video of
+ * the document: YouTube keeps the miniplayer and the preview a hovered
+ * thumbnail plays alive at the same time, and the first one need not be the
+ * one being watched. The first video stays as a fallback in case YouTube
+ * renames its player.
+ */
+export function getPlayerVideo(element: Element | null): HTMLVideoElement | null {
+  return element?.closest(`.${VIDEO_PLAYER}`)?.querySelector("video") ?? document.querySelector("video");
+}
 
 /**
  * Whether a caption window sits in the upper half of the player. Takes the
