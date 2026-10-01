@@ -6,37 +6,27 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- The Bing translator is back. HoverTranslate asks for access to <www.bing.com> only when you pick Bing in the settings, and no longer asks every user for it. If Bing was already your translator, pick it in the settings once more to allow that access: opening the settings switches you to Google and says so. Until then, words are translated with Google, as in the previous version, and a notice on the video says so once each time you start the browser.
-- "Translate from" and "Translate to" in the settings open a panel with a search: type a part of a language's name to find it, in the language of the settings or in English.
+- The Bing translator is back. HoverTranslate now asks for access to <www.bing.com> only when you pick Bing in the settings. If Bing was already your translator, pick it in the settings once more to allow that access; until then, words are translated with Google, and a notice on the video says so.
+- "Translate from" and "Translate to" open a panel with a search by the language's name, in the language of the settings or in English.
 
 ### Added
 
-- A request to rate HoverTranslate, the same for everyone and only once it has been in use for a while — never in the first week after installing or updating. In the settings, a card with "Rate", "Don't ask again" and a link for reporting a problem on GitHub; it stays until you answer it, and closing it puts it off for a month, at most three times. On the video, a small card once ever — when the tenth word is saved to your list, or, if you only hover over words, once you have translated thirty — unless notifications are off; the video pauses while the pointer is on it, as over the subtitles, and "Rate" leaves the video paused where it was. "Rate", "Don't ask again", or "Rate us" on the About page end the request for good.
-- The settings are now available in Vietnamese, Indonesian, Hungarian and Greek.
-- The settings are now available in Arabic, laid out from right to left, and so are the messages on the video.
+- The settings are now available in Vietnamese, Indonesian, Hungarian, Greek and Arabic (right to left, as are the messages on the video).
+- A request to rate HoverTranslate, only once it has been in use for a while: a card in the settings and, once ever, a small card on the video. "Don't ask again" ends it for good.
 
 ### Fixed
 
-- In Chrome and Edge older than version 147, the settings could not load the lists of languages and DeepL did not translate: the part of HoverTranslate that runs in the background did not answer. It answers in every supported version now.
-- In Chrome 102–115 and Firefox 115–123, no word was translated at all. Translation works there again.
-- "Rate us" on the About page opened a page that does not exist when HoverTranslate was installed in Edge from the Chrome Web Store, and in Firefox a reviews page where a rating cannot be given. It now opens the page of the store HoverTranslate was installed from, where it can be rated.
-- "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down. They are now shown at the top-left of the visible part of the video.
-- In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player, rolled out from March 2026, placed its controls layer over the subtitles: no translation, no auto-pause, and a click did not save the word. Now it shows the translation, pauses the video and saves the word, as on YouTube itself, and a click anywhere else in the player still works as before.
-- A right or middle click on a subtitle word saved or copied it, as a left click does, while YouTube opened its menu. Only the left click acts on the word now.
-- After the subtitles were dragged to another place in the player, the video could stay paused when the pointer left them, instead of playing on as auto-pause intends.
-- Dragging the subtitles by a word could save that word to your list, as if it had been clicked. Only a click saves it now.
-- With auto-pause on, dragging the subtitles started the paused video for an instant at every move, sometimes with a click of sound, or let it play for as long as they were dragged. The video now stays paused throughout the drag and plays on once the pointer leaves the subtitles.
-- On a first install in Norwegian Nynorsk (Firefox), the translation language was set to English: no translator offers Nynorsk. It is now set to Norwegian (Bokmål), which Nynorsk readers read freely.
-- Right-to-left text. A translation into Arabic, Hebrew, Persian or another right-to-left language is now shown right to left, with its final full stop or question mark at the left end instead of the right. An English translation, "Translation saved" and the rating card no longer turn right to left when YouTube itself is in Arabic or Hebrew. With Arabic or Hebrew subtitles, the translation of several words selected with Shift is placed over those words: it used to start at the first word and run off to the right of the selection. On the Dictionary page, each word and its translation are aligned in their own direction.
-- The CSV export opened in Excel with garbled text in place of every word not written in Latin letters — Arabic, Cyrillic, Chinese and others. It now opens correctly.
-- Wording of the settings in Korean, Japanese and Chinese. The appearance settings now use YouTube's own names — in Korean and Simplified Chinese the opacity settings were described as transparency, the opposite. Traditional Chinese uses Taiwanese words instead of mainland ones. In Korean, Japanese and Traditional Chinese, the tab with your saved words is now called the same as in the store: word list, not dictionary.
-- Wording of the settings in Spanish and Portuguese. The tab with your saved words is now called the same as in the store — vocabulary, not dictionary — and the appearance settings use YouTube's own names, in Spanish those of Latin America. In European Portuguese, the About page no longer switches to informal address, and in Portuguese the hints of the appearance settings no longer speak of "translation tips".
-- Wording of the settings in French, German and Italian. The tab with your saved words is now called the same as in the store — vocabulary, not dictionary — the appearance settings use YouTube's own names, and the Shift key has the name the browser uses for it in that language: Maj, Umschalttaste, Maiusc. In German, the settings and the messages on the video no longer switch between the formal "Sie" and "du": they say "du", as YouTube does. In French, a colon, question mark or exclamation mark no longer wraps to a line of its own.
-- Wording of the settings in Polish, Czech, Finnish and Swedish. The tab with your saved words is now called the same as in the store — a list of vocabulary words, not a dictionary — and the appearance settings use YouTube's own names. In Finnish and Swedish, the Shift key has the name the browser uses for it: Vaihto, Skift. In Finnish, the hint on the About page no longer speaks of a "gradual selection" for the multiple selection, and in Polish the About page no longer shows "Changelog" in English.
-- The languages in the "Translate from" and "Translate to" lists were named in English whatever the language of the settings. They are now named in that language and listed in its alphabetical order, and the first item, "Auto", is now "Detect language". In the menu that changes the language of the settings, each language is now named in itself — "Русский", "日本語", "Português (Brasil)".
-- The settings window changed its width: in Firefox when moving from one tab to another, and in Chrome and Edge while a list or a dialog was open. It now keeps its width in both cases, and a long word or link in your word list wraps instead of widening it.
-- On the Customize page, the items of the lists — fonts, colors, character edge styles, sizes and opacity — were in English whatever the language of the settings. They are now in that language and named as in YouTube's own subtitle options, and "Auto" is now "As on YouTube".
-- On the Dictionary page, the date above your saved words was written the English way in every language — "срд, сент. 23, 2026" in Russian. It is now written as the language of the settings writes dates, with the day of the week and the month in full: "среда, 23 сентября 2026 г.", "2026年9月23日水曜日".
+- In older versions of Chrome, Edge and Firefox, words were not translated, DeepL did not work, or the settings could not load the lists of languages.
+- In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player (March 2026).
+- Dragging and clicking the subtitles: a right or middle click no longer saves or copies the word, dragging no longer saves the word under the pointer, and with auto-pause on the video stays paused while the subtitles are dragged.
+- "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down.
+- Right-to-left text: translations into Arabic, Hebrew and other right-to-left languages are shown in their direction, and English translations no longer turn right to left when YouTube itself is in Arabic or Hebrew.
+- The CSV export showed garbled text in Excel for every word not written in Latin letters.
+- "Rate us" on the About page now opens the page of the store HoverTranslate was installed from.
+- Language names, the options on the Customize page and the dates on the Dictionary page were in English whatever the language of the settings. They now follow it.
+- Better wording of the settings in most languages: the subtitle appearance options use YouTube's own names, the tab with your saved words is named as in the store, and leftover English text and mixed formal and informal address are gone.
+- The settings window no longer changes its width when moving between tabs or opening a list.
+- On a first install in Norwegian Nynorsk, the translation language is now Norwegian instead of English.
 
 ## [1.1.14] - 2026-09-24
 
