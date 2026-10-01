@@ -14,16 +14,18 @@ interface PopupOptions extends FakeChromeOptions {
   /** The locale directory the popup is shown in: `en`, `ar`, `pt_BR`… */
   language?: string;
   routes?: Record<string, Route>;
+  /** `false`: no background worker answers the popup's messages, as when it is gone. */
+  background?: boolean;
 }
 
 /**
  * The popup as `main.tsx` mounts it, in a fresh profile, with the real
  * background worker answering its messages in the same process.
  */
-export async function renderPopup({ route = "/", language = "en", routes, ...chromeOptions }: PopupOptions = {}) {
+export async function renderPopup({ route = "/", language = "en", routes, background = true, ...chromeOptions }: PopupOptions = {}) {
   const fake = installFakeChrome(chromeOptions);
   const network = installFakeNetwork(routes);
-  new MessageService();
+  if (background) new MessageService();
 
   await i18n.changeLanguage(language);
   window.location.hash = `#${route}`;
@@ -41,9 +43,10 @@ export async function renderPopup({ route = "/", language = "en", routes, ...chr
 }
 
 /**
- * Every text the field `selector` has shown since this call, the current one
- * last. A form drawn with other values and corrected or replaced before the
- * test looks leaves them here: mutation records keep what the page no longer has.
+ * Every text the element `selector` (a field, or `body` for the whole popup)
+ * has shown since this call, the current one last. A form drawn with other
+ * values and corrected or replaced before the test looks leaves them here:
+ * mutation records keep what the page no longer has.
  */
 export function recordFieldTexts(selector: string) {
   const shown: string[] = [];

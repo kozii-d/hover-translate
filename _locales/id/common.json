@@ -3,5 +3,10 @@
     "languageSelector": "Ubah bahasa antarmuka",
     "switchToDarkTheme": "Beralih ke tema gelap",
     "switchToLightTheme": "Beralih ke tema terang"
+  },
+  "errorState": {
+    "title": "Halaman tidak dapat dimuat",
+    "hint": "Jika ini terus terjadi, mulai ulang browser Anda.",
+    "retry": "Coba lagi"
   }
 }

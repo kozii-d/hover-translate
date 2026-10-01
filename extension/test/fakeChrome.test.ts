@@ -16,6 +16,41 @@ describe("the fake chrome.storage", () => {
 
     expect(events).toEqual([{ installedAt: { oldValue: 1, newValue: 2 } }]);
   });
+
+  describe("failingReads: a read that asks for a failing key fails, as on a broken profile", () => {
+    const STORED = { settings: { translator: "google" }, installedAt: 1 };
+    const MESSAGE = "The sync storage could not be read";
+
+    it("awaited: the promise rejects, also for get(null), which asks for every key; other reads work", async () => {
+      installFakeChrome({ sync: STORED, local: { savedTranslations: [] }, failingReads: { sync: ["settings"] } });
+
+      await expect(chrome.storage.sync.get("settings")).rejects.toThrow(MESSAGE);
+      await expect(chrome.storage.sync.get(["installedAt", "settings"])).rejects.toThrow(MESSAGE);
+      await expect(chrome.storage.sync.get(null)).rejects.toThrow(MESSAGE);
+      expect(await chrome.storage.sync.get("installedAt")).toEqual({ installedAt: 1 });
+      expect(await chrome.storage.local.get(null)).toEqual({ savedTranslations: [] });
+    });
+
+    it("with a callback: called with nothing, `runtime.lastError` set during the call only", async () => {
+      installFakeChrome({ sync: STORED, failingReads: { sync: ["settings"] } });
+
+      const seen = await new Promise((resolve) => {
+        chrome.storage.sync.get("settings", (result) => resolve({ result, lastError: chrome.runtime.lastError }));
+      });
+
+      expect(seen).toEqual({ result: undefined, lastError: { message: MESSAGE } });
+      expect(chrome.runtime.lastError).toBeUndefined();
+    });
+
+    it("emptied on the returned fake, the reads work again", async () => {
+      const fake = installFakeChrome({ sync: STORED, failingReads: { sync: ["settings"] } });
+      await expect(chrome.storage.sync.get("settings")).rejects.toThrow(MESSAGE);
+
+      fake.failingReads.sync = [];
+
+      expect(await chrome.storage.sync.get("settings")).toEqual({ settings: STORED.settings });
+    });
+  });
 });
 
 describe("the fake chrome.runtime messaging", () => {

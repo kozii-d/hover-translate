@@ -3,5 +3,10 @@
     "languageSelector": "팝업 언어 변경",
     "switchToDarkTheme": "다크 테마로 전환",
     "switchToLightTheme": "라이트 테마로 전환"
+  },
+  "errorState": {
+    "title": "페이지를 불러올 수 없습니다",
+    "hint": "문제가 계속되면 브라우저를 다시 시작하세요.",
+    "retry": "다시 시도"
   }
 }

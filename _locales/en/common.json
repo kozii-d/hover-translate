@@ -3,5 +3,10 @@
     "languageSelector": "Change popup language",
     "switchToDarkTheme": "Switch to dark theme",
     "switchToLightTheme": "Switch to light theme"
+  },
+  "errorState": {
+    "title": "Couldn't load this page",
+    "hint": "If this keeps happening, restart your browser.",
+    "retry": "Try again"
   }
 }

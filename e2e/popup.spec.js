@@ -72,7 +72,7 @@ const LONG_WORDS = [
 ];
 
 for (const language of ["en", "ja", "ar"]) {
-  test(`the popup is as wide on every page, in ${language}, long words in the word list too`, async ({ context, extensionId, storage }) => {
+  test(`the popup is as wide on every page, in ${language}: long words in the word list and the error screen too`, async ({ context, extensionId, storage }) => {
     const label = (ns, key) => JSON.parse(fs.readFileSync(path.join(__dirname, "..", "_locales", language, `${ns}.json`), "utf8"))[key];
     const popup = await context.newPage();
     await popup.addInitScript((code) => localStorage.setItem("hoverTranslatePopupLanguage", code), language);
@@ -102,7 +102,23 @@ for (const language of ["en", "ja", "ar"]) {
     await expect(popup.getByText(LONG_WORDS[0][0], { exact: true })).toBeVisible();
     widths.push(await popup.evaluate(() => document.body.getBoundingClientRect().width));
 
-    expect(widths).toEqual(Array(5).fill(widths[0]));
+    // The error screen that replaces a page whose stored values cannot be read.
+    await popup.evaluate(() => {
+      for (const area of [chrome.storage.sync, chrome.storage.local]) {
+        area.get = () => {
+          throw new Error("The storage cannot be read");
+        };
+      }
+    });
+    const errorTitle = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "_locales", language, "common.json"), "utf8")).errorState.title;
+    for (const ns of ["settings", "customize", "dictionary"]) {
+      await popup.getByRole("tab", { name: label(ns, "tabLabel"), exact: true }).click();
+      await expect(popup.getByRole("heading", { name: label(ns, "pageTitle"), exact: true })).toBeVisible();
+      await expect(popup.getByText(errorTitle, { exact: true })).toBeVisible();
+      widths.push(await popup.evaluate(() => document.body.getBoundingClientRect().width));
+    }
+
+    expect(widths).toEqual(Array(8).fill(widths[0]));
     expect(widths[0]).toBeGreaterThanOrEqual(380);
     expect(widths[0]).toBeLessThan(550);
   });

@@ -95,3 +95,28 @@ it("the day above the saved words follows a change of the popup's language at on
 
   expect(await screen.findByText("2026. szeptember 23., szerda")).toBeTruthy();
 });
+
+it("a page that fails to render: the error screen with the tabs, the other pages still open, Try again reloads the popup", async () => {
+  const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+  // As `Intl` once did on a viewer's machine (`ApiKeyStatus`): the Dictionary formats its days with it.
+  vi.spyOn(Intl, "DateTimeFormat").mockImplementation(function () {
+    throw new RangeError("Incorrect locale information provided");
+  });
+  const { user } = await renderPopup({ route: "/dictionary", local: { savedTranslations: SAVED } });
+
+  expect(await screen.findByText("Couldn't load this page")).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Dictionary" })).toBeTruthy();
+  expect(errors).toHaveBeenCalledWith("The page could not be shown", expect.any(RangeError), expect.any(String));
+
+  // `React.lazy` keeps a failed import: drawing the page again would fail again.
+  const reload = vi.fn();
+  vi.stubGlobal("location", { ...window.location, reload });
+  await user.click(screen.getByRole("button", { name: "Try again" }));
+  expect(reload).toHaveBeenCalledOnce();
+  vi.unstubAllGlobals();
+
+  await user.click(screen.getByRole("tab", { name: "Customize" }));
+  expect(await screen.findByRole("heading", { name: "Customize" })).toBeTruthy();
+  expect(await screen.findByRole("combobox", { name: /^Font size/ })).toBeTruthy();
+  expect(screen.queryByText("Couldn't load this page")).toBeNull();
+});

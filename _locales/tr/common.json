@@ -3,5 +3,10 @@
     "languageSelector": "Açılır pencere dilini değiştir",
     "switchToDarkTheme": "Koyu temaya geç",
     "switchToLightTheme": "Açık temaya geç"
+  },
+  "errorState": {
+    "title": "Sayfa yüklenemedi",
+    "hint": "Hata tekrarlanırsa tarayıcıyı yeniden başlatın.",
+    "retry": "Tekrar dene"
   }
 }

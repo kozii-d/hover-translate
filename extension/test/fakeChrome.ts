@@ -31,6 +31,9 @@ type StorageChange = { oldValue?: unknown; newValue?: unknown };
 type ChangeListener = (changes: Record<string, StorageChange>, areaName: string) => void;
 type MessageListener = (message: unknown, sender: object, sendResponse: (response: unknown) => void) => unknown;
 type InstalledListener = (details: { reason: string; previousVersion?: string }) => void;
+type AreaName = "sync" | "local" | "session";
+type FailingReads = Record<AreaName, string[]>;
+type Runtime = { lastError?: { message: string } };
 
 export interface FakeChromeOptions {
   sync?: Items;
@@ -48,6 +51,12 @@ export interface FakeChromeOptions {
   grantedOrigins?: string[];
   /** The viewer's answer to a permission prompt; granted origins are then kept. */
   answerPermissionPrompt?: (origins: string[]) => boolean;
+  /**
+   * Keys that cannot be read, per area, as on a broken profile: a read that
+   * asks for any of them (`get(null)` asks for all) fails. Changed on the
+   * returned `failingReads`, the reads work again.
+   */
+  failingReads?: Partial<FailingReads>;
 }
 
 export interface FakeChrome {
@@ -58,6 +67,8 @@ export interface FakeChrome {
   /** Every `tabs.create`, with the synced storage as it was at that moment. */
   createdTabs: { url?: string; sync: Items }[];
   permissionPrompts: string[][];
+  /** The keys whose reads fail, per area; empty a list to make them work again. */
+  failingReads: FailingReads;
   /** Fires `runtime.onInstalled`, as the browser does on install and update. */
   fireInstalled: (details: { reason: string; previousVersion?: string }) => void;
 }
@@ -93,12 +104,25 @@ const createGetMessage = (uiLanguage: string) => {
   };
 };
 
-function createStorageArea(name: string, store: Items, changeListeners: ChangeListener[]) {
+function createStorageArea(
+  name: AreaName,
+  store: Items,
+  changeListeners: ChangeListener[],
+  failingReads: FailingReads,
+  runtime: Runtime,
+) {
   const get = (keys?: string | string[] | Items | null): Items => {
-    if (keys === null || keys === undefined) return clone(store);
+    // `null` asks for every key.
+    const wanted = keys === null || keys === undefined ? null
+      : typeof keys === "string" ? [keys] : Array.isArray(keys) ? keys : Object.keys(keys);
+    const failing = failingReads[name];
+    if (failing.length && (!wanted || wanted.some((key) => failing.includes(key)))) {
+      throw new Error(`The ${name} storage could not be read`);
+    }
 
-    const wanted = typeof keys === "string" ? [keys] : Array.isArray(keys) ? keys : Object.keys(keys);
-    const defaults = typeof keys === "object" && !Array.isArray(keys) ? keys : {};
+    if (!wanted) return clone(store);
+
+    const defaults = keys && typeof keys === "object" && !Array.isArray(keys) ? keys : {};
     const result: Items = {};
     for (const key of wanted) {
       if (key in store) result[key] = clone(store[key]);
@@ -134,11 +158,26 @@ function createStorageArea(name: string, store: Items, changeListeners: ChangeLi
   };
 
   // Both call styles, answered a turn later as by a real storage backend:
-  // `StorageService` passes a callback, other code awaits the promise.
-  const both = <A, R>(operation: (argument: A) => R) => (argument: A, callback?: (result: R) => void) => {
-    const settled = new Promise<R>((resolve) => setTimeout(() => resolve(operation(argument)), 0));
+  // `StorageService` passes a callback, other code awaits the promise. A
+  // failure rejects the promise, or calls the callback with nothing and
+  // `runtime.lastError` set for that call only, as Chrome does.
+  const both = <A, R>(operation: (argument: A) => R) => (argument: A, callback?: (result?: R) => void) => {
+    const settled = new Promise<R>((resolve, reject) => setTimeout(() => {
+      try {
+        resolve(operation(argument));
+      } catch (error) {
+        reject(error);
+      }
+    }, 0));
     if (!callback) return settled;
-    settled.then(callback);
+    settled.then(callback, (error: Error) => {
+      runtime.lastError = { message: error.message };
+      try {
+        callback();
+      } finally {
+        runtime.lastError = undefined;
+      }
+    });
     return undefined;
   };
 
@@ -170,6 +209,7 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
   const scheme = options.scheme ?? "chrome-extension";
   const uiLanguage = options.uiLanguage ?? "en-US";
   const manifest = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "manifest.chrome.json"), "utf8"));
+  const failingReads: FailingReads = { sync: [], local: [], session: [], ...options.failingReads };
 
   const sendMessage = async (message: unknown) => {
     for (const listener of messageListeners) {
@@ -188,22 +228,25 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     return undefined;
   };
 
+  const runtime = {
+    id,
+    lastError: undefined as Runtime["lastError"],
+    getURL: (resource: string) => `${scheme}://${id}/${resource.replace(/^\//, "")}`,
+    getManifest: () => clone(manifest),
+    sendMessage,
+    onMessage: addRemove(messageListeners),
+    onInstalled: addRemove(installedListeners),
+  };
+  const area = (name: AreaName) => createStorageArea(name, storage[name], changeListeners, failingReads, runtime);
+
   const fake = {
     storage: {
-      sync: createStorageArea("sync", storage.sync, changeListeners),
-      local: createStorageArea("local", storage.local, changeListeners),
-      ...(options.hasSessionStorage === false ? {} : { session: createStorageArea("session", storage.session, changeListeners) }),
+      sync: area("sync"),
+      local: area("local"),
+      ...(options.hasSessionStorage === false ? {} : { session: area("session") }),
       onChanged: addRemove(changeListeners),
     },
-    runtime: {
-      id,
-      lastError: undefined,
-      getURL: (resource: string) => `${scheme}://${id}/${resource.replace(/^\//, "")}`,
-      getManifest: () => clone(manifest),
-      sendMessage,
-      onMessage: addRemove(messageListeners),
-      onInstalled: addRemove(installedListeners),
-    },
+    runtime,
     i18n: {
       getUILanguage: () => uiLanguage,
       getMessage: createGetMessage(uiLanguage),
@@ -234,6 +277,7 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     grantedOrigins,
     createdTabs,
     permissionPrompts,
+    failingReads,
     fireInstalled: (details) => installedListeners.forEach((listener) => listener(details)),
   };
 }

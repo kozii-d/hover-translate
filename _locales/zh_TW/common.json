@@ -3,5 +3,10 @@
     "languageSelector": "更改彈出視窗語言",
     "switchToDarkTheme": "切換到深色主題",
     "switchToLightTheme": "切換到淺色主題"
+  },
+  "errorState": {
+    "title": "無法載入此頁面",
+    "hint": "如果問題持續發生，請重新啟動瀏覽器。",
+    "retry": "重試"
   }
 }

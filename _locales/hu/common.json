@@ -3,5 +3,10 @@
     "languageSelector": "A felület nyelvének módosítása",
     "switchToDarkTheme": "Váltás sötét témára",
     "switchToLightTheme": "Váltás világos témára"
+  },
+  "errorState": {
+    "title": "Nem sikerült betölteni az oldalt",
+    "hint": "Ha a hiba ismétlődik, indítsd újra a böngészőt.",
+    "retry": "Újrapróbálás"
   }
 }

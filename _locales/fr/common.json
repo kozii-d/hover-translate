@@ -3,5 +3,10 @@
     "languageSelector": "Changer la langue du popup",
     "switchToDarkTheme": "Passer au thème sombre",
     "switchToLightTheme": "Passer au thème clair"
+  },
+  "errorState": {
+    "title": "Impossible de charger la page",
+    "hint": "Si le problème persiste, redémarrez votre navigateur.",
+    "retry": "Réessayer"
   }
 }

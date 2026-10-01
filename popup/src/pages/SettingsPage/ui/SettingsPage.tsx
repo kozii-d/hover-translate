@@ -19,6 +19,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { SettingsForm } from "./SettingsForm.tsx";
 import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
+import { ErrorState } from "@/shared/ui/ErrorState/ErrorState.tsx";
 import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 
 const SettingsPage: FC = () => {
@@ -32,6 +33,9 @@ const SettingsPage: FC = () => {
   // Already true when the form mounts: its fields wait for the language lists.
   const [loadingSettings, setLoadingSettings] = useState<boolean>(true);
   const loading = loadingLanguages || loadingSettings;
+  // Nothing usable to show: the settings could not be read, or no translator
+  // gave its languages.
+  const [loadFailed, setLoadFailed] = useState(false);
   const [apiKeyPrompt, setApiKeyPrompt] = useState<ApiKeyPrompt | null>(null);
 
   // The fallback notice on screen, if any. Loading the settings again (after a
@@ -113,6 +117,7 @@ const SettingsPage: FC = () => {
 
   const setInitialSettings = useCallback(async () => {
     setLoadingSettings(true);
+    setLoadFailed(false);
     try {
       // None stored yet: the defaults on screen still need their language lists.
       const settings = await get<SettingsFormValues>("settings", "sync") ?? initialFormValues;
@@ -165,14 +170,20 @@ const SettingsPage: FC = () => {
         // Report what went wrong and fall back to a translator that answers.
         console.error(`The ${settings.translator} translator is unavailable`, error);
 
-        const canFallBack = settings.translator !== FALLBACK_TRANSLATOR;
+        // Google's lists are built into the extension: they fail only when
+        // the background worker does not answer, and then no translator
+        // would. The page shows its error screen instead of empty lists.
+        if (settings.translator === FALLBACK_TRANSLATOR) {
+          throw error;
+        }
+
         const translatorName = getTranslatorLabel(settings.translator);
         const fallbackTranslatorName = getTranslatorLabel(FALLBACK_TRANSLATOR);
         const reason = describeTranslatorError(t, error, translatorName);
 
         const noticeKey = showFallbackNotice(reason
-          ? (canFallBack ? t("errors.translatorFallbackReason", { reason, fallbackTranslatorName }) : reason)
-          : t(canFallBack ? "errors.translatorFallback" : "errors.translatorUnavailable", {
+          ? t("errors.translatorFallbackReason", { reason, fallbackTranslatorName })
+          : t("errors.translatorFallback", {
             translatorName,
             errorMessage: getErrorMessage(error),
             fallbackTranslatorName,
@@ -191,14 +202,15 @@ const SettingsPage: FC = () => {
           setApiKeyPrompt({ translator: settings.translator, error: reason, initialApiKey, noticeKey });
         }
 
-        if (canFallBack) {
-          await fallBackTo(settings, FALLBACK_TRANSLATOR);
-        }
+        await fallBackTo(settings, FALLBACK_TRANSLATOR);
       }
     } catch (error) {
-      const errorMessage = "Failed to get settings";
-      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
-      console.error(errorMessage, error);
+      console.error("Could not load the settings", error);
+      // A notice of a switch to Google that did not happen either.
+      if (fallbackNoticeKey.current) {
+        notifications.close(fallbackNoticeKey.current);
+      }
+      setLoadFailed(true);
     } finally {
       setLoadingSettings(false);
     }
@@ -227,7 +239,7 @@ const SettingsPage: FC = () => {
 
   return (
     <Page title={t("pageTitle")}>
-      {initialValues ? (
+      {loadFailed ? <ErrorState onRetry={setInitialSettings}/> : initialValues ? (
         <SettingsForm
           initialValues={initialValues}
           onSubmit={handleSubmit}

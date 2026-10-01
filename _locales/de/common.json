@@ -3,5 +3,10 @@
     "languageSelector": "Popup-Sprache ändern",
     "switchToDarkTheme": "Zum dunklen Design wechseln",
     "switchToLightTheme": "Zum hellen Design wechseln"
+  },
+  "errorState": {
+    "title": "Die Seite konnte nicht geladen werden",
+    "hint": "Wenn das öfter passiert, starte den Browser neu.",
+    "retry": "Erneut versuchen"
   }
 }

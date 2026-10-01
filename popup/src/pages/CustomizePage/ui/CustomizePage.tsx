@@ -7,6 +7,7 @@ import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import { initialFormValues } from "../model/consts/initialValues.ts";
 import { useTranslation } from "react-i18next";
 import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
+import { ErrorState } from "@/shared/ui/ErrorState/ErrorState.tsx";
 
 const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
@@ -14,6 +15,8 @@ const CustomizePage: FC = () => {
   // The form is mounted only with the stored theme: drawn with the defaults
   // first, it would show them for a frame before correcting itself.
   const [loading, setLoading] = useState<boolean>(true);
+  // Not the defaults instead: any change in that form would overwrite the stored theme.
+  const [loadFailed, setLoadFailed] = useState(false);
 
   const { t } = useTranslation("customize");
 
@@ -23,19 +26,19 @@ const CustomizePage: FC = () => {
 
   const setInitialSettings = useCallback(async () => {
     setLoading(true);
+    setLoadFailed(false);
     try {
       const tooltipTheme = await get<CustomizeFormValues>("tooltipTheme", "sync");
       if (tooltipTheme) {
         setInitialValues(tooltipTheme);
       }
     } catch (error) {
-      const errorMessage = "Failed to get tooltipTheme";
-      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
-      console.error(errorMessage, error);
+      console.error("Could not load the tooltip theme", error);
+      setLoadFailed(true);
     } finally {
       setLoading(false);
     }
-  }, [get, notifications]);
+  }, [get]);
 
   useEffect(() => {
     setInitialSettings();
@@ -55,7 +58,7 @@ const CustomizePage: FC = () => {
 
   return (
     <Page title={t("pageTitle")}>
-      {loading ? <CustomizeFormSkeleton/> : (
+      {loading ? <CustomizeFormSkeleton/> : loadFailed ? <ErrorState onRetry={setInitialSettings}/> : (
         <CustomizeForm
           initialValues={initialValues}
           onSubmit={handleSubmit}

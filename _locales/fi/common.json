@@ -3,5 +3,10 @@
     "languageSelector": "Vaihda ponnahdusikkunan kieli",
     "switchToDarkTheme": "Vaihda tummaan teemaan",
     "switchToLightTheme": "Vaihda vaaleaan teemaan"
+  },
+  "errorState": {
+    "title": "Sivua ei voitu ladata",
+    "hint": "Jos virhe toistuu, käynnistä selain uudelleen.",
+    "retry": "Yritä uudelleen"
   }
 }

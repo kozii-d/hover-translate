@@ -3,5 +3,10 @@
     "languageSelector": "更改弹出窗口语言",
     "switchToDarkTheme": "切换到深色主题",
     "switchToLightTheme": "切换到浅色主题"
+  },
+  "errorState": {
+    "title": "无法加载此页面",
+    "hint": "如果问题反复出现，请重启浏览器。",
+    "retry": "重试"
   }
 }

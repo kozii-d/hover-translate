@@ -3,5 +3,10 @@
     "languageSelector": "Đổi ngôn ngữ hiển thị",
     "switchToDarkTheme": "Chuyển sang giao diện tối",
     "switchToLightTheme": "Chuyển sang giao diện sáng"
+  },
+  "errorState": {
+    "title": "Không tải được trang",
+    "hint": "Nếu lỗi vẫn lặp lại, hãy khởi động lại trình duyệt.",
+    "retry": "Thử lại"
   }
 }

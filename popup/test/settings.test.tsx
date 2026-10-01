@@ -124,6 +124,70 @@ it("keys that cannot be read leave the page usable, as without a key: DeepL asks
   expect(error).toHaveBeenCalledWith("Could not read the stored API keys", expect.any(Error));
 });
 
+describe("the settings page that cannot load says so, instead of a skeleton forever or a form with nothing in it", () => {
+  const ERROR_TITLE = "Couldn't load this page";
+
+  /** Every `settings` the page has written to the synced storage. */
+  const settingsWrites = (fake: Awaited<ReturnType<typeof renderPopup>>["fake"]) => {
+    const set = vi.spyOn(fake.chrome.storage.sync, "set");
+    return () => set.mock.calls.map(([items]) => items as Record<string, unknown>).filter((items) => "settings" in items);
+  };
+
+  it("settings that cannot be read: the error screen with the tabs, nothing written; Try again shows the stored ones", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const settings = { ...defaultSettings, targetLanguageCode: "ru" };
+    const { fake, user } = await renderPopup({ sync: { settings }, failingReads: { sync: ["settings"] } });
+    const writes = settingsWrites(fake);
+
+    await screen.findByText(ERROR_TITLE);
+    expect(screen.getByText("If this keeps happening, restart your browser.")).toBeTruthy();
+    expect(screen.getByRole("tab", { name: "Customize" })).toBeTruthy();
+    expect(screen.queryByRole("combobox", { name: /Translator/ })).toBeNull();
+    expect(screen.queryByText("Failed to get settings")).toBeNull();
+    expect(error).toHaveBeenCalledWith("Could not load the settings", expect.objectContaining({
+      message: "The sync storage could not be read",
+    }));
+
+    fake.failingReads.sync = [];
+    await user.click(screen.getByRole("button", { name: "Try again" }));
+
+    expect((await translatorSelect()).textContent).toBe("Google");
+    expect(await screen.findByText("Russian")).toBeTruthy();
+    expect(screen.queryByText(ERROR_TITLE)).toBeNull();
+    expect(writes()).toEqual([]);
+    expect(fake.storage.sync.settings).toEqual(settings);
+  });
+
+  it("the background does not answer and the translator is Google: the error screen, not a form with empty lists", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { fake } = await renderPopup({ sync: { settings: defaultSettings }, background: false });
+    const writes = settingsWrites(fake);
+
+    await screen.findByText(ERROR_TITLE);
+    expect(screen.queryByRole("combobox", { name: /Translator/ })).toBeNull();
+    // The reason goes to the console, not to a notice next to the screen.
+    expect(screen.queryByText(/translator is unavailable/)).toBeNull();
+    expect(error).toHaveBeenCalledWith("Could not load the settings", expect.objectContaining({
+      message: "The background script did not respond",
+    }));
+    expect(writes()).toEqual([]);
+  });
+
+  it("the background does not answer and the translator is Bing: the error screen, Bing kept, no notice of a switch that did not happen", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const settings = { ...defaultSettings, translator: "bing" as const };
+    const { fake } = await renderPopup({ sync: { settings }, grantedOrigins: [BING_ORIGIN], background: false });
+    const writes = settingsWrites(fake);
+
+    await screen.findByText(ERROR_TITLE);
+    expect(screen.queryByRole("combobox", { name: /Translator/ })).toBeNull();
+    expect(screen.queryByText(/Switching back to Google/)).toBeNull();
+    expect(screen.queryByText("Failed to get settings")).toBeNull();
+    expect(writes()).toEqual([]);
+    expect(fake.storage.sync.settings).toEqual(settings);
+  });
+});
+
 describe("the language lists are named in the popup's language", () => {
   const sourceSelect = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
 

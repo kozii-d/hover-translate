@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { act, screen, waitFor } from "@testing-library/react";
 import i18n from "@/app/config/i18n.ts";
 import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
@@ -29,6 +29,37 @@ it("the page draws its fields once, with the stored theme", async () => {
   await screen.findByText("50%");
 
   expect(shown()).toEqual(["50%"]);
+});
+
+describe("the stored theme that cannot be read", () => {
+  it("the error screen instead of a form with the defaults, the theme left alone; Try again shows it", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const tooltipTheme = { ...AUTO_THEME, fontSize: "50%" };
+    const { fake, user } = await renderPopup({ route: "/customize", sync: { tooltipTheme }, failingReads: { sync: ["tooltipTheme"] } });
+    const set = vi.spyOn(fake.chrome.storage.sync, "set");
+
+    await screen.findByText("Couldn't load this page");
+    expect(screen.queryByRole("combobox", { name: /^Font size/ })).toBeNull();
+    expect(screen.queryByText("Failed to get tooltipTheme")).toBeNull();
+    expect(error).toHaveBeenCalledWith("Could not load the tooltip theme", expect.objectContaining({
+      message: "The sync storage could not be read",
+    }));
+
+    fake.failingReads.sync = [];
+    await user.click(screen.getByRole("button", { name: "Try again" }));
+
+    expect((await field("Font size")).textContent).toBe("50%");
+    expect(screen.queryByText("Couldn't load this page")).toBeNull();
+    expect(set).not.toHaveBeenCalled();
+    expect(fake.storage.sync.tooltipTheme).toEqual(tooltipTheme);
+  });
+
+  it("is not the same as none stored: the form with the defaults", async () => {
+    await renderPopup({ route: "/customize" });
+
+    expect((await field("Font size")).textContent).toBe("As on YouTube");
+    expect(screen.queryByText("Couldn't load this page")).toBeNull();
+  });
 });
 
 describe("the Customize page's menus are in the popup's language, named as in YouTube's caption options", () => {

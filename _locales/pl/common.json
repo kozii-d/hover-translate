@@ -3,5 +3,10 @@
     "languageSelector": "Zmień język interfejsu",
     "switchToDarkTheme": "Przełącz na ciemny motyw",
     "switchToLightTheme": "Przełącz na jasny motyw"
+  },
+  "errorState": {
+    "title": "Nie udało się wczytać strony",
+    "hint": "Jeśli błąd się powtarza, uruchom ponownie przeglądarkę.",
+    "retry": "Spróbuj ponownie"
   }
 }

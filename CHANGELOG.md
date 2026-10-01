@@ -27,7 +27,8 @@ All notable changes to this project will be documented in this file.
 - Language names, the options on the Customize page and the dates on the Dictionary page were in English whatever the language of the settings. They now follow it.
 - Better wording of the settings in most languages: the subtitle appearance options use YouTube's own names, the tab with your saved words is named as in the store, and leftover English text and mixed formal and informal address are gone.
 - The settings window no longer changes its width when moving between tabs or opening a list, and its tabs no longer cut off their names in some languages.
-- The Settings and Customize tabs no longer show default values for a moment before your own settings appear.
+- The Settings and Customize tabs no longer show default values, nor the Dictionary tab an empty list, for a moment before your own settings and words appear.
+- When the settings, the subtitle style or the saved words cannot be read, or a tab fails to open, the window now says so and offers to try again, instead of loading forever, showing default values or an empty dictionary, or going blank.
 - On a first install in Norwegian Nynorsk, the translation language is now Norwegian instead of English.
 
 ## [1.1.14] - 2026-09-24

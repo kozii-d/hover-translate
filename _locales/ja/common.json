@@ -3,5 +3,10 @@
     "languageSelector": "ポップアップの言語を変更",
     "switchToDarkTheme": "ダークテーマに切り替え",
     "switchToLightTheme": "ライトテーマに切り替え"
+  },
+  "errorState": {
+    "title": "ページを読み込めませんでした",
+    "hint": "繰り返し発生する場合は、ブラウザを再起動してください。",
+    "retry": "再試行"
   }
 }

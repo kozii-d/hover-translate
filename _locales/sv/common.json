@@ -3,5 +3,10 @@
     "languageSelector": "Ändra språk för popup-fönstret",
     "switchToDarkTheme": "Byt till mörkt tema",
     "switchToLightTheme": "Byt till ljust tema"
+  },
+  "errorState": {
+    "title": "Det gick inte att läsa in sidan",
+    "hint": "Om felet upprepas, starta om webbläsaren.",
+    "retry": "Försök igen"
   }
 }

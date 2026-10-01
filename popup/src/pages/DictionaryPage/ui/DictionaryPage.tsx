@@ -14,13 +14,17 @@ import { useTranslation } from "react-i18next";
 import { ExportData } from "@/features/ExportTranslations";
 import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 import { toTag } from "@/shared/lib/helpers/languageNames.ts";
+import { ErrorState } from "@/shared/ui/ErrorState/ErrorState.tsx";
 
 const MAX_TRANSLATIONS_PER_PAGE = 25;
 
 const DictionaryPage: FC = () => {
   const [allTranslations, setAllTranslations] = useState<Translation[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
+  // True from the start: drawn before the read, the page would say it is empty.
+  const [loading, setLoading] = useState<boolean>(true);
+  // Not "empty" instead: the viewer would think the words are gone.
+  const [loadFailed, setLoadFailed] = useState(false);
   const { t, i18n } = useTranslation("dictionary");
 
   const dayFormat = useMemo(() => {
@@ -43,19 +47,19 @@ const DictionaryPage: FC = () => {
 
   const getTranslations = useCallback(async () => {
     setLoading(true);
+    setLoadFailed(false);
     try {
       const savedTranslations = await get<Translation[]>("savedTranslations", "local");
       if (savedTranslations) {
         setAllTranslations(savedTranslations);
       }
     } catch (error) {
-      const errorMessage = "Failed to get translations";
-      notifications.show(errorMessage, { severity: "error", autoHideDuration: 5000 });
-      console.error(errorMessage, error);
+      console.error("Could not load the saved translations", error);
+      setLoadFailed(true);
     } finally {
       setLoading(false);
     }
-  }, [get, notifications]);
+  }, [get]);
 
   const removeTranslationById = useCallback(async (id: string) => {
     try {
@@ -92,6 +96,14 @@ const DictionaryPage: FC = () => {
     return (
       <Page title={t("pageTitle")}>
         <DictionaryContentSkeleton/>
+      </Page>
+    );
+  }
+
+  if (loadFailed) {
+    return (
+      <Page title={t("pageTitle")}>
+        <ErrorState onRetry={getTranslations}/>
       </Page>
     );
   }
