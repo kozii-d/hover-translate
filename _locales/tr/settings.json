@@ -10,17 +10,17 @@
   "fields": {
     "targetLanguageCode": {
       "label": "Şu dile çevir",
-      "tooltip": "Metnin çevrileceği hedef dil"
+      "tooltip": "Metnin çevrileceği dil"
     },
     "sourceLanguageCode": {
       "label": "Şu dilden çevir",
-      "tooltip": "Metnin çevrileceği kaynak dil",
+      "tooltip": "Çevrilecek metnin dili",
       "auto": "Dili algıla"
     },
     "languagePanel": {
       "search": "Dil ara",
       "noResults": "Dil bulunamadı",
-      "back": "Geri dön"
+      "back": "Geri"
     },
     "translator": {
       "label": "Çevirmen",
@@ -35,7 +35,7 @@
       "label": "Sol tık işlemi",
       "tooltip": "Altyazılardaki kelimelere sol tıklandığında yapılacak işlem",
       "options": {
-        "saveToDictionary": "Sözlüğe kaydet",
+        "saveToDictionary": "Kelime defterine kaydet",
         "copyOriginal": "Orijinal metni panoya kopyala",
         "copyTranslation": "Çevrilmiş metni panoya kopyala",
         "nothing": "Hiçbir şey"
@@ -43,12 +43,12 @@
     },
     "alwaysMultipleSelection": {
       "label": "Her zaman çoklu seçimi etkinleştir",
-      "tooltip": "Shift tuşuna basmadan çoklu kelime seçimini etkinleştir",
-      "helperText": "Etkinleştirildiğinde, Shift tuşuna basmadan birden fazla kelime seçebilirsiniz"
+      "tooltip": "Üst Karakter tuşunu basılı tutmadan çoklu kelime seçimini etkinleştir",
+      "helperText": "Etkinleştirildiğinde, Üst Karakter tuşunu basılı tutmadan birden fazla kelime seçebilirsiniz"
     },
     "showNotifications": {
       "label": "Bildirimleri göster",
-      "tooltip": "Kelimeler sözlüğe kaydedildiğinde veya panoya kopyalandığında bildirim göster",
+      "tooltip": "Kelimeler kelime defterine kaydedildiğinde veya panoya kopyalandığında bildirim göster",
       "helperText": "Devre dışı bırakıldığında, kelimeler kaydedildiğinde veya kopyalandığında bildirim görünmez"
     }
   },
@@ -60,7 +60,7 @@
     }
   },
   "tips": {
-    "multipleSelection": "Çoklu kelime seçimi için Shift tuşuna basılı tutun ve ihtiyacınız olan kelimelerin üzerine gelin. Veya 'Her zaman çoklu seçimi etkinleştir' ayarını açın.",
+    "multipleSelection": "Birden fazla kelime seçmek için Üst Karakter tuşunu basılı tutun ve istediğiniz kelimelerin üzerine gelin. Ya da \"Her zaman çoklu seçimi etkinleştir\" ayarını açın.",
     "dismiss": "İpucunu gizle"
   },
   "apiKey": {
@@ -86,11 +86,11 @@
       "connected": "{{translatorName}} bağlı",
       "plan": {
         "free": "Ücretsiz plan",
-        "pro": "Pro plan"
+        "pro": "Pro planı"
       }
     },
     "usage": {
-      "label": "Bu fatura döneminde {{limit}} karakterin {{used}} kadarı kullanıldı",
+      "label": "Bu fatura döneminde {{limit}} karakterden {{used}} karakter kullanıldı",
       "unavailable": "Kullanım bilgisi yüklenemedi. {{reason}}",
       "exhausted": "Sınır doldu — {{translatorName}} sınır yenilenene kadar çeviri yapmayacak."
     },
@@ -143,7 +143,7 @@
     "switch": "DeepL'e geç"
   },
   "ratingPrompt": {
-    "text": "HoverTranslate öğrenmenize yardımcı oluyorsa, bir puan diğer öğrenenlerin onu bulmasına yardımcı olur.",
+    "text": "HoverTranslate öğrenmenize yardımcı oluyorsa, vereceğiniz puan başka dil öğrenenlerin de onu bulmasını kolaylaştırır.",
     "rate": "Puan ver",
     "dontAskAgain": "Bir daha sorma",
     "notNow": "Şimdi değil",

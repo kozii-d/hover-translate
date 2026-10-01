@@ -15,13 +15,13 @@
     "message": "Çevrilmiş metin kopyalandı"
   },
   "copyFailed": {
-    "message": "Kopyalama başarısız"
+    "message": "Kopyalanamadı"
   },
   "saveFailed": {
-    "message": "Kaydetme başarısız"
+    "message": "Kaydedilemedi"
   },
   "translationFailed": {
-    "message": "Çeviri başarısız"
+    "message": "Çevrilemedi"
   },
   "errorApiKeyMissing": {
     "message": "$TRANSLATOR$: API anahtarınızı HoverTranslate ayarlarından ekleyin",
@@ -113,7 +113,7 @@
     }
   },
   "ratingPromptText": {
-    "message": "HoverTranslate öğrenmenize yardımcı oluyorsa, bir puan diğer öğrenenlerin onu bulmasına yardımcı olur."
+    "message": "HoverTranslate öğrenmenize yardımcı oluyorsa, vereceğiniz puan başka dil öğrenenlerin de onu bulmasını kolaylaştırır."
   },
   "ratingPromptRate": {
     "message": "Puan ver"

@@ -3,7 +3,7 @@
     "message": "HoverTranslate - YouTube सबटाइटल अनुवादक"
   },
   "description": {
-    "message": "YouTube सबटाइटल ट्रांसलेटर: किसी शब्द पर कर्सर ले जाइए और तुरंत उसका अनुवाद देखिए। अंग्रेज़ी सीखने के लिए। मुफ़्त, बिना अकाउंट के।"
+    "message": "YouTube सबटाइटल ट्रांसलेटर: किसी शब्द पर कर्सर ले जाइए और तुरंत उसका अनुवाद देखिए। अंग्रेज़ी सीखने के लिए। मुफ़्त, बिना खाता बनाए।"
   },
   "translationSaved": {
     "message": "अनुवाद सेव हो गया"
@@ -12,19 +12,19 @@
     "message": "मूल टेक्स्ट कॉपी हो गया"
   },
   "translatedTextCopied": {
-    "message": "अनुवादित पाठ कॉपी किया गया"
+    "message": "अनुवादित टेक्स्ट कॉपी हो गया"
   },
   "copyFailed": {
-    "message": "कॉपी विफल"
+    "message": "कॉपी नहीं हो सका"
   },
   "saveFailed": {
-    "message": "सेव विफल"
+    "message": "सेव नहीं हो सका"
   },
   "translationFailed": {
-    "message": "अनुवाद विफल"
+    "message": "अनुवाद नहीं हो सका"
   },
   "errorApiKeyMissing": {
-    "message": "$TRANSLATOR$: HoverTranslate सेटिंग्स में अपनी API कुंजी जोड़ें",
+    "message": "$TRANSLATOR$: HoverTranslate की सेटिंग में अपनी API कुंजी जोड़ें",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -33,7 +33,7 @@
     }
   },
   "errorApiKeyInvalid": {
-    "message": "$TRANSLATOR$ ने आपकी API कुंजी स्वीकार नहीं की। HoverTranslate सेटिंग्स में इसे जाँचें",
+    "message": "$TRANSLATOR$ ने आपकी API कुंजी स्वीकार नहीं की। HoverTranslate की सेटिंग में इसे जांचें",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -60,7 +60,7 @@
     }
   },
   "errorPermissionMissing": {
-    "message": "HoverTranslate को $TRANSLATOR$ से कनेक्ट करने की अनुमति नहीं है। HoverTranslate सेटिंग्स में अनुमति दें",
+    "message": "HoverTranslate को $TRANSLATOR$ से कनेक्ट करने की अनुमति नहीं है। HoverTranslate की सेटिंग में अनुमति दें",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -69,7 +69,7 @@
     }
   },
   "noticePermissionFallback": {
-    "message": "$TRANSLATOR$ को $HOST$ तक पहुँच चाहिए — HoverTranslate सेटिंग्स में अनुमति दें। तब तक $FALLBACK$ का उपयोग किया जा रहा है",
+    "message": "$TRANSLATOR$ को $HOST$ तक पहुंच चाहिए — HoverTranslate की सेटिंग में अनुमति दें। तब तक $FALLBACK$ का इस्तेमाल किया जा रहा है",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -95,7 +95,7 @@
     }
   },
   "errorNetwork": {
-    "message": "$TRANSLATOR$ तक नहीं पहुँचा जा सका। अपना कनेक्शन जाँचें",
+    "message": "$TRANSLATOR$ तक नहीं पहुंचा जा सका। अपना कनेक्शन जांचें",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -113,7 +113,7 @@
     }
   },
   "ratingPromptText": {
-    "message": "अगर HoverTranslate से आपको सीखने में मदद मिलती है, तो एक रेटिंग दूसरे सीखने वालों को इसे ढूँढने में मदद करती है।"
+    "message": "अगर HoverTranslate से आपको सीखने में मदद मिलती है, तो आपकी रेटिंग से दूसरे सीखने वाले भी इसे आसानी से ढूंढ पाएंगे।"
   },
   "ratingPromptRate": {
     "message": "रेट करें"

@@ -41,7 +41,7 @@ describe("the Customize page's menus are in the popup's language, named as in Yo
     expect((await field("Шрифт")).textContent).toBe("Как на YouTube");
     expect((await field("Цвет шрифта")).textContent).toBe("Красный");
     expect((await field("Размер шрифта")).textContent).toBe("50\u00a0%");
-    expect((await field("Стиль границ символов")).textContent).toBe("С тенью");
+    expect((await field("Стиль контура символов")).textContent).toBe("С тенью");
   });
 
   it("follow the popup's language when it changes on the page", async () => {
@@ -50,7 +50,7 @@ describe("the Customize page's menus are in the popup's language, named as in Yo
 
     await act(() => i18n.changeLanguage("tr"));
 
-    expect((await field("Yazı boyutu")).textContent).toBe("%50");
+    expect((await field("Yazı tipi boyutu")).textContent).toBe("%50");
     expect((await field("Yazı tipi ailesi")).textContent).toBe("YouTube'daki gibi");
   });
 
@@ -80,7 +80,7 @@ describe("the Customize page's menus are in the popup's language, named as in Yo
   it("tr: the percentages are written as Turkish writes them", async () => {
     const { user } = await renderPopup({ route: "/customize", language: "tr", sync: { tooltipTheme: AUTO_THEME } });
 
-    expect((await openMenu(user, "Yazı boyutu"))[1]).toBe("%50");
+    expect((await openMenu(user, "Yazı tipi boyutu"))[1]).toBe("%50");
   });
 
   it("picking a translated item stores its value, not its label", async () => {

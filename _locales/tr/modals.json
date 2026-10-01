@@ -15,10 +15,10 @@
     "footer": "Her kahve HoverTranslate'i geliştirmeme yardımcı olur",
     "actions": {
       "showQR": {
-        "text": "QR Göster"
+        "text": "QR kodunu göster"
       },
       "hideQR": {
-        "text": "QR Gizle"
+        "text": "QR kodunu gizle"
       },
       "copyAddress": {
         "text": "Kopyala"
@@ -28,7 +28,7 @@
       }
     },
     "labels": {
-      "address": "{{networkType}} Adres"
+      "address": "{{networkType}} adresi"
     },
     "notifications": {
       "copyAddress": "Adres panoya kopyalandı!"

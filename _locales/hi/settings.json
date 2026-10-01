@@ -1,19 +1,19 @@
 {
-  "pageTitle": "सेटिंग्स",
-  "tabLabel": "सेटिंग्स",
+  "pageTitle": "सेटिंग",
+  "tabLabel": "सेटिंग",
   "actions": {
     "reset": {
       "text": "डिफ़ॉल्ट पर रीसेट करें",
-      "tooltip": "डिफ़ॉल्ट सेटिंग्स पर रीसेट करें"
+      "tooltip": "डिफ़ॉल्ट सेटिंग पर रीसेट करें"
     }
   },
   "fields": {
     "targetLanguageCode": {
-      "label": "इसमें अनुवाद करें",
+      "label": "इस भाषा में अनुवाद करें",
       "tooltip": "वह भाषा जिसमें टेक्स्ट का अनुवाद किया जाएगा"
     },
     "sourceLanguageCode": {
-      "label": "इससे अनुवाد करें",
+      "label": "इस भाषा से अनुवाद करें",
       "tooltip": "वह भाषा जिससे टेक्स्ट का अनुवाद किया जाएगा",
       "auto": "भाषा का पता लगाएं"
     },
@@ -24,63 +24,63 @@
     },
     "translator": {
       "label": "अनुवादक",
-      "tooltip": "अनुवाद के लिए उपयोग किया जाने वाला अनुवादक"
+      "tooltip": "अनुवाद के लिए इस्तेमाल किया जाने वाला अनुवादक"
     },
     "autoPause": {
-      "label": "ऑटो पॉज़",
-      "tooltip": "सबटाइटल पर होवर करते समय वीडियो को अपने आप रोकें",
-      "helperText": "सबटाइटल पर होवर करते समय वीडियो को अपने आप रोकें"
+      "label": "ऑटो-पॉज़",
+      "tooltip": "सबटाइटल पर कर्सर ले जाने पर वीडियो को अपने-आप रोकें",
+      "helperText": "सबटाइटल पर कर्सर ले जाने पर वीडियो को अपने-आप रोकें"
     },
     "leftClickAction": {
-      "label": "बाएँ क्लिक की क्रिया",
-      "tooltip": "उपशीर्षक में शब्दों पर बाएँ क्लिक करने पर की जाने वाली क्रिया",
+      "label": "बाएं क्लिक पर कार्रवाई",
+      "tooltip": "सबटाइटल के शब्दों पर बायां क्लिक करने पर होने वाली कार्रवाई",
       "options": {
-        "saveToDictionary": "शब्दकोश में सहेजें",
-        "copyOriginal": "मूल पाठ को क्लिपबोर्ड पर कॉपी करें",
-        "copyTranslation": "अनुवादित पाठ को क्लिपबोर्ड पर कॉपी करें",
+        "saveToDictionary": "शब्द सूची में सेव करें",
+        "copyOriginal": "मूल टेक्स्ट को क्लिपबोर्ड पर कॉपी करें",
+        "copyTranslation": "अनुवादित टेक्स्ट को क्लिपबोर्ड पर कॉपी करें",
         "nothing": "कुछ नहीं"
       }
     },
     "alwaysMultipleSelection": {
-      "label": "हमेशा मल्टिपल सेलेक्शन सक्षम करें",
-      "tooltip": "Shift दबाए बिना मल्टिपल शब्द सेलेक्शन सक्षम करें",
-      "helperText": "जब सक्षम हो, तो आप Shift दबाए बिना मल्टिपल शब्द सेलेक्ट कर सकते हैं"
+      "label": "हमेशा एक साथ कई शब्द चुनें",
+      "tooltip": "Shift दबाए बिना एक साथ कई शब्द चुनने की सुविधा चालू करें",
+      "helperText": "चालू होने पर, आप Shift दबाए बिना एक साथ कई शब्द चुन सकते हैं"
     },
     "showNotifications": {
-      "label": "नोटिफिकेशन दिखाएं",
-      "tooltip": "जब शब्द शब्दकोश में सेव हों या क्लिपबोर्ड में कॉपी हों तो नोटिफिकेशन दिखाएं",
-      "helperText": "जब अक्षम हो, तो शब्द सेव या कॉपी होने पर कोई नोटिफिकेशन नहीं दिखेगा"
+      "label": "सूचनाएं दिखाएं",
+      "tooltip": "शब्द सूची में शब्द सेव होने या क्लिपबोर्ड पर कॉपी होने पर सूचना दिखाएं",
+      "helperText": "बंद होने पर, शब्द सेव या कॉपी होने पर कोई सूचना नहीं दिखेगी"
     }
   },
   "modals": {
     "reset": {
-      "title": "डिफ़ॉल्ट सेटिंग्स पर रीसेट करें?",
-      "description": "यह सभी सेटिंग्स को उनकी डिफ़ॉल्ट वैल्यू पर वापस कर देगा।",
+      "title": "डिफ़ॉल्ट सेटिंग पर रीसेट करें?",
+      "description": "इससे सभी सेटिंग अपनी डिफ़ॉल्ट वैल्यू पर वापस आ जाएंगी।",
       "action": "रीसेट करें"
     }
   },
   "tips": {
-    "multipleSelection": "मल्टिपल शब्द सेलेक्शन के लिए, Shift दबाकर रखें और आवश्यक शब्दों पर होवर करें। या 'हमेशा मल्टिपल सेलेक्शन सक्षम करें' सेटिंग चालू करें।",
-    "dismiss": "सुझाव छिपाएँ"
+    "multipleSelection": "एक साथ कई शब्द चुनने के लिए, Shift दबाकर रखें और ज़रूरी शब्दों पर कर्सर ले जाएं। या \"हमेशा एक साथ कई शब्द चुनें\" सेटिंग चालू करें।",
+    "dismiss": "सुझाव छिपाएं"
   },
   "apiKey": {
-    "requiredHint": "आपकी API कुंजी आवश्यक है",
+    "requiredHint": "आपकी API कुंजी ज़रूरी है",
     "title": "{{translatorName}} कनेक्ट करें",
-    "description": "{{translatorName}} आपकी निजी API कुंजी से काम करता है। {{translatorName}} की वेबसाइट पर खाता बनाएँ (मुफ़्त प्लान उपलब्ध है) और अपने खाते के पेज से कुंजी कॉपी करें।",
+    "description": "{{translatorName}} आपकी निजी API कुंजी से काम करता है। {{translatorName}} की वेबसाइट पर खाता बनाएं (मुफ़्त प्लान उपलब्ध है) और अपने खाते के पेज से कुंजी कॉपी करें।",
     "getKey": "API कुंजी प्राप्त करें",
     "field": {
       "label": "API कुंजी",
-      "placeholder": "अपनी कुंजी यहाँ पेस्ट करें",
-      "show": "कुंजी दिखाएँ",
-      "hide": "कुंजी छिपाएँ"
+      "placeholder": "अपनी कुंजी यहां पेस्ट करें",
+      "show": "कुंजी दिखाएं",
+      "hide": "कुंजी छिपाएं"
     },
-    "privacy": "केवल इसी डिवाइस पर सहेजी जाती है और केवल {{translatorName}} को भेजी जाती है।",
+    "privacy": "सिर्फ़ इसी डिवाइस पर सेव की जाती है और सिर्फ़ {{translatorName}} को भेजी जाती है।",
     "actions": {
       "connect": "कनेक्ट करें",
-      "connecting": "जाँच हो रही है…",
+      "connecting": "जांच हो रही है…",
       "cancel": "रद्द करें",
       "change": "कुंजी बदलें",
-      "remove": "कुंजी हटाएँ"
+      "remove": "कुंजी हटाएं"
     },
     "status": {
       "connected": "{{translatorName}} कनेक्ट है",
@@ -90,8 +90,8 @@
       }
     },
     "usage": {
-      "label": "इस बिलिंग अवधि में {{limit}} में से {{used}} वर्ण उपयोग हुए",
-      "unavailable": "उपयोग लोड नहीं हो सका। {{reason}}",
+      "label": "इस बिलिंग अवधि में {{limit}} में से {{used}} वर्ण इस्तेमाल हुए",
+      "unavailable": "इस्तेमाल की जानकारी लोड नहीं हो सकी। {{reason}}",
       "exhausted": "सीमा समाप्त हो गई है — सीमा रीसेट होने तक {{translatorName}} अनुवाद नहीं करेगा।"
     },
     "notifications": {
@@ -101,38 +101,38 @@
     },
     "modals": {
       "remove": {
-        "title": "{{translatorName}} API कुंजी हटाएँ?",
-        "description": "कुंजी इस डिवाइस से हटा दी जाएगी और अनुवाद {{fallbackTranslatorName}} पर स्विच हो जाएँगे।",
+        "title": "{{translatorName}} API कुंजी हटाएं?",
+        "description": "कुंजी इस डिवाइस से हटा दी जाएगी और अनुवाद {{fallbackTranslatorName}} पर स्विच हो जाएंगे।",
         "descriptionInactive": "कुंजी इस डिवाइस से हटा दी जाएगी।",
-        "action": "हटाएँ"
+        "action": "हटाएं"
       }
     },
     "errors": {
       "empty": "अपनी API कुंजी दर्ज करें",
-      "permissionDenied": "{{translatorName}} तक पहुँच के बिना HoverTranslate कुंजी की जाँच नहीं कर सकता। फिर से \"कनेक्ट करें\" पर क्लिक करें और पहुँच की अनुमति दें।",
-      "saveFailed": "कुंजी सहेजी नहीं जा सकी। फिर से कोशिश करें।",
+      "permissionDenied": "{{translatorName}} तक पहुंच के बिना HoverTranslate कुंजी की जांच नहीं कर सकता। फिर से \"कनेक्ट करें\" पर क्लिक करें और पहुंच की अनुमति दें।",
+      "saveFailed": "कुंजी सेव नहीं की जा सकी। फिर से कोशिश करें।",
       "removeFailed": "कुंजी हटाई नहीं जा सकी। फिर से कोशिश करें।",
-      "settingsSaveFailed": "कुंजी सहेज ली गई, लेकिन सेटिंग्स सहेजी नहीं जा सकीं। फिर से कोशिश करने के लिए \"कनेक्ट करें\" पर क्लिक करें।"
+      "settingsSaveFailed": "कुंजी सेव हो गई, लेकिन सेटिंग सेव नहीं की जा सकीं। फिर से कोशिश करने के लिए \"कनेक्ट करें\" पर क्लिक करें।"
     }
   },
   "errors": {
-    "sourceLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए स्रोत भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच कर रहे हैं।",
-    "targetLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए लक्ष्य भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच कर रहे हैं।",
+    "sourceLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए स्रोत भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच किया जा रहा है।",
+    "targetLanguageCode": "{{incorrectLanguage}} {{translatorName}} अनुवादक के लिए लक्ष्य भाषा के रूप में उपलब्ध नहीं है। {{defaultLanguage}} पर स्विच किया जा रहा है।",
     "translatorUnavailable": "{{translatorName}} अनुवादक उपलब्ध नहीं है: {{errorMessage}}",
-    "translatorFallback": "{{translatorName}} अनुवादक उपलब्ध नहीं है: {{errorMessage}}. {{fallbackTranslatorName}} पर वापस स्विच किया जा रहा है।",
-    "translatorSwitchFailed": "{{translatorName}} पर स्विच नहीं किया जा सका: {{errorMessage}}. {{previousTranslatorName}} ही बना रहेगा।",
+    "translatorFallback": "{{translatorName}} अनुवादक उपलब्ध नहीं है: {{errorMessage}}। {{fallbackTranslatorName}} पर वापस स्विच किया जा रहा है।",
+    "translatorSwitchFailed": "{{translatorName}} पर स्विच नहीं किया जा सका: {{errorMessage}}। {{previousTranslatorName}} ही चुना रहेगा।",
     "translatorFallbackReason": "{{reason}} {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} ही चुना रहेगा।",
-    "translatorWithdrawn": "{{translatorName}} अनुवादक HoverTranslate के इस संस्करण में उपलब्ध नहीं है और अगले अपडेट में वापस आएगा। {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
-    "translatorPermissionFallback": "{{translatorName}} को {{host}} तक पहुँच चाहिए। अनुमति देने के लिए सूची में {{translatorName}} चुनें। {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
+    "translatorWithdrawn": "{{translatorName}} अनुवादक HoverTranslate के इस वर्शन में उपलब्ध नहीं है और अगले अपडेट में वापस आएगा। {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
+    "translatorPermissionFallback": "{{translatorName}} को {{host}} तक पहुंच चाहिए। अनुमति देने के लिए सूची में {{translatorName}} चुनें। {{fallbackTranslatorName}} पर स्विच किया जा रहा है।",
     "translator": {
       "apiKeyMissing": "इस डिवाइस पर कोई {{translatorName}} API कुंजी नहीं जोड़ी गई है।",
-      "apiKeyInvalid": "{{translatorName}} ने API कुंजी स्वीकार नहीं की। जाँचें कि वह पूरी कॉपी हुई है।",
+      "apiKeyInvalid": "{{translatorName}} ने API कुंजी स्वीकार नहीं की। जांचें कि वह पूरी कॉपी हुई है।",
       "quotaExceeded": "इस बिलिंग अवधि की {{translatorName}} वर्ण सीमा समाप्त हो गई है।",
       "rateLimited": "{{translatorName}} को बहुत अधिक अनुरोध मिले। थोड़ी देर में फिर कोशिश करें।",
       "permissionMissing": "HoverTranslate को {{translatorName}} से कनेक्ट करने की अनुमति नहीं है।",
       "unsupportedLanguage": "{{translatorName}} चुनी गई भाषा का समर्थन नहीं करता।",
-      "network": "{{translatorName}} तक नहीं पहुँचा जा सका। अपना इंटरनेट कनेक्शन जाँचें।",
+      "network": "{{translatorName}} तक नहीं पहुंचा जा सका। अपना इंटरनेट कनेक्शन जांचें।",
       "serviceUnavailable": "{{translatorName}} अस्थायी रूप से उपलब्ध नहीं है। बाद में फिर कोशिश करें।"
     }
   },
@@ -143,10 +143,10 @@
     "switch": "DeepL पर स्विच करें"
   },
   "ratingPrompt": {
-    "text": "अगर HoverTranslate से आपको सीखने में मदद मिलती है, तो एक रेटिंग दूसरे सीखने वालों को इसे ढूँढने में मदद करती है।",
+    "text": "अगर HoverTranslate से आपको सीखने में मदद मिलती है, तो आपकी रेटिंग से दूसरे सीखने वाले भी इसे आसानी से ढूंढ पाएंगे।",
     "rate": "रेट करें",
     "dontAskAgain": "दोबारा न पूछें",
     "notNow": "अभी नहीं",
-    "reportProblem": "कुछ काम नहीं कर रहा? GitHub पर हमें बताएँ"
+    "reportProblem": "कुछ काम नहीं कर रहा? GitHub पर हमें बताएं"
   }
 }

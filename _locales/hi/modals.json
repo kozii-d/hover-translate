@@ -10,9 +10,9 @@
     }
   },
   "support": {
-    "title": "मुझे एक कॉफी खरीदें",
+    "title": "मुझे एक कॉफ़ी पिलाएं",
     "description": "HoverTranslate का समर्थन करने के लिए धन्यवाद!\nअपनी पसंदीदा क्रिप्टोकरेंसी चुनें",
-    "footer": "हर कॉफी मुझे HoverTranslate को बेहतर बनाने में मदद करती है",
+    "footer": "हर कॉफ़ी से मुझे HoverTranslate को बेहतर बनाने में मदद मिलती है",
     "actions": {
       "showQR": {
         "text": "QR दिखाएं"
@@ -31,7 +31,7 @@
       "address": "{{networkType}} पता"
     },
     "notifications": {
-      "copyAddress": "पता क्लिपबोर्ड में कॉपी हो गया!"
+      "copyAddress": "पता क्लिपबोर्ड पर कॉपी हो गया!"
     },
     "warnings": {
       "verifyNetwork": "भेजने से पहले नेटवर्क और टोकन की पुष्टि करें",

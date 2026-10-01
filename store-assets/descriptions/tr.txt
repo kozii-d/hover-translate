@@ -3,8 +3,8 @@ HoverTranslate – YouTube altyazı çeviri eklentisi, videolarla dil öğrenenl
 İngilizce altyazılı bir video izlerken bilmediğiniz bir kelimeyle mi karşılaştınız? İmleci kelimenin üzerine getirmeniz yeterli: çevirisi hemen altyazının üstünde görünür. Siz okurken video duraklar, imleci çektiğiniz anda da kaldığı yerden devam eder. Kelimeyi bir çeviri aracına kopyalamanıza, konuşmanın akışını kaçırmanıza gerek yok: izlemeye devam eder, giderek daha fazlasını anlarsınız. İster YDS ve YÖKDİL'e hazırlanın ister iş için İngilizcenizi geliştirin: YouTube ile İngilizce öğrenmek çok daha rahat hale gelir.
 
 HoverTranslate neler yapar:
-• Tek tek kelimeleri de bütün ifadeleri de çevirir. Bir deyim ya da kalıp ifadeyle mi karşılaştınız? Shift tuşunu basılı tutup imleci kelimelerin üzerinde gezdirin. Shift'e basmadan seçmek isterseniz bunu ayarlardan açabilirsiniz.
-• Kendi kelime listenizi oluşturur. Tıkladığınız kelime, çevirisiyle birlikte kaydedilir. Listeyi CSV veya JSON olarak dışa aktarıp yeni kelimeleri daha sonra tekrar edebilirsiniz.
+• Tek tek kelimeleri de bütün ifadeleri de çevirir. Bir deyim ya da kalıp ifadeyle mi karşılaştınız? Üst Karakter (Shift) tuşunu basılı tutup imleci kelimelerin üzerinde gezdirin. Üst Karakter tuşunu basılı tutmadan seçmek isterseniz bunu ayarlardan açabilirsiniz.
+• Kendi kelime defterinizi oluşturur. Tıkladığınız kelime, çevirisiyle birlikte kaydedilir. Defteri CSV veya JSON olarak dışa aktarıp yeni kelimeleri daha sonra tekrar edebilirsiniz.
 • Otomatik altyazılarla, yani YouTube'un kendi oluşturduğu altyazılarla da çalışır. Böylece yükleyenin altyazı eklemediği videolar da işinize yarar.
 • Yalnızca YouTube'da değil: video bir bloga, çevrimiçi bir kursa ya da bir haber yazısına yerleştirilmiş olsa bile imleci kelimenin üzerine getirmeniz yeterli.
 • Çince, Japonca ve Taycayla da başa çıkar: bu dillerde kelimeler boşluksuz yazılsa da satırın tamamını değil, tek bir kelimeyi çevirir.

@@ -10,36 +10,36 @@
   "fields": {
     "useYouTubeSettings": {
       "label": "YouTube ayarlarını kullan",
-      "tooltip": "Çeviri ipuçları için YouTube ayarlarını kullan",
-      "helperText": "Çeviri ipuçları için YouTube'daki altyazı ayarlarıyla aynı görünüm ayarlarını kullan"
+      "tooltip": "Çeviri kutucuğu için YouTube ayarlarını kullan",
+      "helperText": "Çeviri kutucuğu için YouTube'daki altyazı ayarlarıyla aynı görünüm ayarlarını kullan"
     },
     "fontFamily": {
       "label": "Yazı tipi ailesi",
-      "tooltip": "Çeviri ipuçları için kullanılacak yazı tipi ailesi"
+      "tooltip": "Çeviri kutucuğunda kullanılacak yazı tipi ailesi"
     },
     "fontSize": {
-      "label": "Yazı boyutu",
-      "tooltip": "Çeviri ipuçları için kullanılacak yazı boyutu"
+      "label": "Yazı tipi boyutu",
+      "tooltip": "Çeviri kutucuğunda kullanılacak yazı tipi boyutu"
     },
     "fontColor": {
-      "label": "Yazı rengi",
-      "tooltip": "Çeviri ipuçları için kullanılacak yazı rengi"
+      "label": "Yazı tipi rengi",
+      "tooltip": "Çeviri kutucuğunda kullanılacak yazı tipi rengi"
     },
     "fontOpacity": {
-      "label": "Yazı opaklığı",
-      "tooltip": "Çeviri ipuçları için yazı tipi opaklık seviyesi"
+      "label": "Yazı tipi opaklığı",
+      "tooltip": "Çeviri kutucuğundaki yazı tipinin opaklık seviyesi"
     },
     "backgroundColor": {
       "label": "Arka plan rengi",
-      "tooltip": "Çeviri ipuçları için arka plan rengi"
+      "tooltip": "Çeviri kutucuğunun arka plan rengi"
     },
     "backgroundOpacity": {
       "label": "Arka plan opaklığı",
-      "tooltip": "Çeviri ipuçları için arka plan opaklık seviyesi"
+      "tooltip": "Çeviri kutucuğunun arka plan opaklık seviyesi"
     },
     "characterEdgeStyle": {
       "label": "Karakter kenar stili",
-      "tooltip": "Çeviri ipuçları için karakter kenar stili"
+      "tooltip": "Çeviri kutucuğundaki karakterlerin kenar stili"
     }
   },
   "options": {

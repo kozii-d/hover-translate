@@ -8,10 +8,10 @@
       "thank-you": "Eklentimi seçtiğiniz için teşekkürler!"
     },
     "support": {
-      "title": "Projeyi Destekleyin",
+      "title": "Projeyi destekleyin",
       "actions": {
         "review": {
-          "text": "Bizi oylayın"
+          "text": "Bize puan ver"
         },
         "donate": {
           "text": "Bana bir kahve ısmarla"
@@ -19,19 +19,19 @@
       }
     },
     "contacts": {
-      "title": "İletişime Geçin",
-      "github": "Kaynak Kodunu GitHub'da Görüntüle",
-      "reportIssues": "Sorunları GitHub'da Bildir"
+      "title": "İletişime geçin",
+      "github": "Kaynak kodunu GitHub'da görüntüle",
+      "reportIssues": "Sorunları GitHub'da bildir"
     },
     "tips": {
-      "title": "Hızlı İpuçları",
-      "multipleSelection": "İfadeleri çevir: Shift tuşuna basın veya Ayarlar'dan çoklu seçimi etkinleştirin",
-      "saveToDictionary": "Kelimeleri kişisel sözlüğünüze kaydetmek için üzerlerine tıklayın",
-      "exportDictionary": "Kelime listenizi Sözlük sekmesinden JSON veya CSV olarak dışa aktarın"
+      "title": "Hızlı ipuçları",
+      "multipleSelection": "İfadeleri çevirmek için Üst Karakter tuşunu basılı tutun veya Ayarlar'dan çoklu seçimi etkinleştirin",
+      "saveToDictionary": "Bir kelimeyi kelime defterinize kaydetmek için üzerine tıklayın",
+      "exportDictionary": "Kelimelerinizi Kelime defteri sekmesinden JSON veya CSV olarak dışa aktarın"
     }
   },
   "footer": {
     "version": "Sürüm",
-    "changelog": "Değişiklik Günlüğü"
+    "changelog": "Değişiklik geçmişi"
   }
 }
