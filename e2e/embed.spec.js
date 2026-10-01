@@ -51,6 +51,20 @@ test("a click on a covered word saves it and does not reach the player; a click 
   expect(await player.isPaused()).toBe(true);
 });
 
+test("a long notification wraps inside the embedded player, as far from its right edge as from its left", async ({ openPlayer, storage }) => {
+  // Bing without access to its host: the notice that Google translates meanwhile.
+  await storage.updateSettings({ translator: "bing" });
+  const player = await openPlayer("embed");
+  await player.captions("run for your life");
+
+  await player.word("run").hover({ force: true });
+  await expect(player.notification).toContainText("Bing needs access to www.bing.com");
+  const playerBox = await player.frame.locator(".html5-video-player").boundingBox();
+  const noticeBox = await player.notification.boundingBox();
+  expect(noticeBox.x - playerBox.x).toBeCloseTo(65, 0);
+  expect(playerBox.x + playerBox.width - (noticeBox.x + noticeBox.width)).toBeCloseTo(65, 0);
+});
+
 test("the player's buttons keep their clicks, also over a word", async ({ openPlayer, storage }) => {
   const player = await openPlayer("embed");
   // Under the Share button at the bottom left.

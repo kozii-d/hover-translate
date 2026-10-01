@@ -34,6 +34,9 @@ const HOVER_DELAY = 200;
 
 const NOTIFICATION_DURATION = 2000;
 
+/** Where a notification sits in the visible part of the player; `side` is kept on both sides. */
+const NOTIFICATION_INSET = { side: 65, top: 40 };
+
 /**
  * A failure that tells the viewer what to do about it takes longer to read
  * than "Translation saved", and there is nothing else on screen explaining it.
@@ -242,13 +245,15 @@ export class TooltipService {
    * At the top-left of the part of the player that is on screen. It used to
    * take the first video of the document, which may be a thumbnail preview,
    * and left out the page scroll, so a scrolled page put it off screen.
+   * A long message wraps inside the player, not at the edge of the window.
    */
   private positionNotificationTooltip(tooltip: HTMLDivElement, container: Element, player: HTMLElement | null) {
     const playerRect = player && getVisibleRect(player);
     if (!playerRect) return;
 
     tooltip.style.position = "absolute";
-    placeAt(tooltip, container, playerRect.left + 65, playerRect.top + 40);
+    tooltip.style.maxWidth = `${playerRect.right - playerRect.left - 2 * NOTIFICATION_INSET.side}px`;
+    placeAt(tooltip, container, playerRect.left + NOTIFICATION_INSET.side, playerRect.top + NOTIFICATION_INSET.top);
 
     tooltip.style.visibility = "visible";
   }

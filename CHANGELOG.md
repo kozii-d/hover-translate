@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
 - In older versions of Chrome, Edge and Firefox, words were not translated, DeepL did not work, or the settings could not load the lists of languages.
 - In YouTube players embedded on other websites, hovering a subtitle word did nothing since YouTube's new embedded player (March 2026).
 - Dragging and clicking the subtitles: a right or middle click no longer saves or copies the word, dragging no longer saves the word under the pointer, and with auto-pause on the video stays paused while the subtitles are dragged.
-- "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down.
+- "Translation saved" and the other messages on the video were placed off screen when the page was scrolled down, and long ones, such as the Bing notice or DeepL errors, went past the right edge of the video.
 - Right-to-left text: translations into Arabic, Hebrew and other right-to-left languages are shown in their direction, and English translations no longer turn right to left when YouTube itself is in Arabic or Hebrew.
 - The CSV export showed garbled text in Excel for every word not written in Latin letters.
 - "Rate us" on the About page now opens the page of the store HoverTranslate was installed from.

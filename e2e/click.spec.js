@@ -58,6 +58,27 @@ test("on a page scrolled down and to the right, the tooltip is over its word and
   expect(notificationBox.y).toBeCloseTo(40, 0);
 });
 
+test("a long notification wraps inside the player, as far from its right edge as from its left", async ({ openPlayer, storage }) => {
+  // Bing without access to its host: the notice that Google translates meanwhile.
+  await storage.updateSettings({ translator: "bing" });
+  const player = await openPlayer();
+  await player.captions("run for your life");
+
+  await player.word("run").hover();
+  await expect(player.notification).toContainText("Bing needs access to www.bing.com");
+  const playerBox = await player.frame.locator(".html5-video-player").boundingBox();
+  const noticeBox = await player.notification.boundingBox();
+  expect(noticeBox.x - playerBox.x).toBeCloseTo(65, 0);
+  expect(playerBox.x + playerBox.width - (noticeBox.x + noticeBox.width)).toBeCloseTo(65, 0);
+
+  // Wrapped: taller than a one-line notification, which keeps the width of its text.
+  await player.word("run").click();
+  await expect(player.notification).toHaveText("Translation saved");
+  const savedBox = await player.notification.boundingBox();
+  expect(noticeBox.height).toBeGreaterThan(1.5 * savedBox.height);
+  expect(savedBox.width).toBeLessThan(noticeBox.width / 2);
+});
+
 test("with \"copy the translation\" a click copies it instead of saving", async ({ context, openPlayer, storage }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "https://www.youtube.com" });
   await storage.updateSettings({ leftClickAction: "copy-translation" });

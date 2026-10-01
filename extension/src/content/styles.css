@@ -10,6 +10,7 @@
 
 .custom-notification-tooltip {
     position: absolute;
+    box-sizing: border-box;
     background-color: rgba(8, 8, 8, 0.75);
     font-size: 24px;
     color: #fff;
