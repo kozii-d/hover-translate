@@ -92,20 +92,22 @@ test("with \"copy the translation\" a click copies it instead of saving", async 
   expect(await storage.get("local", "savedTranslations")).toBeUndefined();
 });
 
-test("right and middle clicks on a word save nothing", async ({ openPlayer, storage }) => {
+test("right, middle and Ctrl clicks on a word save nothing", async ({ openPlayer, storage }) => {
   const player = await openPlayer();
   await player.captions("run for your life");
 
   // Saved first: the drag guard of a word never pressed would stop the other
-  // buttons by chance (it measures from 0, 0), and a word the viewer saved and
-  // then right-clicks is the case to cover.
+  // clicks by chance (it measures from 0, 0), and a word the viewer saved and
+  // then right-clicks is the case to cover. The same spot also leaves no
+  // drag to stop a Ctrl click at its release: only its own check does.
   await player.word("life").click();
   await expect.poll(() => savedWords(storage)).toEqual(["life"]);
   const [{ id }] = await storage.get("local", "savedTranslations");
 
   await player.word("life").click({ button: "right" });
   await player.word("life").click({ button: "middle" });
-  // A left click afterwards: once it is saved, anything the other two would have saved is too.
+  await player.word("life").click({ modifiers: ["Control"] });
+  // A left click afterwards: once it is saved, anything the others would have saved is too.
   await player.word("run").click();
 
   await expect.poll(() => savedWords(storage)).toEqual(["run", "life"]);

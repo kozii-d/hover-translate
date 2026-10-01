@@ -167,7 +167,10 @@ export class SubtitleCore {
       // The release is measured too: YouTube moves the caption window after
       // the pointer, so each move of a drag lands beside the word, the word
       // gets no `pointermove` at all, and the release is on it again.
-      if (e.button === 0 && !isDrag && !isFarFromPress(e)) {
+      // Nor when Ctrl is held at the release: on a Mac, Ctrl+click is the right
+      // click, yet it comes as the main button; elsewhere Ctrl on a word meant
+      // nothing, so one rule for all.
+      if (e.button === 0 && !e.ctrlKey && !isDrag && !isFarFromPress(e)) {
         switch (state.settings.leftClickAction) {
         case "save-to-dictionary":
           this.tooltipService.saveTranslationToDictionary(wordSpan);

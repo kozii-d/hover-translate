@@ -51,6 +51,26 @@ test("a click on a covered word saves it and does not reach the player; a click 
   expect(await player.isPaused()).toBe(true);
 });
 
+test("a Ctrl click on a covered word saves nothing and does not reach the player", async ({ openPlayer, storage }) => {
+  const player = await openPlayer("embed");
+  await player.captions("run for your life");
+  const savedWords = async () => ((await storage.get("local", "savedTranslations")) ?? []).map((entry) => entry.originalText);
+
+  // Saved first, on the same spot: the drag guard cannot stop the Ctrl click by chance.
+  await player.word("life").click({ force: true });
+  await expect.poll(savedWords).toEqual(["life"]);
+  const [{ id }] = await storage.get("local", "savedTranslations");
+
+  await player.word("life").click({ force: true, modifiers: ["Control"] });
+  // A plain click afterwards: once it is saved, anything the Ctrl click would have saved is too.
+  await player.word("run").click({ force: true });
+
+  await expect.poll(savedWords).toEqual(["run", "life"]);
+  // Not saved again, which would have replaced the entry with a new one.
+  expect((await storage.get("local", "savedTranslations"))[1].id).toBe(id);
+  expect(await player.youtubeEvents()).toEqual([]);
+});
+
 test("a long notification wraps inside the embedded player, as far from its right edge as from its left", async ({ openPlayer, storage }) => {
   // Bing without access to its host: the notice that Google translates meanwhile.
   await storage.updateSettings({ translator: "bing" });
@@ -82,6 +102,22 @@ test("the player's buttons keep their clicks, also over a word", async ({ openPl
   await expect.poll(() => player.isPaused()).toBe(true);
   await expect(player.notification).toHaveCount(0);
   expect(await storage.get("local", "savedTranslations")).toBeUndefined();
+});
+
+test("a key on a player button works after a right or middle click on a covered word", async ({ openPlayer }) => {
+  const player = await openPlayer("embed");
+  await player.captions("run for your life");
+  const share = player.frame.getByRole("button", { name: "Share" });
+
+  // No click follows these presses, so nothing of theirs may be left to take
+  // the next click, which a key on a button sends without a pointer event.
+  await player.word("life").click({ force: true, button: "right" });
+  await share.press("Enter");
+  await player.word("life").click({ force: true, button: "middle" });
+  // The space bar clicks on its release.
+  await share.press(" ");
+
+  expect(await player.youtubeEvents()).toEqual(["button:Share", "button:Share"]);
 });
 
 test("a covered word the pointer crosses with the button held neither pauses nor resumes the video", async ({ openPlayer }) => {

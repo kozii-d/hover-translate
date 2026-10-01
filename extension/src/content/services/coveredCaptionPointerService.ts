@@ -111,7 +111,12 @@ export class CoveredCaptionPointerService {
    */
   private readonly handedBack = new Set<Element>();
 
-  /** A press on a covered word: the rest of that click is the word's too. */
+  /**
+   * A press on a covered word: the rest of that click is the word's too. Only
+   * for the main button without Ctrl, the one press a `click` ends: none
+   * follows a right or middle press, and browsers on a Mac drop the one of a
+   * Ctrl click.
+   */
   private pressOnWord = false;
 
   /** Set while an event of ours is being dispatched, so the listeners below skip it. */
@@ -174,7 +179,7 @@ export class CoveredCaptionPointerService {
     this.track(event);
     if (!this.word) return;
 
-    this.pressOnWord = true;
+    this.pressOnWord = event.button === 0 && !event.ctrlKey;
     this.forward(this.word, "pointerdown", event);
     this.keepFromPlayer(event);
   };
