@@ -77,6 +77,13 @@ describe.each([
   });
 });
 
+it("a popup language named after its folder with a region (`pt_BR`) is the page's language as a tag (`pt-BR`)", async () => {
+  await renderPopup({ language: "pt_BR", uiLanguage: "pt-BR" });
+
+  await screen.findByRole("heading", { name: readLocale("pt_BR", "settings").pageTitle });
+  expect(document.documentElement.lang).toBe("pt-BR");
+});
+
 it("the menu of popup languages names each language in itself", async () => {
   const { user } = await renderPopup({ language: "ru" });
 

@@ -35,7 +35,7 @@ import {
   getTranslatorLabel,
 } from "../model/consts/translators.ts";
 import { ensureTranslatorPermissions } from "@/shared/lib/helpers/permissions.ts";
-import { languageNamesIn } from "@/shared/lib/helpers/languageNames.ts";
+import { languageNamesIn, toTag } from "@/shared/lib/helpers/languageNames.ts";
 import {
   requestApiKeyRemoval,
   requestApiKeySave,
@@ -154,7 +154,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   // permission prompt they are still the previous one's, and a code of
   // `GOOGLE_CODES` may be named for the new one until its lists arrive.
   const toSortedOptions = useCallback((languages: Language[]): LanguageOption[] => {
-    const collator = new Intl.Collator(popupLanguage.replace(/_/g, "-"));
+    const collator = new Intl.Collator(toTag(popupLanguage));
     return languages
       .map((language) => ({
         value: language.code,

@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckIcon from "@mui/icons-material/Check";
 import SearchIcon from "@mui/icons-material/Search";
+import { toTag } from "@/shared/lib/helpers/languageNames.ts";
 import { MenuItemType } from "../../types/types.ts";
 import { OptionLabel } from "../OptionLabel/OptionLabel.tsx";
 import { SettingsSelect } from "../SettingsSelect/SettingsSelect.tsx";
@@ -111,7 +112,7 @@ const LanguagePanel: FC<LanguagePanelProps> = ({ titleId, label, value, options,
     searchRef.current?.focus();
   }, []);
 
-  const locale = i18n.language.replace(/_/g, "-");
+  const locale = toTag(i18n.language);
 
   // Without case or accents: "aleman" finds "Alemán". Only the Latin, Greek and
   // Cyrillic accents (U+0300–U+036F): Devanagari vowel signs and the Japanese

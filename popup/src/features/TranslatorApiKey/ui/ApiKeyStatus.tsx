@@ -12,6 +12,7 @@ import { getApiKeyProvider } from "@extension/common/translators/apiKeyProviders
 import { ApiKeyUsage } from "@extension/common/types/apiKeys.ts";
 import { requestApiKeyUsage } from "@/shared/lib/helpers/translatorRequests.ts";
 import { describeTranslatorError } from "@/shared/lib/helpers/translatorErrors.ts";
+import { toTag } from "@/shared/lib/helpers/languageNames.ts";
 import { ConfirmationModal } from "@/shared/ui/ConfirmationModal/ConfirmationModal.tsx";
 
 /** From here on the bar turns orange: the viewer should know before it runs out. */
@@ -38,7 +39,7 @@ type UsageState =
  */
 const formatCount = (value: number, language: string) => {
   try {
-    return value.toLocaleString(language.replace(/_/g, "-"));
+    return value.toLocaleString(toTag(language));
   } catch {
     return value.toLocaleString();
   }

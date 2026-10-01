@@ -17,6 +17,11 @@ export default defineConfig({
     // Transpiled for browsers older than the oldest we support (Chrome/Edge 102,
     // Firefox 115): Vite 6's default, which Vite 7 raised to Chrome 107.
     target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
+    // The popup is read from the extension's own files, never downloaded: one
+    // large chunk costs nothing, so it is not split. The limit sits about
+    // 85 kB above the main chunk (~565 kB) to flag real growth, such as a new
+    // library.
+    chunkSizeWarningLimit: 650,
   },
   resolve: {
     alias: {

@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { toTag } from "@/shared/lib/helpers/languageNames.ts";
 
 const languageDetector = new LanguageDetector();
 const baseUrl = chrome.runtime.getURL("/");
@@ -169,7 +170,7 @@ i18n
 i18n.on("languageChanged", (lang) => {
   // The uppercase tabs and buttons follow the language's rules only when the
   // page says which language it is: Greek capitals drop their accents.
-  document.documentElement.lang = lang.replace(/_/g, "-");
+  document.documentElement.lang = toTag(lang);
 });
 
 export default i18n;

@@ -112,6 +112,19 @@ it("picking DeepL with a stored key switches to it, even when the keys are read 
   expect(screen.queryByText("Connect DeepL")).toBeNull();
 });
 
+it("DeepL's usage is written in the popup's language, also one named after its folder (`pt_BR`)", async () => {
+  await renderPopup({
+    language: "pt_BR",
+    uiLanguage: "pt-BR",
+    sync: { settings: { ...defaultSettings, translator: "deepl", targetLanguageCode: "ru" } },
+    local: { apiKeys: { deepl: "deepl-key:fx" } },
+    grantedOrigins: [`${DEEPL_FREE_API_URL}/*`],
+  });
+
+  // The fake DeepL has used 1250 of 500000 characters. A tag `Intl` rejects would fall back to the browser's own digits.
+  expect(await screen.findByText("1.250 de 500.000 caracteres usados neste período de cobrança")).toBeTruthy();
+});
+
 it("keys that cannot be read leave the page usable, as without a key: DeepL asks for one", async () => {
   const error = vi.spyOn(console, "error").mockImplementation(() => {});
   vi.spyOn(apiKeyService, "getAll").mockRejectedValue(new Error("The disk is gone"));
@@ -207,6 +220,15 @@ describe("the language lists are named in the popup's language", () => {
     expect(names).toEqual(expect.arrayContaining(["Английский", "Японский", "Китайский (упрощенный)", "Алур"]));
     expect(names.indexOf("Абхазский")).toBeLessThan(names.indexOf("Японский"));
     expect(names.filter((name) => /[A-Za-z]/.test(name ?? ""))).toEqual([]);
+  });
+
+  it("in Brazilian Portuguese, named after its folder `pt_BR`: in its alphabet, \"Árabe\" among the A's", async () => {
+    const { user } = await renderPopup({ language: "pt_BR", uiLanguage: "pt-BR", sync: { settings: defaultSettings } });
+
+    const names = await openList(user, "Traduzir de");
+
+    expect(names.indexOf("Árabe")).toBeGreaterThan(names.indexOf("Amárico"));
+    expect(names.indexOf("Árabe")).toBeLessThan(names.indexOf("Basco"));
   });
 
   it("in English: the translator's own names, detection first", async () => {
@@ -637,6 +659,15 @@ describe("the language fields open a panel with a search", () => {
     await user.keyboard("aleman");
 
     expect(optionNames(panel)).toEqual(["Alemán"]);
+  });
+
+  it("in Brazilian Portuguese, named after its folder `pt_BR`: found without the accents", async () => {
+    const { user } = await renderPopup({ language: "pt_BR", uiLanguage: "pt-BR", sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Traduzir para");
+    await user.keyboard("arab");
+
+    expect(optionNames(panel)).toEqual(["Árabe"]);
   });
 
   it("in Turkish: a lowercase search finds the names that start with a dotted İ", async () => {
