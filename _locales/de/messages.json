@@ -24,7 +24,7 @@
     "message": "Übersetzung fehlgeschlagen"
   },
   "errorApiKeyMissing": {
-    "message": "$TRANSLATOR$: Fügen Sie Ihren API-Schlüssel in den HoverTranslate-Einstellungen hinzu",
+    "message": "$TRANSLATOR$: Füge deinen API-Schlüssel in den HoverTranslate-Einstellungen hinzu",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -33,7 +33,7 @@
     }
   },
   "errorApiKeyInvalid": {
-    "message": "$TRANSLATOR$ hat Ihren API-Schlüssel nicht akzeptiert. Prüfen Sie ihn in den HoverTranslate-Einstellungen",
+    "message": "$TRANSLATOR$ hat deinen API-Schlüssel nicht akzeptiert. Prüfe ihn in den HoverTranslate-Einstellungen",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -51,7 +51,7 @@
     }
   },
   "errorRateLimited": {
-    "message": "$TRANSLATOR$: Zu viele Anfragen, versuchen Sie es gleich noch einmal",
+    "message": "$TRANSLATOR$: Zu viele Anfragen, versuche es gleich noch einmal",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -60,7 +60,7 @@
     }
   },
   "errorPermissionMissing": {
-    "message": "HoverTranslate darf keine Verbindung zu $TRANSLATOR$ herstellen. Erlauben Sie es in den HoverTranslate-Einstellungen",
+    "message": "HoverTranslate darf keine Verbindung zu $TRANSLATOR$ herstellen. Erlaube den Zugriff in den HoverTranslate-Einstellungen",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -69,7 +69,7 @@
     }
   },
   "noticePermissionFallback": {
-    "message": "$TRANSLATOR$ braucht Zugriff auf $HOST$ – erlauben Sie ihn in den HoverTranslate-Einstellungen. Bis dahin wird $FALLBACK$ verwendet",
+    "message": "$TRANSLATOR$ braucht Zugriff auf $HOST$ – erlaube ihn in den HoverTranslate-Einstellungen. Bis dahin wird $FALLBACK$ verwendet",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -95,7 +95,7 @@
     }
   },
   "errorNetwork": {
-    "message": "$TRANSLATOR$ ist nicht erreichbar. Prüfen Sie Ihre Verbindung",
+    "message": "$TRANSLATOR$ ist nicht erreichbar. Prüfe deine Verbindung",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -113,7 +113,7 @@
     }
   },
   "ratingPromptText": {
-    "message": "Wenn HoverTranslate Ihnen beim Lernen hilft, hilft eine Bewertung anderen Lernenden, es zu finden."
+    "message": "Hilft dir HoverTranslate beim Lernen? Mit einer Bewertung finden es auch andere Lernende."
   },
   "ratingPromptRate": {
     "message": "Bewerten"

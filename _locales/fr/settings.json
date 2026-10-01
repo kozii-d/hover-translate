@@ -35,7 +35,7 @@
       "label": "Action du clic gauche",
       "tooltip": "Action à effectuer lors d'un clic gauche sur les mots des sous-titres",
       "options": {
-        "saveToDictionary": "Enregistrer dans le dictionnaire",
+        "saveToDictionary": "Enregistrer dans le vocabulaire",
         "copyOriginal": "Copier le texte original dans le presse-papiers",
         "copyTranslation": "Copier le texte traduit dans le presse-papiers",
         "nothing": "Rien"
@@ -43,24 +43,24 @@
     },
     "alwaysMultipleSelection": {
       "label": "Toujours activer la sélection multiple",
-      "tooltip": "Activer la sélection multiple de mots sans maintenir Shift",
-      "helperText": "Lorsque activé, vous pouvez sélectionner plusieurs mots sans maintenir Shift"
+      "tooltip": "Activer la sélection de plusieurs mots sans maintenir la touche Maj",
+      "helperText": "Une fois l'option activée, vous pouvez sélectionner plusieurs mots sans maintenir la touche Maj"
     },
     "showNotifications": {
       "label": "Afficher les notifications",
-      "tooltip": "Afficher les notifications lorsque les mots sont enregistrés dans le dictionnaire ou copiés dans le presse-papiers",
-      "helperText": "Lorsque désactivé, aucune notification n'apparaîtra quand les mots seront enregistrés ou copiés"
+      "tooltip": "Afficher les notifications lorsque des mots sont enregistrés dans le vocabulaire ou copiés dans le presse-papiers",
+      "helperText": "Si l'option est désactivée, aucune notification ne s'affiche lorsque des mots sont enregistrés ou copiés"
     }
   },
   "modals": {
     "reset": {
-      "title": "Rétablir les paramètres par défaut ?",
-      "description": "Cela restaurera tous les paramètres à leurs valeurs par défaut.",
+      "title": "Rétablir les paramètres par défaut ?",
+      "description": "Tous les paramètres reprendront leurs valeurs par défaut.",
       "action": "Rétablir"
     }
   },
   "tips": {
-    "multipleSelection": "Pour la sélection multiple de mots, maintenez Shift et survolez les mots dont vous avez besoin. Ou activez le paramètre 'Toujours activer la sélection multiple'.",
+    "multipleSelection": "Pour sélectionner plusieurs mots, maintenez la touche Maj enfoncée et survolez les mots voulus. Vous pouvez aussi activer l'option « Toujours activer la sélection multiple ».",
     "dismiss": "Masquer l'astuce"
   },
   "apiKey": {
@@ -101,7 +101,7 @@
     },
     "modals": {
       "remove": {
-        "title": "Supprimer la clé API {{translatorName}} ?",
+        "title": "Supprimer la clé API {{translatorName}} ?",
         "description": "La clé sera effacée de cet appareil et les traductions passeront à {{fallbackTranslatorName}}.",
         "descriptionInactive": "La clé sera effacée de cet appareil.",
         "action": "Supprimer"
@@ -109,18 +109,18 @@
     },
     "errors": {
       "empty": "Saisissez votre clé API",
-      "permissionDenied": "Sans accès à {{translatorName}}, HoverTranslate ne peut pas vérifier la clé. Cliquez à nouveau sur « Connecter » et autorisez l'accès.",
+      "permissionDenied": "Sans accès à {{translatorName}}, HoverTranslate ne peut pas vérifier la clé. Cliquez à nouveau sur « Connecter » et autorisez l'accès.",
       "saveFailed": "Impossible d'enregistrer la clé. Réessayez.",
       "removeFailed": "Impossible de supprimer la clé. Réessayez.",
-      "settingsSaveFailed": "La clé a été enregistrée, mais pas les paramètres. Cliquez sur « Connecter » pour réessayer."
+      "settingsSaveFailed": "La clé a été enregistrée, mais pas les paramètres. Cliquez sur « Connecter » pour réessayer."
     }
   },
   "errors": {
-    "sourceLanguageCode": "{{incorrectLanguage}} n'est pas disponible comme langue source pour le traducteur {{translatorName}}. Basculement vers {{defaultLanguage}}.",
-    "targetLanguageCode": "{{incorrectLanguage}} n'est pas disponible comme langue cible pour le traducteur {{translatorName}}. Basculement vers {{defaultLanguage}}.",
-    "translatorUnavailable": "Le traducteur {{translatorName}} est indisponible : {{errorMessage}}",
-    "translatorFallback": "Le traducteur {{translatorName}} est indisponible : {{errorMessage}}. Retour à {{fallbackTranslatorName}}.",
-    "translatorSwitchFailed": "Impossible de passer à {{translatorName}} : {{errorMessage}}. {{previousTranslatorName}} est conservé.",
+    "sourceLanguageCode": "{{incorrectLanguage}} n'est pas disponible comme langue source pour le traducteur {{translatorName}}. Passage à {{defaultLanguage}}.",
+    "targetLanguageCode": "{{incorrectLanguage}} n'est pas disponible comme langue cible pour le traducteur {{translatorName}}. Passage à {{defaultLanguage}}.",
+    "translatorUnavailable": "Le traducteur {{translatorName}} est indisponible : {{errorMessage}}",
+    "translatorFallback": "Le traducteur {{translatorName}} est indisponible : {{errorMessage}}. Retour à {{fallbackTranslatorName}}.",
+    "translatorSwitchFailed": "Impossible de passer à {{translatorName}} : {{errorMessage}}. {{previousTranslatorName}} reste sélectionné.",
     "translatorFallbackReason": "{{reason}} Passage à {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} {{previousTranslatorName}} reste sélectionné.",
     "translatorWithdrawn": "Le traducteur {{translatorName}} n'est pas disponible dans cette version de HoverTranslate et reviendra dans la prochaine mise à jour. Passage à {{fallbackTranslatorName}}.",
@@ -128,7 +128,7 @@
     "translator": {
       "apiKeyMissing": "Aucune clé API {{translatorName}} n'a été ajoutée sur cet appareil.",
       "apiKeyInvalid": "{{translatorName}} n'a pas accepté la clé API. Vérifiez qu'elle a été copiée en entier.",
-      "quotaExceeded": "La limite de caractères {{translatorName}} pour cette période de facturation est atteinte.",
+      "quotaExceeded": "La limite de caractères de {{translatorName}} pour cette période de facturation est atteinte.",
       "rateLimited": "{{translatorName}} a reçu trop de requêtes. Réessayez dans un instant.",
       "permissionMissing": "HoverTranslate n'est pas autorisé à se connecter à {{translatorName}}.",
       "unsupportedLanguage": "{{translatorName}} ne prend pas en charge la langue sélectionnée.",
@@ -137,8 +137,8 @@
     }
   },
   "contextHint": {
-    "text": "DeepL traduit chaque mot en tenant compte de toute la ligne de sous-titres : un mot à plusieurs sens est traduit dans le sens où il est employé.",
-    "keyNote": "Il faut votre propre clé API DeepL ; l'offre gratuite suffit.",
+    "text": "DeepL traduit chaque mot en tenant compte de toute la ligne de sous-titres : un mot à plusieurs sens est traduit dans le sens où il est employé.",
+    "keyNote": "Il vous faut votre propre clé API DeepL ; l'offre gratuite suffit.",
     "connect": "Connecter DeepL",
     "switch": "Passer à DeepL"
   },
@@ -147,6 +147,6 @@
     "rate": "Noter",
     "dontAskAgain": "Ne plus demander",
     "notNow": "Pas maintenant",
-    "reportProblem": "Quelque chose ne fonctionne pas ? Dites-le-nous sur GitHub"
+    "reportProblem": "Quelque chose ne fonctionne pas ? Dites-le-nous sur GitHub"
   }
 }

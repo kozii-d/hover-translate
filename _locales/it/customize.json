@@ -6,13 +6,13 @@
   },
   "fields": {
     "useYouTubeSettings": { "label": "Usa impostazioni YouTube", "tooltip": "Usa le impostazioni di YouTube per i tooltip di traduzione", "helperText": "Usa lo stesso aspetto dei sottotitoli di YouTube per i tooltip di traduzione" },
-    "fontFamily": { "label": "Famiglia carattere", "tooltip": "Il carattere da usare per i tooltip di traduzione" },
+    "fontFamily": { "label": "Famiglia di caratteri", "tooltip": "La famiglia di caratteri da usare per i tooltip di traduzione" },
     "fontSize": { "label": "Dimensione carattere", "tooltip": "La dimensione del carattere per i tooltip di traduzione" },
     "fontColor": { "label": "Colore carattere", "tooltip": "Il colore del carattere per i tooltip di traduzione" },
     "fontOpacity": { "label": "Opacità carattere", "tooltip": "Il livello di opacità del carattere per i tooltip" },
     "backgroundColor": { "label": "Colore sfondo", "tooltip": "Il colore di sfondo per i tooltip di traduzione" },
-    "backgroundOpacity": { "label": "Opacità sfondo", "tooltip": "Il livello di opacità dello sfondo per i tooltip" },
-    "characterEdgeStyle": { "label": "Stile bordo caratteri", "tooltip": "Lo stile del bordo dei caratteri per i tooltip" }
+    "backgroundOpacity": { "label": "Opacità dello sfondo", "tooltip": "Il livello di opacità dello sfondo per i tooltip" },
+    "characterEdgeStyle": { "label": "Stile bordo carattere", "tooltip": "Lo stile del bordo dei caratteri per i tooltip" }
   },
   "options": {
     "auto": "Come su YouTube",
@@ -45,8 +45,8 @@
   },
   "modals": {
     "reset": {
-      "title": "Ripristinare le impostazioni predefinite?",
-      "description": "Questo ripristinerà tutte le personalizzazioni ai valori predefiniti.",
+      "title": "Ripristinare la personalizzazione predefinita?",
+      "description": "Tutte le personalizzazioni torneranno ai valori predefiniti.",
       "action": "Ripristina"
     }
   }

@@ -24,14 +24,14 @@
       "reportIssues": "Probleme auf GitHub melden"
     },
     "tips": {
-      "title": "Schnelle Tipps",
-      "multipleSelection": "Phrasen übersetzen: Halte Shift gedrückt oder aktiviere Mehrfachauswahl in den Einstellungen",
-      "saveToDictionary": "Klicke auf Wörter, um sie in dein persönliches Wörterbuch zu speichern",
-      "exportDictionary": "Exportiere deinen Wortschatz aus dem Wörterbuch-Tab als JSON oder CSV"
+      "title": "Tipps",
+      "multipleSelection": "Wendungen übersetzen: Halte die Umschalttaste gedrückt oder aktiviere die Mehrfachauswahl in den Einstellungen",
+      "saveToDictionary": "Klicke auf ein Wort, um es in deiner Vokabelliste zu speichern",
+      "exportDictionary": "Exportiere deine Vokabeln im Tab „Vokabelliste“ als JSON oder CSV"
     }
   },
   "footer": {
     "version": "Version",
-    "changelog": "Changelog"
+    "changelog": "Änderungsverlauf"
   }
 }

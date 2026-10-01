@@ -7,7 +7,7 @@
   },
   "support": {
     "title": "Offrimi un caffè",
-    "description": "Grazie per sostenere HoverTranslate!\nScegli la tua criptovaluta preferita qui sotto",
+    "description": "Grazie per il tuo sostegno a HoverTranslate!\nScegli la tua criptovaluta preferita qui sotto",
     "footer": "Ogni caffè mi aiuta a migliorare HoverTranslate",
     "actions": {
       "showQR": { "text": "Mostra QR" },
@@ -15,11 +15,11 @@
       "copyAddress": { "text": "Copia" },
       "copyAddressSuccess": { "text": "Copiato!" }
     },
-    "labels": { "address": "{{networkType}} Indirizzo" },
+    "labels": { "address": "Indirizzo {{networkType}}" },
     "notifications": { "copyAddress": "Indirizzo copiato negli appunti!" },
     "warnings": {
       "verifyNetwork": "Verifica la rete e il token prima di inviare",
-      "bnb": "Stesso indirizzo di Ethereum - rete diversa!"
+      "bnb": "Stesso indirizzo di Ethereum – rete diversa!"
     }
   }
 }

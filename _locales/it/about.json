@@ -16,18 +16,18 @@
     },
     "contacts": {
       "title": "Contattaci",
-      "github": "Visualizza codice sorgente su GitHub",
+      "github": "Visualizza il codice sorgente su GitHub",
       "reportIssues": "Segnala problemi su GitHub"
     },
     "tips": {
-      "title": "Consigli rapidi",
-      "multipleSelection": "Traduci frasi: Tieni premuto Shift o abilita la selezione multipla nelle Impostazioni",
-      "saveToDictionary": "Clicca sulle parole per salvarle nel tuo dizionario personale",
-      "exportDictionary": "Esporta il tuo vocabolario dalla scheda Dizionario come JSON o CSV"
+      "title": "Suggerimenti",
+      "multipleSelection": "Traduci espressioni: tieni premuto Maiusc o abilita la selezione multipla nelle Impostazioni",
+      "saveToDictionary": "Fai clic su una parola per salvarla tra i tuoi vocaboli",
+      "exportDictionary": "Esporta i tuoi vocaboli dalla scheda Vocaboli in JSON o CSV"
     }
   },
   "footer": {
     "version": "Versione",
-    "changelog": "Changelog"
+    "changelog": "Cronologia delle modifiche"
   }
 }

@@ -46,7 +46,7 @@
     }
   },
   "errorPermissionMissing": {
-    "message": "HoverTranslate non ha il permesso di connettersi a $TRANSLATOR$. Consentilo nelle impostazioni di HoverTranslate",
+    "message": "HoverTranslate non ha il permesso di connettersi a $TRANSLATOR$. Consenti l'accesso nelle impostazioni di HoverTranslate",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -55,7 +55,7 @@
     }
   },
   "noticePermissionFallback": {
-    "message": "$TRANSLATOR$ ha bisogno di accedere a $HOST$: consentilo nelle impostazioni di HoverTranslate. Nel frattempo viene usato $FALLBACK$",
+    "message": "$TRANSLATOR$ ha bisogno dell'accesso a $HOST$: consentilo nelle impostazioni di HoverTranslate. Nel frattempo viene usato $FALLBACK$",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -90,7 +90,7 @@
     }
   },
   "errorServiceUnavailable": {
-    "message": "$TRANSLATOR$ non è temporaneamente disponibile",
+    "message": "$TRANSLATOR$ è temporaneamente non disponibile",
     "placeholders": {
       "translator": {
         "content": "$1",

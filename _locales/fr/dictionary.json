@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Dictionnaire",
-  "tabLabel": "Dictionnaire",
+  "pageTitle": "Vocabulaire",
+  "tabLabel": "Vocabulaire",
   "actions": {
     "deleteTranslation": {
       "tooltip": "Supprimer la traduction"
@@ -17,23 +17,23 @@
       "tooltip": "Exporter les traductions"
     },
     "exportJSON": {
-      "text": "Exporter JSON",
+      "text": "Exporter en JSON",
       "tooltip": "Exporter les traductions au format JSON"
     },
     "exportCSV": {
-      "text": "Exporter CSV",
+      "text": "Exporter en CSV",
       "tooltip": "Exporter les traductions au format CSV"
     }
   },
   "modals": {
     "clearAll": {
-      "title": "Effacer toutes les traductions ?",
-      "description": "Cela supprimera définitivement toutes les traductions.",
+      "title": "Effacer toutes les traductions ?",
+      "description": "Toutes les traductions seront définitivement supprimées.",
       "action": "Effacer"
     }
   },
   "emptyState": {
-    "title": "Le dictionnaire est vide",
-    "description": "Cliquez sur un mot ou une phrase dans les sous-titres pour les enregistrer dans le dictionnaire"
+    "title": "Aucun mot enregistré pour l'instant",
+    "description": "Cliquez sur un mot ou une expression dans les sous-titres pour l'enregistrer dans votre vocabulaire"
   }
 }

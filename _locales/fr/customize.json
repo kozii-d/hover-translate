@@ -11,30 +11,30 @@
     "useYouTubeSettings": {
       "label": "Utiliser les paramètres YouTube",
       "tooltip": "Utiliser les paramètres YouTube pour les infobulles de traduction",
-      "helperText": "Utiliser les mêmes paramètres d'apparence pour les infobulles de traduction que les paramètres de sous-titres sur YouTube"
+      "helperText": "Appliquer aux infobulles de traduction les mêmes paramètres d'apparence que ceux des sous-titres YouTube"
     },
     "fontFamily": {
-      "label": "Famille de police",
-      "tooltip": "La famille de police à utiliser pour les infobulles de traduction"
+      "label": "Famille de polices",
+      "tooltip": "La famille de polices à utiliser pour les infobulles de traduction"
     },
     "fontSize": {
       "label": "Taille de police",
       "tooltip": "La taille de police à utiliser pour les infobulles de traduction"
     },
     "fontColor": {
-      "label": "Couleur de police",
-      "tooltip": "La couleur de police à utiliser pour les infobulles de traduction"
+      "label": "Couleur de la police",
+      "tooltip": "La couleur de la police à utiliser pour les infobulles de traduction"
     },
     "fontOpacity": {
-      "label": "Opacité de police",
+      "label": "Opacité de la police",
       "tooltip": "Le niveau d'opacité de la police pour les infobulles de traduction"
     },
     "backgroundColor": {
-      "label": "Couleur d'arrière-plan",
-      "tooltip": "La couleur d'arrière-plan pour les infobulles de traduction"
+      "label": "Couleur de l'arrière-plan",
+      "tooltip": "La couleur de l'arrière-plan des infobulles de traduction"
     },
     "backgroundOpacity": {
-      "label": "Opacité d'arrière-plan",
+      "label": "Opacité de l'arrière-plan",
       "tooltip": "Le niveau d'opacité de l'arrière-plan pour les infobulles de traduction"
     },
     "characterEdgeStyle": {
@@ -73,8 +73,8 @@
   },
   "modals": {
     "reset": {
-      "title": "Réinitialiser les paramètres de personnalisation par défaut ?",
-      "description": "Cela restaurera tous les paramètres de personnalisation à leurs valeurs par défaut.",
+      "title": "Réinitialiser les paramètres de personnalisation ?",
+      "description": "Tous les paramètres de personnalisation reprendront leurs valeurs par défaut.",
       "action": "Réinitialiser"
     }
   }

@@ -3,7 +3,7 @@ HoverTranslate – YouTube-Untertitel übersetzen und nebenbei Sprachen lernen
 Du schaust ein Video mit englischen Untertiteln und stößt auf ein Wort, das du nicht kennst? Zeig einfach mit der Maus darauf – die Übersetzung erscheint direkt über den Untertiteln. Das Video hält an, während du liest, und läuft weiter, sobald du die Maus wegbewegst. Du musst nichts in einen Übersetzer kopieren und verlierst nicht den Faden: Du schaust einfach weiter und verstehst immer mehr. So lernst du Englisch mit YouTube – oder jede andere Sprache.
 
 Das kann HoverTranslate:
-• Einzelne Wörter und ganze Wendungen. Eine Redewendung entdeckt? Halte die Shift-Taste gedrückt und fahr mit der Maus über die Wörter. Wenn du lieber ohne Shift markierst, lässt sich das in den Einstellungen einschalten.
+• Einzelne Wörter und ganze Wendungen. Eine Redewendung entdeckt? Halte die Umschalttaste (Shift) gedrückt und fahr mit der Maus über die Wörter. Wenn du lieber ohne Umschalttaste markierst, lässt sich das in den Einstellungen einschalten.
 • Deine eigene Vokabelliste. Klick auf ein Wort, und es wird samt Übersetzung gespeichert. Die Liste kannst du als CSV oder JSON exportieren und die neuen Vokabeln später wiederholen.
 • Funktioniert auch mit automatischen Untertiteln – denen, die YouTube selbst erstellt. So eignen sich auch Videos, zu denen der Kanal keine eigenen Untertitel hochgeladen hat.
 • Nicht nur auf YouTube selbst: Steckt ein Video in einem Blog, einem Onlinekurs oder einem Nachrichtenartikel, fährst du genauso mit der Maus über ein Wort.

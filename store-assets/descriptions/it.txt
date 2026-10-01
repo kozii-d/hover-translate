@@ -3,8 +3,8 @@ HoverTranslate – traduttore di sottotitoli YouTube per imparare le lingue con 
 Stai guardando un video con i sottotitoli in inglese e incontri una parola che non conosci? Basta passarci sopra con il mouse: la traduzione compare subito sopra i sottotitoli. Il video si mette in pausa mentre leggi e riparte appena sposti il mouse. Niente parole da copiare nel traduttore, niente filo perso: continui a guardare e capisci sempre di più. Un modo semplice per imparare l'inglese con YouTube, o qualsiasi altra lingua.
 
 Cosa fa HoverTranslate:
-• Traduce parole singole e frasi intere. Hai trovato un modo di dire? Tieni premuto Shift e passa il mouse sulle parole. Se preferisci fare a meno di Shift, puoi attivarlo nelle impostazioni.
-• Il tuo vocabolario personale. Fai clic su una parola e viene salvata insieme alla traduzione. Puoi esportare l'elenco in CSV o JSON per ripassare le parole nuove più avanti.
+• Traduce parole singole e intere espressioni. Hai trovato un modo di dire? Tieni premuto il tasto Maiusc (Shift) e passa il mouse sulle parole. Se preferisci fare a meno di Maiusc, puoi attivare la selezione multipla nelle impostazioni.
+• La tua lista di vocaboli. Fai clic su una parola e viene salvata insieme alla traduzione. Puoi esportare la lista in CSV o JSON per ripassare le parole nuove più avanti.
 • Funziona anche con i sottotitoli automatici, quelli che crea YouTube stesso: vanno bene anche i video senza sottotitoli dell'autore.
 • Non solo su YouTube: se un video è incorporato in un blog, in un corso online o in un articolo di giornale, basta passare il mouse su una parola, come sempre.
 • Se la cava con cinese, giapponese e thailandese: anche se si scrivono senza spazi tra le parole, ottieni la traduzione di una sola parola, non di tutta la riga.
@@ -13,7 +13,7 @@ Cosa fa HoverTranslate:
 • Si adatta al tuo modo di guardare: la pausa automatica si può disattivare e il clic può copiare la parola o la traduzione invece di salvarla.
 
 Una traduzione che tiene conto del contesto
-Puoi tradurre con Google, Bing o DeepL. Con DeepL (ti servirà una tua chiave API gratuita) ogni parola viene tradotta tenendo conto dell'intera riga in cui compare: in "we sat on the bank of the river", "bank" è "riva" e non "banca". La chiave resta solo sul tuo dispositivo.
+Puoi tradurre con Google, Bing o DeepL. Con DeepL (ti servirà una tua chiave API gratuita) ogni parola viene tradotta tenendo conto dell'intera riga in cui compare: in «we sat on the bank of the river», «bank» è «riva» e non «banca». La chiave resta solo sul tuo dispositivo.
 
 Gratis e senza registrazione
 HoverTranslate è completamente gratuito: niente account, abbonamenti o pubblicità. È open source: il codice è su GitHub.

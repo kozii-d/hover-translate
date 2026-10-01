@@ -1,6 +1,6 @@
 {
-  "pageTitle": "Dizionario",
-  "tabLabel": "Dizionario",
+  "pageTitle": "Vocaboli",
+  "tabLabel": "Vocaboli",
   "actions": {
     "deleteTranslation": { "tooltip": "Elimina traduzione" },
     "clearAll": { "text": "Cancella tutto", "tooltip": "Cancella tutte le traduzioni" },
@@ -12,12 +12,12 @@
   "modals": {
     "clearAll": {
       "title": "Cancellare tutte le traduzioni?",
-      "description": "Questo eliminerà permanentemente tutte le parole salvate.",
+      "description": "Tutte le parole salvate verranno eliminate definitivamente.",
       "action": "Cancella"
     }
   },
   "emptyState": {
-    "title": "Il dizionario è vuoto",
-    "description": "Clicca su una parola o frase nei sottotitoli per salvarla nel dizionario"
+    "title": "Nessun vocabolo salvato",
+    "description": "Fai clic su una parola o un'espressione nei sottotitoli per salvarla tra i vocaboli"
   }
 }

@@ -11,11 +11,11 @@
     "useYouTubeSettings": {
       "label": "YouTube-Einstellungen verwenden",
       "tooltip": "YouTube-Einstellungen für Übersetzungs-Tooltips verwenden",
-      "helperText": "Dieselben Darstellungseinstellungen für Übersetzungs-Tooltips verwenden wie die Untertitel-Einstellungen auf YouTube"
+      "helperText": "Für Übersetzungs-Tooltips dieselbe Darstellung verwenden, die in den Untertitel-Einstellungen von YouTube festgelegt ist"
     },
     "fontFamily": {
-      "label": "Schriftart",
-      "tooltip": "Die Schriftart für Übersetzungs-Tooltips"
+      "label": "Schriftfamilie",
+      "tooltip": "Die Schriftfamilie für Übersetzungs-Tooltips"
     },
     "fontSize": {
       "label": "Schriftgröße",
@@ -26,7 +26,7 @@
       "tooltip": "Die Schriftfarbe für Übersetzungs-Tooltips"
     },
     "fontOpacity": {
-      "label": "Schrift-Deckkraft",
+      "label": "Deckkraft der Schriftart",
       "tooltip": "Die Deckkraft der Schrift für Übersetzungs-Tooltips"
     },
     "backgroundColor": {
@@ -38,8 +38,8 @@
       "tooltip": "Die Deckkraft des Hintergrunds für Übersetzungs-Tooltips"
     },
     "characterEdgeStyle": {
-      "label": "Zeichen-Randstil",
-      "tooltip": "Der Randstil der Zeichen für Übersetzungs-Tooltips"
+      "label": "Stil der Zeichenränder",
+      "tooltip": "Der Stil der Zeichenränder für Übersetzungs-Tooltips"
     }
   },
   "options": {
@@ -73,8 +73,8 @@
   },
   "modals": {
     "reset": {
-      "title": "Auf Standard-Anpassungseinstellungen zurücksetzen?",
-      "description": "Dies wird alle Anpassungseinstellungen auf ihre Standardwerte zurücksetzen.",
+      "title": "Anpassungen auf die Standardwerte zurücksetzen?",
+      "description": "Alle Anpassungseinstellungen werden auf die Standardwerte zurückgesetzt.",
       "action": "Zurücksetzen"
     }
   }

@@ -1,6 +1,6 @@
 {
   "name": {
-    "message": "HoverTranslate - Traducteur Sous-titres YouTube"
+    "message": "HoverTranslate - Traducteur de sous-titres YouTube"
   },
   "description": {
     "message": "Traducteur de sous-titres YouTube : survolez un mot avec la souris pour voir sa traduction. Pour apprendre l'anglais. Gratuit."
@@ -24,7 +24,7 @@
     "message": "Échec de la traduction"
   },
   "errorApiKeyMissing": {
-    "message": "$TRANSLATOR$ : ajoutez votre clé API dans les paramètres de HoverTranslate",
+    "message": "$TRANSLATOR$ : ajoutez votre clé API dans les paramètres de HoverTranslate",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -42,7 +42,7 @@
     }
   },
   "errorQuotaExceeded": {
-    "message": "$TRANSLATOR$ : la limite de caractères de cette période de facturation est atteinte",
+    "message": "$TRANSLATOR$ : la limite de caractères de cette période de facturation est atteinte",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -51,7 +51,7 @@
     }
   },
   "errorRateLimited": {
-    "message": "$TRANSLATOR$ : trop de requêtes, réessayez dans un instant",
+    "message": "$TRANSLATOR$ : trop de requêtes, réessayez dans un instant",
     "placeholders": {
       "translator": {
         "content": "$1",
@@ -69,7 +69,7 @@
     }
   },
   "noticePermissionFallback": {
-    "message": "$TRANSLATOR$ a besoin d'accéder à $HOST$ : autorisez-le dans les paramètres de HoverTranslate. En attendant, $FALLBACK$ est utilisé",
+    "message": "$TRANSLATOR$ a besoin d'accéder à $HOST$ : autorisez-le dans les paramètres de HoverTranslate. En attendant, $FALLBACK$ est utilisé",
     "placeholders": {
       "translator": {
         "content": "$1",

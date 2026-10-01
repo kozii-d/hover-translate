@@ -9,19 +9,19 @@
     "sourceLanguageCode": { "label": "Traduci da", "tooltip": "La lingua da cui verrà tradotto il testo", "auto": "Rileva lingua" },
     "languagePanel": { "search": "Cerca tra le lingue", "noResults": "Nessuna lingua trovata", "back": "Indietro" },
     "translator": { "label": "Traduttore", "tooltip": "Il servizio di traduzione da utilizzare" },
-    "autoPause": { "label": "Pausa automatica", "tooltip": "Metti in pausa il video automaticamente quando passi sui sottotitoli", "helperText": "Mette in pausa il video quando passi il mouse sui sottotitoli" },
-    "leftClickAction": { "label": "Azione clic sinistro", "tooltip": "Azione da eseguire cliccando sulle parole nei sottotitoli", "options": { "saveToDictionary": "Salva nel dizionario", "copyOriginal": "Copia originale", "copyTranslation": "Copia traduzione", "nothing": "Nulla" } },
-    "alwaysMultipleSelection": { "label": "Abilita sempre selezione multipla", "tooltip": "Seleziona più parole senza tenere premuto Shift", "helperText": "Permette di selezionare più parole senza usare il tasto Shift" },
+    "autoPause": { "label": "Pausa automatica", "tooltip": "Metti in pausa il video automaticamente quando passi il mouse sui sottotitoli", "helperText": "Mette in pausa il video quando passi il mouse sui sottotitoli" },
+    "leftClickAction": { "label": "Azione clic sinistro", "tooltip": "Azione da eseguire facendo clic sulle parole nei sottotitoli", "options": { "saveToDictionary": "Salva tra i vocaboli", "copyOriginal": "Copia originale", "copyTranslation": "Copia traduzione", "nothing": "Nulla" } },
+    "alwaysMultipleSelection": { "label": "Abilita sempre la selezione multipla", "tooltip": "Seleziona più parole senza tenere premuto Maiusc", "helperText": "Permette di selezionare più parole senza usare il tasto Maiusc" },
     "showNotifications": { "label": "Mostra notifiche", "tooltip": "Mostra notifiche quando le parole vengono salvate o copiate", "helperText": "Se disattivato, non apparirà alcuna notifica" }
   },
   "modals": {
     "reset": {
       "title": "Ripristinare le impostazioni predefinite?",
-      "description": "Questo ripristinerà tutte le impostazioni ai valori originali.",
+      "description": "Tutte le impostazioni torneranno ai valori predefiniti.",
       "action": "Ripristina"
     }
   },
-  "tips": { "multipleSelection": "Per la selezione multipla, tieni premuto Shift e passa sulle parole. Oppure attiva 'Abilita sempre selezione multipla'.", "dismiss": "Nascondi suggerimento" },
+  "tips": { "multipleSelection": "Per selezionare più parole, tieni premuto Maiusc e passa il mouse sulle parole. Oppure attiva «Abilita sempre la selezione multipla».", "dismiss": "Nascondi suggerimento" },
   "apiKey": {
     "requiredHint": "Richiede la tua chiave API",
     "title": "Connetti {{translatorName}}",
@@ -55,7 +55,7 @@
     },
     "notifications": {
       "connected": "{{translatorName}} è connesso",
-      "removed": "La chiave API di {{translatorName}} è stata rimossa. Passato a {{fallbackTranslatorName}}.",
+      "removed": "La chiave API di {{translatorName}} è stata rimossa. Passaggio a {{fallbackTranslatorName}}.",
       "removedFromDevice": "La chiave API di {{translatorName}} è stata rimossa da questo dispositivo."
     },
     "modals": {
@@ -83,7 +83,7 @@
     "translatorFallbackReason": "{{reason}} Passaggio a {{fallbackTranslatorName}}.",
     "translatorSwitchFailedReason": "{{reason}} Resta {{previousTranslatorName}}.",
     "translatorWithdrawn": "Il traduttore {{translatorName}} non è disponibile in questa versione di HoverTranslate e tornerà con il prossimo aggiornamento. Passaggio a {{fallbackTranslatorName}}.",
-    "translatorPermissionFallback": "{{translatorName}} ha bisogno di accedere a {{host}}. Scegli {{translatorName}} nell'elenco per consentirlo. Passaggio a {{fallbackTranslatorName}}.",
+    "translatorPermissionFallback": "{{translatorName}} ha bisogno dell'accesso a {{host}}. Scegli {{translatorName}} nell'elenco per consentirlo. Passaggio a {{fallbackTranslatorName}}.",
     "translator": {
       "apiKeyMissing": "Su questo dispositivo non è stata aggiunta alcuna chiave API di {{translatorName}}.",
       "apiKeyInvalid": "{{translatorName}} non ha accettato la chiave API. Controlla che sia stata copiata per intero.",
@@ -92,7 +92,7 @@
       "permissionMissing": "HoverTranslate non ha il permesso di connettersi a {{translatorName}}.",
       "unsupportedLanguage": "{{translatorName}} non supporta la lingua selezionata.",
       "network": "Impossibile raggiungere {{translatorName}}. Controlla la connessione a internet.",
-      "serviceUnavailable": "{{translatorName}} non è temporaneamente disponibile. Riprova più tardi."
+      "serviceUnavailable": "{{translatorName}} è temporaneamente non disponibile. Riprova più tardi."
     }
   },
   "contextHint": {

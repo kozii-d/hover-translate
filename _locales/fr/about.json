@@ -4,11 +4,11 @@
   "blocks": {
     "description": {
       "title": "HoverTranslate",
-      "subtitle": "Enrichissez votre vocabulaire en regardant YouTube !",
-      "thank-you": "Merci d'avoir choisi mon extension !"
+      "subtitle": "Enrichissez votre vocabulaire en regardant YouTube !",
+      "thank-you": "Merci d'avoir choisi mon extension !"
     },
     "support": {
-      "title": "Soutenir le Projet",
+      "title": "Soutenir le projet",
       "actions": {
         "review": {
           "text": "Évaluez-nous"
@@ -19,19 +19,19 @@
       }
     },
     "contacts": {
-      "title": "Nous Contacter",
-      "github": "Voir le Code Source sur GitHub",
-      "reportIssues": "Signaler des Problèmes sur GitHub"
+      "title": "Nous contacter",
+      "github": "Voir le code source sur GitHub",
+      "reportIssues": "Signaler un problème sur GitHub"
     },
     "tips": {
-      "title": "Conseils Rapides",
-      "multipleSelection": "Traduire des phrases : Maintenez Shift ou activez la sélection multiple dans les Paramètres",
-      "saveToDictionary": "Cliquez sur les mots pour les sauvegarder dans votre dictionnaire personnel",
-      "exportDictionary": "Exportez votre vocabulaire depuis l'onglet Dictionnaire au format JSON ou CSV"
+      "title": "Astuces",
+      "multipleSelection": "Traduire des expressions : maintenez la touche Maj ou activez la sélection multiple dans les Paramètres",
+      "saveToDictionary": "Cliquez sur un mot pour l'enregistrer dans votre vocabulaire",
+      "exportDictionary": "Exportez vos mots depuis l'onglet Vocabulaire au format JSON ou CSV"
     }
   },
   "footer": {
     "version": "Version",
-    "changelog": "Changelog"
+    "changelog": "Historique des modifications"
   }
 }
