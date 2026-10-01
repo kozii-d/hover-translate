@@ -10,6 +10,7 @@ import {
 } from "../consts/consts.ts";
 import { getOverlayContainer, getVisibleRect, isCaptionWindowInUpperHalf, placeAt } from "../utils/domUtils.ts";
 import { styleTooltip } from "../utils/tooltipTheme.ts";
+import { isShiftHeld } from "../utils/shiftKey.ts";
 import { RatingPromptService } from "./ratingPromptService.ts";
 import { MIN_CACHED_TRANSLATIONS, VIDEO_MIN_SAVED_WORDS } from "../../common/ratingPrompt.ts";
 import { TranslationCore } from "../core/translationCore";
@@ -517,7 +518,9 @@ export class TooltipService {
         delete target.abortController;
       }
 
-      if (!event.shiftKey && !state.settings.alwaysMultipleSelection) {
+      // Not the event's own Shift: Chrome outside macOS sends some boundary
+      // events without it (see shiftKey.ts).
+      if (!isShiftHeld(event) && !state.settings.alwaysMultipleSelection) {
         this.clearSelectedWords();
       }
 

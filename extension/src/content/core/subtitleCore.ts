@@ -2,6 +2,7 @@ import { TOOLTIP_WORD_CLASS, CAPTION_SEGMENT, CAPTION_WINDOW, DATA_ATTRIBUTES } 
 import { TooltipService } from "../services/tooltipService.ts";
 import { state } from "../state/stateManager.ts";
 import { CaptionWord, renderWord, splitIntoWords } from "../utils/wordSegmenter.ts";
+import { isShiftHeld } from "../utils/shiftKey.ts";
 
 export class SubtitleCore {
   /**
@@ -210,8 +211,9 @@ export class SubtitleCore {
   }
 
   public handlePointerLeaveOnCaptionWindow = ((event: Event) => {
-    const pointerEvent = event as PointerEvent;
-    if (state.settings.alwaysMultipleSelection && !pointerEvent.shiftKey) {
+    // Not the event's own Shift: Chrome outside macOS sends some boundary
+    // events without it (see shiftKey.ts).
+    if (state.settings.alwaysMultipleSelection && !isShiftHeld(event as PointerEvent)) {
       this.tooltipService.clearSelectedWords();
     }
   }) as EventListener;
