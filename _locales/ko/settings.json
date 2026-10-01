@@ -148,5 +148,9 @@
     "dontAskAgain": "다시 묻지 않기",
     "notNow": "나중에",
     "reportProblem": "문제가 있나요? GitHub에서 알려 주세요"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate에 YouTube 접근 권한이 없어 자막을 번역할 수 없습니다. 접근을 허용한 다음 YouTube 페이지를 새로고침하세요.",
+    "allow": "접근 허용"
   }
 }

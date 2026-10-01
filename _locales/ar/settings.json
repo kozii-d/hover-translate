@@ -148,5 +148,9 @@
     "dontAskAgain": "عدم السؤال مرة أخرى",
     "notNow": "ليس الآن",
     "reportProblem": "هل هناك مشكلة؟ أخبرنا على GitHub"
+  },
+  "youtubeAccess": {
+    "text": "لا يملك HoverTranslate إذن الوصول إلى YouTube، لذا لا يعمل على ترجمة الفيديو. اسمح بالوصول، ثم أعِد تحميل صفحة YouTube.",
+    "allow": "السماح بالوصول"
   }
 }

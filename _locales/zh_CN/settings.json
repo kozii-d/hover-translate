@@ -115,5 +115,9 @@
     "dontAskAgain": "不再询问",
     "notNow": "以后再说",
     "reportProblem": "遇到问题？在 GitHub 上告诉我们"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate 无法访问 YouTube，因此无法翻译字幕。请允许访问，然后重新加载 YouTube 页面。",
+    "allow": "允许访问"
   }
 }

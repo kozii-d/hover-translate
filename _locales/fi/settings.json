@@ -107,5 +107,9 @@
     "dontAskAgain": "Älä kysy uudelleen",
     "notNow": "Ei nyt",
     "reportProblem": "Eikö jokin toimi? Kerro meille GitHubissa"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslatella ei ole pääsyä YouTubeen, joten se ei voi kääntää tekstityksiä. Salli pääsy ja lataa sitten YouTube-sivu uudelleen.",
+    "allow": "Salli pääsy"
   }
 }

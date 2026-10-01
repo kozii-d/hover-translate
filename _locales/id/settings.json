@@ -148,5 +148,9 @@
     "dontAskAgain": "Jangan tanya lagi",
     "notNow": "Nanti saja",
     "reportProblem": "Ada yang tidak berfungsi? Beri tahu kami di GitHub"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate tidak memiliki akses ke YouTube, sehingga tidak dapat menerjemahkan subtitle. Izinkan akses, lalu muat ulang halaman YouTube.",
+    "allow": "Izinkan akses"
   }
 }

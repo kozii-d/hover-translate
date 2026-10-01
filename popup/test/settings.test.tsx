@@ -399,6 +399,107 @@ describe("the rating card on the Settings page", () => {
   });
 });
 
+// Firefox before 127 and Chrome's site access "On click" leave the content
+// script without access to YouTube, and the extension does nothing there.
+describe("the line about access to YouTube on the Settings page", () => {
+  const LINE = "HoverTranslate has no access to YouTube, so it can't translate subtitles. Allow access, then reload the YouTube page.";
+  const line = () => screen.queryByText(LINE);
+  const ratingDue = {
+    sync: { settings: defaultSettings, installedAt: Date.now() - 8 * DAY, updatedAt: Date.now() - 8 * DAY },
+    local: { savedTranslations: Array.from({ length: 5 }, (_, index) => ({ id: `w${index}`, originalText: `w${index}` })) },
+  };
+  const ratingCard = () => screen.queryByText("If HoverTranslate helps you learn, a rating helps other learners find it.");
+  const shiftTip = () => screen.queryByText(/hold Shift/);
+  const deeplTip = () => screen.queryByText(/DeepL translates a word/);
+
+  it.each([
+    ["the rating card due", ratingDue],
+    ["the tips due", { sync: { settings: defaultSettings } }],
+  ])("no access, %s: the line above \"Translate from\", and nothing else in that slot; no prompt by itself", async (_, stored) => {
+    const { fake } = await renderPopup({ ...stored, contentScriptAccess: false });
+
+    const shown = await screen.findByText(LINE);
+    await translatorSelect();
+
+    const sourceField = document.querySelector("#sourceLanguageCode")!;
+    expect(shown.compareDocumentPosition(sourceField) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Allow access" })).toBeTruthy();
+    expect(ratingCard()).toBeNull();
+    expect(shiftTip()).toBeNull();
+    expect(deeplTip()).toBeNull();
+    // Asking needs a user gesture: the page never prompts by itself.
+    expect(fake.permissionPrompts).toEqual([]);
+  });
+
+  it("\"Allow access\" granted: the content scripts' hosts are asked for; the line goes, the rating card comes", async () => {
+    const { fake, user } = await renderPopup({ ...ratingDue, contentScriptAccess: false, answerPermissionPrompt: () => true });
+
+    await user.click(await screen.findByRole("button", { name: "Allow access" }));
+
+    expect(fake.permissionPrompts).toEqual([["*://*.youtube.com/*"]]);
+    await waitFor(() => expect(line()).toBeNull());
+    expect(await screen.findByText("If HoverTranslate helps you learn, a rating helps other learners find it.")).toBeTruthy();
+  });
+
+  it("\"Allow access\" granted, nothing due: the tips come", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings }, contentScriptAccess: false, answerPermissionPrompt: () => true });
+
+    await user.click(await screen.findByRole("button", { name: "Allow access" }));
+
+    await waitFor(() => expect(shiftTip()).not.toBeNull());
+    expect(deeplTip()).not.toBeNull();
+    expect(line()).toBeNull();
+  });
+
+  it("refused: the line stays", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings }, contentScriptAccess: false, answerPermissionPrompt: () => false });
+
+    await user.click(await screen.findByRole("button", { name: "Allow access" }));
+
+    expect(fake.permissionPrompts).toEqual([["*://*.youtube.com/*"]]);
+    expect(await chrome.permissions.contains({ origins: ["https://www.youtube.com/*"] })).toBe(false);
+    expect(line()).not.toBeNull();
+    expect(shiftTip()).toBeNull();
+  });
+
+  it("the prompt fails: the line stays, the error goes to the console", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { user } = await renderPopup({ sync: { settings: defaultSettings }, contentScriptAccess: false });
+    const failure = new Error("This function must be called during a user gesture");
+    vi.spyOn(chrome.permissions, "request").mockRejectedValue(failure);
+
+    await user.click(await screen.findByRole("button", { name: "Allow access" }));
+
+    await waitFor(() => expect(error).toHaveBeenCalledWith("Could not ask for access to YouTube", failure));
+    expect(line()).not.toBeNull();
+  });
+
+  it("the browser cannot tell whether there is access: no line, the tips as usual", async () => {
+    // Withheld, so only the failure can keep the line away. The form, and the
+    // check with it, mounts once the settings are read: after this spy.
+    await renderPopup({ sync: { settings: defaultSettings }, contentScriptAccess: false });
+    const contains = vi.spyOn(chrome.permissions, "contains").mockRejectedValue(new Error("The permissions cannot be read"));
+
+    await waitFor(() => expect(shiftTip()).not.toBeNull());
+    expect(contains).toHaveBeenCalledWith({ origins: ["https://www.youtube.com/*"] });
+    expect(line()).toBeNull();
+  });
+
+  it("only www.youtube.com granted, as by Chrome's \"On this site\": no line, the tips as usual", async () => {
+    await renderPopup({ sync: { settings: defaultSettings }, contentScriptAccess: false, grantedOrigins: ["https://www.youtube.com/*"] });
+
+    await waitFor(() => expect(shiftTip()).not.toBeNull());
+    expect(line()).toBeNull();
+  });
+
+  it("access as after an install: no line", async () => {
+    await renderPopup({ sync: { settings: defaultSettings } });
+
+    await waitFor(() => expect(shiftTip()).not.toBeNull());
+    expect(line()).toBeNull();
+  });
+});
+
 // Chrome keeps the popup's scrollbar under `overflow: hidden`, so the padding
 // MUI's scroll lock adds in its place would widen the popup window while the
 // list or dialog is open. The lock is off in the theme, for every one of them.

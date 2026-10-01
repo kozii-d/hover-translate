@@ -148,5 +148,9 @@
     "dontAskAgain": "Don't ask again",
     "notNow": "Not now",
     "reportProblem": "Something not working? Tell us on GitHub"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate has no access to YouTube, so it can't translate subtitles. Allow access, then reload the YouTube page.",
+    "allow": "Allow access"
   }
 }

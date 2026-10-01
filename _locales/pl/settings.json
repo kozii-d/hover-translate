@@ -148,5 +148,9 @@
     "dontAskAgain": "Nie pytaj więcej",
     "notNow": "Nie teraz",
     "reportProblem": "Coś nie działa? Napisz nam na GitHubie"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate nie ma dostępu do YouTube, więc nie może tłumaczyć napisów. Zezwól na dostęp, a potem załaduj ponownie stronę YouTube.",
+    "allow": "Zezwól na dostęp"
   }
 }

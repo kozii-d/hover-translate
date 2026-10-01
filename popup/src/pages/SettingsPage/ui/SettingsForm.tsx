@@ -55,6 +55,7 @@ import { isTranslatorWithdrawn } from "@extension/common/translators/withdrawnTr
 import { StoredApiKeys } from "@extension/common/services/apiKeyService.ts";
 import { ApiKeyForm, ApiKeyStatus } from "@/features/TranslatorApiKey";
 import { RatingPromptCard, useRatingPrompt } from "@/features/RatingPrompt";
+import { YouTubeAccessAlert, useYouTubeAccess } from "@/features/YouTubeAccess";
 import {
   SelectedLanguagesMatch,
   findUserLanguage,
@@ -97,6 +98,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
 
   const notifications = useNotifications();
   const showRatingPrompt = useRatingPrompt();
+  const { hasAccess: hasYouTubeAccess, requestAccess: requestYouTubeAccess } = useYouTubeAccess();
 
   // The keys stored on this device, read up front: picking a translator has to
   // know synchronously whether it can switch or has to ask for a key, because
@@ -462,6 +464,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
+        {hasYouTubeAccess === false && <YouTubeAccessAlert onAllow={requestYouTubeAccess}/>}
         <Controller
           name="sourceLanguageCode"
           control={control}
@@ -546,13 +549,14 @@ export const SettingsForm: FC<SettingsFormProps> = ({
             onRemoveKey={() => removeApiKey(currentTranslator)}
           />
         )}
-        {/* Not next to a translator that stopped working or a missing API
-            key: that opening is about fixing it, and the card waits for
-            another one. */}
-        {showRatingPrompt && !fellBack && !apiKeyForm && <RatingPromptCard/>}
+        {/* Not next to a translator that stopped working, a missing API key or
+            no access to YouTube: that opening is about fixing it, and the card
+            waits for another one. */}
+        {hasYouTubeAccess && showRatingPrompt && !fellBack && !apiKeyForm && <RatingPromptCard/>}
         {/* One card at a time: the tips wait for an opening without the rating
-            card, even once it has been closed. */}
-        {showRatingPrompt === false && !apiKeyForm && currentTranslator !== "deepl" && (
+            card, even once it has been closed, and without the line about
+            access to YouTube. */}
+        {hasYouTubeAccess && showRatingPrompt === false && !apiKeyForm && currentTranslator !== "deepl" && (
           <ContextHint
             hasApiKey={Boolean(apiKeys.deepl)}
             onSelectDeepL={() => handleTranslatorChange("deepl")}
@@ -560,7 +564,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
         )}
         {/* With the setting on, Shift is not needed and the tip would suggest
             turning on what already is. */}
-        {showRatingPrompt === false && !alwaysMultipleSelection && (
+        {hasYouTubeAccess && showRatingPrompt === false && !alwaysMultipleSelection && (
           <DismissibleTip storageKey="multipleSelectionTipDismissed" closeText={t("tips.dismiss")}>
             {t("tips.multipleSelection")}
           </DismissibleTip>

@@ -47,7 +47,13 @@ export interface FakeChromeOptions {
   id?: string;
   /** `moz-extension` for Firefox, whose URLs tell AMO. */
   scheme?: "chrome-extension" | "moz-extension";
-  /** Host permissions already granted, e.g. `https://www.bing.com/*`. */
+  /**
+   * `false`: the hosts of the manifest's `content_scripts` are withheld, as in
+   * Chrome with site access "On click" or in Firefox before 127. By default
+   * they are granted, as after an install.
+   */
+  contentScriptAccess?: boolean;
+  /** Host permissions granted besides those, e.g. `https://www.bing.com/*`. */
   grantedOrigins?: string[];
   /** The viewer's answer to a permission prompt; granted origins are then kept. */
   answerPermissionPrompt?: (origins: string[]) => boolean;
@@ -63,9 +69,11 @@ export interface FakeChrome {
   chrome: typeof chrome;
   /** The stored values, to seed and to inspect. */
   storage: { sync: Items; local: Items; session: Items };
+  /** Granted host patterns; `permissions.contains` asks whether one of them covers each origin. */
   grantedOrigins: Set<string>;
   /** Every `tabs.create`, with the synced storage as it was at that moment. */
   createdTabs: { url?: string; sync: Items }[];
+  /** The origins of every `permissions.request` that reached a prompt. */
   permissionPrompts: string[][];
   /** The keys whose reads fail, per area; empty a list to make them work again. */
   failingReads: FailingReads;
@@ -184,6 +192,29 @@ function createStorageArea(
   return { get: both(get), set: both(set), remove: both(remove) };
 }
 
+type MatchPattern = { scheme: string; host: string; path: string };
+
+const parsePattern = (pattern: string): MatchPattern => {
+  const [, scheme = "", host = "", path = ""] = /^([^:]+):\/\/([^/]*)(\/.*)$/.exec(pattern) ?? [];
+  return { scheme, host, path };
+};
+
+/**
+ * Whether the match pattern `granted` covers `wanted`, by the rules the
+ * extension's patterns need: scheme `*` covers http and https, host `*.d`
+ * covers `d` and its subdomains (`*` any host), path `/*` any path.
+ */
+const patternCovers = (granted: string, wanted: string): boolean => {
+  const g = parsePattern(granted);
+  const w = parsePattern(wanted);
+  const scheme = g.scheme === w.scheme || (g.scheme === "*" && (w.scheme === "http" || w.scheme === "https"));
+  const domain = g.host.slice(2);
+  const host = g.host === "*" || g.host === w.host
+    || (g.host.startsWith("*.") && (w.host === domain || w.host.endsWith(`.${domain}`)));
+  const path = g.path === "/*" || g.path === w.path;
+  return scheme && host && path;
+};
+
 const addRemove = <T>(listeners: T[]) => ({
   addListener: (listener: T) => listeners.push(listener),
   removeListener: (listener: T) => {
@@ -202,13 +233,22 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
   const changeListeners: ChangeListener[] = [];
   const messageListeners: MessageListener[] = [];
   const installedListeners: InstalledListener[] = [];
-  const grantedOrigins = new Set(options.grantedOrigins ?? []);
   const createdTabs: FakeChrome["createdTabs"] = [];
   const permissionPrompts: string[][] = [];
   const id = options.id ?? CHROME_WEB_STORE_ID;
   const scheme = options.scheme ?? "chrome-extension";
   const uiLanguage = options.uiLanguage ?? "en-US";
   const manifest = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "manifest.chrome.json"), "utf8"));
+  const contentScriptOrigins: string[] = manifest.content_scripts.flatMap(({ matches }: { matches: string[] }) => matches);
+  // What `permissions.request` may ask for: the optional hosts, and the
+  // content scripts' ones when the viewer has withheld them.
+  const requestableOrigins: string[] = [...manifest.optional_host_permissions, ...contentScriptOrigins];
+  const grantedOrigins = new Set([
+    ...(options.contentScriptAccess === false ? [] : contentScriptOrigins),
+    ...(options.grantedOrigins ?? []),
+  ]);
+  const isCovered = (origin: string, patterns: Iterable<string>) =>
+    [...patterns].some((pattern) => patternCovers(pattern, origin));
   const failingReads: FailingReads = { sync: [], local: [], session: [], ...options.failingReads };
 
   const sendMessage = async (message: unknown) => {
@@ -252,8 +292,12 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
       getMessage: createGetMessage(uiLanguage),
     },
     permissions: {
-      contains: async ({ origins = [] }: { origins?: string[] }) => origins.every((origin) => grantedOrigins.has(origin)),
+      contains: async ({ origins = [] }: { origins?: string[] }) =>
+        origins.every((origin) => isCovered(origin, grantedOrigins)),
       request: async ({ origins = [] }: { origins?: string[] }) => {
+        if (!origins.every((origin) => isCovered(origin, requestableOrigins))) {
+          throw new Error("Only permissions specified in the manifest may be requested.");
+        }
         permissionPrompts.push(origins);
         const granted = options.answerPermissionPrompt?.(origins) ?? false;
         if (granted) origins.forEach((origin) => grantedOrigins.add(origin));

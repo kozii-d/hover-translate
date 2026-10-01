@@ -148,5 +148,9 @@
     "dontAskAgain": "Não perguntar de novo",
     "notNow": "Agora não",
     "reportProblem": "Algo não está funcionando? Conte para nós no GitHub"
+  },
+  "youtubeAccess": {
+    "text": "O HoverTranslate não tem acesso ao YouTube, então não consegue traduzir legendas. Permita o acesso e depois recarregue a página do YouTube.",
+    "allow": "Permitir acesso"
   }
 }

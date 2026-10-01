@@ -115,5 +115,9 @@
     "dontAskAgain": "不再詢問",
     "notNow": "以後再說",
     "reportProblem": "遇到問題？在 GitHub 上告訴我們"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate 無法存取 YouTube，因此無法翻譯字幕。請允許存取，然後重新載入 YouTube 網頁。",
+    "allow": "允許存取"
   }
 }

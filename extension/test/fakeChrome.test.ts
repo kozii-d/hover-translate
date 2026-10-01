@@ -80,3 +80,59 @@ describe("the fake chrome.runtime messaging", () => {
     expect(await chrome.runtime.sendMessage({ action: "ask" })).toEqual({ answer: 42 });
   });
 });
+
+describe("the fake chrome.permissions", () => {
+  const YOUTUBE = "*://*.youtube.com/*";
+  const WWW_YOUTUBE = "https://www.youtube.com/*";
+  const BING = "https://www.bing.com/*";
+
+  it("the content scripts' hosts are granted by default, as after an install; the option withholds them", async () => {
+    installFakeChrome();
+    expect(await chrome.permissions.contains({ origins: [YOUTUBE] })).toBe(true);
+
+    installFakeChrome({ contentScriptAccess: false });
+    expect(await chrome.permissions.contains({ origins: [YOUTUBE] })).toBe(false);
+    expect(await chrome.permissions.contains({ origins: [WWW_YOUTUBE] })).toBe(false);
+  });
+
+  it("a granted pattern covers the narrower ones inside it", async () => {
+    installFakeChrome();
+
+    expect(await chrome.permissions.contains({ origins: [WWW_YOUTUBE] })).toBe(true);
+    expect(await chrome.permissions.contains({ origins: ["http://m.youtube.com/*"] })).toBe(true);
+    expect(await chrome.permissions.contains({ origins: ["https://youtube.com/watch"] })).toBe(true);
+    expect(await chrome.permissions.contains({ origins: ["https://notyoutube.com/*"] })).toBe(false);
+    expect(await chrome.permissions.contains({ origins: ["ftp://www.youtube.com/*"] })).toBe(false);
+    expect(await chrome.permissions.contains({ origins: [BING] })).toBe(false);
+  });
+
+  it("a narrow grant does not cover the wider pattern: Chrome's \"On this site\" grants www.youtube.com only", async () => {
+    installFakeChrome({ contentScriptAccess: false, grantedOrigins: [WWW_YOUTUBE] });
+
+    expect(await chrome.permissions.contains({ origins: [WWW_YOUTUBE] })).toBe(true);
+    expect(await chrome.permissions.contains({ origins: [YOUTUBE] })).toBe(false);
+    expect(await chrome.permissions.contains({ origins: ["https://m.youtube.com/*"] })).toBe(false);
+  });
+
+  it("request: the withheld content scripts' hosts may be asked for, and the answer is kept", async () => {
+    const fake = installFakeChrome({ contentScriptAccess: false, answerPermissionPrompt: () => true });
+
+    expect(await chrome.permissions.request({ origins: [YOUTUBE] })).toBe(true);
+
+    expect(fake.permissionPrompts).toEqual([[YOUTUBE]]);
+    expect(await chrome.permissions.contains({ origins: [WWW_YOUTUBE] })).toBe(true);
+  });
+
+  it("request: a host the manifest does not declare is rejected as by Chrome, with no prompt", async () => {
+    const fake = installFakeChrome({ answerPermissionPrompt: () => true });
+
+    await expect(chrome.permissions.request({ origins: ["https://example.com/*"] }))
+      .rejects.toThrow("Only permissions specified in the manifest may be requested.");
+    await expect(chrome.permissions.request({ origins: [BING, "*://*/*"] }))
+      .rejects.toThrow("Only permissions specified in the manifest may be requested.");
+
+    expect(fake.permissionPrompts).toEqual([]);
+    expect(await chrome.permissions.contains({ origins: ["https://example.com/*"] })).toBe(false);
+    expect(await chrome.permissions.contains({ origins: [BING] })).toBe(false);
+  });
+});

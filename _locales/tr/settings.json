@@ -148,5 +148,9 @@
     "dontAskAgain": "Bir daha sorma",
     "notNow": "Şimdi değil",
     "reportProblem": "Bir şey çalışmıyor mu? GitHub'da bize bildirin"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate'in YouTube'a erişimi yok, bu yüzden altyazıları çeviremiyor. Erişime izin verin, ardından YouTube sayfasını yeniden yükleyin.",
+    "allow": "Erişime izin ver"
   }
 }

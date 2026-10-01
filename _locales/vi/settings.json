@@ -148,5 +148,9 @@
     "dontAskAgain": "Không hỏi lại",
     "notNow": "Để sau",
     "reportProblem": "Có gì không ổn? Hãy báo cho mình trên GitHub"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate không có quyền truy cập YouTube nên không thể dịch phụ đề. Hãy cho phép truy cập, rồi tải lại trang YouTube.",
+    "allow": "Cho phép truy cập"
   }
 }

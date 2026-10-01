@@ -107,5 +107,9 @@
     "dontAskAgain": "Už se neptat",
     "notNow": "Teď ne",
     "reportProblem": "Něco nefunguje? Napište nám na GitHubu"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate nemá přístup k YouTube, a proto nemůže překládat titulky. Povolte přístup a potom stránku YouTube načtěte znovu.",
+    "allow": "Povolit přístup"
   }
 }

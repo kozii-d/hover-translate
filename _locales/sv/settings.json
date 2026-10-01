@@ -148,5 +148,9 @@
     "dontAskAgain": "Fråga inte igen",
     "notNow": "Inte nu",
     "reportProblem": "Fungerar något inte? Berätta för oss på GitHub"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate har inte åtkomst till YouTube och kan därför inte översätta undertexter. Tillåt åtkomst och läs sedan in YouTube-sidan igen.",
+    "allow": "Tillåt åtkomst"
   }
 }

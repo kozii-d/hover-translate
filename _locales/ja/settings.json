@@ -148,5 +148,9 @@
     "dontAskAgain": "今後表示しない",
     "notNow": "後で",
     "reportProblem": "うまく動かない場合は GitHub でお知らせください"
+  },
+  "youtubeAccess": {
+    "text": "HoverTranslate に YouTube へのアクセス権がないため、字幕を翻訳できません。アクセスを許可してから、YouTube のページを再読み込みしてください。",
+    "allow": "アクセスを許可"
   }
 }

@@ -148,5 +148,9 @@
     "dontAskAgain": "Ne kérdezze újra",
     "notNow": "Most nem",
     "reportProblem": "Valami nem működik? Írd meg nekünk a GitHubon"
+  },
+  "youtubeAccess": {
+    "text": "A HoverTranslate nem fér hozzá a YouTube-hoz, ezért nem tudja lefordítani a feliratokat. Engedélyezd a hozzáférést, majd töltsd újra a YouTube-oldalt.",
+    "allow": "Hozzáférés engedélyezése"
   }
 }
