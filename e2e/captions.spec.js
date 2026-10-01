@@ -135,6 +135,90 @@ test.describe("into Russian", () => {
     await expect(player.tooltip).toHaveText("делаешь сейчас");
   });
 
+  test("auto-generated captions roll up: a selection on the line that stays survives and goes on growing", async ({ openPlayer, network }) => {
+    network.translate("ru", "you doing now", "ты сейчас делаешь");
+    const player = await openPlayer();
+    await player.captions([{ lines: ["so what are", "you doing now"] }]);
+
+    await player.word("you").hover();
+    await player.page.keyboard.down("Shift");
+    await player.word("doing").hover();
+    await expect(selectedWords(player)).toHaveText(["you ", "doing "]);
+
+    const line = await player.frame.locator(".caption-window").boundingBox();
+    await player.page.mouse.move(line.x + line.width / 2, line.y - 30);
+    await player.fixture("rollUp");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["you ", "doing ", "now "]);
+    await expect(selectedWords(player)).toHaveText(["you ", "doing "]);
+
+    await player.word("now").hover();
+    await player.page.keyboard.up("Shift");
+    await expect(selectedWords(player)).toHaveText(["you ", "doing ", "now "]);
+    await expect(player.tooltip).toHaveText("ты сейчас делаешь");
+    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("you doing now");
+  });
+
+  test("auto-generated captions roll up under the resting pointer: the selection and its translation stay", async ({ openPlayer, network }) => {
+    network.translate("ru", "you doing", "ты делаешь");
+    const player = await openPlayer();
+    // The line that stays is the longest, so the window keeps its width and,
+    // anchored at the bottom, its last line stays where it was.
+    await player.captions([{ lines: ["so what are", "you doing now"] }]);
+
+    await player.word("you").hover();
+    await player.page.keyboard.down("Shift");
+    const box = await player.word("doing").boundingBox();
+    const pointer = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+    await player.page.mouse.move(pointer.x, pointer.y);
+    await expect(selectedWords(player)).toHaveText(["you ", "doing "]);
+    await expect(player.tooltip).toHaveText("ты делаешь");
+    expect(await wordAt(player, pointer)).toBe("doing");
+
+    await player.fixture("rollUp");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["you ", "doing ", "now "]);
+    expect(await wordAt(player, pointer)).toBe("doing");
+    await expect(selectedWords(player)).toHaveText(["you ", "doing "]);
+    await expect(player.tooltip).toHaveText("ты делаешь");
+  });
+
+  test("auto-generated captions roll up: a selection reaching into the line that went is dropped whole", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([{ lines: ["so what are", "you doing now"] }]);
+
+    await player.word("are").hover();
+    await player.page.keyboard.down("Shift");
+    await player.word("you").hover();
+    await expect(selectedWords(player)).toHaveText(["are ", "you "]);
+
+    const line = await player.frame.locator(".caption-window").boundingBox();
+    await player.page.mouse.move(line.x + line.width / 2, line.y - 30);
+    await player.fixture("rollUp");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["you ", "doing ", "now "]);
+    await expect(selectedWords(player)).toHaveCount(0);
+  });
+
+  // The line that went can be the start of the one that stays: the words of
+  // each stay with their own line.
+  for (const [line, kept] of [["stays", ["you ", "know "]], ["went", []]]) {
+    test(`auto-generated captions roll up, the line that went the start of the one that stays: a selection on the line that ${line}`, async ({ openPlayer }) => {
+      const player = await openPlayer();
+      await player.captions([{ lines: ["you know", "you know what I mean"] }]);
+      const wordOn = (text) => player.frame.locator(line === "stays" ? ".caption-visual-line:last-child" : ".caption-visual-line:first-child")
+        .locator(".custom-tooltip-word").filter({ hasText: new RegExp(`^\\s*${text}\\s*$`) });
+
+      await wordOn("you").hover();
+      await player.page.keyboard.down("Shift");
+      await wordOn("know").hover();
+      await expect(selectedWords(player)).toHaveText(["you ", "know "]);
+
+      const captions = await player.frame.locator(".caption-window").boundingBox();
+      await player.page.mouse.move(captions.x + captions.width / 2, captions.y - 30);
+      await player.fixture("rollUp");
+      await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["you ", "know ", "what ", "I ", "mean "]);
+      await expect(selectedWords(player)).toHaveText(kept);
+    });
+  }
+
   test("with two caption windows the translation is shown at the window of the word", async ({ openPlayer }) => {
     const player = await openPlayer();
     await player.captions([

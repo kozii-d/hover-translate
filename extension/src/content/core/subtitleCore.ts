@@ -10,6 +10,11 @@ export class SubtitleCore {
    * unchanged (or merely extended) line recognisable, and it is per instance on
    * purpose: after the pipeline is rebuilt the spans still on screen carry
    * handlers of the previous instance, so the new one has to re-split them.
+   *
+   * It also recognises a line YouTube removed and drew again as a new node,
+   * which it does to every line that stays when auto-generated captions roll
+   * up: its spans move to the new line, so a selection on it and a
+   * translation still loading for it survive.
    */
   private readonly parsedSegments = new WeakMap<HTMLElement, CaptionWord[]>();
 
@@ -36,17 +41,22 @@ export class SubtitleCore {
    * spanning two caption lines: auto-generated captions are re-rendered on every
    * appended word, and each rebuild detached the very nodes the current
    * selection was anchored to.
+   *
+   * `removedLines`: caption lines that left the page in the same change, whose
+   * spans this line may take over (see `parsedSegments`).
    */
-  public splitCaptionIntoSpans(captionSegment: HTMLElement): boolean {
+  public splitCaptionIntoSpans(captionSegment: HTMLElement, removedLines: HTMLElement[] = []): boolean {
     const text = captionSegment.textContent?.trim() ?? "";
     const words = splitIntoWords(text);
-    const parsedWords = this.getParsedWords(captionSegment);
+    const ownWords = this.getParsedWords(captionSegment);
+
+    if (ownWords && this.isSameWords(ownWords, words)) return false;
+
+    const parsedWords = ownWords ?? this.takeOverRemovedLine(captionSegment, removedLines, words);
 
     if (parsedWords) {
-      if (this.isSameWords(parsedWords, words)) return false;
-
       if (this.isAppendOnly(parsedWords, words)) {
-        // Drop the raw text YouTube appended, keeping the existing spans in place.
+        // Drop YouTube's raw text, keeping our spans in place.
         this.removeNonWordNodes(captionSegment);
         this.syncSeparators(captionSegment, words.slice(0, parsedWords.length));
         captionSegment.appendChild(this.buildWordSpans(words.slice(parsedWords.length)));
@@ -82,13 +92,41 @@ export class SubtitleCore {
     return isIntact ? parsedWords : null;
   }
 
+  /**
+   * Moves the spans of a removed line that held these words, or the first of
+   * them, to the end of `captionSegment`, and returns its words; null when no
+   * removed line did. Its spans gone, the removed line can't be taken twice.
+   *
+   * The longest such line: the line that went may be the start of the one that
+   * stays ("you know" above "you know what I mean").
+   */
+  private takeOverRemovedLine(captionSegment: HTMLElement, removedLines: HTMLElement[], words: CaptionWord[]): CaptionWord[] | null {
+    let takenLine: HTMLElement | null = null;
+    let takenWords: CaptionWord[] = [];
+
+    for (const removedLine of removedLines) {
+      const removedWords = this.getParsedWords(removedLine);
+      if (removedWords && removedWords.length > takenWords.length && this.isAppendOnly(removedWords, words)) {
+        takenLine = removedLine;
+        takenWords = removedWords;
+      }
+    }
+
+    if (!takenLine) return null;
+
+    captionSegment.append(...Array.from(takenLine.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`)));
+    this.parsedSegments.set(captionSegment, takenWords);
+    return takenWords;
+  }
+
   private isSameWords(words: CaptionWord[], otherWords: CaptionWord[]): boolean {
     return words.length === otherWords.length &&
       words.every((word, index) => renderWord(word) === renderWord(otherWords[index]));
   }
 
   /**
-   * Whether the line only grew at the end.
+   * Whether the line still starts with the parsed words, and at most grew at
+   * the end.
    *
    * Only the words themselves are compared, not what is rendered after them: in
    * a script without spaces the last word of a line loses its trailing space as
@@ -97,7 +135,7 @@ export class SubtitleCore {
    * rebuild detaches the very nodes a live selection is anchored to.
    */
   private isAppendOnly(parsedWords: CaptionWord[], words: CaptionWord[]): boolean {
-    return words.length > parsedWords.length &&
+    return words.length >= parsedWords.length &&
       parsedWords.every((word, index) => word.text === words[index].text);
   }
 

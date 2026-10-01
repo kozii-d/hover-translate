@@ -119,10 +119,15 @@ export class MutationObserverService {
   private handleMutations = (mutations: MutationRecord[]): void => {
     let wordsChanged = false;
 
+    // Rolling auto-generated captions up, YouTube removes every line and adds
+    // the ones that stay again, in one call of the observer; the lines added
+    // take over the words of the removed ones (see `SubtitleCore`).
+    const removedLines = mutations.flatMap((mutation) => Array.from(mutation.removedNodes, this.findCaptionSegments).flat());
+
     mutations.forEach((mutation) => {
       // 1. Handle all added nodes.
       mutation.addedNodes.forEach((node) => {
-        wordsChanged = this.handleAddedNode(node) || wordsChanged;
+        wordsChanged = this.handleAddedNode(node, removedLines) || wordsChanged;
       });
 
       // 2. Handle all removed nodes.
@@ -178,7 +183,7 @@ export class MutationObserverService {
    * - update caption window size,
    * - add events to the caption window (mouseenter/mouseleave).
    */
-  private handleAddedNode(node: Node): boolean {
+  private handleAddedNode(node: Node, removedLines: HTMLElement[]): boolean {
     let wordsChanged = false;
 
     // If it's an Element, check for caption segments inside
@@ -187,7 +192,7 @@ export class MutationObserverService {
       segments.forEach((segment) => {
         if (segment instanceof HTMLElement) {
           wordsChanged =
-            this.subtitleCore.splitCaptionIntoSpans(segment) || wordsChanged;
+            this.subtitleCore.splitCaptionIntoSpans(segment, removedLines) || wordsChanged;
         }
       });
       this.subtitleCore.updateCaptionWindowSize();
@@ -206,7 +211,7 @@ export class MutationObserverService {
         captionSegment.classList.contains(CAPTION_SEGMENT)
       ) {
         wordsChanged =
-          this.subtitleCore.splitCaptionIntoSpans(captionSegment) ||
+          this.subtitleCore.splitCaptionIntoSpans(captionSegment, removedLines) ||
           wordsChanged;
       }
     }
@@ -231,13 +236,21 @@ export class MutationObserverService {
       return false;
     }
 
-    // A single caption line can be dropped on its own — auto-generated captions
-    // scroll line by line — and the selection has to be re-resolved without it.
+    // Caption lines go without their window when auto-generated captions roll
+    // up: YouTube removes every line and adds the ones that stay again. The
+    // selection is re-resolved, and dropped if it was on the line that went.
     return (
       node.classList.contains(TOOLTIP_WORD_CLASS) ||
       node.querySelector(`.${TOOLTIP_WORD_CLASS}`) !== null
     );
   }
+
+  /** The caption segments in `node`, itself included. */
+  private findCaptionSegments = (node: Node): HTMLElement[] => {
+    if (!(node instanceof HTMLElement)) return [];
+    if (node.classList.contains(CAPTION_SEGMENT)) return [node];
+    return Array.from(node.querySelectorAll<HTMLElement>(`.${CAPTION_SEGMENT}`));
+  };
 
   /**
    * Captions already on screen carry handlers bound to whichever instance split

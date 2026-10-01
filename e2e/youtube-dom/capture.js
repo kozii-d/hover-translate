@@ -13,7 +13,8 @@ const { chromium } = require("@playwright/test");
 //   position, z-index, pointer-events and box; what lies on top of the
 //   captions; the caption window as HTML; the buttons of the controls layer.
 // - `auto.json`: how auto-generated captions change the DOM as they grow, one
-//   line per mutation, over eight seconds of a video that has only those.
+//   line per mutation, over eight seconds of a video that has only those; a
+//   line `"batch"` opens the mutations one call of the observer got together.
 // When YouTube changes its player, run this, read `git diff
 // e2e/youtube-dom/captured` and bring the fixtures in line.
 //
@@ -151,13 +152,16 @@ async function capturePage(context, name) {
 }
 
 // The mutations of the caption container, as one line each, e.g.
-// `childList span.ytp-caption-segment +[#text(" still")] -[]`.
+// `childList span.ytp-caption-segment +[#text(" still")] -[]`. Each call of
+// the observer starts with a line `"batch"`: what the extension's observer
+// gets in one call is all it sees at once.
 function recordMutations() {
   const describeNode = (node) => (node.nodeType === Node.TEXT_NODE
     ? `#text(${JSON.stringify(node.textContent)})`
     : `${node.tagName.toLowerCase()}.${String(node.className).split(" ")[0]}`);
   window.captionMutations = [];
   new MutationObserver((records) => {
+    window.captionMutations.push("batch");
     for (const record of records) {
       window.captionMutations.push(`${record.type} ${describeNode(record.target)} `
         + `+[${Array.from(record.addedNodes, describeNode).join(", ")}] -[${Array.from(record.removedNodes, describeNode).join(", ")}]`);

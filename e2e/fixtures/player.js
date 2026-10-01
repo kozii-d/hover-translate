@@ -96,7 +96,7 @@
 
     // The first line goes up and out. YouTube removes every line of the
     // window and adds the ones that stay again, as new nodes, a text node per
-    // word (auto.json).
+    // word, all in one call of a MutationObserver (auto.json).
     rollUp() {
       const text = lastWindow().querySelector(".captions-text");
       const kept = Array.from(text.querySelectorAll(".caption-visual-line")).slice(1).map((line) => line.textContent.trim());
