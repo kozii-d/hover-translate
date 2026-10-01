@@ -107,3 +107,44 @@ for (const language of ["en", "ja", "ar"]) {
     expect(widths[0]).toBeLessThan(550);
   });
 }
+
+// Each tab is as wide as its label plus the tab's padding (16 px a side), so
+// no label runs into the next one or is cut off (`overflow: hidden`). Only
+// where the popup has reached its 550 px can the padding be squeezed, and a
+// label must still fit whole. Every locale directory is checked, so a new
+// language is too: if its labels do not fit, shorten them.
+test("every tab label fits its tab, in every language", async ({ context, extensionId }) => {
+  const locales = path.join(__dirname, "..", "_locales");
+  const misfits = [];
+
+  for (const language of fs.readdirSync(locales)) {
+    const label = (ns) => JSON.parse(fs.readFileSync(path.join(locales, language, `${ns}.json`), "utf8")).tabLabel;
+    const popup = await context.newPage();
+    await popup.addInitScript((code) => localStorage.setItem("hoverTranslatePopupLanguage", code), language);
+    await popup.goto(`chrome-extension://${extensionId}/popup/dist/index.html`);
+    for (const ns of ["settings", "customize", "dictionary", "about"]) {
+      await expect(popup.getByRole("tab", { name: label(ns), exact: true })).toBeVisible();
+    }
+    await expect(popup.locator(".MuiSkeleton-root")).toHaveCount(0);
+
+    const { body, tabs } = await popup.evaluate(() => ({
+      body: document.body.getBoundingClientRect().width,
+      tabs: [...document.querySelectorAll("[role=tab]")].map((tab) => {
+        const text = [...tab.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+        const range = document.createRange();
+        range.selectNodeContents(text);
+        const box = tab.getBoundingClientRect();
+        const words = range.getBoundingClientRect();
+        return { label: text.data, start: words.left - box.left, end: box.right - words.right };
+      }),
+    }));
+
+    const least = body < 549.5 ? 15.5 : 0;
+    for (const tab of tabs) {
+      if (Math.min(tab.start, tab.end) < least) misfits.push({ language, label: tab.label, body, start: tab.start, end: tab.end });
+    }
+    await popup.close();
+  }
+
+  expect(misfits).toEqual([]);
+});

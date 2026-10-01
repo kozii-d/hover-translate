@@ -25,7 +25,7 @@ All notable changes to this project will be documented in this file.
 - "Rate us" on the About page now opens the page of the store HoverTranslate was installed from.
 - Language names, the options on the Customize page and the dates on the Dictionary page were in English whatever the language of the settings. They now follow it.
 - Better wording of the settings in most languages: the subtitle appearance options use YouTube's own names, the tab with your saved words is named as in the store, and leftover English text and mixed formal and informal address are gone.
-- The settings window no longer changes its width when moving between tabs or opening a list.
+- The settings window no longer changes its width when moving between tabs or opening a list, and its tabs no longer cut off their names in some languages.
 - On a first install in Norwegian Nynorsk, the translation language is now Norwegian instead of English.
 
 ## [1.1.14] - 2026-09-24
