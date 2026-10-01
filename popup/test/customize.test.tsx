@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { act, screen, waitFor } from "@testing-library/react";
 import i18n from "@/app/config/i18n.ts";
-import { renderPopup } from "./renderPopup.tsx";
+import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const AUTO_THEME = {
   useYouTubeSettings: false,
@@ -14,21 +14,22 @@ const AUTO_THEME = {
   characterEdgeStyle: "auto",
 };
 
-/**
- * A field of the page once the stored theme is on it: the page renders the
- * defaults (every field disabled) before it has read `tooltipTheme`.
- * `label` is the field's name in the popup's language.
- */
-const field = (label: string) => waitFor(() => {
-  const select = screen.getByRole("combobox", { name: new RegExp(`^${label}`) });
-  expect(select.getAttribute("aria-disabled")).not.toBe("true");
-  return select;
-});
+/** A field of the page. `label` is the field's name in the popup's language. */
+const field = (label: string) => screen.findByRole("combobox", { name: new RegExp(`^${label}`) });
 
 const openMenu = async (user: Awaited<ReturnType<typeof renderPopup>>["user"], label: string) => {
   await user.click(await field(label));
   return (await screen.findAllByRole("option")).map((option) => option.textContent);
 };
+
+it("the page draws its fields once, with the stored theme", async () => {
+  const shown = recordFieldTexts("#fontSize");
+  await renderPopup({ route: "/customize", sync: { tooltipTheme: { ...AUTO_THEME, fontSize: "50%" } } });
+
+  await screen.findByText("50%");
+
+  expect(shown()).toEqual(["50%"]);
+});
 
 describe("the Customize page's menus are in the popup's language, named as in YouTube's caption options", () => {
   it("the closed fields show the stored values in the popup's language", async () => {

@@ -18,16 +18,18 @@ import {
 } from "../model/consts/translators.ts";
 import { useTranslation } from "react-i18next";
 import { SettingsForm } from "./SettingsForm.tsx";
+import { SettingsFormSkeleton } from "./skeletons/SettingsFormSkeleton.tsx";
 import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 
 const SettingsPage: FC = () => {
-  const [initialValues, setInitialValues] = useState<SettingsFormValues>(initialFormValues);
+  // Null until the stored settings are read: the form is mounted with them, so
+  // it never draws the defaults first and corrects them a frame later.
+  const [initialValues, setInitialValues] = useState<SettingsFormValues | null>(null);
 
   const [sourceLanguages, setSourceLanguages] = useState<Language[]>([]);
   const [targetLanguages, setTargetLanguages] = useState<Language[]>([]);
   const [loadingLanguages, setLoadingLanguages] = useState<boolean>(false);
-  // From the first frame: the effect that loads them runs after it, and the form
-  // would be drawn with empty language lists until then.
+  // Already true when the form mounts: its fields wait for the language lists.
   const [loadingSettings, setLoadingSettings] = useState<boolean>(true);
   const loading = loadingLanguages || loadingSettings;
   const [apiKeyPrompt, setApiKeyPrompt] = useState<ApiKeyPrompt | null>(null);
@@ -225,18 +227,20 @@ const SettingsPage: FC = () => {
 
   return (
     <Page title={t("pageTitle")}>
-      <SettingsForm
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        saveSettings={saveSettings}
-        sourceLanguages={sourceLanguages}
-        targetLanguages={targetLanguages}
-        fetchAvailableLanguages={fetchAvailableLanguages}
-        applyAvailableLanguages={applyAvailableLanguages}
-        apiKeyPrompt={apiKeyPrompt}
-        fellBack={fellBack}
-        loading={loading}
-      />
+      {initialValues ? (
+        <SettingsForm
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          saveSettings={saveSettings}
+          sourceLanguages={sourceLanguages}
+          targetLanguages={targetLanguages}
+          fetchAvailableLanguages={fetchAvailableLanguages}
+          applyAvailableLanguages={applyAvailableLanguages}
+          apiKeyPrompt={apiKeyPrompt}
+          fellBack={fellBack}
+          loading={loading}
+        />
+      ) : <SettingsFormSkeleton/>}
     </Page>
   );
 };

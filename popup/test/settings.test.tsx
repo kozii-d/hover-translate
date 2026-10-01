@@ -5,7 +5,8 @@ import { BING_ORIGIN } from "@extension/common/translators/bing/bing.ts";
 import { DEEPL_FREE_API_URL } from "@extension/common/translators/deepl/consts.ts";
 import { CHROME_WEB_STORE_ID, UNPACKED_ID } from "@extension-test/fakeChrome.ts";
 import { json } from "@extension-test/fakeNetwork.ts";
-import { renderPopup } from "./renderPopup.tsx";
+import { apiKeyService } from "@/shared/lib/helpers/apiKeys.ts";
+import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -82,6 +83,45 @@ it("the settings page shows its skeleton until the language lists are loaded, no
   await translatorSelect();
   // MUI's warning about a select whose value is not among its options: the target language with an empty list.
   expect(warn).not.toHaveBeenCalledWith(expect.stringContaining("out-of-range value"));
+});
+
+it("the page draws its fields once, with the stored settings", async () => {
+  const shown = recordFieldTexts("#targetLanguageCode");
+  await renderPopup({ sync: { settings: { ...defaultSettings, targetLanguageCode: "ru" } } });
+
+  await screen.findByText("Russian");
+
+  expect(shown()).toEqual(["Russian"]);
+});
+
+it("picking DeepL with a stored key switches to it, even when the keys are read after the language lists", async () => {
+  // A slow disk: the keys arrive long after everything else the page reads.
+  const getAll = apiKeyService.getAll.bind(apiKeyService);
+  vi.spyOn(apiKeyService, "getAll").mockImplementation(() =>
+    new Promise((resolve) => setTimeout(resolve, 500)).then(getAll));
+  const { fake, user } = await renderPopup({
+    sync: { settings: defaultSettings },
+    local: { apiKeys: { deepl: "deepl-key:fx" } },
+    grantedOrigins: [`${DEEPL_FREE_API_URL}/*`],
+    answerPermissionPrompt: () => true,
+  });
+
+  await pickTranslator(user, "DeepL");
+
+  await waitFor(() => expect(fake.storage.sync.settings).toMatchObject({ translator: "deepl" }));
+  expect(screen.queryByText("Connect DeepL")).toBeNull();
+});
+
+it("keys that cannot be read leave the page usable, as without a key: DeepL asks for one", async () => {
+  const error = vi.spyOn(console, "error").mockImplementation(() => {});
+  vi.spyOn(apiKeyService, "getAll").mockRejectedValue(new Error("The disk is gone"));
+  const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+  await pickTranslator(user, "DeepL");
+
+  expect(await screen.findByText("Connect DeepL")).toBeTruthy();
+  expect(fake.storage.sync.settings).toEqual(defaultSettings);
+  expect(error).toHaveBeenCalledWith("Could not read the stored API keys", expect.any(Error));
 });
 
 describe("the language lists are named in the popup's language", () => {

@@ -39,3 +39,28 @@ export async function renderPopup({ route = "/", language = "en", routes, ...chr
 
   return { fake, network, user, ...view };
 }
+
+/**
+ * Every text the field `selector` has shown since this call, the current one
+ * last. A form drawn with other values and corrected or replaced before the
+ * test looks leaves them here: mutation records keep what the page no longer has.
+ */
+export function recordFieldTexts(selector: string) {
+  const shown: string[] = [];
+  const observer = new MutationObserver((records) => records.forEach((record) => {
+    if (record.type === "characterData" && record.target.parentElement?.closest(selector)) {
+      shown.push(record.oldValue ?? "");
+    }
+    record.removedNodes.forEach((node) => {
+      const field = node instanceof Element ? node.querySelector(selector) : null;
+      if (field) shown.push(field.textContent ?? "");
+      else if ((record.target as Element).closest?.(selector)) shown.push(node.textContent ?? "");
+    });
+  }));
+  observer.observe(document.body, { subtree: true, childList: true, characterData: true, characterDataOldValue: true });
+
+  return () => {
+    observer.disconnect();
+    return [...shown, document.querySelector(selector)?.textContent ?? ""];
+  };
+}

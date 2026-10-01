@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { FC, useCallback, useEffect, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -18,29 +18,22 @@ import {
   FONT_OPACITIES,
   FONT_SIZES
 } from "../model/consts/menuItems.ts";
-import { CustomizeFormSkeleton } from "./skeletons/CustomizeFormSkeleton.tsx";
 import { ControlledSwitch } from "./ControlledSwitch.tsx";
 import { ControlledSettingsSelect } from "./ControlledSettingsSelect.tsx";
 
 interface CustomizeFormProps {
   initialValues: CustomizeFormValues;
   onSubmit: (values: CustomizeFormValues) => Promise<void>;
-  loading: boolean;
 }
 
 export const CustomizeForm: FC<CustomizeFormProps> = ({
   initialValues,
   onSubmit,
-  loading,
 }) => {
   const { t, i18n } = useTranslation("customize");
   const { control, handleSubmit, setValue, watch, reset } = useForm<CustomizeFormValues>({
     defaultValues: initialValues,
   });
-
-  useEffect(() => {
-    reset(initialValues);
-  }, [initialValues, reset]);
 
   const isDisabled = watch("useYouTubeSettings");
 
@@ -69,10 +62,6 @@ export const CustomizeForm: FC<CustomizeFormProps> = ({
     reset(initialFormValues);
     handleSubmit(onSubmit)();
   }, [onSubmit, reset, handleSubmit]);
-
-  if (loading) {
-    return <CustomizeFormSkeleton/>;
-  }
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>

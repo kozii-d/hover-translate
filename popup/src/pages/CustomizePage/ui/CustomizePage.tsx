@@ -1,4 +1,5 @@
 import { CustomizeForm } from "./CustomizeForm.tsx";
+import { CustomizeFormSkeleton } from "./skeletons/CustomizeFormSkeleton.tsx";
 import { FC, useCallback, useEffect, useState } from "react";
 import { CustomizeFormValues } from "../model/types/schema.ts";
 import { Page } from "@/shared/ui/Page/Page.tsx";
@@ -10,7 +11,9 @@ import { useNotifications } from "@/shared/lib/notifications/notifications.ts";
 const CustomizePage: FC = () => {
   const [initialValues, setInitialValues] = useState<CustomizeFormValues>(initialFormValues);
 
-  const [loading, setLoading] = useState<boolean>(false);
+  // The form is mounted only with the stored theme: drawn with the defaults
+  // first, it would show them for a frame before correcting itself.
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { t } = useTranslation("customize");
 
@@ -52,11 +55,12 @@ const CustomizePage: FC = () => {
 
   return (
     <Page title={t("pageTitle")}>
-      <CustomizeForm
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        loading={loading}
-      />
+      {loading ? <CustomizeFormSkeleton/> : (
+        <CustomizeForm
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+        />
+      )}
     </Page>
   );
 };

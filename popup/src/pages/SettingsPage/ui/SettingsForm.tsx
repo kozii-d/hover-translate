@@ -102,8 +102,8 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   // know synchronously whether it can switch or has to ask for a key, because
   // the permission request that switching starts needs the user gesture.
   const [apiKeys, setApiKeys] = useState<StoredApiKeys>({});
-  // Until then `apiKeys` is empty whatever is stored, and anything that tells
-  // a viewer with a key from one without would say the wrong thing first.
+  // Until then the form shows its skeleton: with `apiKeys` still empty, picking
+  // a translator whose key is stored would open the "Connect" form instead.
   const [apiKeysLoaded, setApiKeysLoaded] = useState(false);
   const [apiKeyForm, setApiKeyForm] = useState<ApiKeyPrompt | null>(null);
 
@@ -453,7 +453,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     }
   }, [fetchAvailableLanguages, notifications, onSubmit, reset, t]);
 
-  if (loading) {
+  if (loading || !apiKeysLoaded) {
     return <SettingsFormSkeleton/>;
   }
 
@@ -552,7 +552,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
         {showRatingPrompt && !fellBack && !apiKeyForm && <RatingPromptCard/>}
         {/* One card at a time: the tips wait for an opening without the rating
             card, even once it has been closed. */}
-        {showRatingPrompt === false && apiKeysLoaded && !apiKeyForm && currentTranslator !== "deepl" && (
+        {showRatingPrompt === false && !apiKeyForm && currentTranslator !== "deepl" && (
           <ContextHint
             hasApiKey={Boolean(apiKeys.deepl)}
             onSelectDeepL={() => handleTranslatorChange("deepl")}
