@@ -12,6 +12,16 @@ describe("StorageService", () => {
     expect(await storage.get(null, "sync")).toEqual({ settings: { translator: "bing" }, installedAt: 1 });
   });
 
+  it("reads a stored false, 0 or empty string as itself, not as absent", async () => {
+    installFakeChrome({ sync: { flag: false, count: 0, text: "" } });
+    const storage = new StorageService();
+
+    expect(await storage.get("flag", "sync")).toBe(false);
+    expect(await storage.get("count", "sync")).toBe(0);
+    expect(await storage.get("text", "sync")).toBe("");
+    expect(await storage.get("nothing", "sync")).toBeNull();
+  });
+
   it("setMany writes the keys in one operation: one change event with both", async () => {
     const fake = installFakeChrome();
     const events: string[][] = [];
@@ -59,6 +69,24 @@ describe("StorageService", () => {
     )));
 
     expect(Object.keys(fake.storage.local.apiKeys as object).sort()).toEqual([...translators].sort());
+  });
+
+  it("update(): the updater gets a stored 0 or false as itself", async () => {
+    const fake = installFakeChrome({ local: { count: 0, flag: false } });
+    const storage = new StorageService();
+    const seen: unknown[] = [];
+
+    await storage.update<number>("count", "local", (count) => {
+      seen.push(count);
+      return (count ?? 10) + 1;
+    });
+    await storage.update<boolean>("flag", "local", (flag) => {
+      seen.push(flag);
+      return flag === null ? false : !flag;
+    });
+
+    expect(seen).toEqual([0, false]);
+    expect(fake.storage.local).toEqual({ count: 1, flag: true });
   });
 
   it("update(): returning null removes the key", async () => {

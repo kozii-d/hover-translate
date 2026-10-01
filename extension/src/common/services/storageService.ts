@@ -21,13 +21,8 @@ export class StorageService {
           return resolve(result as T);
         }
 
-        const data = result[key];
-
-        if (!data) {
-          return resolve(null);
-        }
-
-        resolve(data as T);
+        // Only an absent key is null: a stored false, 0 or "" is a value.
+        resolve((result[key] ?? null) as T | null);
       });
     });
   }
