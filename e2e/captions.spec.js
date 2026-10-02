@@ -357,6 +357,64 @@ test.describe("into Russian", () => {
     // Below its window, which is in the upper half.
     expect((await player.tooltip.boundingBox()).y).toBeGreaterThanOrEqual(topWindow.y + topWindow.height);
   });
+
+  // A window given the width of another one's line moved its own line off the
+  // centre YouTube had put it at.
+  test("with two caption windows each one is as wide as its own line, and the line stays where YouTube centred it", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([
+      { lines: ["first speaker talks"], position: "top" },
+      { lines: ["second speaker answers, and much longer"] },
+    ]);
+    const windows = player.frame.locator(".caption-window");
+    const segments = player.frame.locator(".ytp-caption-segment");
+
+    for (const index of [0, 1]) {
+      const windowBox = await windows.nth(index).boundingBox();
+      const segmentBox = await segments.nth(index).boundingBox();
+      expect(Math.abs(windowBox.width - segmentBox.width)).toBeLessThanOrEqual(1);
+    }
+    const container = await player.frame.locator(".ytp-caption-window-container").boundingBox();
+    const topLine = await segments.nth(0).boundingBox();
+    expect(Math.abs(topLine.x + topLine.width / 2 - (container.x + container.width / 2))).toBeLessThanOrEqual(1);
+  });
+
+  // Auto-generated captions: YouTube makes the window wider than its text,
+  // and auto-pause goes by the pointer entering the window.
+  test("auto-pause leaves the video playing over the empty part of a second, auto-generated caption window", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([
+      { lines: ["first speaker talks"], position: "top" },
+      { lines: ["second speaker"], style: "text-align: left; left: 20%; width: 560px;" },
+    ]);
+    const container = await player.frame.locator(".ytp-caption-window-container").boundingBox();
+    const line = await player.frame.locator(".ytp-caption-segment").nth(1).boundingBox();
+    const point = { x: line.x + line.width + 40, y: line.y + line.height / 2 };
+    // Still inside the 560 px YouTube gave the window.
+    expect(point.x).toBeLessThan(container.x + container.width * 0.2 + 560);
+
+    await player.page.mouse.move(point.x, point.y);
+    expect(await player.isPaused()).toBe(false);
+
+    await player.word("speaker").last().hover();
+    await expect.poll(() => player.isPaused()).toBe(true);
+  });
+
+  // Its lines measure 0 while it is hidden: narrowed to that, the window broke
+  // its line into a word a line once shown.
+  test("a caption window hidden while the others are fitted keeps its line on one line once shown", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([
+      { lines: ["first speaker talks"], position: "top" },
+      { lines: ["second speaker answers"], style: "display: none;" },
+    ]);
+    await player.fixture("showHidden");
+
+    const segments = player.frame.locator(".ytp-caption-segment");
+    await expect(segments.nth(1)).toBeVisible();
+    const [shown, other] = await Promise.all([1, 0].map((index) => segments.nth(index).boundingBox()));
+    expect(Math.abs(shown.height - other.height)).toBeLessThanOrEqual(1);
+  });
 });
 
 test.describe("Arabic captions into English", () => {

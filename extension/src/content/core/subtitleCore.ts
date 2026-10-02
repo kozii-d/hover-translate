@@ -248,21 +248,22 @@ export class SubtitleCore {
     return wordSpan;
   }
 
+  /**
+   * For auto-generated captions YouTube makes the window wider than its text,
+   * and auto-pause goes by the pointer entering the window, so the video
+   * stopped over the empty part. Each window is narrowed to its own longest
+   * line: a page can have several (two speakers, the miniplayer and a
+   * thumbnail preview). A window whose lines measure 0 (none, or hidden) is
+   * left as YouTube made it.
+   */
   public updateCaptionWindowSize(): void {
-    const segments = document.querySelectorAll(`.${CAPTION_SEGMENT}`);
-    let maxWidth = 0;
-
-    segments.forEach((segment) => {
-      if (segment instanceof HTMLElement) {
-        const rect = segment.getBoundingClientRect();
-        maxWidth = Math.max(maxWidth, rect.width);
+    document.querySelectorAll(`.${CAPTION_WINDOW}`).forEach((captionWindow) => {
+      const width = Math.max(0, ...Array.from(captionWindow.querySelectorAll(`.${CAPTION_SEGMENT}`))
+        .map((segment) => segment.getBoundingClientRect().width));
+      if (captionWindow instanceof HTMLElement && width > 0) {
+        captionWindow.style.width = `${width}px`;
       }
     });
-
-    const captionWindow = document.querySelector(`.${CAPTION_WINDOW}`);
-    if (captionWindow instanceof HTMLElement) {
-      captionWindow.style.width = `${maxWidth}px`;
-    }
   }
 
   public handlePointerLeaveOnCaptionWindow = ((event: Event) => {

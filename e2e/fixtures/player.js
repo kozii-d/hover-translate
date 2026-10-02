@@ -122,6 +122,13 @@
       fit(lastWindow());
     },
 
+    // Shows the windows given `display: none` in their `style`, as nothing
+    // but a change of style: no node is added (a player kept in the page out
+    // of sight, shown again).
+    showHidden() {
+      container.querySelectorAll(".caption-window").forEach((node) => { node.style.display = ""; });
+    },
+
     // Another player first in the document, without captions: YouTube keeps
     // several alive at once. On the live site (2026-10-01) the miniplayer came
     // before the inline preview a hovered thumbnail plays, which has a caption
