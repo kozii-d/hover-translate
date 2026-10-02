@@ -59,7 +59,7 @@ describe("the settings opened with Bing selected and no access to it", () => {
   it("move to Google with a notice that says how to allow Bing; the languages move too", async () => {
     const { fake } = await renderPopup({
       uiLanguage: "uk",
-      sync: { settings: { ...defaultSettings, translator: "bing", sourceLanguageCode: "prs", targetLanguageCode: "tlh-Latn" } },
+      sync: { settings: { ...defaultSettings, translator: "bing", sourceLanguageCode: "lzh", targetLanguageCode: "tlh-Latn" } },
     });
 
     await screen.findByText("Bing needs access to www.bing.com. Pick Bing in the list to allow it. Switching to Google.");
@@ -317,6 +317,29 @@ describe("the language lists are named in the popup's language", () => {
     const names = await openList(user, "Перевести на");
 
     expect(names).toEqual(["Английский", "Курдский (курманджи)", "Курдский (сорани)", "Русский"]);
+  });
+
+  it("Bing's Dari `prs` gets Google's name for its `fa-AF`, not the browser's", async () => {
+    const { user } = await renderPopup({
+      language: "cs",
+      uiLanguage: "cs",
+      sync: { settings: { ...defaultSettings, translator: "bing", targetLanguageCode: "cs" } },
+      grantedOrigins: [BING_ORIGIN],
+      routes: {
+        "api.cognitive.microsofttranslator.com": () => json({
+          translation: {
+            cs: { name: "Czech" },
+            fa: { name: "Persian" },
+            prs: { name: "Dari" },
+          },
+        }),
+      },
+    });
+
+    const names = await openList(user, "Přeložit do");
+
+    // `Intl` reads `prs` as Persian of Afghanistan: "Perština (Afghánistán)".
+    expect(names).toEqual(["Čeština", "Daríjština", "Perština"]);
   });
 
   it("DeepL's source `pt` is any Portuguese, not Google's Brazilian one", async () => {

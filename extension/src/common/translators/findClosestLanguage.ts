@@ -7,8 +7,9 @@ import { AvailableLanguages, Language } from "../types/languages.ts";
  * written Norwegian, which no translator offers and whose readers read Bokmål
  * freely), Central Kurdish in Arabic script
  * (`ku-Arab` in the browsers, `ckb` in Google — Google's `ku` is Kurmanji in
- * Latin script), and the regional Chinese codes that stand for a script
- * (`zh-CN` is simplified, `zh-TW` traditional).
+ * Latin script), Dari (`prs` in Bing, `fa-AF` in Google), and the regional
+ * Chinese codes that stand for a script (`zh-CN` is simplified, `zh-TW`
+ * traditional).
  */
 const CANONICAL_CODES: Record<string, string> = {
   "iw": "he",
@@ -17,6 +18,7 @@ const CANONICAL_CODES: Record<string, string> = {
   "nb": "no",
   "nn": "no",
   "ku-arab": "ckb",
+  "prs": "fa-af",
   "zh-cn": "zh-hans",
   "zh-sg": "zh-hans",
   "zh-tw": "zh-hant",

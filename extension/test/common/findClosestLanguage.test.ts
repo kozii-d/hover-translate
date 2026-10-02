@@ -81,6 +81,10 @@ describe("findClosestLanguage", () => {
     expect(findClosestLanguage("iw", [{ code: "he", name: "" }])?.code).toBe("he");
     expect(findClosestLanguage("zh-CN", deeplLanguages.targetLanguages)?.code).toBe("zh-Hans");
     expect(findClosestLanguage("zh-Hant", googleLanguages.targetLanguages)?.code).toBe("zh-TW");
+    // Dari: Bing's `prs`, Google's `fa-AF`. Bing lists Persian too, and Dari stays Dari.
+    expect(findClosestLanguage("prs", googleLanguages.targetLanguages)?.code).toBe("fa-AF");
+    expect(findClosestLanguage("prs", googleLanguages.sourceLanguages)?.code).toBe("fa-AF");
+    expect(findClosestLanguage("fa-AF", [{ code: "fa", name: "" }, { code: "prs", name: "" }])?.code).toBe("prs");
   });
 
   it("prefers the bare language, then the viewer's own regional variant", () => {
@@ -97,6 +101,8 @@ describe("findClosestLanguage", () => {
 describe("isSameLanguage", () => {
   it.each([
     ["nb-NO", "no", true], ["nn", "nb", true], ["pt-BR", "pt-PT", true], ["zh-CN", "zh-Hans", true],
+    // Dari is a variant of Persian: a translator without it gets Persian, as for `fa-AF`.
+    ["prs", "fa", true],
     ["en", "de", false], ["ku-Arab", "ku", false],
   ])("%j and %j → %j", (code, other, expected) => {
     expect(isSameLanguage(code, other)).toBe(expected);
@@ -115,6 +121,12 @@ describe("matchSelectedLanguages", () => {
     expect(match).toEqual({ sourceLanguageCode: "auto", targetLanguageCode: "en", sourceReset: false, targetReplacement: null });
     expect(matchSelectedLanguages({ sourceLanguageCode: "nb", targetLanguageCode: "zh-Hant" }, google, "en", "en"))
       .toMatchObject({ sourceLanguageCode: "no", targetLanguageCode: "zh-TW" });
+  });
+
+  it("Bing → Google: Dari is carried over silently, from Bing's `prs` to Google's `fa-AF`", () => {
+    const google = { sourceLanguages: googleLanguages.sourceLanguages, targetLanguages: googleLanguages.targetLanguages };
+    const match = matchSelectedLanguages({ sourceLanguageCode: "prs", targetLanguageCode: "prs" }, google, "en-US", "en");
+    expect(match).toEqual({ sourceLanguageCode: "fa-AF", targetLanguageCode: "fa-AF", sourceReset: false, targetReplacement: null });
   });
 
   it("a source language the translator lacks falls back to auto", () => {

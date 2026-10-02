@@ -10,7 +10,7 @@ import { AvailableLanguages } from "../types/languages.ts";
  * access to its host (see `content.ts`).
  *
  * The settings keep that translator's language codes, and the replacement may
- * not take them: Google answers 400 to Bing's `prs`, `lzh` or `tlh-Latn`. Each
+ * not take them: Google answers 400 to Bing's `lzh` or `tlh-Latn`. Each
  * request is carried over to the replacement's codes by the rule the settings
  * page applies when it switches translators, so a hover translates into the
  * language the settings page would then save.
