@@ -23,14 +23,20 @@ export interface CaptionWord {
 
 /**
  * Scripts written without spaces between words: Han (including the rare-ideograph
- * planes), kana, Thai, Lao, Myanmar and Khmer.
- *
- * Hangul is deliberately absent — Korean is written with spaces, so it is served
- * by the whitespace split like any European language, and segmenting it would
- * only chop words into morphemes.
+ * planes), kana, Thai, Lao, Myanmar and Khmer. `Script_Extensions`, so that their
+ * punctuation (`。`, `、`, `「」`, `ー`), of the Common script, counts as theirs —
+ * except what Latin shares with them (`ʼ`, `·`, combining accents).
  */
 const SPACELESS_SCRIPTS =
-  /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Thai}\p{Script=Lao}\p{Script=Myanmar}\p{Script=Khmer}]/u;
+  /(?!\p{Script_Extensions=Latin})[\p{Script_Extensions=Han}\p{Script_Extensions=Hiragana}\p{Script_Extensions=Katakana}\p{Script_Extensions=Thai}\p{Script_Extensions=Lao}\p{Script_Extensions=Myanmar}\p{Script_Extensions=Khmer}]/u;
+
+/**
+ * Korean is written with spaces, so it is served by the whitespace split like
+ * any European language: segmenting it would only chop words into morphemes.
+ * Checked on its own, since `。` and the CJK brackets are listed for Hangul too
+ * (`《기생충》은` is one word).
+ */
+const HANGUL = /\p{Script=Hangul}/u;
 
 /** `null` once the browser has been found not to have `Intl.Segmenter`. */
 let cachedSegmenter: Intl.Segmenter | null | undefined;
@@ -39,8 +45,8 @@ let cachedSegmenter: Intl.Segmenter | null | undefined;
  * `Intl.Segmenter` reached Chrome in 87 and Firefox only in 125, while the
  * add-on still supports Firefox 115–124 (`strict_min_version` is 115; the 115
  * ESR line is ~1.5% of the Firefox users and cannot upgrade — it is the last
- * line for Windows 7/8). Those get the old whole-line behaviour instead of a
- * broken caption.
+ * line for Windows 7/8). Those keep each whitespace-delimited chunk whole instead
+ * of a broken caption.
  */
 const getSegmenter = (): Intl.Segmenter | null => {
   if (cachedSegmenter !== undefined) return cachedSegmenter;
@@ -70,17 +76,18 @@ export const renderWord = (word: CaptionWord): string => word.text + word.separa
  * `isLast` decides the one thing a word cannot work out on its own: whether to
  * end with a space. A whitespace-split word always does, because YouTube grows
  * an auto-generated line by appending the next word to what is already on
- * screen, and the space between them has to come from somewhere. A word in a
- * script without spaces must not, or that space would be read back as part of
- * the line the next time it grows — freezing a word boundary in the wrong place
- * (`我喜` + `欢看视频` instead of `我` `喜欢` `看视频`) and putting a space in
- * the middle of a Chinese subtitle. Between two chunks the space is real: it was
- * in the subtitle and the whitespace split ate it.
+ * screen, and the space between them has to come from somewhere. A chunk in a
+ * script without spaces ends with one only between chunks, never at the end of
+ * the line: YouTube appends the next piece of such a line without a space, and
+ * ours would be read back as part of the line — freezing a word boundary in the
+ * wrong place (`我喜` + `欢看视频` instead of `我` `喜欢` `看视频`) and putting a
+ * space in the middle of a Chinese subtitle.
  */
 const splitChunk = (chunk: string, isLast: boolean): CaptionWord[] => {
-  const wholeChunk = [{ text: chunk, separator: " " }];
+  if (!SPACELESS_SCRIPTS.test(chunk) || HANGUL.test(chunk)) return [{ text: chunk, separator: " " }];
 
-  if (!SPACELESS_SCRIPTS.test(chunk)) return wholeChunk;
+  const lineEnd = isLast ? "" : " ";
+  const wholeChunk = [{ text: chunk, separator: lineEnd }];
 
   const segmenter = getSegmenter();
   if (!segmenter) return wholeChunk;
@@ -105,7 +112,7 @@ const splitChunk = (chunk: string, isLast: boolean): CaptionWord[] => {
 
   // The chunk ended with punctuation, and — unless the line ends here — the
   // space the whitespace split ate.
-  words[words.length - 1].separator = pending + (isLast ? "" : " ");
+  words[words.length - 1].separator = pending + lineEnd;
 
   return words;
 };

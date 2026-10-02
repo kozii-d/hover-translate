@@ -252,6 +252,22 @@ test.describe("into Russian", () => {
     await expect(player.frame.locator("[data-probe]")).toHaveClass([/custom-tooltip-word-selected/, /custom-tooltip-word-selected/]);
   });
 
+  // A line can start with `。` alone, and the next piece comes without a
+  // space: nothing of ours may stand between them. The exact text, since
+  // `toHaveText` collapses spaces.
+  test("Japanese auto-generated captions: a piece appended to a line of punctuation alone gets no space before it", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([{ lines: ["。"], lang: "ja" }]);
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveCount(1);
+
+    await player.fixture("appendText", "っていう");
+    const segment = player.frame.locator(".ytp-caption-segment");
+    await expect.poll(() => segment.evaluate((node) => ({
+      text: node.textContent,
+      parsed: Array.from(node.childNodes).every((child) => child.nodeType === Node.ELEMENT_NODE),
+    }))).toEqual({ text: "。っていう", parsed: true });
+  });
+
   // `今日は天気がい` + `い`: the segmenter moves a boundary back, `がい`
   // becomes `が` `いい`.
   for (const [selection, kept] of [[["今日", "は"], ["今日", "は"]], [["天気", "がい"], []]]) {
