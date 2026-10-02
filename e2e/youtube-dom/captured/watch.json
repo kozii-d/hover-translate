@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-09-29",
+  "capturedAt": "2026-10-02",
   "video": {
     "tag": "video",
     "class": "video-stream html5-main-video",
@@ -90,7 +90,7 @@
     {
       "tag": "div",
       "id": "movie_player",
-      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state playing-mode ytp-hide-fullscreen-title ytp-fullscreen-metadata-top",
+      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state playing-mode ytp-hide-fullscreen-title ytp-fullscreen-metadata-top ytp-heat-map",
       "style": "--yt-delhi-pill-height: 40px; --yt-delhi-pill-top-height: 8px; --yt-delhi-bottom-controls-height: 56px; --yt-delhi-bottom-controls-height-xsmall-width-mode: 56px; --yt-delhi-big-mode-pill-height: 48px; --yt-delhi-big-mode-pill-top-height: 12px; --yt-delhi-big-mode-bottom-controls-height: 72px; --yt-frosted-glass-backdrop-filter-override: none; --ytp-grid-scroll-percentage: 0; --ytp-grid-peek-height: 0px;",
       "position": "relative",
       "zIndex": "0",
@@ -198,7 +198,7 @@
         16,
         68,
         880,
-        4394
+        4526
       ]
     },
     {
@@ -212,7 +212,7 @@
         16,
         56,
         896,
-        4406
+        4538
       ]
     },
     {
@@ -226,13 +226,13 @@
         0,
         56,
         1280,
-        4406
+        4538
       ]
     },
     {
       "tag": "ytd-watch-flexy",
       "class": "style-scope ytd-page-manager watch-root-element hide-skeleton",
-      "style": "--ytd-watch-flexy-space-below-player: 48px; --ytd-watch-flexy-center-column-below-player: 136px; --ytd-watch-flexy-scrollbar-width: 0px; --ytd-watch-flexy-horizontal-page-margin: 16px; --ytd-watch-flexy-top-padding: 12px; --ytd-watch-flexy-sidebar-width: 352px; --ytd-watch-compact-thumbnail-width: 62.5%; --ytd-watch-flexy-max-player-width-wide-screen: 2080px; --ytd-watch-flexy-sidebar-min-width: 320px; --ytd-watch-flexy-panel-max-height: 467px; --ytd-watch-flexy-chat-max-height: 467px; --ytd-watch-flexy-structured-description-max-height: 467px; --ytd-watch-flexy-comments-panel-max-height: 467px; --ytd-comments-engagement-panel-content-height: 467px;",
+      "style": "--ytd-watch-flexy-space-below-player: 48px; --ytd-watch-flexy-center-column-below-player: 136px; --ytd-watch-flexy-scrollbar-width: 0px; --ytd-watch-flexy-horizontal-page-margin: 16px; --ytd-watch-flexy-top-padding: 12px; --ytd-watch-flexy-sidebar-width: 352px; --ytd-watch-compact-thumbnail-width: 62.5%; --ytd-watch-flexy-max-player-width-wide-screen: 1840px; --ytd-watch-flexy-sidebar-min-width: 320px; --ytd-watch-flexy-panel-max-height: 467px; --ytd-watch-flexy-chat-max-height: 467px; --ytd-watch-flexy-structured-description-max-height: 467px; --ytd-watch-flexy-comments-panel-max-height: 467px; --ytd-comments-engagement-panel-content-height: 467px;",
       "position": "static",
       "zIndex": "auto",
       "pointerEvents": "auto",
@@ -240,7 +240,7 @@
         0,
         56,
         1280,
-        4406
+        4538
       ]
     },
     {
@@ -254,7 +254,7 @@
         0,
         56,
         1280,
-        4406
+        4538
       ]
     },
     {
@@ -268,7 +268,7 @@
         0,
         56,
         1280,
-        4406
+        4538
       ]
     },
     {
@@ -280,7 +280,7 @@
         0,
         0,
         1280,
-        4462
+        4594
       ]
     },
     {
@@ -503,48 +503,6 @@
     },
     {
       "tag": "div",
-      "class": "ytp-autonav-endscreen-countdown-overlay",
-      "style": "display: none;",
-      "position": "static",
-      "zIndex": "auto",
-      "pointerEvents": "auto",
-      "box": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "tag": "div",
-      "class": "html5-endscreen ytp-player-content videowall-endscreen",
-      "style": "display: none;",
-      "position": "absolute",
-      "zIndex": "36",
-      "pointerEvents": "auto",
-      "box": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "tag": "div",
-      "class": "ytp-miniplayer-ui",
-      "style": "display: none;",
-      "position": "absolute",
-      "zIndex": "67",
-      "pointerEvents": "auto",
-      "box": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "tag": "div",
       "class": "ytp-ce-shadow",
       "style": "display: none; outline-width: 880px;",
       "position": "absolute",
@@ -597,6 +555,48 @@
         132,
         286,
         162
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-autonav-endscreen-countdown-overlay",
+      "style": "display: none;",
+      "position": "static",
+      "zIndex": "auto",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "html5-endscreen ytp-player-content videowall-endscreen",
+      "style": "display: none;",
+      "position": "absolute",
+      "zIndex": "36",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-miniplayer-ui",
+      "style": "display: none;",
+      "position": "absolute",
+      "zIndex": "67",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        0,
+        0
       ]
     },
     {
@@ -831,7 +831,7 @@
     {
       "tag": "div",
       "id": "movie_player",
-      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state playing-mode ytp-hide-fullscreen-title ytp-fullscreen-metadata-top",
+      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state playing-mode ytp-hide-fullscreen-title ytp-fullscreen-metadata-top ytp-heat-map",
       "style": "--yt-delhi-pill-height: 40px; --yt-delhi-pill-top-height: 8px; --yt-delhi-bottom-controls-height: 56px; --yt-delhi-bottom-controls-height-xsmall-width-mode: 56px; --yt-delhi-big-mode-pill-height: 48px; --yt-delhi-big-mode-pill-top-height: 12px; --yt-delhi-big-mode-bottom-controls-height: 72px; --yt-frosted-glass-backdrop-filter-override: none; --ytp-grid-scroll-percentage: 0; --ytp-grid-peek-height: 0px;",
       "position": "relative",
       "zIndex": "0",
