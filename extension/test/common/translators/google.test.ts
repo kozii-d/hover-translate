@@ -65,6 +65,16 @@ describe("GoogleTranslator", () => {
     expect(network.to(HOST)).toHaveLength(1);
   });
 
+  // Settings saved before the list was Google Translate's keep these codes until the popup is opened.
+  it.each([["auto", "he"], ["auto", "fil"], ["auto", "jv"], ["auto", "zh"], ["he", "en"], ["zh-TW", "en"]])(
+    "a code Google no longer lists is still translated, as it is: from %j to %j", async (source, target) => {
+      const network = installFakeNetwork();
+
+      expect((await new GoogleTranslator().translate("hello", source, target)).translatedText).toBe("hello (google)");
+      const [request] = network.to(HOST);
+      expect([request.url.searchParams.get("sl"), request.url.searchParams.get("tl")]).toEqual([source, target]);
+    });
+
   it("an answer without sentences is an error that says so", async () => {
     installFakeNetwork({ [HOST]: () => json({ src: "en", spell: {} }) });
 

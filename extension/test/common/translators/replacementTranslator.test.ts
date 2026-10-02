@@ -21,12 +21,12 @@ describe("ReplacementTranslator: Google answering for Bing", () => {
     const network = installFakeNetwork();
     const translator = new ReplacementTranslator(new GoogleTranslator());
 
-    // Dari and Klingon are Bing's; Google answers 400 to both.
+    // Bing's codes for Dari and Klingon are not Google's; Google answers 400 to both.
     await translator.translate("hello", "prs", "tlh-Latn");
     await translator.translate("hello", "auto", "zh-Hans");
     await translator.translate("hello", "nb", "pt-PT");
 
-    expect(googleParams(network)).toEqual([["auto", "ru"], ["auto", "zh-CN"], ["no", "pt"]]);
+    expect(googleParams(network)).toEqual([["auto", "ru"], ["auto", "zh-CN"], ["no", "pt-PT"]]);
   });
 
   it("is the translator it wraps to everyone else", () => {

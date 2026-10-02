@@ -8,7 +8,7 @@ Cosa fa HoverTranslate:
 • Funziona anche con i sottotitoli automatici, quelli che crea YouTube stesso: vanno bene anche i video senza sottotitoli dell'autore.
 • Non solo su YouTube: se un video è incorporato in un blog, in un corso online o in un articolo di giornale, basta passare il mouse su una parola, come sempre.
 • Se la cava con cinese, giapponese e thailandese: anche se si scrivono senza spazi tra le parole, ottieni la traduzione di una sola parola, non di tutta la riga.
-• Traduce in oltre 180 lingue e riconosce da solo la lingua dei sottotitoli.
+• Traduce in oltre 240 lingue e riconosce da solo la lingua dei sottotitoli.
 • Non stona sullo schermo: la traduzione ha lo stesso aspetto dei tuoi sottotitoli di YouTube. Vuoi qualcosa di diverso? Scegli carattere, colore e dimensione.
 • Si adatta al tuo modo di guardare: la pausa automatica si può disattivare e il clic può copiare la parola o la traduzione invece di salvarla.
 

@@ -32,7 +32,7 @@ type ChangeListener = (changes: Record<string, StorageChange>, areaName: string)
 type MessageListener = (message: unknown, sender: object, sendResponse: (response: unknown) => void) => unknown;
 type InstalledListener = (details: { reason: string; previousVersion?: string }) => void;
 type AreaName = "sync" | "local" | "session";
-type FailingReads = Record<AreaName, string[]>;
+type FailingKeys = Record<AreaName, string[]>;
 type Runtime = { lastError?: { message: string } };
 
 export interface FakeChromeOptions {
@@ -62,7 +62,13 @@ export interface FakeChromeOptions {
    * asks for any of them (`get(null)` asks for all) fails. Changed on the
    * returned `failingReads`, the reads work again.
    */
-  failingReads?: Partial<FailingReads>;
+  failingReads?: Partial<FailingKeys>;
+  /**
+   * Keys that cannot be written, per area: a `set` or `remove` that touches
+   * any of them fails and stores nothing. Changed on the returned
+   * `failingWrites`, the writes work again.
+   */
+  failingWrites?: Partial<FailingKeys>;
 }
 
 export interface FakeChrome {
@@ -76,7 +82,9 @@ export interface FakeChrome {
   /** The origins of every `permissions.request` that reached a prompt. */
   permissionPrompts: string[][];
   /** The keys whose reads fail, per area; empty a list to make them work again. */
-  failingReads: FailingReads;
+  failingReads: FailingKeys;
+  /** The keys whose writes fail, per area; empty a list to make them work again. */
+  failingWrites: FailingKeys;
   /** Fires `runtime.onInstalled`, as the browser does on install and update. */
   fireInstalled: (details: { reason: string; previousVersion?: string }) => void;
 }
@@ -116,7 +124,8 @@ function createStorageArea(
   name: AreaName,
   store: Items,
   changeListeners: ChangeListener[],
-  failingReads: FailingReads,
+  failingReads: FailingKeys,
+  failingWrites: FailingKeys,
   runtime: Runtime,
 ) {
   const get = (keys?: string | string[] | Items | null): Items => {
@@ -144,8 +153,15 @@ function createStorageArea(
     for (const listener of [...changeListeners]) listener(changes, name);
   };
 
+  const checkWritable = (keys: string[]) => {
+    if (keys.some((key) => failingWrites[name].includes(key))) {
+      throw new Error(`The ${name} storage could not be written`);
+    }
+  };
+
   // Like Chromium: a key written with the value it already had is not a change.
   const set = (items: Items) => {
+    checkWritable(Object.keys(items));
     const changes: Record<string, StorageChange> = {};
     for (const [key, value] of Object.entries(items)) {
       if (key in store && isDeepStrictEqual(store[key], value)) continue;
@@ -156,6 +172,7 @@ function createStorageArea(
   };
 
   const remove = (keys: string | string[]) => {
+    checkWritable([keys].flat());
     const changes: Record<string, StorageChange> = {};
     for (const key of [keys].flat()) {
       if (!(key in store)) continue;
@@ -249,7 +266,8 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
   ]);
   const isCovered = (origin: string, patterns: Iterable<string>) =>
     [...patterns].some((pattern) => patternCovers(pattern, origin));
-  const failingReads: FailingReads = { sync: [], local: [], session: [], ...options.failingReads };
+  const failingReads: FailingKeys = { sync: [], local: [], session: [], ...options.failingReads };
+  const failingWrites: FailingKeys = { sync: [], local: [], session: [], ...options.failingWrites };
 
   const sendMessage = async (message: unknown) => {
     for (const listener of messageListeners) {
@@ -277,7 +295,7 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     onMessage: addRemove(messageListeners),
     onInstalled: addRemove(installedListeners),
   };
-  const area = (name: AreaName) => createStorageArea(name, storage[name], changeListeners, failingReads, runtime);
+  const area = (name: AreaName) => createStorageArea(name, storage[name], changeListeners, failingReads, failingWrites, runtime);
 
   const fake = {
     storage: {
@@ -322,6 +340,7 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     createdTabs,
     permissionPrompts,
     failingReads,
+    failingWrites,
     fireInstalled: (details) => installedListeners.forEach((listener) => listener(details)),
   };
 }

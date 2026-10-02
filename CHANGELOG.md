@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - The settings are now available in Vietnamese, Indonesian, Hungarian, Greek and Arabic (right to left, as are the messages on the video).
 - A request to rate HoverTranslate, only once it has been in use for a while: a card in the settings and, once ever, a small card on the video. "Don't ask again" ends it for good.
 - When the browser does not let HoverTranslate work on YouTube (in older versions of Firefox, or with site access set to "On click" in Chrome and Edge), the settings say so, with a button to allow it.
+- More than 50 new languages with Google, among them Portuguese (Portugal), French (Canada), Dari, Tibetan, Chechen and Inuktitut. On a first install with the browser in European Portuguese or Canadian French, that is now the translation language. Hebrew, Filipino, Javanese and Chinese no longer appear twice in the lists of languages.
 
 ### Fixed
 

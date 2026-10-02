@@ -30,6 +30,15 @@ export const canonicalLanguageCode = (code: string) => {
   return CANONICAL_CODES[lowerCased] ?? lowerCased;
 };
 
+/**
+ * A bare code that stands for one of the scripts its language is listed in:
+ * Google's `zh` was "Chinese (Simplified)" next to `zh-TW`, so a viewer who
+ * picked it chose that script, whatever their own Chinese.
+ */
+const BARE_CODES: Record<string, string> = {
+  "zh": "zh-hans",
+};
+
 // Canonical again for a regional code whose language has two spellings (`nb-NO`).
 const primaryLanguage = (code: string) => canonicalLanguageCode(canonicalLanguageCode(code).split("-")[0]);
 
@@ -40,11 +49,11 @@ const primaryLanguage = (code: string) => canonicalLanguageCode(canonicalLanguag
  * Translators spell the same language differently — Google has `en` and
  * `zh-CN`, DeepL `en-US`, `en-GB` and `zh-Hans` — and an exact comparison
  * threw the viewer's choice away on every switch between them. In order of
- * preference: the very same code (Google lists both `he` and `iw`, `fil` and
- * `tl`, and the one asked for is kept), the same language in another
- * spelling or the same script (`iw` → `he`, `zh-CN` → `zh-Hans`), the bare
- * language (`en-US` → `en`), the viewer's own regional variant, and finally
- * any variant of the language.
+ * preference: the very same code (a list may spell a language two ways, and
+ * the one asked for is kept), the same language in another spelling or the
+ * same script (`iw` → `he`, `zh-CN` → `zh-Hans`), the bare language
+ * (`en-US` → `en`, `zh` → `zh-CN`), the viewer's own regional variant, and
+ * finally any variant of the language.
  */
 export const findClosestLanguage = (
   code: string,
@@ -62,7 +71,8 @@ export const findClosestLanguage = (
   const variants = languages.filter((language) => primaryLanguage(language.code) === primaryLanguage(code));
   if (!variants.length) return null;
 
-  return variants.find((language) => canonicalLanguageCode(language.code) === primaryLanguage(code))
+  const bare = BARE_CODES[wanted] ?? primaryLanguage(code);
+  return variants.find((language) => canonicalLanguageCode(language.code) === bare)
     ?? variants.find((language) => canonicalLanguageCode(language.code) === canonicalLanguageCode(uiLanguage))
     ?? variants[0];
 };

@@ -162,8 +162,9 @@ const SettingsPage: FC = () => {
         return;
       }
 
+      let availableLanguages: AvailableLanguages;
       try {
-        await fetchAvailableLanguages(settings.translator);
+        availableLanguages = await fetchAvailableLanguages(settings.translator);
       } catch (error) {
         // A saved translator that stopped working used to leave this page on its
         // skeleton forever, with reinstalling the extension as the only way out.
@@ -203,6 +204,31 @@ const SettingsPage: FC = () => {
         }
 
         await fallBackTo(settings, FALLBACK_TRANSLATOR);
+        return;
+      }
+
+      // A language stored in a spelling the translator no longer lists (Google's
+      // old list had `he` next to `iw`) is saved as it spells it now, without a
+      // notice: the language is the same. One it does not offer at all is left.
+      const match = matchSelectedLanguages(
+        settings,
+        availableLanguages,
+        chrome.i18n.getUILanguage(),
+        initialFormValues.targetLanguageCode,
+      );
+      const respelled = match.sourceLanguageCode !== settings.sourceLanguageCode
+        || match.targetLanguageCode !== settings.targetLanguageCode;
+      if (respelled && !match.sourceReset && !match.targetReplacement) {
+        const respelledSettings: SettingsFormValues = {
+          ...settings,
+          sourceLanguageCode: match.sourceLanguageCode,
+          targetLanguageCode: match.targetLanguageCode,
+        };
+        setInitialValues(respelledSettings);
+        // The old spelling still translates: the page stays, and the next
+        // opening or save of the form writes the new one.
+        await set<SettingsFormValues>("settings", respelledSettings, "sync").catch((error) =>
+          console.error("Could not save the languages as the translator spells them", error));
       }
     } catch (error) {
       console.error("Could not load the settings", error);
@@ -214,7 +240,7 @@ const SettingsPage: FC = () => {
     } finally {
       setLoadingSettings(false);
     }
-  }, [fallBackTo, fetchAvailableLanguages, get, notifications, showFallbackNotice, t]);
+  }, [fallBackTo, fetchAvailableLanguages, get, notifications, set, showFallbackNotice, t]);
 
   useEffect(() => {
     setInitialSettings();

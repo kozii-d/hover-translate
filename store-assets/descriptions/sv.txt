@@ -8,7 +8,7 @@ Det här kan HoverTranslate:
 • Fungerar även med automatiska undertexter, alltså de som YouTube skapar själv, så även videor som kanalen inte har textat går bra.
 • Inte bara på själva YouTube: är videon inbäddad i en blogg, en onlinekurs eller en nyhetsartikel håller du pekaren över ett ord på samma sätt.
 • Klarar kinesiska, japanska och thai: trots att orden skrivs utan mellanslag får du översättningen av ett enda ord, inte hela raden.
-• Översätter till fler än 180 språk och känner själv igen vilket språk undertexterna är på.
+• Översätter till fler än 240 språk och känner själv igen vilket språk undertexterna är på.
 • Smälter in: översättningen ser ut precis som dina undertexter på YouTube. Vill du ha något annat? Välj själv typsnitt, färg och storlek.
 • Anpassar sig efter dig: den automatiska pausen kan stängas av, och ett klick kan kopiera ordet eller översättningen i stället för att spara det.
 

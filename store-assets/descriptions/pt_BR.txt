@@ -8,7 +8,7 @@ O que o HoverTranslate faz:
 • Funciona também com legendas automáticas, aquelas que o próprio YouTube gera, então servem até os vídeos sem legenda do autor.
 • Não só no próprio YouTube: se o vídeo estiver incorporado num blog, num curso on-line ou numa notícia, é só passar o mouse sobre a palavra do mesmo jeito.
 • Dá conta de chinês, japonês e tailandês: mesmo que essas línguas não usem espaço entre as palavras, você recebe a tradução de uma palavra, e não da linha inteira.
-• Traduz para mais de 180 idiomas e detecta sozinho o idioma da legenda.
+• Traduz para mais de 240 idiomas e detecta sozinho o idioma da legenda.
 • Combina com o visual: a tradução fica igual às suas legendas do YouTube. Quer algo diferente? Escolha fonte, cor e tamanho do seu jeito.
 • Se adapta ao seu jeito de assistir: a pausa automática pode ser desligada, e o clique pode copiar a palavra ou a tradução em vez de salvar.
 

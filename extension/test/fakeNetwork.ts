@@ -10,7 +10,8 @@
  *   repository, for the popup's i18next backend;
  * - Google: the real answers for "run" → ru and "猫" → en (`fixtures/`,
  *   recorded 2026-09-29, dictionary cut short), an echo for any other text,
- *   and 400 for a language Google does not list, as the live service does;
+ *   and 400 for a language Google does not list, as the live service does —
+ *   except the old spellings it still answers (`GOOGLE_UNLISTED_CODES`);
  * - Bing (`www.bing.com`) and DeepL: only with their host permission granted
  *   in the fake `chrome` — without it the browser fails the request with a
  *   TypeError, as here. Bing's page carries the credentials in the shape
@@ -57,8 +58,12 @@ export const json = (data: unknown, status = 200) =>
 
 const googleLanguages = JSON.parse(fs.readFileSync(
   path.join(REPO_ROOT, "extension/src/common/translators/google/availableLanguages.json"), "utf8"));
-const googleSources = new Set(["auto", ...googleLanguages.sourceLanguages.map((language: { code: string }) => language.code)]);
-const googleTargets = new Set(googleLanguages.targetLanguages.map((language: { code: string }) => language.code));
+// Codes the live service translates from and into though its lists no longer have them (checked 2026-10-02):
+// `iw`, `tl`, `jw` and `zh-CN` in their other spellings, and `zh-TW` as a source.
+const GOOGLE_UNLISTED_CODES = ["he", "fil", "jv", "zh", "zh-TW"];
+const googleCodes = (languages: { code: string }[]) => [...languages.map(({ code }) => code), ...GOOGLE_UNLISTED_CODES];
+const googleSources = new Set(["auto", ...googleCodes(googleLanguages.sourceLanguages)]);
+const googleTargets = new Set(googleCodes(googleLanguages.targetLanguages));
 
 const extensionFile = (request: RecordedRequest) => {
   const file = path.join(REPO_ROOT, decodeURIComponent(request.url.pathname));
@@ -69,7 +74,7 @@ const extensionFile = (request: RecordedRequest) => {
 
 const google = ({ url }: RecordedRequest) => {
   const text = url.searchParams.get("q") ?? "";
-  if (!googleSources.has(url.searchParams.get("sl")) || !googleTargets.has(url.searchParams.get("tl"))) {
+  if (!googleSources.has(url.searchParams.get("sl") ?? "") || !googleTargets.has(url.searchParams.get("tl") ?? "")) {
     return new Response("Bad Request", { status: 400 });
   }
   if (text === "run" && url.searchParams.get("tl") === "ru") return json(googleRunRu);

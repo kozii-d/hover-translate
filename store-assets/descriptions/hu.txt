@@ -8,7 +8,7 @@ Mit tud a HoverTranslate?
 • Az automatikus feliratokkal is működik – azokkal, amelyeket a YouTube maga készít –, így azok a videók is jók, amelyekhez a készítőjük nem adott feliratot.
 • Nemcsak magán a YouTube-on: ha a videó egy blogba, online kurzusba vagy hírcikkbe van beágyazva, ott is elég az egeret a szóra vinni.
 • A kínaival, a japánnal és a thaival is boldogul: bár ezekben a nyelvekben a szavak között nincs szóköz, egyetlen szó fordítását kapod, nem az egész sorét.
-• Több mint 180 nyelvre fordít, a felirat nyelvét pedig magától felismeri.
+• Több mint 240 nyelvre fordít, a felirat nyelvét pedig magától felismeri.
 • Nem lóg ki a képből: a fordítás ugyanúgy néz ki, mint a feliratod a YouTube-on. Másképp szeretnéd? Válassz saját betűtípust, színt és méretet.
 • Alkalmazkodik a szokásaidhoz: az automatikus szüneteltetés kikapcsolható, a kattintás pedig mentés helyett a szót vagy a fordítását is kimásolhatja.
 

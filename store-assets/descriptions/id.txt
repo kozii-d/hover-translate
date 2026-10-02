@@ -8,7 +8,7 @@ Yang bisa dilakukan HoverTranslate:
 • Subtitle otomatis juga bisa, yaitu subtitle yang dibuat sendiri oleh YouTube. Jadi video yang tidak diberi subtitle oleh pembuatnya pun tetap bisa dipakai.
 • Tidak hanya di YouTube: kalau videonya disematkan di blog, kursus online, atau artikel berita, cukup arahkan kursor ke kata dengan cara yang sama.
 • Bahasa Mandarin, Jepang, dan Thai pun bisa: meski kata-katanya ditulis tanpa spasi, yang diterjemahkan tetap satu kata, bukan seluruh baris.
-• Menerjemahkan ke lebih dari 180 bahasa dan mengenali bahasa subtitle secara otomatis.
+• Menerjemahkan ke lebih dari 240 bahasa dan mengenali bahasa subtitle secara otomatis.
 • Menyatu dengan video: terjemahan terlihat sama seperti subtitle YouTube Anda. Ingin tampilan lain? Pilih sendiri font, warna, dan ukurannya.
 • Mengikuti kebiasaan Anda: jeda otomatis bisa dimatikan, dan klik pada kata bisa menyalin kata atau terjemahannya alih-alih menyimpannya.
 

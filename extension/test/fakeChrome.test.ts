@@ -51,6 +51,49 @@ describe("the fake chrome.storage", () => {
       expect(await chrome.storage.sync.get("settings")).toEqual({ settings: STORED.settings });
     });
   });
+
+  describe("failingWrites: a write of a failing key fails and stores nothing", () => {
+    const STORED = { settings: { translator: "google" }, installedAt: 1 };
+    const MESSAGE = "The sync storage could not be written";
+
+    it("awaited: set and remove reject, nothing changes and no change is reported; other keys are written", async () => {
+      const fake = installFakeChrome({ sync: STORED, failingWrites: { sync: ["settings"] } });
+      const changes: unknown[] = [];
+      chrome.storage.onChanged.addListener((change) => changes.push(change));
+
+      await expect(chrome.storage.sync.set({ settings: { translator: "bing" }, installedAt: 2 })).rejects.toThrow(MESSAGE);
+      await expect(chrome.storage.sync.remove(["installedAt", "settings"])).rejects.toThrow(MESSAGE);
+      expect(fake.storage.sync).toEqual(STORED);
+      expect(changes).toEqual([]);
+
+      await chrome.storage.sync.set({ installedAt: 2 });
+      await chrome.storage.local.set({ settings: 1 });
+      expect(fake.storage.sync).toEqual({ ...STORED, installedAt: 2 });
+      expect(fake.storage.local).toEqual({ settings: 1 });
+    });
+
+    it("with a callback: called with nothing, `runtime.lastError` set during the call only", async () => {
+      installFakeChrome({ sync: STORED, failingWrites: { sync: ["settings"] } });
+
+      const seen = await new Promise((resolve) => {
+        chrome.storage.sync.set({ settings: {} }, () => resolve({ lastError: chrome.runtime.lastError }));
+      });
+
+      expect(seen).toEqual({ lastError: { message: MESSAGE } });
+      expect(chrome.runtime.lastError).toBeUndefined();
+    });
+
+    it("emptied on the returned fake, the writes work again; reads work all along", async () => {
+      const fake = installFakeChrome({ sync: STORED, failingWrites: { sync: ["settings"] } });
+      await expect(chrome.storage.sync.set({ settings: {} })).rejects.toThrow(MESSAGE);
+      expect(await chrome.storage.sync.get("settings")).toEqual({ settings: STORED.settings });
+
+      fake.failingWrites.sync = [];
+
+      await chrome.storage.sync.set({ settings: {} });
+      expect(fake.storage.sync.settings).toEqual({});
+    });
+  });
 });
 
 describe("the fake chrome.runtime messaging", () => {

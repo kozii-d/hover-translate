@@ -3,6 +3,7 @@ import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { defaultSettings } from "@extension/common/consts/defaultValues.ts";
 import { BING_ORIGIN } from "@extension/common/translators/bing/bing.ts";
 import { DEEPL_FREE_API_URL } from "@extension/common/translators/deepl/consts.ts";
+import googleLanguages from "@extension/common/translators/google/availableLanguages.json";
 import { CHROME_WEB_STORE_ID, UNPACKED_ID } from "@extension-test/fakeChrome.ts";
 import { json } from "@extension-test/fakeNetwork.ts";
 import { apiKeyService } from "@/shared/lib/helpers/apiKeys.ts";
@@ -16,6 +17,12 @@ const translatorSelect = (label = "Translator") => screen.findByRole("combobox",
 const pickTranslator = async (user: Awaited<ReturnType<typeof renderPopup>>["user"], name: string, label?: string) => {
   await user.click(await translatorSelect(label));
   await user.click(await screen.findByRole("option", { name: new RegExp(`^${name}`) }));
+};
+
+/** Every `settings` the page has written to the synced storage. */
+const settingsWrites = (fake: Awaited<ReturnType<typeof renderPopup>>["fake"]) => {
+  const set = vi.spyOn(fake.chrome.storage.sync, "set");
+  return () => set.mock.calls.map(([items]) => items as Record<string, unknown>).filter((items) => "settings" in items);
 };
 
 describe("switching to Bing asks for access to www.bing.com", () => {
@@ -140,12 +147,6 @@ it("keys that cannot be read leave the page usable, as without a key: DeepL asks
 describe("the settings page that cannot load says so, instead of a skeleton forever or a form with nothing in it", () => {
   const ERROR_TITLE = "Couldn't load this page";
 
-  /** Every `settings` the page has written to the synced storage. */
-  const settingsWrites = (fake: Awaited<ReturnType<typeof renderPopup>>["fake"]) => {
-    const set = vi.spyOn(fake.chrome.storage.sync, "set");
-    return () => set.mock.calls.map(([items]) => items as Record<string, unknown>).filter((items) => "settings" in items);
-  };
-
   it("settings that cannot be read: the error screen with the tabs, nothing written; Try again shows the stored ones", async () => {
     const error = vi.spyOn(console, "error").mockImplementation(() => {});
     const settings = { ...defaultSettings, targetLanguageCode: "ru" };
@@ -237,7 +238,8 @@ describe("the language lists are named in the popup's language", () => {
     const names = await openList(user, "Translate from");
 
     expect(names[0]).toBe("Detect language");
-    expect(names).toEqual(expect.arrayContaining(["Myanmar (Burmese)", "Chinese (Simplified)"]));
+    // As a source Google's `zh-CN` is just "Chinese": it reads traditional characters too.
+    expect(names).toEqual(expect.arrayContaining(["Myanmar (Burmese)", "Chinese"]));
     expect(names.indexOf("Abkhaz")).toBeLessThan(names.indexOf("Zulu"));
   });
 
@@ -331,6 +333,111 @@ describe("the language lists are named in the popup's language", () => {
     expect(names).toContain("Португальский");
     expect(names).not.toContain("Португальский (Бразилия)");
   });
+});
+
+describe("Google's lists have one entry per language", () => {
+  const languageField = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
+
+  /** The names in a language field's panel, read as a viewer opens it, and the panel closed again. */
+  const panelNames = async (user: Awaited<ReturnType<typeof renderPopup>>["user"], label: string) => {
+    await user.click(await languageField(label));
+    const panel = await screen.findByRole("dialog", { name: label });
+    const names = within(panel).getAllByRole("option").map((option) => option.textContent);
+    await user.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    return names;
+  };
+
+  const duplicates = (names: (string | null)[]) => names.filter((name, index) => names.indexOf(name) !== index);
+
+  it.each([
+    ["en", "Translate from", "Translate to", "Hebrew"],
+    ["ru", "Перевести с", "Перевести на", "Иврит"],
+  ])("in %j no two languages share a name", async (language, sourceLabel, targetLabel, hebrew) => {
+    const { user } = await renderPopup({ language, uiLanguage: language, sync: { settings: defaultSettings } });
+
+    const sources = await panelNames(user, sourceLabel);
+    const targets = await panelNames(user, targetLabel);
+
+    expect(duplicates(sources)).toEqual([]);
+    expect(duplicates(targets)).toEqual([]);
+    expect(targets).toContain(hebrew);
+    expect(sources.length).toBeGreaterThan(240);
+    expect(targets.length).toBeGreaterThan(240);
+  });
+
+  it("a language stored in a spelling Google no longer lists is saved as Google spells it, silently", async () => {
+    const shown = recordFieldTexts("#targetLanguageCode");
+    const { fake } = await renderPopup({
+      sync: { settings: { ...defaultSettings, sourceLanguageCode: "zh-TW", targetLanguageCode: "he" } },
+    });
+
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({
+      ...defaultSettings,
+      sourceLanguageCode: "zh-CN",
+      targetLanguageCode: "iw",
+    }));
+    expect((await languageField("Translate from")).textContent).toBe("Chinese");
+    expect((await languageField("Translate to")).textContent).toBe("Hebrew");
+    expect(shown()).toEqual(["Hebrew"]);
+    expect(document.querySelector(".MuiSnackbar-root")).toBeNull();
+  });
+
+  it("the new spelling cannot be saved: the form shows it all the same, the old one stays stored, the error goes to the console", async () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const settings = { ...defaultSettings, sourceLanguageCode: "zh-TW", targetLanguageCode: "he" };
+    const { fake } = await renderPopup({ sync: { settings }, failingWrites: { sync: ["settings"] } });
+
+    expect((await languageField("Translate from")).textContent).toBe("Chinese");
+    expect((await languageField("Translate to")).textContent).toBe("Hebrew");
+    expect(screen.queryByText("Couldn't load this page")).toBeNull();
+    expect(fake.storage.sync.settings).toEqual(settings);
+    expect(error).toHaveBeenCalledWith("Could not save the languages as the translator spells them", expect.objectContaining({
+      message: "The sync storage could not be written",
+    }));
+    expect(document.querySelector(".MuiSnackbar-root")).toBeNull();
+  });
+
+  it.each([["fil", "tl", "Filipino"], ["jv", "jw", "Javanese"], ["zh", "zh-CN", "Chinese (Simplified)"]])(
+    "%j becomes %j", async (stored, spelled, name) => {
+      const { fake } = await renderPopup({ sync: { settings: { ...defaultSettings, targetLanguageCode: stored } } });
+
+      await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: spelled }));
+      expect((await languageField("Translate to")).textContent).toBe(name);
+    });
+
+  // Google's old list named `zh` "Chinese (Simplified)", next to `zh-TW`.
+  it("\"zh\" becomes \"zh-CN\" with the browser in Traditional Chinese too", async () => {
+    const { fake } = await renderPopup({ uiLanguage: "zh-TW", sync: { settings: { ...defaultSettings, targetLanguageCode: "zh" } } });
+
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "zh-CN" }));
+    expect((await languageField("Translate to")).textContent).toBe("Chinese (Simplified)");
+  });
+
+  it("settings Google spells as it lists them are not written again", async () => {
+    const settings = { ...defaultSettings, sourceLanguageCode: "pt-PT", targetLanguageCode: "iw" };
+    const { fake } = await renderPopup({ sync: { settings } });
+    const writes = settingsWrites(fake);
+
+    expect((await languageField("Translate to")).textContent).toBe("Hebrew");
+    expect((await languageField("Translate from")).textContent).toBe("Portuguese (Portugal)");
+    expect(writes()).toEqual([]);
+    expect(fake.storage.sync.settings).toEqual(settings);
+  });
+
+  // Either language missing leaves both as stored, even the other one in an old spelling.
+  it.each([["tlh-Latn", "tlh-Latn"], ["tlh-Latn", "he"], ["zh-TW", "tlh-Latn"]])(
+    "a language Google does not offer at all is left as stored, without a notice: from %j to %j", async (source, target) => {
+      const settings = { ...defaultSettings, sourceLanguageCode: source, targetLanguageCode: target };
+      const { fake } = await renderPopup({ sync: { settings } });
+      const writes = settingsWrites(fake);
+
+      expect((await translatorSelect()).textContent).toBe("Google");
+      await languageField("Translate to");
+      expect(writes()).toEqual([]);
+      expect(fake.storage.sync.settings).toEqual(settings);
+      expect(document.querySelector(".MuiSnackbar-root")).toBeNull();
+    });
 });
 
 describe("the rating card on the Settings page", () => {
@@ -651,7 +758,7 @@ describe("the language fields open a panel with a search", () => {
 
     const panel = await openPanel(user, "Translate to");
     expect(within(panel).getByRole("textbox", { name: "Search languages" })).toHaveProperty("value", "");
-    expect(optionNames(panel)).toHaveLength(194);
+    expect(optionNames(panel)).toHaveLength(googleLanguages.targetLanguages.length);
   });
 
   // Chrome closes the whole popup on an Escape the page leaves unhandled.
@@ -683,7 +790,7 @@ describe("the language fields open a panel with a search", () => {
     const panel = await screen.findByRole("dialog", { name: "Translate to" });
     const search = within(panel).getByRole("textbox", { name: "Search languages" });
     const options = within(panel).getAllByRole("option");
-    expect(options.slice(0, 4).map((option) => option.textContent)).toEqual(["Abkhaz", "Acehnese", "Acholi", "Afrikaans"]);
+    expect(options.slice(0, 4).map((option) => option.textContent)).toEqual(["Abkhaz", "Acehnese", "Acholi", "Afar"]);
 
     const focused = () => document.activeElement;
     await user.keyboard("{ArrowDown}");
@@ -702,7 +809,7 @@ describe("the language fields open a panel with a search", () => {
     expect(focused()).toBe(options[3]);
     await user.keyboard("{Enter}");
 
-    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "af" }));
+    await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "aa" }));
     await closed();
   });
 

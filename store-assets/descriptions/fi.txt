@@ -8,7 +8,7 @@ Mitä HoverTranslate osaa:
 • Toimii myös automaattisen tekstityksen kanssa eli sen, jonka YouTube luo itse. Sopivia ovat siis nekin videot, joihin tekijä ei ole lisännyt tekstitystä.
 • Ei vain itse YouTubessa: kun video on upotettu blogiin, verkkokurssille tai uutisartikkeliin, riittää, että viet hiiren sanan päälle samalla tavalla.
 • Pärjää kiinan, japanin ja thain kanssa: vaikka niissä sanojen väliin ei tule välilyöntejä, saat käännöksen yhdelle sanalle etkä koko riville.
-• Kääntää yli 180 kielelle ja tunnistaa tekstityksen kielen itse.
+• Kääntää yli 240 kielelle ja tunnistaa tekstityksen kielen itse.
 • Sulautuu kuvaan: käännös näyttää samalta kuin YouTube-tekstityksesi. Haluatko toisenlaisen? Valitse oma fontti, väri ja koko.
 • Mukautuu tapoihisi: automaattisen pysäytyksen voi kytkeä pois, ja klikkaus voi tallentamisen sijaan kopioida sanan tai sen käännöksen.
 

@@ -19,15 +19,15 @@ const codes = (list: { code: string }[]) => list.map(({ code }) => code);
 // The UI language the browser reports → the target language picked on install.
 const GOOGLE_TABLE: [string, string][] = [
   ["en-US", "en"], ["en-GB", "en"], ["en", "en"],
-  ["pt-BR", "pt"], ["pt-PT", "pt"], ["pt", "pt"],
+  ["pt-BR", "pt"], ["pt-PT", "pt-PT"], ["pt", "pt"],
   ["es", "es"], ["es-419", "es"], ["es-MX", "es"], ["es-AR", "es"], ["es-ES", "es"],
   ["zh-CN", "zh-CN"], ["zh-TW", "zh-TW"], ["zh-HK", "zh-TW"],
-  // Google lists both spellings of Hebrew and Filipino: the one asked for is kept.
-  ["he", "he"], ["iw", "iw"], ["fil", "fil"],
+  // Google spells Hebrew, Filipino and Javanese the old way only: the browsers' codes are carried over.
+  ["he", "iw"], ["iw", "iw"], ["fil", "tl"], ["jv", "jw"],
   // Norwegian: Bokmål is `nb` in the browsers and `no` in Google; Nynorsk readers get Bokmål.
   ["nb", "no"], ["nb-NO", "no"], ["no", "no"], ["nn", "no"], ["nn-NO", "no"],
   ["sr-Latn", "sr"], ["uk", "uk"], ["ru", "ru"], ["ja", "ja"], ["ko", "ko"],
-  ["de-AT", "de"], ["fr-CA", "fr"], ["hi", "hi"], ["hi-IN", "hi"], ["sv-SE", "sv"],
+  ["de-AT", "de"], ["fr-CA", "fr-CA"], ["fr-FR", "fr"], ["hi", "hi"], ["hi-IN", "hi"], ["sv-SE", "sv"],
   ["id", "id"], ["id-ID", "id"], ["vi", "vi"], ["vi-VN", "vi"], ["hu", "hu"], ["hu-HU", "hu"],
   ["el", "el"], ["el-GR", "el"], ["ar", "ar"], ["ar-EG", "ar"],
   // Central Kurdish in Arabic script; Google's `ku` is Kurmanji in Latin script.
@@ -66,6 +66,15 @@ describe("findClosestLanguage", () => {
     const list = [{ code: "he", name: "" }, { code: "iw", name: "" }];
     expect(findClosestLanguage("iw", list)?.code).toBe("iw");
     expect(findClosestLanguage("he", list)?.code).toBe("he");
+  });
+
+  it("a bare `zh` is simplified Chinese, whatever the viewer's own Chinese", () => {
+    for (const uiLanguage of ["", "en", "zh-CN", "zh-TW", "zh-HK"]) {
+      expect(findClosestLanguage("zh", googleLanguages.targetLanguages, uiLanguage)?.code, uiLanguage).toBe("zh-CN");
+    }
+    expect(findClosestLanguage("zh", [{ code: "zh-Hant", name: "" }, { code: "zh-Hans", name: "" }], "zh-TW")?.code).toBe("zh-Hans");
+    // A list that has `zh` itself keeps it (DeepL).
+    expect(findClosestLanguage("zh", deeplLanguages.targetLanguages, "zh-TW")?.code).toBe("zh");
   });
 
   it("finds the same language in another spelling", () => {

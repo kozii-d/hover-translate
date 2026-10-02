@@ -17,7 +17,9 @@ const startBrowser = async (reason: "install" | "update", options: FakeChromeOpt
 };
 
 describe("SettingsService: install", () => {
-  it.each([["pt-BR", "pt"], ["es-419", "es"], ["nn-NO", "no"], ["ar", "ar"], ["en-US", "en"], ["xx", "en"]])(
+  it.each([
+    ["pt-BR", "pt"], ["pt-PT", "pt-PT"], ["es-419", "es"], ["nn-NO", "no"], ["he", "iw"], ["ar", "ar"], ["en-US", "en"], ["xx", "en"],
+  ])(
     "UI %j → target language %j, defaults for the rest", async (uiLanguage, target) => {
       const { fake, openPopup } = await startBrowser("install", { uiLanguage });
 

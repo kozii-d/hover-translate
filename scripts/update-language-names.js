@@ -7,15 +7,22 @@ const path = require("node:path");
 // namespace: every language Google Translate offers, named the way Google
 // Translate names it in that locale. The browsers' `Intl.DisplayNames` does not
 // know all of them (Chrome ships trimmed ICU data), so these come first.
+//
+// From the English answer it also rewrites Google's language lists built into
+// the extension (`availableLanguages.json`): the languages Google Translate
+// offers, rather than those of its paid Cloud API.
 
 const ROOT = path.join(__dirname, "..");
 const LOCALES_DIR = path.join(ROOT, "_locales");
+const GOOGLE_LANGUAGES = path.join(ROOT, "extension/src/common/translators/google/availableLanguages.json");
 const ENDPOINT = "https://translate.googleapis.com/translate_a/l";
 const PAUSE_MS = 1000;
 const ATTEMPTS = 3;
 
 /** The `hl` Google Translate's site uses for a locale directory: `pt_BR` → `pt-BR`. */
 const toGoogleLocale = (locale) => locale.replace(/_/g, "-");
+
+const sortByCode = (entries) => entries.sort(([a], [b]) => (a < b ? -1 : 1));
 
 /**
  * One `{ code: name }` object, sorted by code, from Google's answer `{ sl, tl }`.
@@ -26,12 +33,27 @@ const toGoogleLocale = (locale) => locale.replace(/_/g, "-");
 function toLanguageNames({ sl, tl }) {
   const names = { ...sl, ...tl };
   delete names.auto;
-  return Object.fromEntries(Object.entries(names).sort(([a], [b]) => (a < b ? -1 : 1)));
+  return Object.fromEntries(sortByCode(Object.entries(names)));
 }
+
+/**
+ * Google's lists as `GoogleTranslator.getAvailableLanguages()` returns them,
+ * from its answer `{ sl, tl }`, each language with the name that list gives it
+ * (the source `zh-CN` is "Chinese": it reads traditional characters too, and
+ * `zh-TW` is only a target). `auto` is left out: the popup adds its own.
+ */
+function toAvailableLanguages({ sl, tl }) {
+  const toList = (names) => sortByCode(Object.entries(names).filter(([code]) => code !== "auto"))
+    .map(([code, name]) => ({ code, name }));
+  return { targetLanguages: toList(tl), sourceLanguages: toList(sl) };
+}
+
+const writeJson = (file, data) => fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchLanguageNames(locale) {
+/** Google's answer `{ sl, tl }` with the names in `locale`. */
+async function fetchLanguages(locale) {
   const url = `${ENDPOINT}?client=gtx&hl=${encodeURIComponent(toGoogleLocale(locale))}`;
   for (let attempt = 1; ; attempt++) {
     try {
@@ -42,7 +64,7 @@ async function fetchLanguageNames(locale) {
       if (Object.keys(answer.sl ?? {}).length < 100 || Object.keys(answer.tl ?? {}).length < 100) {
         throw new Error("the answer has too few languages");
       }
-      return toLanguageNames(answer);
+      return answer;
     } catch (error) {
       if (attempt === ATTEMPTS) throw new Error(`${locale}: ${error.message}`, { cause: error });
       // Google answers bursts with 500.
@@ -56,9 +78,16 @@ async function main() {
     .filter((locale) => fs.existsSync(path.join(LOCALES_DIR, locale, "messages.json")));
 
   for (const locale of locales) {
-    const names = await fetchLanguageNames(locale);
-    fs.writeFileSync(path.join(LOCALES_DIR, locale, "languages.json"), `${JSON.stringify(names, null, 2)}\n`);
+    const answer = await fetchLanguages(locale);
+    const names = toLanguageNames(answer);
+    writeJson(path.join(LOCALES_DIR, locale, "languages.json"), names);
     console.log(`${locale}: ${Object.keys(names).length} languages`);
+
+    if (locale === "en") {
+      const languages = toAvailableLanguages(answer);
+      writeJson(GOOGLE_LANGUAGES, languages);
+      console.log(`Google: ${languages.sourceLanguages.length} source and ${languages.targetLanguages.length} target languages`);
+    }
     await sleep(PAUSE_MS);
   }
 }
@@ -70,4 +99,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { toGoogleLocale, toLanguageNames };
+module.exports = { toAvailableLanguages, toGoogleLocale, toLanguageNames };

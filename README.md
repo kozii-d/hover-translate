@@ -24,7 +24,7 @@ Most subtitle tools translate the whole line or show a second line of subtitles 
 - **Auto-generated subtitles.** Works with the subtitles YouTube creates itself, so videos without subtitles from the creator work too.
 - **Chinese, Japanese and Thai.** These languages are written without spaces between words, and HoverTranslate still picks out the single word under the pointer instead of translating the whole line (Chrome and Edge; Firefox 125 and newer).
 - **Embedded players.** Works in YouTube videos embedded on other websites — blogs, online courses, news articles — not only on youtube.com.
-- **More than 180 languages.** The subtitle language is detected automatically; you pick the language to translate into.
+- **More than 240 languages.** The subtitle language is detected automatically; you pick the language to translate into.
 - **Google, Bing or DeepL.** Google works out of the box. Bing asks for access to <www.bing.com> the first time you pick it. DeepL works with your own free DeepL API key, which is stored only on your device and sent only to DeepL.
 - **Context-aware translation with DeepL.** With DeepL, each word is translated in the context of its whole subtitle line, so a word with several meanings gets the one it has there: "bank" in "we sat on the bank of the river" is a riverbank, not a bank. The surrounding line is not counted against your DeepL allowance.
 - **Looks like your subtitles.** The translation follows your YouTube subtitle style, or you can pick your own font, colors and size.

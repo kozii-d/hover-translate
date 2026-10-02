@@ -8,7 +8,7 @@ HoverTranslate neler yapar:
 • Otomatik altyazılarla, yani YouTube'un kendi oluşturduğu altyazılarla da çalışır. Böylece yükleyenin altyazı eklemediği videolar da işinize yarar.
 • Yalnızca YouTube'da değil: video bir bloga, çevrimiçi bir kursa ya da bir haber yazısına yerleştirilmiş olsa bile imleci kelimenin üzerine getirmeniz yeterli.
 • Çince, Japonca ve Taycayla da başa çıkar: bu dillerde kelimeler boşluksuz yazılsa da satırın tamamını değil, tek bir kelimeyi çevirir.
-• 180'den fazla dile çevirir ve altyazının dilini kendisi algılar.
+• 240'tan fazla dile çevirir ve altyazının dilini kendisi algılar.
 • Göze batmaz: çeviri, YouTube'daki altyazılarınızla aynı görünür. Farklı olsun isterseniz yazı tipini, rengi ve boyutu kendiniz seçin.
 • Alışkanlıklarınıza uyum sağlar: otomatik duraklatma kapatılabilir, tıklama da kelimeyi kaydetmek yerine kelimeyi ya da çevirisini kopyalayabilir.
 
