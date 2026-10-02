@@ -66,11 +66,94 @@ describe("scripts without spaces: Intl.Segmenter", () => {
     expect(rendered("我喜欢看视频")).toBe("我喜欢看视频");
   });
 
-  it("punctuation joins a word instead of standing alone", () => {
+  // Changed on purpose: the comma used to lead the next word (`，世界`), and
+  // hovering `世界` translated ",мир". It belongs to the word before it.
+  it("punctuation joins a word instead of standing alone: the word before it", () => {
     expect(splitIntoWords("你好，世界。")).toEqual([
-      { text: "你好", separator: "" },
-      { text: "，世界", separator: "。" },
+      { text: "你好", separator: "，" },
+      { text: "世界", separator: "。" },
     ]);
+  });
+
+  it("a full stop in the middle of a line stays with the word before it", () => {
+    expect(splitIntoWords("こんにちは。ゆの")).toEqual([
+      { text: "こんにちは", separator: "。" },
+      { text: "ゆ", separator: "" },
+      { text: "の", separator: "" },
+    ]);
+  });
+
+  // An opening mark never ends a word, a closing one never starts one.
+  it("an opening bracket leads the next word, a closing one stays with the word before it", () => {
+    expect(splitIntoWords("彼は「はい」と言った")).toEqual([
+      { text: "彼", separator: "" },
+      { text: "は", separator: "" },
+      { text: "「はい", separator: "」" },
+      { text: "と", separator: "" },
+      { text: "言", separator: "" },
+      { text: "っ", separator: "" },
+      { text: "た", separator: "" },
+    ]);
+    expect(splitIntoWords("我喜欢看《哈利波特》").slice(2)).toEqual([
+      { text: "看", separator: "" },
+      { text: "《哈利", separator: "" },
+      { text: "波特", separator: "》" },
+    ]);
+  });
+
+  it("in a run of marks, those before the opening one go back, the opening one and the rest go forward", () => {
+    expect(splitIntoWords("我说：“你好”。他走了")).toEqual([
+      { text: "我", separator: "" },
+      { text: "说", separator: "：" },
+      { text: "“你好", separator: "”。" },
+      { text: "他", separator: "" },
+      { text: "走了", separator: "" },
+    ]);
+  });
+
+  it("marks after an opening one lead the next word with it", () => {
+    expect(splitIntoWords("彼は「…はい」")).toEqual([
+      { text: "彼", separator: "" },
+      { text: "は", separator: "" },
+      { text: "「…はい", separator: "」" },
+    ]);
+  });
+
+  it("an opening mark at the end of a chunk has no next word and stays with the last one", () => {
+    expect(splitIntoWords("彼は「")).toEqual([
+      { text: "彼", separator: "" },
+      { text: "は", separator: "「" },
+    ]);
+    expect(splitIntoWords("彼は「 x")[1]).toEqual({ text: "は", separator: "「 " });
+  });
+
+  it("marks at the start of a chunk, with no word before them, lead the first word", () => {
+    expect(splitIntoWords("（笑）そうですね")).toEqual([
+      { text: "（笑", separator: "）" },
+      { text: "そうですね", separator: "" },
+    ]);
+    expect(splitIntoWords("。っていう")[0].text).toBe("。っていう");
+  });
+
+  // Japanese auto-generated captions bring `。` as a piece of its own: the
+  // word before it must render the same once the next piece arrives.
+  it("a full stop stays with its word when the line grows past it", () => {
+    expect(splitIntoWords("思います。")).toEqual([
+      { text: "思い", separator: "" },
+      { text: "ます", separator: "。" },
+    ]);
+    expect(splitIntoWords("思います。はい")).toEqual([
+      { text: "思い", separator: "" },
+      { text: "ます", separator: "。" },
+      { text: "はい", separator: "" },
+    ]);
+  });
+
+  it("every character of the line is rendered once, wherever its marks go", () => {
+    for (const line of ["こんにちは。ゆの", "彼は「はい」と言った", "我说：“你好”。他走了", "我喜欢看《哈利波特》",
+      "（笑）そうですね", "彼は「", "彼は「…はい」", "思います。はい", "你好，世界。"]) {
+      expect(rendered(line)).toBe(line);
+    }
   });
 
   it("Japanese mixes kanji and kana", () => {

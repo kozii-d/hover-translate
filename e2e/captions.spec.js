@@ -268,6 +268,32 @@ test.describe("into Russian", () => {
     }))).toEqual({ text: "。っていう", parsed: true });
   });
 
+  // YouTube brings `。` as a piece of its own and the next piece after it: the
+  // full stop stays with the word before it, so the selection on that word
+  // reads, and is translated, as the tooltip showed it.
+  test("Japanese auto-generated captions: a full stop stays with the selected word before it as the line grows", async ({ openPlayer, network }) => {
+    network.translate("ru", "思います。", "Думаю.");
+    const player = await openPlayer();
+    await player.captions([{ lines: ["思います。"], lang: "ja" }]);
+
+    await player.word("思い").hover();
+    await player.page.keyboard.down("Shift");
+    await player.word("ます。").hover();
+    await expect(selectedWords(player)).toHaveText(["思い", "ます。"]);
+
+    await moveAboveCaptions(player);
+    await probeSelection(player);
+    await player.fixture("appendText", "はい");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["思い", "ます。", "はい"]);
+    await expect(selectedWords(player)).toHaveText(["思い", "ます。"]);
+    await expect(player.frame.locator("[data-probe]")).toHaveClass([/custom-tooltip-word-selected/, /custom-tooltip-word-selected/]);
+
+    await player.word("ます。").hover();
+    await player.page.keyboard.up("Shift");
+    await expect(player.tooltip).toHaveText("Думаю.");
+    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("思います。");
+  });
+
   // `今日は天気がい` + `い`: the segmenter moves a boundary back, `がい`
   // becomes `が` `いい`.
   for (const [selection, kept] of [[["今日", "は"], ["今日", "は"]], [["天気", "がい"], []]]) {

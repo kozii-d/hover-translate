@@ -38,6 +38,9 @@ const SPACELESS_SCRIPTS =
  */
 const HANGUL = /\p{Script=Hangul}/u;
 
+/** Opening brackets and quotation marks: `「『（《【“‘`… */
+const OPENING_MARK = /^[\p{Ps}\p{Pi}]/u;
+
 /** `null` once the browser has been found not to have `Intl.Segmenter`. */
 let cachedSegmenter: Intl.Segmenter | null | undefined;
 
@@ -94,25 +97,29 @@ const splitChunk = (chunk: string, isLast: boolean): CaptionWord[] => {
 
   const words: CaptionWord[] = [];
   // Punctuation and other non-words are never a word of their own: they join the
-  // word they belong to, exactly as a whitespace split leaves them attached.
+  // word they belong to, as typesetting has it — an opening mark (`「`, `《`, `“`)
+  // and what follows it lead the next word, any other mark ends the word before
+  // it (`こんにちは。` `ゆ`, not `。ゆ`). Marks with no word before them lead the
+  // first one.
   let pending = "";
 
   for (const { segment, isWordLike } of segmenter.segment(chunk)) {
     if (isWordLike) {
       words.push({ text: pending + segment, separator: "" });
       pending = "";
-      continue;
+    } else if (words.length === 0 || pending || OPENING_MARK.test(segment)) {
+      pending += segment;
+    } else {
+      words[words.length - 1].separator += segment;
     }
-
-    pending += segment;
   }
 
   // Nothing word-like in there at all — a run of punctuation or symbols.
   if (words.length === 0) return wholeChunk;
 
-  // The chunk ended with punctuation, and — unless the line ends here — the
-  // space the whitespace split ate.
-  words[words.length - 1].separator = pending + lineEnd;
+  // Marks after the last word — an opening one too, with no word left to lead —
+  // and, unless the line ends here, the space the whitespace split ate.
+  words[words.length - 1].separator += pending + lineEnd;
 
   return words;
 };
