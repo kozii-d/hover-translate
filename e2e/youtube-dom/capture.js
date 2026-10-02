@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { chromium } = require("@playwright/test");
 
-// Usage: node e2e/youtube-dom/capture.js [--video=ID] [--auto-video=ID]
+// Usage: node e2e/youtube-dom/capture.js [--video=ID] [--auto-video=ID] [--auto-ja-video=ID]
 //
 // Takes what the end-to-end fixtures (`e2e/fixtures/`) imitate from the live
 // YouTube. No extension is loaded — this is YouTube's own DOM. Writes to
@@ -15,6 +15,8 @@ const { chromium } = require("@playwright/test");
 // - `auto.json`: how auto-generated captions change the DOM as they grow, one
 //   line per mutation, over eight seconds of a video that has only those; a
 //   line `"batch"` opens the mutations one call of the observer got together.
+// - `auto-ja.json`: the same for Japanese, which YouTube grows in pieces
+//   without spaces between them, so the last word of a line can grow too.
 // When YouTube changes its player, run this, read `git diff
 // e2e/youtube-dom/captured` and bring the fixtures in line.
 //
@@ -27,6 +29,8 @@ const option = (name) => process.argv.find((arg) => arg.startsWith(`--${name}=`)
 const video = option("video") ?? "arj7oStGLkU";
 // Only auto-generated English captions; there is speech from the first minute on.
 const autoVideo = option("auto-video") ?? "15dIVxzj1tU";
+// Only auto-generated Japanese captions, speech all along.
+const autoJaVideo = option("auto-ja-video") ?? "4EeTnIV05j4";
 const OUT = path.join(__dirname, "captured");
 
 const BROWSER_ARGS = [
@@ -43,7 +47,7 @@ const BROWSER_ARGS = [
 // And a regular Chrome, not HeadlessChrome.
 const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36";
 
-const watchUrl = (id) => `https://www.youtube.com/watch?v=${id}&hl=en&cc_load_policy=1&cc_lang_pref=en`;
+const watchUrl = (id, lang = "en") => `https://www.youtube.com/watch?v=${id}&hl=en&cc_load_policy=1&cc_lang_pref=${lang}`;
 // The embedded player needs a page to be embedded in: on its own, or without a
 // referrer, YouTube refuses to play. This one is answered here, never fetched.
 const EMBED_HOST = "https://example.com/";
@@ -169,10 +173,10 @@ function recordMutations() {
   }).observe(document.querySelector(".ytp-caption-window-container"), { childList: true, subtree: true, characterData: true });
 }
 
-async function captureGrowth(context) {
+async function captureGrowth(context, id, lang) {
   const page = await context.newPage();
   try {
-    await page.goto(watchUrl(autoVideo));
+    await page.goto(watchUrl(id, lang));
     await until(page.mainFrame(), prepare, 120_000);
     await page.evaluate(() => {
       document.querySelector("video").currentTime = 90;
@@ -219,9 +223,10 @@ async function main() {
     for (const name of ["watch", "embed"]) {
       write(name, { video, ...await retry(() => capturePage(context, name)) });
     }
-    write("auto", { video: autoVideo, ...await retry(() => captureGrowth(context)) });
+    write("auto", { video: autoVideo, ...await retry(() => captureGrowth(context, autoVideo, "en")) });
+    write("auto-ja", { video: autoJaVideo, ...await retry(() => captureGrowth(context, autoJaVideo, "ja")) });
 
-    console.log(`Written to ${path.relative(process.cwd(), OUT)}/: watch.json, embed.json, auto.json (${capturedAt})`);
+    console.log(`Written to ${path.relative(process.cwd(), OUT)}/: watch.json, embed.json, auto.json, auto-ja.json (${capturedAt})`);
   } finally {
     await context.close();
   }

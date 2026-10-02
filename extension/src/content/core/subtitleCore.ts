@@ -36,11 +36,11 @@ export class SubtitleCore {
    * actually touched.
    *
    * The line is left completely alone when it still holds exactly the words we
-   * split it into last time, and only the missing words are appended when it has
-   * merely grown. Rebuilding the line unconditionally is what broke selections
-   * spanning two caption lines: auto-generated captions are re-rendered on every
-   * appended word, and each rebuild detached the very nodes the current
-   * selection was anchored to.
+   * split it into last time; when it changed, the spans `countKeptWords` allows
+   * stay and only the rest of the line is built again. Rebuilding the line
+   * unconditionally is what broke selections: auto-generated captions are
+   * re-rendered on every appended word, and each rebuild detached the very
+   * nodes the current selection was anchored to.
    *
    * `removedLines`: caption lines that left the page in the same change, whose
    * spans this line may take over (see `parsedSegments`).
@@ -54,15 +54,18 @@ export class SubtitleCore {
 
     const parsedWords = ownWords ?? this.takeOverRemovedLine(captionSegment, removedLines, words);
 
-    if (parsedWords) {
-      if (this.isAppendOnly(parsedWords, words)) {
-        // Drop YouTube's raw text, keeping our spans in place.
-        this.removeNonWordNodes(captionSegment);
-        this.syncSeparators(captionSegment, words.slice(0, parsedWords.length));
-        captionSegment.appendChild(this.buildWordSpans(words.slice(parsedWords.length)));
-        this.parsedSegments.set(captionSegment, words);
-        return true;
-      }
+    const keptCount = parsedWords ? this.countKeptWords(parsedWords, words) : 0;
+
+    if (keptCount > 0) {
+      // Drop YouTube's raw text and the spans past the kept ones.
+      this.removeNonWordNodes(captionSegment);
+      captionSegment.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`).forEach((wordNode, index) => {
+        if (index >= keptCount) wordNode.remove();
+      });
+      this.renderKeptWords(captionSegment, words.slice(0, keptCount));
+      captionSegment.appendChild(this.buildWordSpans(words.slice(keptCount)));
+      this.parsedSegments.set(captionSegment, words);
+      return true;
     }
 
     const fragment = this.buildWordSpans(words);
@@ -93,22 +96,29 @@ export class SubtitleCore {
   }
 
   /**
-   * Moves the spans of a removed line that held these words, or the first of
-   * them, to the end of `captionSegment`, and returns its words; null when no
-   * removed line did. Its spans gone, the removed line can't be taken twice.
+   * Moves the spans of the removed line that keeps the most of them in these
+   * words (`countKeptWords`) to the end of `captionSegment`, and returns its
+   * words; null when none keeps any. Its spans gone, the removed line can't be
+   * taken twice.
    *
-   * The longest such line: the line that went may be the start of the one that
-   * stays ("you know" above "you know what I mean").
+   * The most, not the first: the line that went may be the start of the one
+   * that stays ("you know" above "you know what I mean"). Of two that keep as
+   * many, the one that loses fewer: the line that went may also start like the
+   * one that stays, and only grown ("in my hometown because…" above
+   * "in my hometown.").
    */
   private takeOverRemovedLine(captionSegment: HTMLElement, removedLines: HTMLElement[], words: CaptionWord[]): CaptionWord[] | null {
     let takenLine: HTMLElement | null = null;
     let takenWords: CaptionWord[] = [];
+    let takenCount = 0;
 
     for (const removedLine of removedLines) {
       const removedWords = this.getParsedWords(removedLine);
-      if (removedWords && removedWords.length > takenWords.length && this.isAppendOnly(removedWords, words)) {
+      const keptCount = removedWords ? this.countKeptWords(removedWords, words) : 0;
+      if (removedWords && (keptCount > takenCount || (keptCount === takenCount && removedWords.length < takenWords.length))) {
         takenLine = removedLine;
         takenWords = removedWords;
+        takenCount = keptCount;
       }
     }
 
@@ -125,8 +135,12 @@ export class SubtitleCore {
   }
 
   /**
-   * Whether the line still starts with the parsed words, and at most grew at
-   * the end.
+   * How many spans of the parsed words the line now holding `words` keeps: the
+   * words it still starts with, and the next one too when it has only grown
+   * (`っ` → `って`, `hometown` → `hometown.`). YouTube grows a line by pieces,
+   * not always whole words, and `Intl.Segmenter` decides the end of a line
+   * without spaces anew each time; a selection on the word that grew stays,
+   * and one reaching past it is dropped (`TooltipService.refreshSelectedWords`).
    *
    * Only the words themselves are compared, not what is rendered after them: in
    * a script without spaces the last word of a line loses its trailing space as
@@ -134,16 +148,19 @@ export class SubtitleCore {
    * different line would rebuild the whole caption on every appended word, and a
    * rebuild detaches the very nodes a live selection is anchored to.
    */
-  private isAppendOnly(parsedWords: CaptionWord[], words: CaptionWord[]): boolean {
-    return words.length >= parsedWords.length &&
-      parsedWords.every((word, index) => word.text === words[index].text);
+  private countKeptWords(parsedWords: CaptionWord[], words: CaptionWord[]): number {
+    let count = 0;
+    while (count < parsedWords.length && count < words.length && parsedWords[count].text === words[count].text) count++;
+
+    const grown = count < parsedWords.length && count < words.length && words[count].text.startsWith(parsedWords[count].text);
+    return grown ? count + 1 : count;
   }
 
   /**
-   * Brings the spans that stay in place in line with what now follows them —
-   * see `isAppendOnly`. The nodes are kept, so the selection survives.
+   * Brings the spans that stay in line with their words and what now follows
+   * them — see `countKeptWords`. The nodes are kept, so the selection survives.
    */
-  private syncSeparators(captionSegment: HTMLElement, words: CaptionWord[]): void {
+  private renderKeptWords(captionSegment: HTMLElement, words: CaptionWord[]): void {
     const wordNodes = captionSegment.querySelectorAll(`.${TOOLTIP_WORD_CLASS}`);
 
     words.forEach((word, index) => {

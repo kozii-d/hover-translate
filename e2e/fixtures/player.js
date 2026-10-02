@@ -88,6 +88,14 @@
       fit(lastWindow());
     },
 
+    // Japanese grows in pieces without a space between them (`とっ` `て`,
+    // `日本` `語`), so the last word of a line can grow
+    // (e2e/youtube-dom/captured/auto-ja.json).
+    appendText(text) {
+      lastSegment().append(document.createTextNode(text));
+      fit(lastWindow());
+    },
+
     // …and a new line once the last one is full.
     appendLine(word) {
       lastWindow().querySelector(".captions-text").append(visualLine(word));
@@ -96,10 +104,14 @@
 
     // The first line goes up and out. YouTube removes every line of the
     // window and adds the ones that stay again, as new nodes, a text node per
-    // word, all in one call of a MutationObserver (auto.json).
-    rollUp() {
+    // word, all in one call of a MutationObserver (auto.json). `grown`: text
+    // the last line gets in the same change, without a space (`hometown` →
+    // `hometown.`; the live log of 2026-10-02 cannot tell whether YouTube
+    // did both at once or one right after the other).
+    rollUp(grown = "") {
       const text = lastWindow().querySelector(".captions-text");
       const kept = Array.from(text.querySelectorAll(".caption-visual-line")).slice(1).map((line) => line.textContent.trim());
+      kept[kept.length - 1] += grown;
       text.querySelectorAll(".caption-visual-line").forEach((line) => line.remove());
       kept.forEach((lineText) => {
         const [first, ...rest] = lineText.split(/\s+/);

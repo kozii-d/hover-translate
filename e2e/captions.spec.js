@@ -21,6 +21,16 @@ const restAtRightEdge = async (player, text) => {
   return point;
 };
 
+/** Marks the selected spans, to tell them from spans built anew. */
+const probeSelection = (player) => player.frame.evaluate(() =>
+  document.querySelectorAll(".custom-tooltip-word-selected").forEach((word) => word.setAttribute("data-probe", "")));
+
+/** Off the words, where no word shifts under the pointer. */
+const moveAboveCaptions = async (player) => {
+  const captions = await player.frame.locator(".caption-window").boundingBox();
+  await player.page.mouse.move(captions.x + captions.width / 2, captions.y - 30);
+};
+
 test.describe("into Russian", () => {
   test.beforeEach(async ({ storage }) => {
     await storage.updateSettings({ sourceLanguageCode: "auto", targetLanguageCode: "ru" });
@@ -218,6 +228,98 @@ test.describe("into Russian", () => {
       await expect(selectedWords(player)).toHaveText(kept);
     });
   }
+
+  // YouTube does not only append words: the last one can grow (a Japanese
+  // word arriving in pieces, a full stop), and `Intl.Segmenter` decides the
+  // end of a Japanese line anew. The spans of the words that stay, and of the
+  // one that grew, are kept; the rest of the line is built again.
+  test("Japanese auto-generated captions: a Shift selection survives its last word growing", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([{ lines: ["なんで暇が"], lang: "ja" }]);
+    await player.fixture("appendText", "っ");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["なんで", "暇", "が", "っ"]);
+
+    await player.word("が").hover();
+    await player.page.keyboard.down("Shift");
+    await player.word("っ").hover();
+    await expect(selectedWords(player)).toHaveText(["が", "っ"]);
+
+    await moveAboveCaptions(player);
+    await probeSelection(player);
+    await player.fixture("appendText", "て");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["なんで", "暇", "が", "って"]);
+    await expect(selectedWords(player)).toHaveText(["が", "って"]);
+    await expect(player.frame.locator("[data-probe]")).toHaveClass([/custom-tooltip-word-selected/, /custom-tooltip-word-selected/]);
+  });
+
+  // `今日は天気がい` + `い`: the segmenter moves a boundary back, `がい`
+  // becomes `が` `いい`.
+  for (const [selection, kept] of [[["今日", "は"], ["今日", "は"]], [["天気", "がい"], []]]) {
+    test(`Japanese auto-generated captions, the end of the line split anew: a selection of ${selection.join("")}`, async ({ openPlayer }) => {
+      const player = await openPlayer();
+      await player.captions([{ lines: ["今日は天気がい"], lang: "ja" }]);
+      await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["今日", "は", "天気", "がい"]);
+
+      await player.word(selection[0]).hover();
+      await player.page.keyboard.down("Shift");
+      await player.word(selection[1]).hover();
+      await expect(selectedWords(player)).toHaveText(selection);
+
+      await moveAboveCaptions(player);
+      await probeSelection(player);
+      await player.fixture("appendText", "い");
+      await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["今日", "は", "天気", "が", "いい"]);
+      await expect(selectedWords(player)).toHaveText(kept);
+      // A selection that reached into the end is dropped whole, not cut.
+      await expect(player.frame.locator("[data-probe].custom-tooltip-word-selected")).toHaveCount(kept.length);
+    });
+  }
+
+  // YouTube draws the line that stays anew, and its last word has grown:
+  // `hometown` → `hometown.` on the live site (2026-10-02).
+  test("auto-generated captions roll up as the last word grows: the selection on it stays and is translated with it", async ({ openPlayer, network }) => {
+    network.translate("ru", "my hometown.", "мой родной город.");
+    const player = await openPlayer();
+    await player.captions([{ lines: ["so what are", "back in my hometown"] }]);
+
+    await player.word("my").hover();
+    await player.page.keyboard.down("Shift");
+    await player.word("hometown").hover();
+    await expect(selectedWords(player)).toHaveText(["my ", "hometown "]);
+
+    await moveAboveCaptions(player);
+    await probeSelection(player);
+    await player.fixture("rollUp", ".");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["back ", "in ", "my ", "hometown. "]);
+    await expect(selectedWords(player)).toHaveText(["my ", "hometown. "]);
+    await expect(player.frame.locator("[data-probe]")).toHaveClass([/custom-tooltip-word-selected/, /custom-tooltip-word-selected/]);
+
+    await player.word("hometown\\.").hover();
+    await player.page.keyboard.up("Shift");
+    await expect(player.tooltip).toHaveText("мой родной город.");
+    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("my hometown.");
+  });
+
+  // On the live site (2026-10-02) the line that went started like the one
+  // that stays, before its last word grew.
+  test("auto-generated captions roll up, the line that went starting like the grown one that stays: the selection on the one that stays survives", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([{ lines: ["in my hometown because", "in my hometown."] }]);
+    const wordOnLastLine = (text) => player.frame.locator(".caption-visual-line:last-child .custom-tooltip-word")
+      .filter({ hasText: new RegExp(`^\\s*${text}\\s*$`) });
+
+    await wordOnLastLine("my").hover();
+    await player.page.keyboard.down("Shift");
+    await wordOnLastLine("hometown\\.").hover();
+    await expect(selectedWords(player)).toHaveText(["my ", "hometown. "]);
+
+    await moveAboveCaptions(player);
+    await probeSelection(player);
+    await player.fixture("rollUp");
+    await expect(player.frame.locator(".custom-tooltip-word")).toHaveText(["in ", "my ", "hometown. "]);
+    await expect(selectedWords(player)).toHaveText(["my ", "hometown. "]);
+    await expect(player.frame.locator("[data-probe]")).toHaveClass([/custom-tooltip-word-selected/, /custom-tooltip-word-selected/]);
+  });
 
   test("with two caption windows the translation is shown at the window of the word", async ({ openPlayer }) => {
     const player = await openPlayer();
