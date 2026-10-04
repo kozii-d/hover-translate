@@ -451,6 +451,8 @@ describe("Google's lists have one entry per language", () => {
   // Either language missing leaves both as stored, even the other one in an old spelling.
   it.each([["tlh-Latn", "tlh-Latn"], ["tlh-Latn", "he"], ["zh-TW", "tlh-Latn"]])(
     "a language Google does not offer at all is left as stored, without a notice: from %j to %j", async (source, target) => {
+      // MUI warns about a select whose value is not among its options (only in development): here it is on purpose.
+      vi.spyOn(console, "warn").mockImplementation(() => {});
       const settings = { ...defaultSettings, sourceLanguageCode: source, targetLanguageCode: target };
       const { fake } = await renderPopup({ sync: { settings } });
       const writes = settingsWrites(fake);
