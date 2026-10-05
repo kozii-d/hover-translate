@@ -33,11 +33,13 @@
   };
 
   // YouTube sizes the window to its longest line and centres it, unless the
-  // viewer has dragged it somewhere.
+  // viewer has dragged it somewhere. Rounded up: `offsetWidth` rounds to the
+  // nearest pixel, and a window a fraction narrower than its line wraps it
+  // (Liberation Sans on CI, where Roboto is missing).
   const fit = (captionWindow) => {
     if (captionWindow.dataset.dragged) return;
     captionWindow.style.width = "max-content";
-    const width = captionWindow.offsetWidth;
+    const width = Math.ceil(captionWindow.getBoundingClientRect().width);
     captionWindow.style.width = `${width}px`;
     captionWindow.style.marginLeft = `${-width / 2}px`;
   };
