@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-02",
+  "capturedAt": "2026-10-05",
   "video": {
     "tag": "video",
     "class": "video-stream html5-main-video",
@@ -19,15 +19,15 @@
     {
       "tag": "span",
       "class": "ytp-caption-segment",
-      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 24px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
+      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.7); box-decoration-break: clone; border-radius: 6px; font-size: 24px; line-height: 1.375; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
       "position": "static",
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        404,
-        501,
+        403,
+        496,
         153,
-        28
+        33
       ]
     },
     {
@@ -39,9 +39,9 @@
       "pointerEvents": "auto",
       "box": [
         403,
-        501,
+        496,
         154,
-        28
+        33
       ]
     },
     {
@@ -53,24 +53,24 @@
       "pointerEvents": "auto",
       "box": [
         403,
-        501,
+        496,
         154,
-        28
+        33
       ]
     },
     {
       "tag": "div",
       "id": "caption-window-_315",
       "class": "caption-window ytp-caption-window-bottom",
-      "style": "touch-action: none; text-align: center; left: 50%; width: 154px; margin-left: -77px; bottom: 2%;",
+      "style": "touch-action: none; text-align: left; left: 50%; max-width: 96%; width: 154px; margin-left: -77px; bottom: 2%;",
       "position": "absolute",
       "zIndex": "41",
       "pointerEvents": "auto",
       "box": [
         403,
-        501,
+        496,
         154,
-        28
+        33
       ]
     },
     {
@@ -117,7 +117,7 @@
     },
     {
       "tag": "body",
-      "class": "date-20261002 en_US ltr  site-center-aligned site-as-giant-card webkit webkit-537",
+      "class": "date-20261005 en_US ltr  site-center-aligned site-as-giant-card webkit webkit-537",
       "position": "absolute",
       "zIndex": "auto",
       "pointerEvents": "auto",
@@ -129,7 +129,7 @@
       ]
     }
   ],
-  "captionWindowHtml": "<div class=\"caption-window ytp-caption-window-bottom\" id=\"caption-window-_315\" dir=\"ltr\" tabindex=\"0\" draggable=\"true\" style=\"touch-action: none; text-align: center; left: 50%; width: 154px; margin-left: -77px; bottom: 2%;\"><span class=\"captions-text\" style=\"overflow-wrap: normal; display: block;\"><span class=\"caption-visual-line\" style=\"display: block;\"><span class=\"ytp-caption-segment\" style=\"display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 24px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: &quot;YouTube Noto&quot;, Roboto, Arial, Helvetica, Verdana, &quot;PT Sans Caption&quot;, sans-serif;\">So in college,</span></span></span></div>",
+  "captionWindowHtml": "<div class=\"caption-window ytp-caption-window-bottom\" id=\"caption-window-_315\" dir=\"ltr\" tabindex=\"0\" draggable=\"true\" style=\"touch-action: none; text-align: left; left: 50%; max-width: 96%; width: 154px; margin-left: -77px; bottom: 2%;\"><span class=\"captions-text\" style=\"overflow-wrap: normal; display: block;\"><span class=\"caption-visual-line\" style=\"display: block;\"><span class=\"ytp-caption-segment\" style=\"display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.7); box-decoration-break: clone; border-radius: 6px; font-size: 24px; line-height: 1.375; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: &quot;YouTube Noto&quot;, Roboto, Arial, Helvetica, Verdana, &quot;PT Sans Caption&quot;, sans-serif;\">So in college,</span></span></span></div>",
   "playerChildren": [
     {
       "tag": "div",
@@ -270,15 +270,15 @@
     {
       "tag": "span",
       "class": "ytp-caption-segment",
-      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 24px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
+      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.7); box-decoration-break: clone; border-radius: 6px; font-size: 24px; line-height: 1.375; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
       "position": "static",
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        404,
-        501,
+        403,
+        496,
         153,
-        28
+        33
       ]
     },
     {
@@ -290,9 +290,9 @@
       "pointerEvents": "auto",
       "box": [
         403,
-        501,
+        496,
         154,
-        28
+        33
       ]
     }
   ],
@@ -417,7 +417,7 @@
     },
     {
       "tag": "body",
-      "class": "date-20261002 en_US ltr  site-center-aligned site-as-giant-card webkit webkit-537",
+      "class": "date-20261005 en_US ltr  site-center-aligned site-as-giant-card webkit webkit-537",
       "position": "absolute",
       "zIndex": "auto",
       "pointerEvents": "auto",
