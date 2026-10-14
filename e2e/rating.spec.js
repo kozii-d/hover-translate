@@ -1,9 +1,11 @@
 const { test, expect } = require("./extension.js");
 
-// The request for a rating on the video: once ever, with the save
-// that brings the word list to ten, a week after the install.
+// The request for a rating on the video: with the save that brings the word
+// list to ten, a week after the install. Shown, it counts as put off, as the
+// popup's ✕ does: neither card for 30 days, three times at most.
 
-const MONTH_AGO = Date.now() - 30 * 24 * 60 * 60 * 1000;
+const DAY = 24 * 60 * 60 * 1000;
+const MONTH_AGO = Date.now() - 30 * DAY;
 // The reviews page of the Chrome Web Store: the build carries the store's
 // `key`, so it has the store's id.
 const CHROME_WEB_STORE_REVIEWS = "https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic/reviews";
@@ -65,13 +67,39 @@ async function saveTenthWord(player) {
 /** Until the card takes clicks: 800 ms after it appeared, waited for as a condition of the page. */
 const armed = (player) => player.frame.waitForFunction(() => performance.now() - window.cardShownAt > 850);
 
+/**
+ * Saves a word that brings the list to `savedCount` and expects no card: it
+ * would come right after the save, and one more translation round trip is
+ * past that moment.
+ */
+async function saveWithoutCard(player, storage, savedCount) {
+  await player.captions("run for your life");
+  await player.word("life").click();
+  await expect(player.notification).toHaveText("Translation saved");
+  await expect.poll(async () => (await storage.get("local", "savedTranslations")).length).toBe(savedCount);
+  await player.word("for").hover();
+  await expect(player.tooltip).toHaveText("[ru] for");
+  await expect(player.ratingCard).toHaveCount(0);
+}
+
+/** The dismissals the card wrote once it was on screen: `count`, at a moment since `since`. */
+async function expectDismissals(storage, count, since) {
+  await expect.poll(async () => (await storage.get("sync", "ratingPromptDismissals"))?.count).toBe(count);
+  const { lastDismissedAt } = await storage.get("sync", "ratingPromptDismissals");
+  expect(lastDismissedAt).toBeGreaterThanOrEqual(since);
+  expect(lastDismissedAt).toBeLessThanOrEqual(Date.now());
+}
+
 test("the tenth save shows the card; the pointer on it pauses; an early press does nothing; Rate opens the store, the video stays paused", async ({ context, openPlayer, storage, serviceWorker }) => {
   const player = await openPlayer();
+  const before = Date.now();
   await saveTenthWord(player);
 
+  // On screen, it counts as put off: the shared record, not the flag of 1.2.0.
+  await expectDismissals(storage, 1, before);
+  expect(await storage.get("sync", "ratingPromptVideoShown")).toBeUndefined();
   // The early press was ignored.
   expect(await storage.get("sync", "ratingPromptDone")).toBeUndefined();
-  expect(await storage.get("sync", "ratingPromptVideoShown")).toBe(true);
   expect(await openedTabs(serviceWorker)).toEqual([]);
 
   // At the top right of the player, clear of the captions at the bottom.
@@ -102,20 +130,52 @@ test("the tenth save shows the card; the pointer on it pauses; an early press do
   await store.close();
 });
 
-test("the card is shown once: the next save, on a new page, shows none", async ({ openPlayer, storage }) => {
+test("shown, the card puts itself off: the next save, on a new page, shows none", async ({ openPlayer, storage }) => {
   const player = await openPlayer();
   await saveTenthWord(player);
+  await expectDismissals(storage, 1, MONTH_AGO);
   await player.page.close();
 
-  const next = await openPlayer();
-  await next.captions("run for your life");
-  await next.word("life").click();
-  await expect(next.notification).toHaveText("Translation saved");
-  await expect.poll(async () => (await storage.get("local", "savedTranslations")).length).toBe(11);
-  // The card would come right after the save; one more translation round trip is past that moment.
-  await next.word("for").hover();
-  await expect(next.tooltip).toHaveText("[ru] for");
-  await expect(next.ratingCard).toHaveCount(0);
+  await saveWithoutCard(await openPlayer(), storage, 11);
+  expect((await storage.get("sync", "ratingPromptDismissals")).count).toBe(1);
+});
+
+test("\"Not now\" removes the card and resumes the video; the request is not over", async ({ openPlayer, storage }) => {
+  const player = await openPlayer();
+  await saveTenthWord(player);
+  await armed(player);
+
+  await player.ratingCard.getByRole("button", { name: "Not now" }).click();
+  await expect(player.ratingCard).toHaveCount(0);
+  await expect.poll(() => player.isPaused()).toBe(false);
+  expect(await storage.get("sync", "ratingPromptDone")).toBeUndefined();
+  expect((await storage.get("sync", "ratingPromptDismissals")).count).toBe(1);
+});
+
+test("a month after it was put off the card comes back, and counts once more", async ({ openPlayer, storage }) => {
+  await storage.set("sync", { ratingPromptDismissals: { count: 1, lastDismissedAt: Date.now() - 31 * DAY } });
+  const player = await openPlayer();
+  const before = Date.now();
+  await saveTenthWord(player);
+  await expectDismissals(storage, 2, before);
+});
+
+test("put off three times, the card never comes back", async ({ openPlayer, storage }) => {
+  const dismissals = { count: 3, lastDismissedAt: Date.now() - 100 * DAY };
+  await storage.set("sync", { ratingPromptDismissals: dismissals });
+  await saveWithoutCard(await openPlayer(), storage, 10);
+  expect(await storage.get("sync", "ratingPromptDismissals")).toEqual(dismissals);
+});
+
+// 1.2.0 showed the card once and set a flag, with no date: it counts as put
+// off at the update to this version.
+test("shown under 1.2.0 a month before the update: the card comes back as the second request", async ({ openPlayer, storage }) => {
+  await storage.set("sync", { installedAt: Date.now() - 60 * DAY, updatedAt: Date.now() - 31 * DAY, ratingPromptVideoShown: true });
+  const player = await openPlayer();
+  const before = Date.now();
+  await saveTenthWord(player);
+  await expectDismissals(storage, 2, before);
+  expect(await storage.get("sync", "ratingPromptVideoShown")).toBe(true);
 });
 
 test("in full screen the card moves with the player; Rate leaves full screen", async ({ context, openPlayer, serviceWorker }) => {

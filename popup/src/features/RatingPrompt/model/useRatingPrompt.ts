@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import {
   MIN_CACHED_TRANSLATIONS,
-  POPUP_MIN_SAVED_WORDS,
+  MIN_SAVED_WORDS,
   getReviewPageUrl,
-  isPopupRatingPromptDue,
+  isRatingPromptDue,
 } from "@extension/common/ratingPrompt.ts";
 
 /**
@@ -23,10 +23,10 @@ export const useRatingPrompt = (): boolean | null => {
       if (!getReviewPageUrl(chrome.runtime.getURL(""), chrome.runtime.id)) return false;
 
       const sync = (await get<Record<string, unknown>>(null, "sync")) ?? {};
-      if (!isPopupRatingPromptDue(sync, Date.now())) return false;
+      if (!isRatingPromptDue(sync, Date.now())) return false;
 
       const savedTranslations = await get<unknown>("savedTranslations", "local");
-      if (Array.isArray(savedTranslations) && savedTranslations.length >= POPUP_MIN_SAVED_WORDS) return true;
+      if (Array.isArray(savedTranslations) && savedTranslations.length >= MIN_SAVED_WORDS) return true;
 
       // Read only now: it can hold thousands of entries.
       const translationCache = await get<unknown>("translationCache", "local");

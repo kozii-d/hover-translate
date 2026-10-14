@@ -475,8 +475,8 @@ describe("the rating card on the Settings page", () => {
   const settled = () => waitFor(() => expect(card() ?? screen.queryByText(/hold Shift/)).not.toBeNull());
 
   it.each([
-    ["4 saved words", { savedTranslations: words(4) }, false],
-    ["5 saved words", { savedTranslations: words(5) }, true],
+    ["9 saved words", { savedTranslations: words(9) }, false],
+    ["10 saved words", { savedTranslations: words(10) }, true],
     ["29 cached translations", { translationCache: cache(29) }, false],
     ["30 cached translations", { translationCache: cache(30) }, true],
   ])("%s → shown: %j", async (_, local, shown) => {
@@ -486,19 +486,19 @@ describe("the rating card on the Settings page", () => {
   });
 
   it("not in the week after an update", async () => {
-    await renderPopup({ sync: { ...due, updatedAt: Date.now() - DAY }, local: { savedTranslations: words(5) } });
+    await renderPopup({ sync: { ...due, updatedAt: Date.now() - DAY }, local: { savedTranslations: words(10) } });
     await settled();
     expect(card()).toBeNull();
   });
 
   it("not in a build that belongs to no store", async () => {
-    await renderPopup({ id: UNPACKED_ID, sync: due, local: { savedTranslations: words(5) } });
+    await renderPopup({ id: UNPACKED_ID, sync: due, local: { savedTranslations: words(10) } });
     await settled();
     expect(card()).toBeNull();
   });
 
   it("\"Rate\" records the answer before it opens the store: the popup closes with the new tab", async () => {
-    const { fake, user } = await renderPopup({ sync: due, local: { savedTranslations: words(5) } });
+    const { fake, user } = await renderPopup({ sync: due, local: { savedTranslations: words(10) } });
 
     await user.click(await screen.findByRole("button", { name: "Rate" }));
 
@@ -511,7 +511,7 @@ describe("the rating card on the Settings page", () => {
   });
 
   it("\"Don't ask again\" ends the request without a tab", async () => {
-    const { fake, user } = await renderPopup({ sync: due, local: { savedTranslations: words(5) } });
+    const { fake, user } = await renderPopup({ sync: due, local: { savedTranslations: words(10) } });
 
     await user.click(await screen.findByRole("button", { name: "Don't ask again" }));
 
@@ -520,14 +520,40 @@ describe("the rating card on the Settings page", () => {
   });
 
   it("✕ puts it off: the count and the moment, nothing else", async () => {
-    const { fake, user } = await renderPopup({ sync: due, local: { savedTranslations: words(5) } });
+    const { fake, user } = await renderPopup({ sync: due, local: { savedTranslations: words(10) } });
+
+    const status = await screen.findByRole("status");
+    const before = Date.now();
+    await user.click(within(status).getByRole("button", { name: "Not now" }));
+
+    await waitFor(() => expect(fake.storage.sync.ratingPromptDismissals).toBeDefined());
+    const { count, lastDismissedAt } = fake.storage.sync.ratingPromptDismissals as { count: number; lastDismissedAt: number };
+    expect(count).toBe(1);
+    expect(lastDismissedAt).toBeGreaterThanOrEqual(before);
+    expect(lastDismissedAt).toBeLessThanOrEqual(Date.now());
+    expect(fake.storage.sync).not.toHaveProperty("ratingPromptPopup");
+    expect(fake.storage.sync).not.toHaveProperty("ratingPromptDone");
+    expect(fake.createdTabs).toEqual([]);
+  });
+
+  // 1.2.0 showed the card on the video once, with a flag; it counts as one dismissal.
+  it("✕ after the card on the video was shown under 1.2.0 is the second dismissal", async () => {
+    const sync = { ...due, updatedAt: Date.now() - 40 * DAY, ratingPromptVideoShown: true };
+    const { fake, user } = await renderPopup({ sync, local: { savedTranslations: words(10) } });
 
     const status = await screen.findByRole("status");
     await user.click(within(status).getByRole("button", { name: "Not now" }));
 
-    await waitFor(() => expect(fake.storage.sync.ratingPromptPopup).toEqual({ count: 1, lastDismissedAt: expect.any(Number) }));
-    expect(fake.storage.sync).not.toHaveProperty("ratingPromptDone");
-    expect(fake.createdTabs).toEqual([]);
+    await waitFor(() => expect(fake.storage.sync.ratingPromptDismissals).toEqual({ count: 2, lastDismissedAt: expect.any(Number) }));
+    expect(fake.storage.sync.ratingPromptVideoShown).toBe(true);
+  });
+
+  it("not in the month after the card on the video was shown: the tips are in its place", async () => {
+    const sync = { ...due, ratingPromptDismissals: { count: 1, lastDismissedAt: Date.now() - 10 * DAY } };
+    await renderPopup({ sync, local: { savedTranslations: words(10), translationCache: cache(30) } });
+
+    expect(await screen.findByText(/hold Shift/)).toBeTruthy();
+    expect(card()).toBeNull();
   });
 });
 
@@ -538,7 +564,7 @@ describe("the line about access to YouTube on the Settings page", () => {
   const line = () => screen.queryByText(LINE);
   const ratingDue = {
     sync: { settings: defaultSettings, installedAt: Date.now() - 8 * DAY, updatedAt: Date.now() - 8 * DAY },
-    local: { savedTranslations: Array.from({ length: 5 }, (_, index) => ({ id: `w${index}`, originalText: `w${index}` })) },
+    local: { savedTranslations: Array.from({ length: 10 }, (_, index) => ({ id: `w${index}`, originalText: `w${index}` })) },
   };
   const ratingCard = () => screen.queryByText("If HoverTranslate helps you learn, a rating helps other learners find it.");
   const shiftTip = () => screen.queryByText(/hold Shift/);

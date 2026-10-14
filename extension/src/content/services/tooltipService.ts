@@ -12,7 +12,7 @@ import { getOverlayContainer, getPlayerVideo, getVisibleRect, isCaptionWindowInU
 import { styleTooltip } from "../utils/tooltipTheme.ts";
 import { isShiftHeld } from "../utils/shiftKey.ts";
 import { RatingPromptService } from "./ratingPromptService.ts";
-import { MIN_CACHED_TRANSLATIONS, VIDEO_MIN_SAVED_WORDS } from "../../common/ratingPrompt.ts";
+import { MIN_CACHED_TRANSLATIONS, MIN_SAVED_WORDS } from "../../common/ratingPrompt.ts";
 import { TranslationCore } from "../core/translationCore";
 import { StorageService } from "../../common/services/storageService.ts";
 import { state } from "../state/stateManager.ts";
@@ -646,7 +646,7 @@ export class TooltipService {
 
     this.showNotificationTooltip(chrome.i18n.getMessage("translationSaved"), player);
 
-    if (captionWindow && !this.hadFailure && savedCount >= VIDEO_MIN_SAVED_WORDS) {
+    if (captionWindow && !this.hadFailure && savedCount >= MIN_SAVED_WORDS) {
       this.ratingPromptService.offer(captionWindow);
     }
   };

@@ -9,10 +9,11 @@ import { styleTooltip } from "../utils/tooltipTheme.ts";
 import { StorageService } from "../../common/services/storageService.ts";
 import { sendMessageToBackground } from "../../common/services/messagingService.ts";
 import {
+  RATING_PROMPT_DISMISSALS_KEY,
   RATING_PROMPT_DONE_KEY,
-  RATING_PROMPT_VIDEO_SHOWN_KEY,
   getReviewPageUrl,
-  isVideoRatingPromptDue,
+  isRatingPromptDue,
+  nextRatingPromptDismissals,
 } from "../../common/ratingPrompt.ts";
 
 /** The watch page and embedded players; not Shorts, whose corners are YouTube's buttons, nor the miniplayer over the feed. */
@@ -39,10 +40,11 @@ const ARM_DELAY_MS = 800;
 const INSET = { side: 16, top: 56, bottom: 64 };
 
 /**
- * The request for a rating on the video, shown once ever, when someone has
- * plainly got use out of the extension: with the save that brings the word
- * list to ten, or with a translation once thirty are cached (the callers,
- * `TooltipService`, decide which).
+ * The request for a rating on the video, when someone has plainly got use out
+ * of the extension: with the save that brings the word list to ten, or with a
+ * translation once thirty are cached (the callers, `TooltipService`, decide
+ * which). Being shown counts as being put off — anything but "Rate" is "Not
+ * now" — so, like the popup's ✕, it keeps both cards away for a month.
  *
  * It behaves like the rest of the extension: the pointer on it pauses the
  * video (with auto-pause on), the pointer leaving resumes it.
@@ -83,14 +85,14 @@ export class RatingPromptService {
 
     this.deciding = true;
     try {
-      // Read at the moment of deciding: another tab may have shown the card
-      // while this one stayed open.
+      // Read at the moment of deciding: another tab, or the popup, may have
+      // put the request off while this one stayed open.
       const sync = (await this.storageService.get<Record<string, unknown>>(null, "sync")) ?? {};
-      if (!isVideoRatingPromptDue(sync, Date.now())) return;
+      if (!isRatingPromptDue(sync, Date.now())) return;
 
       if (!this.show(player, captionWindow)) return;
 
-      await this.storageService.set(RATING_PROMPT_VIDEO_SHOWN_KEY, true, "sync");
+      await this.storageService.set(RATING_PROMPT_DISMISSALS_KEY, nextRatingPromptDismissals(sync, Date.now()), "sync");
     } catch (error) {
       console.error("Could not show the rating card", error);
     } finally {

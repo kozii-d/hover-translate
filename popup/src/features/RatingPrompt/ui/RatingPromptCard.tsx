@@ -9,9 +9,9 @@ import { useTranslation } from "react-i18next";
 import { useStorage } from "@/shared/lib/hooks/useStorage.ts";
 import {
   RATING_PROMPT_DONE_KEY,
-  RATING_PROMPT_POPUP_KEY,
-  RatingPromptPopupDismissals,
+  RATING_PROMPT_DISMISSALS_KEY,
   getReviewPageUrl,
+  nextRatingPromptDismissals,
 } from "@extension/common/ratingPrompt.ts";
 
 const ISSUES_URL = "https://github.com/kozii-d/hover-translate/issues";
@@ -45,14 +45,11 @@ export const RatingPromptCard: FC = () => {
     endRequest();
   };
 
-  // Put off for a month; the third time, for good.
+  // Puts off both cards, this one and the one on the video, for a month; the third time, for good.
   const notNow = () => {
     setOpen(false);
-    get<RatingPromptPopupDismissals>(RATING_PROMPT_POPUP_KEY, "sync")
-      .then((dismissals) => set<RatingPromptPopupDismissals>(RATING_PROMPT_POPUP_KEY, {
-        count: (dismissals?.count ?? 0) + 1,
-        lastDismissedAt: Date.now(),
-      }, "sync"))
+    get<Record<string, unknown>>(null, "sync")
+      .then((sync) => set(RATING_PROMPT_DISMISSALS_KEY, nextRatingPromptDismissals(sync ?? {}, Date.now()), "sync"))
       .catch((error) => console.error("Could not put the rating card off", error));
   };
 

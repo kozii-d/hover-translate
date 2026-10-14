@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+
+- The request to rate HoverTranslate on the video now comes back a month after "Not now", as the one in the settings does, and putting off either of them puts off the other too.
+
 ## [1.2.0] - 2026-10-05
 
 ### Changed

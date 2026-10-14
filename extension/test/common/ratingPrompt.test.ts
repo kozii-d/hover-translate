@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   getReviewPageUrl,
-  isPopupRatingPromptDue,
-  isVideoRatingPromptDue,
+  isRatingPromptDue,
+  nextRatingPromptDismissals,
 } from "../../src/common/ratingPrompt.ts";
 import { CHROME_WEB_STORE_ID, EDGE_ADD_ONS_ID, UNPACKED_ID } from "../fakeChrome.ts";
 
-// When each rating card may appear, and which store page "Rate" opens, case by case.
+// When the rating cards may appear, and which store page "Rate" opens, case by case.
 const DAY = 24 * 60 * 60 * 1000;
 const now = Date.UTC(2026, 8, 29, 12);
 const daysAgo = (days: number) => now - days * DAY;
@@ -30,20 +30,11 @@ describe("both cards: a week after the install and the last update, until answer
     ["ratingPromptDone", { ...base, ratingPromptDone: true }, false],
     ["ratingPromptDone a string", { ...base, ratingPromptDone: "yes" }, false],
   ])("%s → %j", (_, sync, expected) => {
-    expect(isVideoRatingPromptDue(sync, now)).toBe(expected);
-    expect(isPopupRatingPromptDue(sync, now)).toBe(expected);
+    expect(isRatingPromptDue(sync, now)).toBe(expected);
   });
 });
 
-describe("the card on the video: once, ever", () => {
-  it("not after it was shown, while the popup card still may be", () => {
-    const sync = { ...base, ratingPromptVideoShown: true };
-    expect(isVideoRatingPromptDue(sync, now)).toBe(false);
-    expect(isPopupRatingPromptDue(sync, now)).toBe(true);
-  });
-});
-
-describe("the popup card: ✕ puts it off for 30 days, three times at most", () => {
+describe("either card put off puts off both: for 30 days, three times at most", () => {
   it.each<[string, unknown, boolean]>([
     ["never put off", undefined, true],
     ["put off once, 29 days ago", { count: 1, lastDismissedAt: daysAgo(29) }, false],
@@ -57,9 +48,47 @@ describe("the popup card: ✕ puts it off for 30 days, three times at most", () 
     ["lastDismissedAt in the future", { count: 1, lastDismissedAt: now + DAY }, false],
     ["count negative", { count: -1, lastDismissedAt: daysAgo(40) }, false],
     ["count not a whole number", { count: 1.5, lastDismissedAt: daysAgo(40) }, false],
-  ])("%s → %j", (_, ratingPromptPopup, expected) => {
-    const sync = ratingPromptPopup === undefined ? base : { ...base, ratingPromptPopup };
-    expect(isPopupRatingPromptDue(sync, now)).toBe(expected);
+  ])("%s → %j", (_, ratingPromptDismissals, expected) => {
+    const sync = ratingPromptDismissals === undefined ? base : { ...base, ratingPromptDismissals };
+    expect(isRatingPromptDue(sync, now)).toBe(expected);
+  });
+});
+
+// 1.2.0 kept a count of ✕ in the popup and a flag for the card on the video
+// shown, and nothing of when: both count from the update to this version.
+describe("put off under 1.2.0: counted from the last update", () => {
+  const updated = (days: number) => ({ installedAt: daysAgo(365), updatedAt: daysAgo(days) });
+
+  it.each<[string, Record<string, unknown>, boolean]>([
+    ["the card on the video shown, updated 29 days ago", { ...updated(29), ratingPromptVideoShown: true }, false],
+    ["the card on the video shown, updated 30 days ago", { ...updated(30), ratingPromptVideoShown: true }, true],
+    ["the card on the video shown, no updatedAt, installed 30 days ago", { installedAt: daysAgo(30), ratingPromptVideoShown: true }, true],
+    ["the card on the video shown, no updatedAt, installed 29 days ago", { installedAt: daysAgo(29), ratingPromptVideoShown: true }, false],
+    ["popup put off twice and the video card shown: three, for good",
+      { ...updated(400), ratingPromptPopup: { count: 2, lastDismissedAt: daysAgo(500) }, ratingPromptVideoShown: true }, false],
+    ["popup put off once, updated 30 days ago", { ...updated(30), ratingPromptPopup: { count: 1, lastDismissedAt: daysAgo(100) } }, true],
+    ["popup put off once, updated 29 days ago", { ...updated(29), ratingPromptPopup: { count: 1, lastDismissedAt: daysAgo(100) } }, false],
+    // Garbage in the old record counts as no dismissal: the new rule decides from here on.
+    ["popup record garbage, updated 8 days ago", { ...updated(8), ratingPromptPopup: "1" }, true],
+    ["the new record wins: the video card shown before, put off once 40 days ago",
+      { ...updated(40), ratingPromptVideoShown: true, ratingPromptDismissals: { count: 1, lastDismissedAt: daysAgo(40) } }, true],
+    ["the new record wins: popup put off three times before, once now",
+      { ...updated(40), ratingPromptPopup: { count: 3, lastDismissedAt: daysAgo(40) }, ratingPromptDismissals: { count: 1, lastDismissedAt: daysAgo(40) } }, true],
+  ])("%s → %j", (_, sync, expected) => {
+    expect(isRatingPromptDue(sync, now)).toBe(expected);
+  });
+});
+
+describe("nextRatingPromptDismissals: one more, now, written whole by either card", () => {
+  it.each<[string, number, Record<string, unknown>]>([
+    ["never put off", 1, base],
+    ["put off once", 2, { ...base, ratingPromptDismissals: { count: 1, lastDismissedAt: daysAgo(40) } }],
+    ["1.2.0: popup put off once and the video card shown", 3, { ...base, ratingPromptPopup: { count: 1, lastDismissedAt: daysAgo(40) }, ratingPromptVideoShown: true }],
+    ["1.2.0: the video card shown", 2, { ...base, ratingPromptVideoShown: true }],
+    ["the new record wins over 1.2.0", 2, { ...base, ratingPromptVideoShown: true, ratingPromptDismissals: { count: 1, lastDismissedAt: daysAgo(40) } }],
+    ["nothing stored at all", 1, {}],
+  ])("%s → count %j", (_, count, sync) => {
+    expect(nextRatingPromptDismissals(sync, now)).toEqual({ count, lastDismissedAt: now });
   });
 });
 
