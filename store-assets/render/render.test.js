@@ -1,11 +1,12 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { SETS, SHOTS, SHOT_ORDER, scene, storeShots } = require("./sets.js");
+const { SETS, SHOTS, SHOT_ORDER, SITE_VIDEOS, scene, storeShots } = require("./sets.js");
 const { HEADLINES, NOTES, AUTOPAUSE_NOTES, AMO_CAPTIONS, CREDITS } = require("./strings.js");
-const { withAccent } = require("./compose.js");
+const { withAccent, PROMOS } = require("./compose.js");
 
-// What render.js needs before it opens a browser: a missing string would
-// only show up as a screenshot without its headline, after minutes of capture.
+// What render.js and video.js need before they open a browser: a missing
+// string would only show up as a screenshot without its headline, after
+// minutes of capture.
 
 test("every shot in the stores has a headline in every listing language", () => {
   for (const shot of SHOT_ORDER.filter((name) => name !== "settings")) {
@@ -79,4 +80,20 @@ test("Chrome gets five screenshots and Edge six, the same five first", () => {
   // Japanese words to those who may learn Japanese, auto-pause to the rest.
   assert.equal(storeShots("ko").chrome[4], "unspaced");
   assert.equal(storeShots("ru").chrome[4], "autopause");
+});
+
+test("the site's link preview is Open Graph's 1200×630, a JPEG", () => {
+  assert.equal(PROMOS.og.width, 1200);
+  assert.equal(PROMOS.og.height, 630);
+  // A frame of the video as PNG weighs several times as much.
+  assert.equal(PROMOS.og.quality, 85);
+});
+
+test("the site gets its four videos under the names its page links, each from scenes recorded for the promo video", () => {
+  assert.deepEqual(SITE_VIDEOS, {
+    phrase: ["phrase"],
+    save: ["dictionary", "popup"],
+    context: ["context"],
+    unspaced: ["unspaced"],
+  });
 });

@@ -93,6 +93,16 @@ const SHOT_ORDER = ["word", "phrase", "context", "dictionary", "unspaced", "auto
 const SHOWN_EVERYWHERE = ["word", "phrase", "context", "dictionary"];
 const UNSPACED_FIRST = ["en", "ko", "zh_CN", "zh_TW"];
 
+// The site's videos, docs/media/<name>.mp4, .webm and .webp (the site links
+// them by these names), made of the scenes of the en set's promo video; the
+// popup's part opens over the dictionary scene, as in docs/dictionary.gif.
+const SITE_VIDEOS = {
+  phrase: ["phrase"],
+  save: ["dictionary", "popup"],
+  context: ["context"],
+  unspaced: ["unspaced"],
+};
+
 /** The shots of the set `setName` for Chrome and for Edge, in the order of upload. */
 function storeShots(setName) {
   const [fifth, sixth] = UNSPACED_FIRST.includes(setName) ? ["unspaced", "autopause"] : ["autopause", "unspaced"];
@@ -108,4 +118,4 @@ function scene(setName, shotName) {
   return Array.isArray(shot) ? { scenes: shot, captions } : { ...shot, captions };
 }
 
-module.exports = { SETS, SHOTS, SHOT_ORDER, scene, storeShots };
+module.exports = { SETS, SHOTS, SHOT_ORDER, SITE_VIDEOS, scene, storeShots };

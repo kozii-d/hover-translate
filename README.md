@@ -92,7 +92,7 @@ npm run verify       # lint, types, tests, store listing limits, versions
 npm run test:e2e     # the extension in Playwright's Chromium on local copies of YouTube's player (run npm run build first)
 ```
 
-The store screenshots, promo images and video, and the GIFs in this README are made by `npm run render:store` and `npm run render:video` (`store-assets/render/`): the built extension on live YouTube, translated by DeepL (a key in `.env`).
+The store screenshots, promo images and video, the GIFs in this README, and the website's videos and link preview (`docs/media/`) are made by `npm run render:store` and `npm run render:video` (`store-assets/render/`): the built extension on live YouTube, translated by DeepL (a key in `.env`).
 
 `npm ci` in the root also installs the git hooks: a commit is checked in a few seconds (ESLint on the changed files, locale JSON, listing limits, versions), a push runs `npm run verify`. GitHub Actions runs the same on every push and pull request, plus the store packages, `web-ext lint` and the end-to-end tests.
 

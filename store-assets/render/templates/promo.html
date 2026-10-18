@@ -1,11 +1,12 @@
 <!doctype html>
 <!--
-  A promo image: the small tile, 440×280 (`tile`), or the marquee, 1400×560
-  (`marquee`). Both are a piece of the frame from the player, the tooltip over
-  the word in it, with the logo and the name; the marquee also has the
-  headline. Chrome asks for little text, saturated colours and the whole area
-  filled, so both are dark, in YouTube's colours. compose.js fills the slots,
-  the palette's variables and the crop.
+  A promo image: the small tile, 440×280 (`tile`), the marquee, 1400×560
+  (`marquee`), or the site's link preview, 1200×630 (`og`). Each is a piece
+  of the frame from the player, the tooltip over the word in it, with the
+  logo and the name; the marquee and the preview also have the headline.
+  Chrome asks for little text, saturated colours and the whole area filled,
+  so all are dark, in YouTube's colours. compose.js fills the slots, the
+  palette's variables and the crop.
 -->
 <html>
 <head>
@@ -27,6 +28,7 @@
   main { position: relative; overflow: hidden; }
   .tile { width: 440px; height: 280px; }
   .marquee { width: 1400px; height: 560px; }
+  .og { width: 1200px; height: 630px; }
 
   /* The piece of the frame; compose.js sizes and places the image in it. */
   .frame { position: absolute; inset: 0; overflow: hidden; }
@@ -69,6 +71,22 @@
   .marquee .brand img { width: 84px; height: 84px; }
   .marquee h1 { font-size: 44px; line-height: 1.15; }
   .marquee .credit { right: 16px; bottom: 10px; font-size: 13px; }
+
+  /* The marquee's layout, narrower and taller. */
+  .og .frame { left: 430px; }
+  .og::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0 auto 0 430px;
+    width: 150px;
+    background: linear-gradient(to right, var(--bg), transparent);
+  }
+  .og .side { left: 52px; top: 0; bottom: 0; width: 370px; display: flex; flex-direction: column; justify-content: center; gap: 32px; }
+  .og .brand { gap: 16px; font-size: 42px; }
+  .og .brand img { width: 68px; height: 68px; }
+  .og h1 { font-size: 36px; line-height: 1.15; }
+  .og .credit { right: 16px; bottom: 10px; font-size: 13px; }
 </style>
 </head>
 <body>

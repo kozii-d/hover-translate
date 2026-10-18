@@ -1,7 +1,7 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const { execFileSync } = require("node:child_process");
-const { SETS, scene } = require("./sets.js");
+const { SETS, SITE_VIDEOS, scene } = require("./sets.js");
 const { HEADLINES, NOTES, VIDEO_LINES, CREDITS } = require("./strings.js");
 const youtube = require("./youtube.js");
 const { openComposer, composeVideoStill } = require("./compose.js");
@@ -19,8 +19,12 @@ const { openComposer, composeVideoStill } = require("./compose.js");
 //   video/en.mp4                                          the video
 //   capture/video/en/<scene>/frames/*.jpg, frames.json    a scene as recorded
 //   capture/video/en/<scene>.png, <scene>.mp4             its still and its part
-// and the README's GIFs, the player alone, 800 px wide: docs/translate.gif
-// (a word, a phrase) and docs/dictionary.gif (saving, the word list).
+//   capture/video/en/loop/<scene>.mp4                     its part without fades
+// and into docs/ (in git) what the README and the site show, the player alone:
+//   translate.gif, dictionary.gif     the README's GIFs, 800 px wide: a word and
+//                                     a phrase; saving and the word list
+//   media/<name>.mp4, .webm, .webp    the site's videos (SITE_VIDEOS in sets.js),
+//                                     960 px wide, and their posters
 
 const ROOT = path.resolve(__dirname, "../..");
 const SET = "en";
@@ -32,6 +36,12 @@ const SLOT = { top: 276, height: 804 };
 const FADE = 0.3;
 // The README's GIFs: 12 a second showed the cursor jump.
 const GIF_FPS = 20;
+// The site's videos play in a loop: their parts are put together again
+// without fades, which would flash where a video starts over.
+const LOOP = path.join(OUT, "loop");
+const SITE = path.join(ROOT, "docs/media");
+const SITE_FPS = 30;
+const SITE_WIDTH = 960;
 
 const SCENES = ["word", "phrase", "context", "dictionary", "unspaced"];
 // Saved while the dictionary scene is recorded; the rest of the list before.
@@ -280,19 +290,27 @@ function frameList(name) {
 const ENCODE = ["-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p", "-r", String(FPS), "-an"];
 const ffmpeg = (args) => execFileSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", ...args], { stdio: "inherit" });
 
-/** A scene's part: the recording of the player in the slot under its still, faded in and out. */
-function putSceneTogether(name, { fadeOut = true } = {}) {
+const partFile = (name, loop) => path.join(loop ? LOOP : OUT, `${name}.mp4`);
+
+/**
+ * A scene's part: the recording of the player in the slot under its still,
+ * faded in and out; `loop`, without fades, into LOOP.
+ */
+function putSceneTogether(name, { fadeOut = true, loop = false } = {}) {
   const { list, length, top } = frameList(name);
-  const fades = [`fade=in:st=0:d=${FADE}`, fadeOut && `fade=out:st=${(length - FADE).toFixed(3)}:d=${FADE}`].filter(Boolean).join(",");
+  const fades = loop ? [] : [`fade=in:st=0:d=${FADE}`, fadeOut && `fade=out:st=${(length - FADE).toFixed(3)}:d=${FADE}`].filter(Boolean);
   ffmpeg([
     "-loop", "1", "-i", path.join(OUT, `${name}.png`), "-f", "concat", "-safe", "0", "-i", list,
-    "-filter_complex", `[1:v]crop=1920:${SLOT.height}:0:${Math.round(top)},fps=${FPS}[player];[0:v][player]overlay=0:${SLOT.top}:shortest=1,${fades}`,
-    "-t", length.toFixed(3), ...ENCODE, path.join(OUT, `${name}.mp4`),
+    "-filter_complex", [`[1:v]crop=1920:${SLOT.height}:0:${Math.round(top)},fps=${FPS}[player];[0:v][player]overlay=0:${SLOT.top}:shortest=1`, ...fades].join(","),
+    "-t", length.toFixed(3), ...ENCODE, partFile(name, loop),
   ]);
 }
 
-/** The second part of the dictionary scene: the popup opened over the last frame, dimmed. */
-function putPopupTogether() {
+/**
+ * The second part of the dictionary scene: the popup opened over the last
+ * frame, dimmed; `loop`, without the fade at the end, into LOOP.
+ */
+function putPopupTogether({ loop = false } = {}) {
   const player = frameList("dictionary");
   const popup = frameList("popup");
   ffmpeg([
@@ -301,9 +319,9 @@ function putPopupTogether() {
       `[1:v]crop=1920:${SLOT.height}:0:${Math.round(player.top)},eq=brightness=-0.22:saturation=0.8[dim]`,
       `[0:v][dim]overlay=0:${SLOT.top}[under]`,
       `[2:v]crop=${popup.width}:${popup.height}:0:0,scale=iw*${POPUP_ZOOM}:-2:flags=lanczos,fps=${FPS},format=rgba,fade=in:st=0:d=0.25:alpha=1[popup]`,
-      `[under][popup]overlay=W-w-96:${SLOT.top + 12}:shortest=1,fade=out:st=${(popup.length - FADE).toFixed(3)}:d=${FADE}`,
+      [`[under][popup]overlay=W-w-96:${SLOT.top + 12}:shortest=1`, ...(loop ? [] : [`fade=out:st=${(popup.length - FADE).toFixed(3)}:d=${FADE}`])].join(","),
     ].join(";"),
-    "-t", popup.length.toFixed(3), ...ENCODE, path.join(OUT, "popup.mp4"),
+    "-t", popup.length.toFixed(3), ...ENCODE, partFile("popup", loop),
   ]);
 }
 
@@ -315,15 +333,42 @@ function putCardTogether(name, seconds) {
   ]);
 }
 
-/** A GIF of `parts` for the README: the player without the headline, `GIF_FPS` frames a second. */
-function putGifTogether(parts, file) {
-  const list = path.join(OUT, `${path.basename(file, ".gif")}.txt`);
+/** ffmpeg's input of the parts `parts` in `dir` one after another, listed in `dir`/`name`.txt. */
+function partsInput(dir, parts, name) {
+  const list = path.join(dir, `${name}.txt`);
   fs.writeFileSync(list, parts.map((part) => `file '${part}.mp4'`).join("\n"));
+  return ["-f", "concat", "-safe", "0", "-i", list];
+}
+
+/** The player without the headline, `fps` frames a second, `width` wide. */
+const playerAlone = (fps, width) => `crop=1920:${SLOT.height}:0:${SLOT.top},fps=${fps},scale=${width}:-1:flags=lanczos`;
+
+/** A GIF of `parts` for the README. */
+function putGifTogether(parts, file) {
   ffmpeg([
-    "-f", "concat", "-safe", "0", "-i", list,
-    "-filter_complex", `crop=1920:${SLOT.height}:0:${SLOT.top},fps=${GIF_FPS},scale=800:-1:flags=lanczos,split[a][b];[a]palettegen=stats_mode=diff[palette];[b][palette]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle`,
+    ...partsInput(OUT, parts, path.basename(file, ".gif")),
+    "-filter_complex", `${playerAlone(GIF_FPS, 800)},split[a][b];[a]palettegen=stats_mode=diff[palette];[b][palette]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle`,
     file,
   ]);
+}
+
+/**
+ * The site's video `name` of the parts `parts` without fades, as H.264 (High,
+ * which every browser plays; `faststart` to play before it has all come) and
+ * as VP9, and its poster: the last frame, the tooltip read, the popup open.
+ * Mostly still, each is a few hundred KB at a quality the eye cannot tell
+ * from the recording (the site's limit is 1.5 MB). The files are in git:
+ * `bitexact` keeps WebM's random segment id out, so the same frames give the
+ * same bytes.
+ */
+function putSiteVideoTogether(name, parts) {
+  const input = partsInput(LOOP, parts, name);
+  // The frames are JPEG's full range, which a video for the web is not.
+  const player = `${playerAlone(SITE_FPS, SITE_WIDTH)},scale=out_range=tv`;
+  const out = (extension) => path.join(SITE, `${name}.${extension}`);
+  ffmpeg([...input, "-vf", player, "-c:v", "libx264", "-preset", "veryslow", "-crf", "20", "-profile:v", "high", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", out("mp4")]);
+  ffmpeg([...input, "-vf", player, "-c:v", "libvpx-vp9", "-crf", "28", "-b:v", "0", "-deadline", "good", "-cpu-used", "1", "-row-mt", "1", "-pix_fmt", "yuv420p", "-an", "-fflags", "+bitexact", out("webm")]);
+  ffmpeg(["-sseof", "-0.1", "-i", partFile(parts.at(-1), true), "-vf", player, "-frames:v", "1", "-c:v", "libwebp", "-quality", "80", out("webp")]);
 }
 
 async function composeStills(page) {
@@ -380,6 +425,16 @@ async function record(scenes) {
   console.log(VIDEO);
   putGifTogether(["word", "phrase"], path.join(ROOT, "docs/translate.gif"));
   putGifTogether(["dictionary", "popup"], path.join(ROOT, "docs/dictionary.gif"));
+  fs.mkdirSync(LOOP, { recursive: true });
+  fs.mkdirSync(SITE, { recursive: true });
+  for (const name of new Set(Object.values(SITE_VIDEOS).flat())) {
+    if (name === "popup") putPopupTogether({ loop: true });
+    else putSceneTogether(name, { loop: true });
+  }
+  for (const [name, parts] of Object.entries(SITE_VIDEOS)) {
+    putSiteVideoTogether(name, parts);
+    console.log(path.join(SITE, name));
+  }
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

@@ -22,6 +22,8 @@ const { openComposer, composeScreenshot, composePromo } = require("./compose.js"
 //   promo/<set>/tile.png, marquee.png      the small promo tile, 440×280, and the marquee, 1400×560
 //                                          (Chrome takes one of each for every language: en's)
 //   capture/<set>/                         the frames from the player and the popup, for --compose-only
+// and the site's link preview, cut as the marquee, into docs/ (in git):
+//   media/og.jpg                           1200×630, English only, as the site
 
 const ROOT = path.resolve(__dirname, "../..");
 const OUT = path.join(ROOT, "store-assets/out");
@@ -167,13 +169,18 @@ function writeAmoCaptions() {
 // The promo images are cut from the word shot around its tooltip, the girl's
 // face above it kept.
 const PROMO_FOCUS = [0.445, 0.6];
+// The site's link preview is narrower for its height than the marquee: cut
+// around the middle of the line of captions, so that all of it is in.
+const OG_FOCUS = [0.51, 0.6];
+// The site is in English only (the user's choice, 18.10.2026).
+const SITE_SET = "en";
 
 async function composePromos(page, setName) {
-  const shot = playerFrame(setName, "word");
-  const credit = CREDITS[scene(setName, "word").video];
+  const options = { shot: playerFrame(setName, "word"), headline: HEADLINES.word[setName], credit: CREDITS[scene(setName, "word").video], lang: setName };
   for (const kind of ["tile", "marquee"]) {
-    await composePromo(page, { kind, shot, focus: PROMO_FOCUS, headline: HEADLINES.word[setName], credit, lang: setName, out: path.join(OUT, "promo", setName, `${kind}.png`) });
+    await composePromo(page, { ...options, kind, focus: PROMO_FOCUS, out: path.join(OUT, "promo", setName, `${kind}.png`) });
   }
+  if (setName === SITE_SET) await composePromo(page, { ...options, kind: "og", focus: OG_FOCUS, out: path.join(ROOT, "docs/media/og.jpg") });
 }
 
 async function compose(page, setName, shotName) {

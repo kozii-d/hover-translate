@@ -72,20 +72,23 @@ async function composeScreenshot(page, { shot, popup, zoomed = false, whole = fa
   await page.screenshot({ path: out });
 }
 
+// `og`: the site's link preview, Open Graph's size, a JPEG: as PNG a frame of
+// the video weighs several times as much.
 const PROMOS = {
   tile: { width: 440, height: 280, crop: 0.45 },
   marquee: { width: 1400, height: 560, crop: 0.66 },
+  og: { width: 1200, height: 630, crop: 0.6, quality: 85 },
 };
 
 /**
- * Writes `out`: the promo image `kind` (`tile` or `marquee`) in the dark
- * palette, cut from the frame `shot` around `focus` — the point of it, as
- * fractions of its width and height, put in the middle of the piece shown.
+ * Writes `out`: the promo image `kind` (`tile`, `marquee` or `og`) in the
+ * dark palette, cut from the frame `shot` around `focus` — the point of it,
+ * as fractions of its width and height, put in the middle of the piece shown.
  * The piece is `PROMOS[kind].crop` of the frame's width, or what fills its
- * height. The marquee also shows `headline`.
+ * height. The marquee and `og` also show `headline`.
  */
 async function composePromo(page, { kind, shot, focus, headline, credit, lang, out }) {
-  const { width, height, crop } = PROMOS[kind];
+  const { width, height, crop, quality } = PROMOS[kind];
   await page.setViewportSize({ width, height });
   await page.setContent(fs.readFileSync(path.join(TEMPLATES, "promo.html"), "utf8"), { waitUntil: "networkidle" });
   await page.evaluate(({ kind, shot, focus, crop, logo, headline, credit, colors, lang }) => {
@@ -111,7 +114,7 @@ async function composePromo(page, { kind, shot, focus, headline, credit, lang, o
     });
   }, { kind, shot: dataUrl(shot), focus, crop, logo: dataUrl(LOGO), headline: withAccent(headline), credit, colors: PALETTES.dark, lang });
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  await page.screenshot({ path: out });
+  await page.screenshot({ path: out, quality });
 }
 
 /**
@@ -142,4 +145,4 @@ async function composeVideoStill(page, { kind, headline = "", note, credit = "",
   await page.screenshot({ path: out });
 }
 
-module.exports = { openComposer, composeScreenshot, composePromo, composeVideoStill, withAccent };
+module.exports = { PROMOS, openComposer, composeScreenshot, composePromo, composeVideoStill, withAccent };
