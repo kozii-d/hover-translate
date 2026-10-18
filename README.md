@@ -10,7 +10,7 @@ HoverTranslate is a free, open-source browser extension for Chrome, Firefox and 
 
 **Install:** [Chrome Web Store](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic) · [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/hovertranslate/) · [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm)
 
-![Hovering over a word in YouTube subtitles shows its translation](docs/translate.gif)
+![Hovering over a word in YouTube subtitles shows its translation, and holding Shift translates a phrase](docs/translate.gif)
 
 ## Why HoverTranslate
 
@@ -29,7 +29,7 @@ Most subtitle tools translate the whole line or show a second line of subtitles 
 - **Context-aware translation with DeepL.** With DeepL, each word is translated in the context of its whole subtitle line, so a word with several meanings gets the one it has there: "bank" in "we sat on the bank of the river" is a riverbank, not a bank. The surrounding line is not counted against your DeepL allowance.
 - **Looks like your subtitles.** The translation follows your YouTube subtitle style, or you can pick your own font, colors and size.
 
-![Saving a translation to the word list](docs/dictionary.gif)
+![Clicking a word saves it to the word list, which can be exported as CSV](docs/dictionary.gif)
 
 ## Free and private
 
@@ -51,7 +51,7 @@ No. HoverTranslate works on YouTube: on youtube.com and in YouTube players embed
 No. It translates the word or phrase under your pointer. The original subtitles stay as they are.
 
 **Do I need a DeepL API key?**
-Only if you want to use DeepL. Google works without any setup. DeepL's free API plan covers 500,000 characters a month; the key is free to create at [deepl.com/pro-api](https://www.deepl.com/pro-api).
+Only if you want to use DeepL. Google and Bing work without a key. DeepL's free API plan covers 500,000 characters a month; the key is free to create at [deepl.com/pro-api](https://www.deepl.com/pro-api).
 
 **Which browsers are supported?**
 Chrome and Edge 102 or newer, Firefox 115 or newer, on desktop. There is no mobile version.
@@ -92,9 +92,13 @@ npm run verify       # lint, types, tests, store listing limits, versions
 npm run test:e2e     # the extension in Playwright's Chromium on local copies of YouTube's player (run npm run build first)
 ```
 
+The store screenshots, promo images and video, and the GIFs in this README are made by `npm run render:store` and `npm run render:video` (`store-assets/render/`): the built extension on live YouTube, translated by DeepL (a key in `.env`).
+
 `npm ci` in the root also installs the git hooks: a commit is checked in a few seconds (ESLint on the changed files, locale JSON, listing limits, versions), a push runs `npm run verify`. GitHub Actions runs the same on every push and pull request, plus the store packages, `web-ext lint` and the end-to-end tests.
 
 ## Acknowledgements
 
 - [XTranslate](https://github.com/ixrock/XTranslate)
 - [MouseTooltipTranslator](https://github.com/ttop32/MouseTooltipTranslator)
+
+The GIFs and the store images show the open movies [Sprite Fright](https://studio.blender.org/films/sprite-fright/) (© Blender Studio, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)) and [Sintel](https://durian.blender.org/) (© Blender Foundation, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)).

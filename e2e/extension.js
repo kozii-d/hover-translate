@@ -276,4 +276,4 @@ class Player {
   }
 }
 
-module.exports = { test, expect, INVALID_DEEPL_KEY };
+module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePopup };

@@ -43,6 +43,8 @@ npm run release                  # build + all 3 store archives + source archive
 npm run release:firefox          # single-browser archive; output lands in releases/<version>/
 npm run update:amo               # push the AMO listing's name, summary and description (needs AMO_* keys in .env)
 npm run update:language-names    # download Google Translate's language names again into _locales/*/languages.json, and Google's built-in language lists
+npm run render:store              # store screenshots, promo tiles, AMO captions into store-assets/out/ (live YouTube, after `npm run build`, DEEPL_API_KEY in .env); --sets=, --shots=, --compose-only
+npm run render:video              # the README's GIFs into docs/ (and a promo video into store-assets/out/video/), same needs; --scenes=, --compose-only
 ```
 
 Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root** (not `extension/`) as an unpacked extension. The manifest points at the built bundles inside `extension/dist/` and `popup/dist/`.
@@ -80,8 +82,9 @@ Dev loop: `npm run setup:<browser>`, `npm run watch`, then load the **repo root*
 | Popup: mounting per language, a page that fails to draw, settings and translators, Customize, the Dictionary, export; the error screen when storage or the background fails | `popup/test/{app,settings,customize,dictionary,export}.test.tsx` |
 | On the player: hover, clicks, captions, embed, errors, rating card, popup→page; the popup's width on every page, the tab labels in every language | `e2e/{hover,click,captions,embed,errors,rating,popup}.spec.js` |
 | Listing limits, version, AMO listing body, source archive, language names | `scripts/{check-listing,set-version,update-amo-listing,create-source-archive,update-language-names}.test.js` |
+| Store media: strings in every language, the Chrome/Edge layout, headline markup | `store-assets/render/render.test.js` |
 
-- Tests live outside `src`, so they never reach a bundle: `extension/test/**/*.test.ts`, `popup/test/**/*.test.tsx`, `scripts/*.test.js` (`node:test`: the scripts are CommonJS in the root package, which has no Vitest). `extension/` runs in `node`; a file that needs a DOM starts with `// @vitest-environment jsdom`. `popup/` runs in jsdom and mounts the real `App` through `popup/test/renderPopup.tsx`.
+- Tests live outside `src`, so they never reach a bundle: `extension/test/**/*.test.ts`, `popup/test/**/*.test.tsx`, `scripts/*.test.js` and `store-assets/render/*.test.js` (`node:test`: the scripts are CommonJS in the root package, which has no Vitest). `extension/` runs in `node`; a file that needs a DOM starts with `// @vitest-environment jsdom`. `popup/` runs in jsdom and mounts the real `App` through `popup/test/renderPopup.tsx`.
 - **`chrome` is faked as the global it is**, not as a module: `extension/test/fakeChrome.ts` (`installFakeChrome({ sync, local, uiLanguage, id, scheme, contentScriptAccess, grantedOrigins, answerPermissionPrompt, hasSessionStorage, failingReads, failingWrites })`; `test/setup.ts` installs an empty one before every test). Storage in both call styles with `onChanged`, reads of the keys in `failingReads` and writes (`set`, `remove`) of those in `failingWrites` failing (`runtime.lastError` during the callback, a rejected promise) until the returned list is emptied, `getMessage` from the real `_locales`, permissions (the content scripts' hosts granted unless `contentScriptAccess: false`, a granted pattern covering the narrower ones, a host the manifest does not declare refused as by Chrome), `tabs.create` recorded with the synced storage of that moment. A message is answered only through `sendResponse` and `return true`, as in Chrome before 147: for the background, create the real `MessageService` in the same process (`renderPopup` does; `background: false` leaves the popup's messages unanswered). The popup reaches the file through the `@extension-test` alias, so it imports nothing from npm (that would be a second copy of the package).
 - **No test reaches the network**: `extension/test/fakeNetwork.ts` is `globalThis.fetch` — Google's real answers (`test/fixtures/`), Bing and DeepL in their live and documented shapes, the optional hosts unreachable until the fake grants their permission; `installFakeNetwork({ [host]: route })` replaces one host. It reads every request body: ky hangs on a POST otherwise.
 - The Vitest configs extend the build ones: `extension/vite.base.config.ts` is shared by both bundles and the tests, `popup/vitest.config.ts` merges `vite.config.ts`. A change to them must leave `extension/dist` and `popup/dist` byte for byte the same.
@@ -156,7 +159,7 @@ Each page exports a lazy `*.async.tsx` plus a skeleton; `routeConfig.ts` pairs `
 
 The extension runs on the browser's own `chrome.*`, typed by `@types/chrome` (`types` in the tsconfigs); both ESLint configs declare `chrome` as a readonly global. There is no webextension-polyfill: don't add one, and don't `import chrome from ...`. Use only what the native API does in Chrome 102 and Firefox 115 — for example, a `runtime.onMessage` listener must answer through `sendResponse` and `return true` (Chrome ignores a returned promise before 147 — 148 by its documentation; see `MessageService`).
 
-The root `.env` holds only the AMO release keys (`AMO_API_KEY`, `AMO_API_SECRET`, `AMO_ADDON_ID`), read by `scripts/update-amo-listing.js`; the build does not read it.
+The root `.env` holds the AMO release keys (`AMO_API_KEY`, `AMO_API_SECRET`, `AMO_ADDON_ID`), read by `scripts/update-amo-listing.js`, and `DEEPL_API_KEY`, read by `store-assets/render/` for the store media; the build does not read it.
 
 `content.ts` also polyfills `globalThis.Headers` with `headers-polyfill` before any other import; that line must stay first.
 

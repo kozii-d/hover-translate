@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+  A promo image: the small tile, 440×280 (`tile`), or the marquee, 1400×560
+  (`marquee`). Both are a piece of the frame from the player, the tooltip over
+  the word in it, with the logo and the name; the marquee also has the
+  headline. Chrome asks for little text, saturated colours and the whole area
+  filled, so both are dark, in YouTube's colours. compose.js fills the slots,
+  the palette's variables and the crop.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+JP:wght@500;700;800&family=Noto+Sans+KR:wght@500;700;800&family=Noto+Sans+SC:wght@500;700;800&family=Noto+Sans+TC:wght@500;700;800&display=block">
+<style>
+  :root {
+    --font: "Manrope", "Noto Sans JP", "Noto Sans KR", "Noto Sans SC", "Noto Sans TC", sans-serif;
+  }
+  /* Han characters take the shapes of the language they are in. */
+  :root:lang(ko) { --font: "Manrope", "Noto Sans KR", sans-serif; }
+  :root:lang(zh-CN) { --font: "Manrope", "Noto Sans SC", sans-serif; }
+  :root:lang(zh-TW) { --font: "Manrope", "Noto Sans TC", sans-serif; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { overflow: hidden; background: var(--bg); }
+  body { font-family: var(--font); color: var(--text); }
+
+  main { position: relative; overflow: hidden; }
+  .tile { width: 440px; height: 280px; }
+  .marquee { width: 1400px; height: 560px; }
+
+  /* The piece of the frame; compose.js sizes and places the image in it. */
+  .frame { position: absolute; inset: 0; overflow: hidden; }
+  .frame img { position: absolute; }
+
+  .side { position: absolute; z-index: 2; }
+  .brand { display: flex; align-items: center; font-weight: 800; letter-spacing: -0.01em; color: #fff; }
+  .brand img { flex: none; }
+  h1 { font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--accent); white-space: nowrap; }
+  .credit { position: absolute; z-index: 2; font-weight: 500; color: rgba(255, 255, 255, 0.55); }
+
+  /* The name on a shade at the top, over the hair: the line of captions is
+     at the bottom. */
+  .tile::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
+  }
+  .tile .side { left: 14px; top: 12px; }
+  .tile .brand { gap: 9px; font-size: 25px; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5); }
+  .tile .brand img { width: 36px; height: 36px; }
+  .tile h1 { display: none; }
+  .tile .credit { right: 8px; bottom: 5px; font-size: 8px; text-shadow: 0 1px 3px #000; }
+
+  /* The brand and the headline on the left, the frame fading in behind them. */
+  .marquee .frame { left: 560px; }
+  .marquee::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0 auto 0 560px;
+    width: 220px;
+    background: linear-gradient(to right, var(--bg), transparent);
+  }
+  .marquee .side { left: 64px; top: 0; bottom: 0; width: 470px; display: flex; flex-direction: column; justify-content: center; gap: 36px; }
+  .marquee .brand { gap: 22px; font-size: 52px; }
+  .marquee .brand img { width: 84px; height: 84px; }
+  .marquee h1 { font-size: 44px; line-height: 1.15; }
+  .marquee .credit { right: 16px; bottom: 10px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <main id="promo">
+    <div class="frame"><img id="shot" alt=""></div>
+    <div class="side">
+      <div class="brand"><img id="logo" alt="">HoverTranslate</div>
+      <h1 id="headline"></h1>
+    </div>
+    <p class="credit" id="credit"></p>
+  </main>
+</body>
+</html>

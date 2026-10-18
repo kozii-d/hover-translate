@@ -1,0 +1,118 @@
+<!doctype html>
+<!--
+  A store screenshot, 1280×800: the frame from the player under a headline
+  (`framed`), or the frame alone on black, as YouTube shows it full screen
+  (`plain`, for AMO, which asks for no text on the images). compose.js fills
+  the slots and the palette's variables.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+JP:wght@500;700;800&family=Noto+Sans+KR:wght@500;700;800&family=Noto+Sans+SC:wght@500;700;800&family=Noto+Sans+TC:wght@500;700;800&display=block">
+<style>
+  :root {
+    --bg: #111;
+    --bg-2: #111;
+    --text: #fff;
+    --muted: rgba(255, 255, 255, 0.7);
+    --accent: #ff4d5e;
+    --shadow: rgba(0, 0, 0, 0.45);
+    --surface: #272727;
+    --font: "Manrope", "Noto Sans JP", "Noto Sans KR", "Noto Sans SC", "Noto Sans TC", sans-serif;
+  }
+  /* Han characters take the shapes of the language they are in. */
+  :root:lang(ko) { --font: "Manrope", "Noto Sans KR", sans-serif; }
+  :root:lang(zh-CN) { --font: "Manrope", "Noto Sans SC", sans-serif; }
+  :root:lang(zh-TW) { --font: "Manrope", "Noto Sans TC", sans-serif; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1280px; height: 800px; overflow: hidden; }
+  body {
+    font-family: var(--font);
+    color: var(--text);
+    background: radial-gradient(120% 90% at 15% 0%, var(--bg-2) 0%, var(--bg) 70%);
+  }
+
+  .framed { display: flex; flex-direction: column; height: 100%; padding: 40px 48px 22px; }
+  .head { display: flex; align-items: center; gap: 22px; }
+  .logo { width: 64px; height: 64px; flex: none; }
+  h1 { font-size: 52px; line-height: 1.12; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--accent); white-space: nowrap; }
+  /* A key on the keyboard. */
+  h1 kbd {
+    display: inline-block;
+    padding: 0.06em 0.34em 0.1em;
+    border: 3px solid currentColor;
+    border-bottom-width: 7px;
+    border-radius: 0.2em;
+    font: inherit;
+    font-size: 0.82em;
+    line-height: 1;
+    vertical-align: 0.06em;
+  }
+  /* The film fills what the headline leaves, its sides cut if need be. */
+  .shot { flex: 1; min-height: 0; margin-top: 30px; }
+  .shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px var(--shadow), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+  /* The popup opened over the video, at the top right as from the toolbar. */
+  .shot { position: relative; }
+  .shot.with-popup #shot { filter: brightness(0.55); }
+  /* The whole player, its controls at both edges included. */
+  .shot.whole #shot { object-fit: contain; background: #000; }
+  .shot .popup {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(127, 127, 127, 0.25);
+  }
+  /* The top of the popup, larger, so its words read in a store's carousel; the
+     list fades out where it is cut. */
+  .shot.zoomed .popup {
+    aspect-ratio: var(--popup-ratio);
+    object-fit: cover;
+    object-position: top;
+    -webkit-mask-image: linear-gradient(to bottom, #000 85%, transparent);
+  }
+  .plain .shot .popup { height: 640px; top: 50%; transform: translateY(-50%); border-radius: 10px; }
+
+  /* What the word would be without the line around it, and what it is. */
+  .note { display: flex; align-items: center; gap: 12px; margin-top: 14px; font-size: 27px; font-weight: 600; color: var(--muted); }
+  .note[hidden] { display: none; }
+  .pill { padding: 5px 16px 7px; border-radius: 999px; background: var(--surface); color: var(--text); }
+  s.pill { text-decoration-color: var(--accent); text-decoration-thickness: 3px; }
+  .pill.good { background: var(--accent); color: #fff; }
+  .credit { margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--muted); text-align: right; }
+
+  .plain { display: flex; flex-direction: column; justify-content: center; height: 100%; background: #000; }
+  .plain .shot { flex: none; margin: 0; }
+  .plain .shot img { height: auto; border-radius: 0; box-shadow: none; }
+  .plain .credit { position: absolute; right: 18px; bottom: 12px; color: rgba(255, 255, 255, 0.55); }
+</style>
+</head>
+<body>
+  <main class="framed" id="framed">
+    <div class="head">
+      <img class="logo" id="logo" alt="">
+      <div>
+        <h1 id="headline"></h1>
+        <p class="note" id="note" hidden>
+          <span id="note-without"></span> <s class="pill" id="note-bad"></s>
+          → <span id="note-with"></span> <span class="pill good" id="note-good"></span>
+        </p>
+        <p class="note" id="note-line" hidden><span class="pill" id="note-text"></span></p>
+      </div>
+    </div>
+    <div class="shot"><img id="shot" alt=""><img class="popup" id="popup" alt=""></div>
+    <p class="credit" id="credit"></p>
+  </main>
+</body>
+</html>

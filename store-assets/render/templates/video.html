@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+  A still of the promo video, 1920×1080: a scene's backdrop (`scene`), the
+  headline over the slot the player is recorded into, 1920×804 at the bottom;
+  or the opening and the closing card (`card`): the logo, the name, a line.
+  The dark palette, as the promo images. compose.js fills the slots.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Noto+Sans+JP:wght@500;700;800&family=Noto+Sans+KR:wght@500;700;800&family=Noto+Sans+SC:wght@500;700;800&family=Noto+Sans+TC:wght@500;700;800&display=block">
+<style>
+  :root {
+    --font: "Manrope", "Noto Sans JP", "Noto Sans KR", "Noto Sans SC", "Noto Sans TC", sans-serif;
+  }
+  :root:lang(ko) { --font: "Manrope", "Noto Sans KR", sans-serif; }
+  :root:lang(zh-CN) { --font: "Manrope", "Noto Sans SC", sans-serif; }
+  :root:lang(zh-TW) { --font: "Manrope", "Noto Sans TC", sans-serif; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; }
+  body {
+    font-family: var(--font);
+    color: var(--text);
+    background: radial-gradient(120% 90% at 15% 0%, var(--bg-2) 0%, var(--bg) 70%);
+  }
+  em { font-style: normal; color: var(--accent); white-space: nowrap; }
+  kbd {
+    display: inline-block;
+    padding: 0.06em 0.34em 0.1em;
+    border: 4px solid currentColor;
+    border-bottom-width: 9px;
+    border-radius: 0.2em;
+    font: inherit;
+    font-size: 0.82em;
+    line-height: 1;
+    vertical-align: 0.06em;
+  }
+  .card, .scene { display: none; height: 100%; }
+
+  /* The headline in the 276 px above the player. */
+  .scene { position: relative; padding: 0 72px; }
+  .is-scene .scene { display: block; }
+  .head { display: flex; align-items: center; gap: 32px; height: 276px; }
+  .head .logo { width: 96px; height: 96px; flex: none; }
+  h1 { font-size: 72px; line-height: 1.1; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+  .note { display: flex; align-items: center; gap: 16px; margin-top: 18px; font-size: 38px; font-weight: 600; color: var(--muted); }
+  .note[hidden] { display: none; }
+  .pill { padding: 6px 22px 9px; border-radius: 999px; background: var(--surface); color: var(--text); }
+  s.pill { text-decoration-color: var(--accent); text-decoration-thickness: 4px; }
+  .pill.good { background: var(--accent); color: #fff; }
+  .credit { position: absolute; right: 28px; top: 18px; font-size: 20px; font-weight: 500; color: var(--muted); }
+  .slot { position: absolute; left: 0; bottom: 0; width: 1920px; height: 804px; background: #000; }
+
+  .is-card .card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+  .card .brand { display: flex; align-items: center; gap: 40px; font-size: 120px; font-weight: 800; letter-spacing: -0.02em; }
+  .card .logo { width: 180px; height: 180px; }
+  .card .line { font-size: 56px; font-weight: 700; color: var(--muted); }
+  .card .credits { position: absolute; bottom: 40px; white-space: pre-line; font-size: 24px; font-weight: 500; color: var(--muted); text-align: center; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <main class="scene">
+    <div class="head">
+      <img class="logo" alt="">
+      <div>
+        <h1 id="headline"></h1>
+        <p class="note" id="note" hidden>
+          <span id="note-without"></span> <s class="pill" id="note-bad"></s>
+          → <span id="note-with"></span> <span class="pill good" id="note-good"></span>
+        </p>
+      </div>
+    </div>
+    <p class="credit" id="credit"></p>
+    <div class="slot"></div>
+  </main>
+  <main class="card">
+    <div class="brand"><img class="logo" alt="">HoverTranslate</div>
+    <p class="line" id="line"></p>
+    <p class="credits" id="credits"></p>
+  </main>
+</body>
+</html>

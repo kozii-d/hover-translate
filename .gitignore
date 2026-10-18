@@ -17,3 +17,5 @@ manifest.json
 !/.claude/settings.json
 # Working documents: tasks, reports, store statistics — private
 /work/
+# Store images made by store-assets/render/ — made again from it, not kept
+/store-assets/out/
