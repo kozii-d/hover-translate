@@ -30,6 +30,33 @@ test("a click saves the word to the dictionary and says so on the video", async 
   expect(notificationBox.y - playerBox.y).toBeCloseTo(40, 0);
 });
 
+test("a word is saved without the punctuation around it; a mark on its own saves nothing", async ({ openPlayer, storage, network }) => {
+  const player = await openPlayer();
+  await player.captions("Il vit dans une carpa.");
+
+  await player.word("carpa.").click();
+  await expect.poll(() => savedWords(storage)).toEqual(["carpa"]);
+
+  // French puts a space before "!", so the mark is a word of its own.
+  await player.captions("Il part !");
+  await player.frame.evaluate(() => {
+    window.notificationsShown = 0;
+    new MutationObserver((records) => {
+      for (const node of records.flatMap((record) => [...record.addedNodes])) {
+        if (node.classList?.contains("custom-notification-tooltip")) window.notificationsShown++;
+      }
+    }).observe(document.body, { childList: true, subtree: true });
+  });
+  await player.word("!").click();
+  // Once "part" is saved, anything "!" would have done is done too.
+  await player.word("part").click();
+  await expect.poll(() => savedWords(storage)).toEqual(["part", "carpa"]);
+
+  expect(await player.frame.evaluate(() => window.notificationsShown)).toBe(1);
+  expect(network.to("translate.googleapis.com").map((request) => request.url.searchParams.get("q")))
+    .toEqual(["carpa", "part"]);
+});
+
 test("on a page scrolled down and to the right, the tooltip is over its word and the notification at the top left of the visible player", async ({ openPlayer }) => {
   const player = await openPlayer();
   // Narrower than the player, so the page scrolls sideways too.

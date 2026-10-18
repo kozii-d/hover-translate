@@ -74,6 +74,25 @@ test("Shift carries the selection across words, and the phrase is translated", a
   await expect(player.frame.locator(".custom-tooltip-word-selected")).toHaveText(["for ", "your ", "life"]);
 });
 
+test("punctuation at the edges of the selection is neither sent to the translator nor shown in its answer", async ({ openPlayer, network }) => {
+  const player = await openPlayer();
+  await player.captions("They live in a carpa.");
+
+  await player.word("carpa.").hover();
+  await expect(player.tooltip).toHaveText("[ru] carpa");
+
+  await player.captions("A kindred spirit?");
+  await player.word("kindred").hover();
+  await expect(player.tooltip).toHaveText("[ru] kindred");
+  await player.page.keyboard.down("Shift");
+  await player.word("spirit?").hover();
+  await player.page.keyboard.up("Shift");
+  await expect(player.tooltip).toHaveText("[ru] kindred spirit");
+
+  expect(network.to("translate.googleapis.com").map((request) => request.url.searchParams.get("q")))
+    .toEqual(["carpa", "kindred", "kindred spirit"]);
+});
+
 test("with \"always multiple selection\" the selection grows without Shift", async ({ openPlayer, storage }) => {
   await storage.updateSettings({ alwaysMultipleSelection: true });
   const player = await openPlayer();

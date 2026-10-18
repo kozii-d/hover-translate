@@ -8,10 +8,15 @@
  *
  * Whitespace stays the primary split: a language that does use spaces must keep
  * behaving exactly as before, down to punctuation riding along with its word
- * (`well-known,` is one word today and stays one word).
+ * (`well-known,` is one word today and stays one word). That punctuation is
+ * shown with the word; `TranslationCore` trims it off the edges of a selection
+ * before translating it.
  */
 export interface CaptionWord {
-  /** What is hovered, selected and sent to the translator. */
+  /**
+   * What is hovered and selected; sent to the translator without the
+   * punctuation at the selection's edges (`TranslationCore`).
+   */
   text: string;
   /**
    * What is rendered after it inside the same span. A space for a word that came

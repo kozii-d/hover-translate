@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { TranslationCore } from "../../src/content/core/translationCore.ts";
+import { TranslationCore, trimEdgePunctuation } from "../../src/content/core/translationCore.ts";
 import { BaseTranslator, TranslatedData } from "../../src/common/translators/baseTranslator.ts";
 import { state } from "../../src/content/state/stateManager.ts";
 import { defaultSettings } from "../../src/common/consts/defaultValues.ts";
@@ -126,6 +126,130 @@ describe("the cache key", () => {
     const sent = translator.calls[0].context!;
     expect(sent.length).toBeLessThanOrEqual(500);
     expect(sent).toContain("needle");
+  });
+});
+
+describe("punctuation at the edges of a selection", () => {
+  it.each([
+    ["carpa.", "carpa"],
+    ["moss...", "moss"],
+    ["distress!", "distress"],
+    ["kindred spirit?", "kindred spirit"],
+    ["¡Hola!", "Hola"],
+    ["¿Qué?", "Qué"],
+    ["\"word\",", "word"],
+    ["“word”", "word"],
+    ["„слово“", "слово"],
+    ["(laughs)", "laughs"],
+    ["[music]", "music"],
+    ["— well –", "well"],
+    ["-well-", "well"],
+    ["こんにちは。", "こんにちは"],
+    ["「はい」", "はい"],
+    ["《기생충》", "기생충"],
+    ["（笑）、", "笑"],
+    ["«м'ята»", "м'ята"],
+    ["сім’я,", "сім’я"],
+    ["пʼять!", "пʼять"],
+    ["كهذه ،", "كهذه"],
+    ["العام !", "العام"],
+    ["لماذا؟", "لماذا"],
+    ["Il part\u00a0!", "Il part"],
+    ["oui\u202f?", "oui"],
+    ["Hello, world!", "Hello, world"],
+    ["don't", "don't"],
+    ["well-known,", "well-known"],
+    ["goin'", "goin'"],
+    ["'cause", "'cause"],
+    ["'em,", "'em"],
+    ["rock 'n' roll", "rock 'n' roll"],
+    ["100%", "100%"],
+    ["5‰.", "5‰"],
+    ["#tag", "#tag"],
+    ["@name:", "@name"],
+    ["f***!", "f***"],
+    ["&", "&"],
+    ["U.S.", "U.S."],
+    ["U.S...", "U.S."],
+    ["a.m.,", "a.m."],
+    ["Ph.D.", "Ph.D."],
+    ["т.д.", "т.д."],
+    ["2026 р.", "2026 р"],
+    ["Mr.", "Mr"],
+    ["etc.", "etc"],
+    ["Mr.Snail!", "Mr.Snail"],
+    ["Mr.Snail.", "Mr.Snail."],
+    ["the U.S.", "the U.S."],
+    ["I moved to the U.S. last year.", "I moved to the U.S. last year"],
+    ["Visit youtube.com today.", "Visit youtube.com today"],
+    ["e.g. the end.", "e.g. the end"],
+    ["Hello. World.", "Hello. World"],
+    ["!", ""],
+    ["…", ""],
+    [" ¿? ", ""],
+    ["", ""],
+  ])("%j → %j", (text, expected) => {
+    expect(trimEdgePunctuation(text)).toBe(expected);
+  });
+
+  it("the translator gets the text without it, and so does the dictionary", async () => {
+    const translator = new RecordingTranslator();
+    const core = await createCore(translator);
+
+    const result = await core.translateText(" carpa. ");
+    await core.flushTranslationCache();
+
+    expect(translator.calls).toEqual([{ text: "carpa", context: undefined }]);
+    expect(result?.originalText).toBe("carpa");
+    expect(storedKeys()).toEqual(["carpa_auto_ru_google"]);
+  });
+
+  it("with and without it, one cache entry", async () => {
+    const translator = new RecordingTranslator();
+    const core = await createCore(translator);
+
+    const first = await core.translateText("carpa");
+    expect(core.hasCachedTranslation("carpa.")).toBe(true);
+    expect(core.hasCachedTranslation("¡carpa!")).toBe(true);
+    const second = await core.translateText("carpa.");
+
+    expect(translator.calls).toHaveLength(1);
+    expect(second).toBe(first);
+    expect(core.cachedTranslationsCount).toBe(1);
+  });
+
+  it("a selection of punctuation only: no request, nothing cached", async () => {
+    const translator = new RecordingTranslator();
+    const core = await createCore(translator);
+
+    expect(core.hasCachedTranslation("!")).toBe(false);
+    expect(await core.translateText("!")).toBeNull();
+    expect(await core.translateText(" … ")).toBeNull();
+    expect(translator.calls).toEqual([]);
+    expect(core.cachedTranslationsCount).toBe(0);
+  });
+
+  it("a context that is the whole selected line, punctuation included, is still dropped", async () => {
+    const translator = new RecordingTranslator(true);
+    const core = await createCore(translator);
+
+    await core.translateText("A kindred spirit?", "A kindred spirit?");
+    await core.flushTranslationCache();
+
+    expect(translator.calls).toEqual([{ text: "A kindred spirit", context: undefined }]);
+    expect(storedKeys()).toEqual(["A kindred spirit_auto_ru_deepl"]);
+    expect(core.hasCachedTranslation("A kindred spirit?", "A kindred spirit?")).toBe(true);
+  });
+
+  it("the context keeps its punctuation when the selection is part of it", async () => {
+    const translator = new RecordingTranslator(true);
+    const core = await createCore(translator);
+
+    await core.translateText("kindred spirit?", "A kindred spirit?");
+    await core.flushTranslationCache();
+
+    expect(translator.calls).toEqual([{ text: "kindred spirit", context: "A kindred spirit?" }]);
+    expect(storedKeys()).toEqual([`kindred spirit_auto_ru_deepl_${hashString("A kindred spirit?")}`]);
   });
 });
 

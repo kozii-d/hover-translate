@@ -344,8 +344,9 @@ export class TooltipService {
   }
 
   /**
-   * The selected words in document order, joined exactly the way they are sent
-   * to the translator. It is also the identity of the current selection: a
+   * The selected words in document order, joined as the subtitle has them; the
+   * translator gets it without the punctuation at its edges, which
+   * `TranslationCore` trims. It is also the identity of the current selection: a
    * translation is only usable for a click while it still matches this string.
    *
    * The spans are joined by what they already carry rather than by a space:
@@ -532,8 +533,9 @@ export class TooltipService {
    * The translation of the words that are selected right now, waiting for the
    * in-flight request when the click beat it.
    *
-   * Returns null only when there is nothing selected; otherwise the caller is
-   * guaranteed to get data for the clicked words and never for a neighbour.
+   * Returns null only when there is nothing to translate — nothing selected, or
+   * punctuation alone (`!`, `…`); otherwise the caller is guaranteed to get data
+   * for the clicked words and never for a neighbour.
    */
   private async resolveSelectionTranslation(): Promise<TranslationCacheData | null> {
     const selectedText = this.getSelectedText();

@@ -228,9 +228,10 @@ class Player {
     return this.frame.evaluate(([method, args]) => window.fixture[method](...args), [method, args]);
   }
 
-  /** The word on screen whose text, without its trailing separator, is `text`. */
+  /** The word on screen whose text, without its trailing separator, is `text` (punctuation included: `carpa.`, `!`). */
   word(text) {
-    return this.frame.locator(".custom-tooltip-word").filter({ hasText: new RegExp(`^\\s*${text}\\s*$`) }).first();
+    const literal = text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return this.frame.locator(".custom-tooltip-word").filter({ hasText: new RegExp(`^\\s*${literal}\\s*$`) }).first();
   }
 
   get tooltip() {

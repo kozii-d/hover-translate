@@ -76,6 +76,33 @@ const normalizeContext = (text: string, context?: string): string | undefined =>
   return normalized;
 };
 
+/**
+ * Whitespace and punctuation, except the marks that belong to a word: the
+ * apostrophes (`goin'`, `'cause`) and `% ‰ # @ & *` (`100%`, `#tag`, `f***`).
+ * A lookahead rather than the `v` flag's set difference, which Chrome 102 lacks.
+ */
+const EDGE_MARK = String.raw`(?:\s|(?!['’%‰#@&*])\p{P})`;
+const LEADING_MARKS = new RegExp(`^${EDGE_MARK}+`, "u");
+const TRAILING_MARKS = new RegExp(`${EDGE_MARK}+$`, "u");
+
+/** A dot between two letters in the last word: `U.S`, `the a.m`, `т.д`. */
+const ABBREVIATION = /\p{L}\.\p{L}\S*$/u;
+
+/**
+ * The selection without the punctuation around it, which changes the
+ * translation (`carpa.` → "large tent.", `carpa` → "tent") and has no place in
+ * the dictionary. Nothing inside is touched (`Hello, world`, `don't`). The last
+ * dot of an abbreviation written with dots stays when it ends the selection
+ * (`U.S.`, `a.m.,` → `a.m.`); one dot alone cannot tell `Mr.` from the end of a
+ * sentence, so it goes.
+ */
+export const trimEdgePunctuation = (text: string): string => {
+  const trimmed = text.replace(LEADING_MARKS, "").replace(TRAILING_MARKS, "");
+  const tail = TRAILING_MARKS.exec(text)?.[0] ?? "";
+
+  return tail.startsWith(".") && ABBREVIATION.test(trimmed) ? `${trimmed}.` : trimmed;
+};
+
 export class TranslationCore {
   private translationCache: TranslationCache;
 
@@ -200,9 +227,12 @@ export class TranslationCore {
   /**
    * The context actually sent for this text, or undefined when none is: the
    * translator ignores it, or there is nothing in it beyond the text itself.
+   *
+   * Compared with the selection as it was, punctuation included: the caption
+   * keeps its own, and a whole line selected must still match it.
    */
-  private getEffectiveContext(normalizedText: string, context?: string): string | undefined {
-    return this.supportsContext ? normalizeContext(normalizedText, context) : undefined;
+  private getEffectiveContext(text: string, context?: string): string | undefined {
+    return this.supportsContext ? normalizeContext(text.trim(), context) : undefined;
   }
 
   /**
@@ -226,22 +256,24 @@ export class TranslationCore {
    * a cache hit fires none.
    */
   public hasCachedTranslation(text: string, context?: string): boolean {
-    const normalizedText = text.trim();
+    const normalizedText = trimEdgePunctuation(text);
     if (!normalizedText) return false;
 
-    const cacheKey = this.getCacheKey(normalizedText, this.getEffectiveContext(normalizedText, context));
+    const cacheKey = this.getCacheKey(normalizedText, this.getEffectiveContext(text, context));
 
     return this.translationCache.has(cacheKey);
   }
 
   async translateText(text: string, context?: string, signal?: AbortSignal): Promise<TranslationCacheData | null> {
-    const normalizedText = text.trim();
+    // What is translated, cached and saved; the context is matched against the
+    // selection itself.
+    const normalizedText = trimEdgePunctuation(text);
 
     if (!normalizedText) {
       return null;
     }
 
-    const effectiveContext = this.getEffectiveContext(normalizedText, context);
+    const effectiveContext = this.getEffectiveContext(text, context);
     const cacheKey = this.getCacheKey(normalizedText, effectiveContext);
 
     if (this.translationCache.has(cacheKey)) {
@@ -269,7 +301,7 @@ export class TranslationCore {
         sourceLanguageCode: translatedData.detectedLanguageCode,
         targetLanguageCode: state.settings.targetLanguageCode,
         translatedText: translatedData.translatedText,
-        originalText: text,
+        originalText: normalizedText,
         dictionary: translatedData.dictionary,
         transliteration: translatedData.transliteration,
         transcription: translatedData.transcription,

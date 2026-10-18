@@ -270,9 +270,10 @@ test.describe("into Russian", () => {
 
   // YouTube brings `。` as a piece of its own and the next piece after it: the
   // full stop stays with the word before it, so the selection on that word
-  // reads, and is translated, as the tooltip showed it.
+  // reads, and is translated, as the tooltip showed it (without the full stop,
+  // which `TranslationCore` trims off its edge).
   test("Japanese auto-generated captions: a full stop stays with the selected word before it as the line grows", async ({ openPlayer, network }) => {
-    network.translate("ru", "思います。", "Думаю.");
+    network.translate("ru", "思います", "Думаю");
     const player = await openPlayer();
     await player.captions([{ lines: ["思います。"], lang: "ja" }]);
 
@@ -290,8 +291,8 @@ test.describe("into Russian", () => {
 
     await player.word("ます。").hover();
     await player.page.keyboard.up("Shift");
-    await expect(player.tooltip).toHaveText("Думаю.");
-    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("思います。");
+    await expect(player.tooltip).toHaveText("Думаю");
+    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("思います");
   });
 
   // `今日は天気がい` + `い`: the segmenter moves a boundary back, `がい`
@@ -318,9 +319,10 @@ test.describe("into Russian", () => {
   }
 
   // YouTube draws the line that stays anew, and its last word has grown:
-  // `hometown` → `hometown.` on the live site (2026-10-02).
+  // `hometown` → `hometown.` on the live site (2026-10-02). The translator gets
+  // the selection without the full stop at its edge.
   test("auto-generated captions roll up as the last word grows: the selection on it stays and is translated with it", async ({ openPlayer, network }) => {
-    network.translate("ru", "my hometown.", "мой родной город.");
+    network.translate("ru", "my hometown", "мой родной город");
     const player = await openPlayer();
     await player.captions([{ lines: ["so what are", "back in my hometown"] }]);
 
@@ -336,10 +338,10 @@ test.describe("into Russian", () => {
     await expect(selectedWords(player)).toHaveText(["my ", "hometown. "]);
     await expect(player.frame.locator("[data-probe]")).toHaveClass([/custom-tooltip-word-selected/, /custom-tooltip-word-selected/]);
 
-    await player.word("hometown\\.").hover();
+    await player.word("hometown.").hover();
     await player.page.keyboard.up("Shift");
-    await expect(player.tooltip).toHaveText("мой родной город.");
-    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("my hometown.");
+    await expect(player.tooltip).toHaveText("мой родной город");
+    expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("my hometown");
   });
 
   // On the live site (2026-10-02) the line that went started like the one
