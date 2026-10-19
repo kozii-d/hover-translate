@@ -362,7 +362,7 @@ async function backdateSaved(worker, daysAgo) {
 /**
  * The popup in `theme`, opened as a tab and brought by `prepare` to what is
  * shot: as wide as the popup is in this language (`min-content`), at most
- * 600 px high, as Chrome opens it.
+ * 600 px high, as Chrome opens it, or as high as `prepare` returns.
  */
 async function shootPopup(context, extensionId, { theme, prepare, file }) {
   const page = await context.newPage();
@@ -370,9 +370,9 @@ async function shootPopup(context, extensionId, { theme, prepare, file }) {
   await page.goto(`chrome-extension://${extensionId}/popup/dist/index.html`);
   await page.evaluate((theme) => chrome.storage.sync.set({ popupTheme: theme }), theme);
   await page.reload();
-  await prepare(page);
+  const end = await prepare(page);
   const { width } = await page.locator("body").boundingBox();
-  const height = Math.min(600, await page.evaluate(() => document.body.scrollHeight));
+  const height = end ?? Math.min(600, await page.evaluate(() => document.body.scrollHeight));
   fs.mkdirSync(path.dirname(file), { recursive: true });
   await page.screenshot({ path: file, clip: { x: 0, y: 0, width, height } });
   await page.close();
@@ -384,12 +384,22 @@ const dictionaryPage = (firstWord) => async (page) => {
   await page.getByText(firstWord, { exact: false }).first().waitFor();
 };
 
-/** The Settings page with the list of translators open. */
+/**
+ * The Settings page with the list of translators open, cut above the
+ * Auto-pause switch: at 600 px the line under the switch was cut through.
+ */
 const translatorList = async (page) => {
+  // The key's usage, all but covered by the list, showed as a strip of
+  // letter tops under it (19.10.2026).
+  const usage = page.locator(".MuiLinearProgress-root + .MuiTypography-caption");
+  await usage.waitFor();
+  await usage.evaluate((line) => { line.style.visibility = "hidden"; });
   await page.locator("#translator").click();
   await page.getByRole("option").nth(2).waitFor();
   // The menu fades in.
   await page.waitForFunction(() => getComputedStyle(document.querySelector(".MuiMenu-paper")).opacity === "1");
+  // In the gap between the key's card and the switch.
+  return page.locator(".MuiFormControlLabel-root").first().evaluate((autoPause) => autoPause.getBoundingClientRect().top - 8);
 };
 
 // The live YouTube now and then serves a layout or a moment the script does

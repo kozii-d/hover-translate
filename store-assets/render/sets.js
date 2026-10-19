@@ -70,7 +70,9 @@ const SHOTS = {
       // Not "new": DeepL left it in English in Japanese (18.10.2026).
       { video: SPRITE_FRIGHT, time: 156.8, word: "incredible", daysAgo: 4 },
       { video: SPRITE_FRIGHT, time: 110.4, word: "survive", daysAgo: 1 },
-      { video: SPRITE_FRIGHT, time: 214.8, from: "take", to: "of", daysAgo: 0 },
+      // Not "take care of": DeepL gave "cuidamos de" (we take care of) in
+      // Portuguese, in the person of its line (19.10.2026).
+      { video: SPRITE_FRIGHT, time: 29.6, from: "tree", to: "hugger", daysAgo: 0 },
       { video: SPRITE_FRIGHT, time: 206.6, word: "peppermint", daysAgo: 0 },
     ],
   },
