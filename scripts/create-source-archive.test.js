@@ -9,9 +9,11 @@ const ARCHIVE = path.join("releases", "1.2.0", "hover-translate-source.zip");
 
 // A git hook (pre-push runs `verify`) exports GIT_DIR and the like; they would point git at this repository.
 // The ceiling keeps git from finding a repository above the temporary directories.
+// Some git clients (lazygit) run hooks with LC_ALL=C, where unzip lists "ü" as "#U00fc".
 const env = {
   ...Object.fromEntries(Object.entries(process.env).filter(([name]) => !name.startsWith("GIT_"))),
   GIT_CEILING_DIRECTORIES: fs.realpathSync(os.tmpdir()),
+  LC_ALL: "C.UTF-8",
 };
 
 const roots = [];
