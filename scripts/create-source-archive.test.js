@@ -39,11 +39,12 @@ const TRACKED = [
   ".husky/pre-commit",
   "a name with spaces [1] ü.txt",
   "docs/demo.gif",
+  "site/index.html",
   "store-assets/descriptions/en.txt",
   ".claude/skills/release/SKILL.md",
   "CLAUDE.md",
 ];
-const LEFT_OUT = ["docs/demo.gif", "store-assets/descriptions/en.txt", ".claude/skills/release/SKILL.md", "CLAUDE.md"];
+const LEFT_OUT = ["docs/demo.gif", "site/index.html", "store-assets/descriptions/en.txt", ".claude/skills/release/SKILL.md", "CLAUDE.md"];
 
 // A copy of the script in a git repository of its own.
 function repository() {
@@ -113,6 +114,7 @@ test("untracked files are named in a warning, and the archive is made all the sa
   write(root, "a new name [2] ü.txt");
   // Not needed for the build, so not worth a warning.
   write(root, "docs/draft.gif");
+  write(root, "site/draft.html");
   write(root, "store-assets/descriptions/fr.txt");
   write(root, ".claude/settings.local.json");
 
@@ -122,7 +124,7 @@ test("untracked files are named in a warning, and the archive is made all the sa
   assert.deepEqual(entries(root), expected);
 });
 
-test("every tracked file goes in, except docs/, store-assets/, .claude/ and CLAUDE.md", () => {
+test("every tracked file goes in, except docs/, site/, store-assets/, .claude/ and CLAUDE.md", () => {
   const root = repository();
   const result = run(root);
   assert.equal(result.status, 0, result.stderr);

@@ -1,0 +1,1584 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>
+      HoverTranslate — YouTube subtitle translator for language learners
+    </title>
+    <meta
+      name="description"
+      content="Free, open-source extension for Chrome, Firefox and Edge. Hover over a word in YouTube subtitles to see its translation; hold Shift for a phrase, click to save it."
+    />
+    <link rel="canonical" href="https://hovertranslate.app/" />
+    <link rel="icon" href="/logo-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/logo-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      property="og:title"
+      content="HoverTranslate — YouTube subtitle translator for language learners"
+    />
+    <meta
+      property="og:description"
+      content="Free, open-source extension for Chrome, Firefox and Edge. Hover over a word in YouTube subtitles to see its translation; hold Shift for a phrase, click to save it."
+    />
+    <meta property="og:url" content="https://hovertranslate.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HoverTranslate" />
+    <meta
+      property="og:image"
+      content="https://hovertranslate.app/media/og.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A word in Spanish YouTube subtitles with its English translation above it"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script src="/theme.js"></script>
+    <script src="/site.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "HoverTranslate",
+        "alternateName": ["Hover Translate"],
+        "url": "https://hovertranslate.app/"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "HoverTranslate",
+        "description": "A free, open-source extension for Chrome, Firefox and Edge that translates the word you point at in YouTube subtitles, made for people who learn a language from videos.",
+        "url": "https://hovertranslate.app/",
+        "applicationCategory": "BrowserApplication",
+        "operatingSystem": "Chrome, Firefox, Edge",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "installUrl": [
+          "https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic",
+          "https://addons.mozilla.org/firefox/addon/hovertranslate/",
+          "https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm"
+        ],
+        "sameAs": [
+          "https://github.com/kozii-d/hover-translate",
+          "https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic",
+          "https://addons.mozilla.org/firefox/addon/hovertranslate/",
+          "https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm"
+        ],
+        "license": "https://github.com/kozii-d/hover-translate/blob/master/LICENSE"
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #faf8f6;
+        --surface: #ffffff;
+        --ink: #1a1a1a;
+        --muted: #5f5a56;
+        --line: #e6e0da;
+        --accent: #d3180b;
+        --accent-hover: #b31409;
+        --link: #c4160a;
+        --tint: #fbeae7;
+        --sans:
+          system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif;
+        --caption:
+          "YouTube Noto", Roboto, Arial, Helvetica, Verdana, "PT Sans Caption",
+          sans-serif;
+        --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      }
+      /* Dark: the system's unless the viewer picked light, or the viewer's pick */
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #141414;
+          --surface: #1c1b1a;
+          --ink: #f4f2f0;
+          --muted: #a8a29e;
+          --line: #2e2b29;
+          --link: #ff6b5e;
+          --tint: #2a1714;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #141414;
+        --surface: #1c1b1a;
+        --ink: #f4f2f0;
+        --muted: #a8a29e;
+        --line: #2e2b29;
+        --link: #ff6b5e;
+        --tint: #2a1714;
+        color-scheme: dark;
+      }
+      :root[data-theme="light"] {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      /* The theme button (theme.js), the popup's icons: a moon offers the dark theme, a sun the light one */
+      .theme-toggle {
+        display: inline-grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .theme-toggle[hidden] {
+        display: none;
+      }
+      .theme-toggle:hover {
+        color: var(--ink);
+      }
+      .theme-toggle:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+      }
+      .theme-toggle svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+      .theme-toggle .sun {
+        display: none;
+      }
+      :root[data-theme="dark"] .theme-toggle .sun {
+        display: block;
+      }
+      :root[data-theme="dark"] .theme-toggle .moon {
+        display: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .theme-toggle .sun {
+          display: block;
+        }
+        :root:not([data-theme="light"]) .theme-toggle .moon {
+          display: none;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 17px/1.6 var(--sans);
+        padding-inline: max(16px, env(safe-area-inset-left))
+          max(16px, env(safe-area-inset-right));
+      }
+      .wrap {
+        max-width: 1120px;
+        margin-inline: auto;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: 3px;
+      }
+      :is(a, summary, video, .key):focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      h1,
+      h2,
+      h3 {
+        text-wrap: balance;
+        line-height: 1.15;
+        margin: 0;
+      }
+      h2 {
+        font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+      p {
+        margin: 0;
+      }
+      kbd,
+      .key {
+        font: 600 0.85em var(--mono);
+        padding: 0 0.45em;
+        border: 1px solid var(--muted);
+        border-bottom-width: 3px;
+        border-radius: 5px;
+        background: var(--surface);
+        color: var(--ink);
+        white-space: nowrap;
+      }
+      .kicker {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--link);
+        margin-bottom: 10px;
+      }
+      .intro {
+        max-width: 62ch;
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      header.top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        white-space: nowrap;
+        padding-block: 18px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .brand img {
+        width: 32px;
+        height: 32px;
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 15px;
+      }
+      header nav a,
+      footer a {
+        color: var(--muted);
+      }
+      header nav a {
+        text-decoration: none;
+      }
+      header nav a:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+      @media (max-width: 560px) {
+        header nav .in-page {
+          display: none;
+        }
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: 48px;
+        align-items: center;
+        padding-block: 40px 72px;
+      }
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 32px;
+          padding-block: 16px 56px;
+        }
+      }
+      .hero h1 {
+        font-size: clamp(2.1rem, 4.6vw, 3.4rem);
+        font-weight: 850;
+        letter-spacing: -0.03em;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--link);
+      }
+      .lede {
+        margin-top: 18px;
+        font-size: 1.15rem;
+        color: var(--muted);
+        max-width: 40ch;
+      }
+      .stores {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        min-height: 46px;
+        padding: 0 20px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 15px;
+        text-decoration: none;
+        background: var(--accent);
+        color: #ffffff;
+        border: 2px solid var(--accent);
+      }
+      .btn:hover {
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--line);
+      }
+      .btn.ghost:hover {
+        border-color: var(--muted);
+      }
+      .facts {
+        margin-top: 16px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .facts span {
+        white-space: nowrap;
+      }
+      .desktop-only {
+        display: none;
+        margin-top: 12px;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: var(--tint);
+        font-size: 15px;
+      }
+      @media (hover: none) {
+        .desktop-only {
+          display: block;
+        }
+      }
+
+      /* The live subtitle line, drawn as YouTube draws captions and as the extension draws its
+         tooltip (extension/src/content/styles.css, utils/tooltipTheme.ts): a solid background per
+         line, the selected words in #808080 with the space after them, the tooltip in the
+         subtitles' own font, size and background, 5 px above the subtitle block, from the first
+         selected word. Without JavaScript it shows "playa" selected; site.js does the rest the way
+         tooltipService.ts and videoController.ts do. */
+      .demo {
+        margin: 0;
+      }
+      /* For screen readers: the frame's words can be focused, so it is not role="img" (that would
+         silence them), and what the picture shows is told here */
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+      /* No text selection or dragging in the picture, as in YouTube's player: a Shift+click or a
+         double click on a word would paint the browser's selection over the demo's own */
+      .frame {
+        position: relative;
+        -webkit-user-select: none;
+        user-select: none;
+        aspect-ratio: 16 / 9;
+        border-radius: 14px;
+        overflow: hidden;
+        container-type: inline-size;
+        background:
+          radial-gradient(
+            60% 70% at 72% 30%,
+            rgba(214, 140, 60, 0.45),
+            transparent 70%
+          ),
+          radial-gradient(
+            50% 60% at 20% 40%,
+            rgba(60, 90, 130, 0.55),
+            transparent 70%
+          ),
+          linear-gradient(160deg, #26303a, #121212 70%);
+        box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.55);
+        --caption-size: clamp(14px, 3.4cqi, 26px);
+      }
+      /* Top right: the top left is where the extension says "Translation saved" */
+      .status {
+        position: absolute;
+        top: 4%;
+        right: 3%;
+        padding: 0.3em 0.8em;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.55);
+        color: #ffffff;
+        font: 600 12px/1.4 var(--sans);
+        font-size: clamp(10px, 2.2cqi, 13px);
+      }
+      .bar {
+        position: absolute;
+        left: 3%;
+        right: 3%;
+        bottom: 5%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .progress {
+        display: block;
+        width: 38%;
+        height: 100%;
+        background: #f61c0d;
+      }
+      .caption-window {
+        line-height: normal;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 12%;
+        margin-inline: auto;
+        width: max-content;
+        max-width: 96%;
+        text-align: center;
+        color: #ffffff;
+        font-family: var(--caption);
+        font-size: var(--caption-size);
+      }
+      .caption-visual-line {
+        display: block;
+      }
+      /* YouTube's own is pre-wrap; nowrap keeps the line whole if a formatter breaks the markup */
+      .segment {
+        display: inline-block;
+        white-space: nowrap;
+        background: rgba(8, 8, 8, 0.75);
+      }
+      .w {
+        cursor: default;
+      }
+      .w.sel {
+        background-color: #808080;
+      }
+      .w:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 0;
+        border-radius: 0;
+      }
+      .tip {
+        line-height: normal;
+        position: absolute;
+        bottom: calc(100% + 5px);
+        max-width: calc(100cqi - 20px);
+        box-sizing: border-box;
+        padding: 5px;
+        overflow-wrap: break-word;
+        white-space: normal;
+        text-align: start;
+        background: rgba(8, 8, 8, 0.75);
+        color: #ffffff;
+        font-family: var(--caption);
+        font-size: var(--caption-size);
+        pointer-events: none;
+        z-index: 1;
+      }
+      /* "Translation saved" after a click on a word (site.js), where and as the extension shows it */
+      .notification {
+        line-height: normal;
+        position: absolute;
+        left: 65px;
+        top: 40px;
+        box-sizing: border-box;
+        padding: 5px;
+        background: rgba(8, 8, 8, 0.75);
+        color: #ffffff;
+        font-family: var(--caption);
+        font-size: var(--caption-size);
+        pointer-events: none;
+        z-index: 1;
+      }
+      /* The pointer resting on "playa" until the viewer's own comes */
+      .cursor {
+        position: absolute;
+        width: 0.8em;
+        margin: 0.7em 0 0 -1em;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+        pointer-events: none;
+      }
+      .hint {
+        text-wrap: pretty;
+        margin-top: 14px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      button.key {
+        cursor: pointer;
+        user-select: none;
+      }
+      .key[aria-pressed="true"],
+      .key.down {
+        background: var(--accent);
+        border-color: #8a0f07;
+        color: #ffffff;
+      }
+      .source {
+        margin-top: 4px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      section.band {
+        padding-block: 72px;
+        border-top: 1px solid var(--line);
+        scroll-margin-top: 8px;
+      }
+
+      .compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 36px;
+      }
+      @media (max-width: 760px) {
+        .compare {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .compare figure {
+        margin: 0;
+      }
+      .mini {
+        position: relative;
+        aspect-ratio: 16 / 7;
+        border-radius: 12px;
+        overflow: hidden;
+        container-type: inline-size;
+        background: linear-gradient(160deg, #2a2f36, #141414 75%);
+        font-family: var(--caption);
+        color: #ffffff;
+      }
+      .mini .cap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 12%;
+        text-align: center;
+        font-size: max(13px, 4.6cqi);
+      }
+      .mini .line {
+        display: inline-block;
+        white-space: nowrap;
+        background: rgba(8, 8, 8, 0.75);
+      }
+      .mini .second {
+        color: #ffe37a;
+      }
+      .mini .on {
+        position: relative;
+        background: #808080;
+      }
+      .mini .on > span {
+        position: absolute;
+        left: 0;
+        bottom: calc(100% + 5px);
+        padding: 5px;
+        background: rgba(8, 8, 8, 0.75);
+        white-space: nowrap;
+      }
+      .compare .ours {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+      .compare figcaption {
+        margin-top: 14px;
+      }
+      .compare figcaption b {
+        display: block;
+      }
+      .compare figcaption span {
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      .shows {
+        display: grid;
+        gap: 56px;
+        margin-top: 40px;
+      }
+      .show {
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        gap: 40px;
+        align-items: center;
+        margin: 0;
+      }
+      @media (max-width: 900px) {
+        .show {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 20px;
+        }
+      }
+      .show video {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        background: #000000;
+      }
+      /* The site's own pause and play button over each video (site.js, which drops the browser's
+         controls): shown on a paused video, under the pointer and in focus; dressed like the
+         theme button, on the page's own colours so it reads on any frame */
+      .clip {
+        position: relative;
+      }
+      .clip video {
+        cursor: pointer;
+      }
+      .play {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--surface);
+        color: var(--ink);
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      .play[hidden] {
+        display: none;
+      }
+      .clip:hover .play,
+      .clip:not(.playing) .play,
+      .play:focus-visible {
+        opacity: 1;
+      }
+      .play:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+      }
+      .play svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+      .clip.playing .play-icon,
+      .clip:not(.playing) .pause-icon {
+        display: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .play {
+          transition: none;
+        }
+      }
+      .show figcaption p {
+        margin-top: 10px;
+        color: var(--muted);
+      }
+
+      .groups {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 40px;
+        margin-top: 40px;
+      }
+      @media (max-width: 900px) {
+        .groups {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 32px;
+        }
+      }
+      .group {
+        border-top: 3px solid var(--ink);
+        padding-top: 16px;
+      }
+      .group h3 {
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .group dl {
+        margin: 14px 0 0;
+        display: grid;
+        gap: 18px;
+      }
+      .group dt {
+        font-weight: 700;
+      }
+      .group dd {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 15.5px;
+      }
+
+      .privacy {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 48px;
+      }
+      @media (max-width: 900px) {
+        .privacy {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 24px;
+        }
+      }
+      .nos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 20px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .nos li {
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: var(--tint);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .flows {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .flows li {
+        display: grid;
+        grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+        gap: 16px;
+        padding-block: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .flows li:first-child {
+        border-top: 1px solid var(--line);
+      }
+      .flows span {
+        color: var(--muted);
+        font-size: 15.5px;
+      }
+      @media (max-width: 520px) {
+        .flows li {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 4px;
+        }
+      }
+      .more {
+        margin-top: 18px;
+        font-weight: 600;
+      }
+
+      .faq {
+        max-width: 760px;
+        margin-top: 28px;
+      }
+      .faq details {
+        border-bottom: 1px solid var(--line);
+      }
+      .faq details:first-child {
+        border-top: 1px solid var(--line);
+      }
+      .faq summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 18px 36px 18px 0;
+        font-weight: 700;
+        position: relative;
+      }
+      .faq summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq summary::after {
+        content: "+";
+        position: absolute;
+        right: 6px;
+        top: 14px;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .faq details[open] summary::after {
+        content: "−";
+      }
+      .faq .a {
+        padding: 0 0 20px;
+        color: var(--muted);
+        max-width: 64ch;
+      }
+      .faq ul {
+        margin: 0;
+        padding-left: 1.2em;
+      }
+
+      .feedback {
+        display: grid;
+        margin-top: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+      }
+      @media (max-width: 760px) {
+        .feedback {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .panel {
+        padding: 28px;
+        border-radius: 14px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+      .panel h3 {
+        font-size: 1.25rem;
+      }
+      .panel p {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+      .panel .stores {
+        margin-top: 18px;
+      }
+
+      footer {
+        display: grid;
+        gap: 12px;
+        padding-block: 32px 48px;
+        border-top: 1px solid var(--line);
+        font-size: 14px;
+        color: var(--muted);
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+      }
+      /* On a narrow screen (320 px is also 400 % zoom) the GitHub link is its icon (the popup's), the
+         word stays for screen readers, and the gaps shrink: the header then fits even beside a
+         classic scrollbar */
+      .github svg {
+        display: none;
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+      @media (max-width: 400px) {
+        header.top,
+        header nav {
+          gap: 8px;
+        }
+        .github {
+          display: inline-grid;
+          place-items: center;
+          width: 40px;
+          height: 40px;
+        }
+        .github svg {
+          display: block;
+        }
+        .github span {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <a class="brand" href="/"
+          ><img
+            src="/apple-touch-icon.png"
+            alt=""
+            width="32"
+            height="32"
+          />HoverTranslate</a
+        >
+        <nav aria-label="Main">
+          <a class="in-page" href="#features">Features</a>
+          <a class="in-page" href="#privacy">Privacy</a>
+          <a class="in-page" href="#faq">FAQ</a>
+          <a class="github" href="https://github.com/kozii-d/hover-translate"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
+              /></svg
+            ><span>GitHub</span></a
+          >
+          <button
+            type="button"
+            class="theme-toggle"
+            hidden
+            aria-label="Switch theme"
+          >
+            <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1"
+              /></svg
+            ><svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"
+              />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" aria-labelledby="title">
+          <div>
+            <h1 id="title">
+              Translate the <em>one word</em> you don't know in YouTube
+              subtitles
+            </h1>
+            <p class="lede">
+              Point at a word in the subtitles and its translation appears right
+              above them, while the video waits for you. A free, open-source
+              extension for Chrome, Firefox and Edge, made for people who learn
+              a language from videos.
+            </p>
+            <div class="stores">
+              <a
+                class="btn"
+                href="https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic"
+                >Add to Chrome</a
+              >
+              <a
+                class="btn"
+                href="https://addons.mozilla.org/firefox/addon/hovertranslate/"
+                >Add to Firefox</a
+              >
+              <a
+                class="btn"
+                href="https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm"
+                >Add to Edge</a
+              >
+            </div>
+            <p class="facts">
+              <span>Free and open source</span> · <span>No account</span> ·
+              <span>Chrome, Firefox and Edge on a computer</span>
+            </p>
+            <p class="desktop-only">
+              HoverTranslate works in desktop browsers — open this page on your
+              computer to install.
+            </p>
+          </div>
+
+          <div class="demo" data-nosnippet>
+            <p class="visually-hidden">
+              A video frame with the Spanish subtitles “Mañana vamos a la playa
+              si hace buen tiempo.” The word under the pointer, playa, shows its
+              English translation, beach, above the subtitles, and the video is
+              paused while you read.
+            </p>
+            <div class="frame">
+              <span class="status">❚❚ Paused while you read</span>
+              <div class="caption-window">
+                <span class="caption-visual-line"
+                  ><span class="segment"
+                    ><span class="w" tabindex="0">Mañana </span
+                    ><span class="w" tabindex="0">vamos </span
+                    ><span class="w" tabindex="0">a </span
+                    ><span class="w" tabindex="0">la </span
+                    ><span class="w sel" tabindex="0"
+                      ><span class="tip">beach</span>playa
+                      <svg
+                        class="cursor"
+                        viewBox="0 0 16 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M1 1v19l5-5 3.5 7.5 3-1.4L9 13.7h7z"
+                          fill="#FFFFFF"
+                          stroke="#000000"
+                          stroke-width="1.2"
+                          stroke-linejoin="round"
+                        /></svg></span></span
+                ></span>
+                <span class="caption-visual-line"
+                  ><span class="segment"
+                    ><span class="w" tabindex="0">si </span
+                    ><span class="w" tabindex="0">hace </span
+                    ><span class="w" tabindex="0">buen </span
+                    ><span class="w" tabindex="0">tiempo. </span></span
+                  ></span
+                >
+              </div>
+              <span class="bar"><span class="progress"></span></span>
+            </div>
+            <p class="hint" hidden>
+              Try it: point at a word in the subtitles. For a phrase, hold
+              <button type="button" class="key" aria-pressed="false">
+                Shift</button
+              >&nbsp;— or&nbsp;tap&nbsp;it&nbsp;— and move across
+              the&nbsp;words.
+            </p>
+            <p class="source">Spanish → English, translated by Google</p>
+          </div>
+        </section>
+
+        <section class="band" aria-labelledby="how">
+          <h2 id="how">How it works</h2>
+          <ol class="intro">
+            <li>Add HoverTranslate to Chrome, Firefox or Edge.</li>
+            <li>
+              Open a YouTube video and turn on subtitles — the creator's or
+              auto-generated.
+            </li>
+            <li>
+              Point at a word: its translation appears above the subtitles, and
+              the video pauses until you move away.
+            </li>
+          </ol>
+        </section>
+
+        <section class="band" aria-labelledby="why">
+          <p class="kicker">Why HoverTranslate</p>
+          <h2 id="why">Keep reading the original</h2>
+          <p class="intro">
+            Most subtitle tools translate the whole line or show a second line
+            of subtitles under the first. HoverTranslate does something smaller
+            on purpose: it translates the one word or phrase you point at, so
+            you still read the original and only look up what you actually don't
+            know. No copying words into a translator, no switching tabs, no
+            losing the thread.
+          </p>
+          <div class="compare">
+            <figure>
+              <div
+                class="mini"
+                role="img"
+                aria-label="Spanish subtitles with a second, English line under them"
+              >
+                <div class="cap">
+                  <span class="line">Mañana vamos a la playa</span><br /><span
+                    class="line second"
+                    >Tomorrow we go to the beach</span
+                  >
+                </div>
+              </div>
+              <figcaption>
+                <b>A second line of subtitles</b
+                ><span
+                  >Your eyes go to the translation, and the Spanish line becomes
+                  background.</span
+                >
+              </figcaption>
+            </figure>
+            <figure>
+              <div
+                class="mini ours"
+                role="img"
+                aria-label="Spanish subtitles with one word, playa, translated above them as beach"
+              >
+                <div class="cap">
+                  <span class="line"
+                    >Mañana vamos a la
+                    <span class="on"><span>beach</span>playa</span></span
+                  >
+                </div>
+              </div>
+              <figcaption>
+                <b>HoverTranslate</b
+                ><span
+                  >Only the word you didn't know. No copying into a translator,
+                  no switching tabs.</span
+                >
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="band" id="features" aria-labelledby="action">
+          <p class="kicker">Features</p>
+          <h2 id="action">See it in action</h2>
+          <div class="shows">
+            <figure class="show">
+              <div class="clip" data-name="Shift for a phrase">
+                <video
+                  controls
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="/media/phrase.webp"
+                  width="960"
+                  height="402"
+                >
+                  <source src="/media/phrase.webm" type="video/webm" />
+                  <source src="/media/phrase.mp4" type="video/mp4" />
+                </video>
+                <button type="button" class="play" hidden aria-label="Play">
+                  <svg
+                    class="pause-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2m6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2"
+                    /></svg
+                  ><svg
+                    class="play-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <figcaption>
+                <h3>Hold Shift for a whole phrase</h3>
+                <p>
+                  Idioms and set phrases don't translate word by word. Hold
+                  <kbd>Shift</kbd> and move the pointer across the words to
+                  translate them together — here, Spanish
+                  <i>alma gemela</i> becomes “soulmate”. Or turn on “Always
+                  enable multiple selection” in the settings and leave Shift
+                  alone.
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="show">
+              <div class="clip" data-name="Saving a word">
+                <video
+                  controls
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="/media/save.webp"
+                  width="960"
+                  height="402"
+                >
+                  <source src="/media/save.webm" type="video/webm" />
+                  <source src="/media/save.mp4" type="video/mp4" />
+                </video>
+                <button type="button" class="play" hidden aria-label="Play">
+                  <svg
+                    class="pause-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2m6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2"
+                    /></svg
+                  ><svg
+                    class="play-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <figcaption>
+                <h3>Click a word to save it</h3>
+                <p>
+                  A click saves the word with its translation and the day you
+                  found it. Your list is on the Dictionary tab of the
+                  extension's popup, grouped by day, and you can export it as
+                  CSV or JSON — for a spreadsheet, or to review your new words
+                  later.
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="show">
+              <div class="clip" data-name="Context with DeepL">
+                <video
+                  controls
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="/media/context.webp"
+                  width="960"
+                  height="402"
+                >
+                  <source src="/media/context.webm" type="video/webm" />
+                  <source src="/media/context.mp4" type="video/mp4" />
+                </video>
+                <button type="button" class="play" hidden aria-label="Play">
+                  <svg
+                    class="pause-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2m6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2"
+                    /></svg
+                  ><svg
+                    class="play-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <figcaption>
+                <h3>The meaning that fits the line, with DeepL</h3>
+                <p>
+                  With your own free DeepL API key, each word is translated in
+                  the context of its whole subtitle line, so a word with several
+                  meanings gets the one it has there: “bank” in “we sat on the
+                  bank of the river” is a riverbank, not a bank. In the video,
+                  <i>arma</i> in “arma la carpa” is “set up” (the tent), not
+                  “weapon”. The line around the word is not counted against your
+                  DeepL allowance.
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="show">
+              <div class="clip" data-name="Words without spaces">
+                <video
+                  controls
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="/media/unspaced.webp"
+                  width="960"
+                  height="402"
+                >
+                  <source src="/media/unspaced.webm" type="video/webm" />
+                  <source src="/media/unspaced.mp4" type="video/mp4" />
+                </video>
+                <button type="button" class="play" hidden aria-label="Play">
+                  <svg
+                    class="pause-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 19c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2v10c0 1.1.9 2 2 2m6-12v10c0 1.1.9 2 2 2s2-.9 2-2V7c0-1.1-.9-2-2-2s-2 .9-2 2"
+                    /></svg
+                  ><svg
+                    class="play-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <figcaption>
+                <h3>Chinese, Japanese and Thai, word by word</h3>
+                <p>
+                  These languages are written without spaces between words, and
+                  HoverTranslate still picks out the single word under the
+                  pointer instead of translating the whole line — here, Japanese
+                  旅, “travel”.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="band" aria-labelledby="more">
+          <h2 id="more">Everything else</h2>
+          <div class="groups">
+            <div class="group">
+              <h3>Learn</h3>
+              <dl>
+                <div>
+                  <dt>Auto-pause</dt>
+                  <dd>
+                    The video pauses while the pointer is on the subtitles and
+                    plays on when you move away. You can turn this off.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Copy instead of save</dt>
+                  <dd>
+                    A click can copy the word or its translation instead of
+                    saving it, if you prefer.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div class="group">
+              <h3>Works where you watch</h3>
+              <dl>
+                <div>
+                  <dt>Auto-generated subtitles</dt>
+                  <dd>
+                    Works with the subtitles YouTube creates itself, so videos
+                    without subtitles from the creator work too.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Embedded players</dt>
+                  <dd>
+                    YouTube videos embedded on other websites — blogs, online
+                    courses, news articles — work as well, not only youtube.com.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Looks like your subtitles</dt>
+                  <dd>
+                    The translation follows your YouTube subtitle style, or you
+                    can pick your own font, colors and size.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div class="group">
+              <h3>Translators</h3>
+              <dl>
+                <div>
+                  <dt>More than 240 languages</dt>
+                  <dd>
+                    The subtitle language is detected automatically; you pick
+                    the language to translate into.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Google, Bing or DeepL</dt>
+                  <dd>
+                    Google works out of the box. Bing asks for access to
+                    www.bing.com the first time you pick it. DeepL works with
+                    your own free API key, which is stored only on your device
+                    and sent only to DeepL.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section class="band" id="privacy" aria-labelledby="private">
+          <div class="privacy">
+            <div>
+              <p class="kicker">Free and private</p>
+              <h2 id="private">Your words stay in your browser</h2>
+              <ul class="nos">
+                <li>No account</li>
+                <li>No subscription</li>
+                <li>No ads</li>
+                <li>No analytics</li>
+              </ul>
+            </div>
+            <div>
+              <ul class="flows">
+                <li>
+                  <b>Words you point at</b
+                  ><span
+                    >Sent only to the translator you chose — Google, Bing or
+                    DeepL — to be translated. With DeepL, the subtitle line
+                    around the word is sent too, for context.</span
+                  >
+                </li>
+                <li>
+                  <b>Word list and cache</b
+                  ><span
+                    >Your word list and the translation cache stay in your
+                    browser.</span
+                  >
+                </li>
+                <li>
+                  <b>Settings</b
+                  ><span
+                    >Kept in your browser's storage and synced by your browser
+                    if you use its sync.</span
+                  >
+                </li>
+                <li>
+                  <b>DeepL API key</b
+                  ><span
+                    >Stored only on your device and sent only to DeepL.</span
+                  >
+                </li>
+              </ul>
+              <p class="more">
+                <a href="/privacy/">Read the privacy policy</a> ·
+                <a href="https://github.com/kozii-d/hover-translate"
+                  >Check it in the code</a
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="band" id="faq" aria-labelledby="questions">
+          <p class="kicker">FAQ</p>
+          <h2 id="questions">Questions</h2>
+          <div class="faq">
+            <details>
+              <summary>Is HoverTranslate free?</summary>
+              <div class="a">
+                Yes: free and open source under the MIT License, with no
+                account, no subscription and no ads. Only DeepL needs your own
+                API key; its free plan covers 500,000 characters a month.
+              </div>
+            </details>
+            <details>
+              <summary>How do I translate a phrase?</summary>
+              <div class="a">
+                Hold <kbd>Shift</kbd> and move the pointer across the words, or
+                turn on “Always enable multiple selection” in the settings.
+              </div>
+            </details>
+            <details>
+              <summary>Which languages can it translate?</summary>
+              <div class="a">
+                More than 240 with Google. The subtitle language is detected
+                automatically; you pick the language to translate into.
+              </div>
+            </details>
+            <details>
+              <summary>Does it work on Netflix or other video sites?</summary>
+              <div class="a">
+                No. HoverTranslate works on YouTube: on youtube.com and in
+                YouTube players embedded on other websites. It does not support
+                Netflix, Prime Video, Disney+ or other platforms.
+              </div>
+            </details>
+            <details>
+              <summary>
+                Does it show dual subtitles or translate the whole subtitle
+                line?
+              </summary>
+              <div class="a">
+                No. It translates the word or phrase under your pointer. The
+                original subtitles stay as they are.
+              </div>
+            </details>
+            <details>
+              <summary>
+                Does it work in YouTube videos embedded on other websites?
+              </summary>
+              <div class="a">
+                Yes, except videos embedded in privacy-enhanced mode
+                (youtube-nocookie.com).
+              </div>
+            </details>
+            <details>
+              <summary>
+                Where are my saved words, and can I export them?
+              </summary>
+              <div class="a">
+                In your browser, in the extension's own storage. Open the
+                extension's popup and go to Dictionary to see them; you can
+                export them from there as CSV or JSON.
+              </div>
+            </details>
+            <details>
+              <summary>Do I need a DeepL API key?</summary>
+              <div class="a">
+                Only if you want to use DeepL. Google and Bing work without a
+                key. DeepL's free API plan covers 500,000 characters a month;
+                the key is free to create at
+                <a href="https://www.deepl.com/pro-api">deepl.com/pro-api</a>.
+              </div>
+            </details>
+            <details>
+              <summary>Which browsers are supported?</summary>
+              <div class="a">
+                Chrome, Firefox and Edge on a computer. There is no mobile
+                version.
+              </div>
+            </details>
+            <details>
+              <summary>Are there known limitations?</summary>
+              <div class="a">
+                Videos embedded in “privacy-enhanced mode”
+                (youtube-nocookie.com) are not supported yet.
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="band" aria-labelledby="feedback">
+          <h2 id="feedback" class="kicker">Feedback</h2>
+          <div class="feedback">
+            <div class="panel">
+              <h3>Helps you learn?</h3>
+              <p>
+                A rating in your browser's store helps other learners find
+                HoverTranslate.
+              </p>
+              <div class="stores">
+                <a
+                  class="btn ghost"
+                  href="https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic"
+                  >Rate in Chrome Web Store</a
+                >
+                <a
+                  class="btn ghost"
+                  href="https://addons.mozilla.org/firefox/addon/hovertranslate/"
+                  >Rate on Firefox Add-ons</a
+                >
+                <a
+                  class="btn ghost"
+                  href="https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm"
+                  >Rate on Edge Add-ons</a
+                >
+              </div>
+            </div>
+            <div class="panel">
+              <h3>Found a bug or have an idea?</h3>
+              <p>
+                Open an issue on
+                <a href="https://github.com/kozii-d/hover-translate/issues"
+                  >GitHub</a
+                >, or write to
+                <a href="mailto:hovertranslate@gmail.com"
+                  >hovertranslate@gmail.com</a
+                >.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <nav aria-label="Footer">
+          <a href="https://github.com/kozii-d/hover-translate">GitHub</a>
+          <a
+            href="https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md"
+            >What's new</a
+          >
+          <a href="/privacy/">Privacy</a>
+          <a
+            href="https://github.com/kozii-d/hover-translate/blob/master/LICENSE"
+            >MIT License</a
+          >
+          <a href="mailto:hovertranslate@gmail.com">hovertranslate@gmail.com</a>
+        </nav>
+        <p>Not affiliated with YouTube or Google.</p>
+        <p>
+          Demo videos show the open movies
+          <a href="https://studio.blender.org/films/sprite-fright/"
+            >Sprite Fright</a
+          >
+          (© Blender Studio,
+          <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)
+          and <a href="https://durian.blender.org/">Sintel</a> (© Blender
+          Foundation,
+          <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>).
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

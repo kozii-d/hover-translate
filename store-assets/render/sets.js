@@ -1,3 +1,5 @@
+const path = require("node:path");
+
 // What each listing language shows. A set's captions are in the language its
 // viewers learn: English for everyone but the English listing, which shows
 // Spanish; the shot of words in a script without spaces shows Japanese, and
@@ -93,7 +95,10 @@ const SHOT_ORDER = ["word", "phrase", "context", "dictionary", "unspaced", "auto
 const SHOWN_EVERYWHERE = ["word", "phrase", "context", "dictionary"];
 const UNSPACED_FIRST = ["en", "ko", "zh_CN", "zh_TW"];
 
-// The site's videos, docs/media/<name>.mp4, .webm and .webp (the site links
+// Where the site's media go: site/ is what GitHub Pages publishes (in git).
+const SITE_MEDIA = path.resolve(__dirname, "../../site/media");
+
+// The site's videos, site/media/<name>.mp4, .webm and .webp (the site links
 // them by these names), made of the scenes of the en set's promo video; the
 // popup's part opens over the dictionary scene, as in docs/dictionary.gif.
 const SITE_VIDEOS = {
@@ -118,4 +123,4 @@ function scene(setName, shotName) {
   return Array.isArray(shot) ? { scenes: shot, captions } : { ...shot, captions };
 }
 
-module.exports = { SETS, SHOTS, SHOT_ORDER, SITE_VIDEOS, scene, storeShots };
+module.exports = { SETS, SHOTS, SHOT_ORDER, SITE_VIDEOS, SITE_MEDIA, scene, storeShots };

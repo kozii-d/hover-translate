@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Privacy policy — HoverTranslate</title>
+    <meta
+      name="description"
+      content="What the HoverTranslate extension sends, what it keeps in your browser, and why it asks for each permission. No account, no analytics, no ads."
+    />
+    <link rel="canonical" href="https://hovertranslate.app/privacy/" />
+    <link rel="icon" href="/logo-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/logo-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="/theme.js"></script>
+    <meta property="og:title" content="Privacy policy — HoverTranslate" />
+    <meta
+      property="og:description"
+      content="What the HoverTranslate extension sends, what it keeps in your browser, and why it asks for each permission. No account, no analytics, no ads."
+    />
+    <meta property="og:url" content="https://hovertranslate.app/privacy/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HoverTranslate" />
+    <meta
+      property="og:image"
+      content="https://hovertranslate.app/media/og.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A word in Spanish YouTube subtitles with its English translation above it"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #faf8f6;
+        --ink: #1a1a1a;
+        --muted: #5f5a56;
+        --line: #e6e0da;
+        --link: #c4160a;
+        --sans:
+          system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif;
+      }
+      /* Dark: the system's unless the viewer picked light, or the viewer's pick */
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #141414;
+          --ink: #f4f2f0;
+          --muted: #a8a29e;
+          --line: #2e2b29;
+          --link: #ff6b5e;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #141414;
+        --ink: #f4f2f0;
+        --muted: #a8a29e;
+        --line: #2e2b29;
+        --link: #ff6b5e;
+        color-scheme: dark;
+      }
+      :root[data-theme="light"] {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      /* The theme button (theme.js), the popup's icons: a moon offers the dark theme, a sun the light one */
+      .theme-toggle {
+        display: inline-grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .theme-toggle[hidden] {
+        display: none;
+      }
+      .theme-toggle:hover {
+        color: var(--ink);
+      }
+      .theme-toggle:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+      }
+      .theme-toggle svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+      .theme-toggle .sun {
+        display: none;
+      }
+      :root[data-theme="dark"] .theme-toggle .sun {
+        display: block;
+      }
+      :root[data-theme="dark"] .theme-toggle .moon {
+        display: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .theme-toggle .sun {
+          display: block;
+        }
+        :root:not([data-theme="light"]) .theme-toggle .moon {
+          display: none;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 17px/1.65 var(--sans);
+        padding-inline: max(16px, env(safe-area-inset-left))
+          max(16px, env(safe-area-inset-right));
+      }
+      .wrap {
+        max-width: 760px;
+        margin-inline: auto;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: 3px;
+        overflow-wrap: anywhere;
+      }
+      a:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-block: 18px;
+        white-space: nowrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .brand img {
+        width: 32px;
+        height: 32px;
+      }
+      header nav a,
+      footer a {
+        color: var(--muted);
+      }
+      header nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      main {
+        padding-block: 24px 56px;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      h2 {
+        font-size: 1.3rem;
+        line-height: 1.25;
+        margin: 40px 0 8px;
+      }
+      .effective {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+      .summary {
+        margin-top: 24px;
+        font-size: 1.1rem;
+      }
+      ul {
+        padding-left: 1.2em;
+      }
+      li + li {
+        margin-top: 6px;
+      }
+      code {
+        font:
+          0.9em ui-monospace,
+          "SF Mono",
+          Menlo,
+          Consolas,
+          monospace;
+        overflow-wrap: anywhere;
+      }
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        padding-block: 32px 48px;
+        border-top: 1px solid var(--line);
+        font-size: 14px;
+        color: var(--muted);
+      }
+      /* On a narrow screen (320 px is also 400 % zoom) the GitHub link is its icon (the popup's), the
+     word stays for screen readers, and the gaps shrink: the header then fits even beside a
+     classic scrollbar */
+      .github svg {
+        display: none;
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+      @media (max-width: 400px) {
+        header,
+        header nav {
+          gap: 8px;
+        }
+        .github {
+          display: inline-grid;
+          place-items: center;
+          width: 40px;
+          height: 40px;
+        }
+        .github svg {
+          display: block;
+        }
+        .github span {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          clip-path: inset(50%);
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="/"
+          ><img
+            src="/apple-touch-icon.png"
+            alt=""
+            width="32"
+            height="32"
+          />HoverTranslate</a
+        >
+        <nav aria-label="Main">
+          <a class="github" href="https://github.com/kozii-d/hover-translate"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
+              /></svg
+            ><span>GitHub</span></a
+          >
+          <button
+            type="button"
+            class="theme-toggle"
+            hidden
+            aria-label="Switch theme"
+          >
+            <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1"
+              /></svg
+            ><svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"
+              />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <h1>Privacy policy</h1>
+        <p class="effective">Effective October 18, 2026</p>
+        <p class="summary">
+          HoverTranslate is a browser extension that translates words in YouTube
+          subtitles. It sends the words you point at to the translator you chose
+          and keeps everything else in your browser. There is no account, no
+          analytics and no ads, and nothing is sent to us, the developers.
+        </p>
+
+        <section aria-labelledby="sent">
+          <h2 id="sent">What leaves your browser, and where it goes</h2>
+          <p>
+            When you point at a word or select a phrase in the subtitles, the
+            extension sends that text to the translator you picked in its
+            settings, and only to it:
+          </p>
+          <ul>
+            <li>
+              <b>Google</b>, the default: <code>translate.googleapis.com</code>.
+              <a href="https://policies.google.com/privacy"
+                >Google Privacy Policy</a
+              >.
+            </li>
+            <li>
+              <b>Bing</b>: <code>www.bing.com</code>. Before the first
+              translation the extension loads Bing's translator page there for
+              the short-lived token its translations need; the list of languages
+              comes from <code>api.cognitive.microsofttranslator.com</code>.
+              <a href="https://www.microsoft.com/privacy/privacystatement"
+                >Microsoft Privacy Statement</a
+              >.
+            </li>
+            <li>
+              <b>DeepL</b>: <code>api-free.deepl.com</code> or
+              <code>api.deepl.com</code>, with your own DeepL API key. So that a
+              word gets the meaning it has in its line, the text of the subtitle
+              lines around your selection is sent too, as context.
+              <a href="https://www.deepl.com/privacy">DeepL Privacy Policy</a>.
+            </li>
+          </ul>
+          <p>
+            Along with the text go the languages to translate from and into and,
+            for DeepL, your key. Like any web request, these requests also show
+            the translator your IP address; what each translator does with them
+            is set by its own privacy policy.
+          </p>
+          <p>
+            Nothing else is sent anywhere: not the videos you watch, not the
+            pages you visit, not your word list.
+          </p>
+        </section>
+
+        <section aria-labelledby="kept">
+          <h2 id="kept">What is kept, and where</h2>
+          <ul>
+            <li>
+              <b>Your word list</b> — each saved word or phrase with its
+              translation, the languages, the translator and when you saved it —
+              and the <b>translation cache</b> (the last 5,000 translations, so
+              that the same word is not sent again) and the last list of
+              languages DeepL offered are kept in the browser's local storage
+              for extensions, on this device only.
+            </li>
+            <li>
+              <b>A DeepL API key</b> is kept in the same local storage, on this
+              device only, and sent only to DeepL. While the browser asks you to
+              allow access to DeepL, the key you typed is held in the browser's
+              session storage, which is cleared when the browser closes.
+            </li>
+            <li>
+              <b>Your settings</b> — the translator, the languages, the look of
+              the translation, the popup's theme — and small notes such as when
+              the extension was installed or updated, whether you closed a tip
+              and whether you answered the request for a rating, are kept in the
+              browser's sync storage. Your browser syncs them between your
+              devices if you use its sync, as it does with its own settings.
+            </li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="not">
+          <h2 id="not">What there is not</h2>
+          <p>
+            No account and no sign-in, no analytics or tracking, no ads, and no
+            server of ours: the extension never sends anything to its
+            developers. All of this can be checked in the
+            <a href="https://github.com/kozii-d/hover-translate">source code</a
+            >, published under the MIT License.
+          </p>
+        </section>
+
+        <section aria-labelledby="permissions">
+          <h2 id="permissions">Permissions, and why each one</h2>
+          <ul>
+            <li>
+              <b>Storage</b> — to keep the word list, the cache, the settings
+              and a DeepL key, as described above.
+            </li>
+            <li>
+              <b>Access to youtube.com</b> — to find the subtitles in YouTube's
+              player, show the translation over them and pause the video while
+              you read. It also covers YouTube players embedded on other
+              websites, which are youtube.com pages themselves.
+            </li>
+            <li>
+              <b>Access to www.bing.com</b> — optional, asked for when you pick
+              Bing.
+            </li>
+            <li>
+              <b>Access to api-free.deepl.com and api.deepl.com</b> — optional,
+              asked for when you connect a DeepL key.
+            </li>
+          </ul>
+          <p>
+            The optional ones can be withdrawn at any time on your browser's
+            page for the extension.
+          </p>
+        </section>
+
+        <section aria-labelledby="rating">
+          <h2 id="rating">The request for a rating</h2>
+          <p>
+            After you have used the extension for a while, it may ask you to
+            rate it. “Rate” opens the page of the store you installed it from —
+            Chrome Web Store, Firefox Add-ons or Edge Add-ons — in a new tab.
+            That is an ordinary visit to the store; the extension sends it
+            nothing.
+          </p>
+        </section>
+
+        <section aria-labelledby="delete">
+          <h2 id="delete">Deleting your data</h2>
+          <p>
+            Delete saved words on the Dictionary page of the extension's popup,
+            one at a time or all at once. A DeepL key can be removed in the
+            settings. Removing the extension deletes everything it kept in the
+            browser's local storage: the word list, the cache and the key.
+          </p>
+        </section>
+
+        <section aria-labelledby="site">
+          <h2 id="site">This website</h2>
+          <p>
+            hovertranslate.app sets no cookies and runs no analytics or
+            third-party scripts; everything on it is loaded from the site
+            itself. It is hosted on GitHub Pages, which
+            <a
+              href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+              >logs visitors' IP addresses</a
+            >
+            for security purposes. Search engines show us only total numbers of
+            how often the site appeared in their results and was clicked.
+          </p>
+        </section>
+
+        <section aria-labelledby="contact">
+          <h2 id="contact">Contact</h2>
+          <p>
+            Questions about this policy:
+            <a href="mailto:hovertranslate@gmail.com"
+              >hovertranslate@gmail.com</a
+            >, or an issue on
+            <a href="https://github.com/kozii-d/hover-translate/issues"
+              >GitHub</a
+            >. If this policy changes, the new version is published on this page
+            with a new date.
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <a href="/">HoverTranslate</a>
+        <a
+          href="https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md"
+          >What's new</a
+        >
+        <a href="https://github.com/kozii-d/hover-translate/blob/master/LICENSE"
+          >MIT License</a
+        >
+        <span>Not affiliated with YouTube or Google.</span>
+      </footer>
+    </div>
+  </body>
+</html>

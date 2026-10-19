@@ -1,6 +1,8 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { SETS, SHOTS, SHOT_ORDER, SITE_VIDEOS, scene, storeShots } = require("./sets.js");
+const fs = require("node:fs");
+const path = require("node:path");
+const { SETS, SHOTS, SHOT_ORDER, SITE_VIDEOS, SITE_MEDIA, scene, storeShots } = require("./sets.js");
 const { HEADLINES, NOTES, AUTOPAUSE_NOTES, AMO_CAPTIONS, CREDITS } = require("./strings.js");
 const { withAccent, PROMOS } = require("./compose.js");
 
@@ -96,4 +98,17 @@ test("the site gets its four videos under the names its page links, each from sc
     context: ["context"],
     unspaced: ["unspaced"],
   });
+});
+
+test("the site's media go where the site is published from, and its home page links every one", () => {
+  const root = path.resolve(__dirname, "../..");
+  assert.equal(path.relative(root, SITE_MEDIA), path.join("site", "media"));
+  const home = fs.readFileSync(path.join(root, "site", "index.html"), "utf8");
+  for (const name of Object.keys(SITE_VIDEOS)) {
+    for (const file of [`${name}.webm`, `${name}.mp4`, `${name}.webp`]) {
+      assert.ok(home.includes(`/media/${file}`), `site/index.html does not link /media/${file}`);
+      assert.ok(fs.existsSync(path.join(SITE_MEDIA, file)), `${file} is not in ${SITE_MEDIA}`);
+    }
+  }
+  assert.ok(fs.existsSync(path.join(SITE_MEDIA, "og.jpg")));
 });

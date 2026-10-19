@@ -1,7 +1,7 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const { execFileSync } = require("node:child_process");
-const { SETS, SITE_VIDEOS, scene } = require("./sets.js");
+const { SETS, SITE_VIDEOS, SITE_MEDIA, scene } = require("./sets.js");
 const { HEADLINES, NOTES, VIDEO_LINES, CREDITS } = require("./strings.js");
 const youtube = require("./youtube.js");
 const { openComposer, composeVideoStill } = require("./compose.js");
@@ -20,11 +20,11 @@ const { openComposer, composeVideoStill } = require("./compose.js");
 //   capture/video/en/<scene>/frames/*.jpg, frames.json    a scene as recorded
 //   capture/video/en/<scene>.png, <scene>.mp4             its still and its part
 //   capture/video/en/loop/<scene>.mp4                     its part without fades
-// and into docs/ (in git) what the README and the site show, the player alone:
-//   translate.gif, dictionary.gif     the README's GIFs, 800 px wide: a word and
-//                                     a phrase; saving and the word list
-//   media/<name>.mp4, .webm, .webp    the site's videos (SITE_VIDEOS in sets.js),
-//                                     960 px wide, and their posters
+// and, in git, what the README and the site show, the player alone:
+//   docs/translate.gif, dictionary.gif   the README's GIFs, 800 px wide: a word
+//                                        and a phrase; saving and the word list
+//   site/media/<name>.mp4, .webm, .webp  the site's videos (SITE_VIDEOS in
+//                                        sets.js), 960 px wide, and their posters
 
 const ROOT = path.resolve(__dirname, "../..");
 const SET = "en";
@@ -39,7 +39,7 @@ const GIF_FPS = 20;
 // The site's videos play in a loop: their parts are put together again
 // without fades, which would flash where a video starts over.
 const LOOP = path.join(OUT, "loop");
-const SITE = path.join(ROOT, "docs/media");
+const SITE = SITE_MEDIA;
 const SITE_FPS = 30;
 const SITE_WIDTH = 960;
 

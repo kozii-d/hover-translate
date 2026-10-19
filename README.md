@@ -10,6 +10,8 @@ HoverTranslate is a free, open-source browser extension for Chrome, Firefox and 
 
 **Install:** [Chrome Web Store](https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic) · [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/hovertranslate/) · [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm)
 
+**Website:** [hovertranslate.app](https://hovertranslate.app/)
+
 ![Hovering over a word in YouTube subtitles shows its translation, and holding Shift translates a phrase](docs/translate.gif)
 
 ## Why HoverTranslate
@@ -40,7 +42,7 @@ HoverTranslate is free: no account, no subscription, no ads, no analytics.
 - Your settings are kept in your browser's storage and synced by your browser if you use its sync.
 - A DeepL API key is stored only on your device.
 
-The whole extension is open source under the [MIT License](LICENSE), so you can check all of this in the code.
+The whole extension is open source under the [MIT License](LICENSE), so you can check all of this in the code. The details are in the [privacy policy](https://hovertranslate.app/privacy/).
 
 ## FAQ
 
@@ -92,7 +94,7 @@ npm run verify       # lint, types, tests, store listing limits, versions
 npm run test:e2e     # the extension in Playwright's Chromium on local copies of YouTube's player (run npm run build first)
 ```
 
-The store screenshots, promo images and video, the GIFs in this README, and the website's videos and link preview (`docs/media/`) are made by `npm run render:store` and `npm run render:video` (`store-assets/render/`): the built extension on live YouTube, translated by DeepL (a key in `.env`).
+The store screenshots, promo images and video, the GIFs in this README, and the website's videos and link preview (`site/media/`) are made by `npm run render:store` and `npm run render:video` (`store-assets/render/`): the built extension on live YouTube, translated by DeepL (a key in `.env`).
 
 `npm ci` in the root also installs the git hooks: a commit is checked in a few seconds (ESLint on the changed files, locale JSON, listing limits, versions), a push runs `npm run verify`. GitHub Actions runs the same on every push and pull request, plus the store packages, `web-ext lint` and the end-to-end tests.
 

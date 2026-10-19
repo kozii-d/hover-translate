@@ -1,6 +1,6 @@
 const path = require("node:path");
 const fs = require("node:fs");
-const { SETS, SHOTS, SHOT_ORDER, scene, storeShots } = require("./sets.js");
+const { SETS, SHOTS, SHOT_ORDER, SITE_MEDIA, scene, storeShots } = require("./sets.js");
 const { HEADLINES, NOTES, AUTOPAUSE_NOTES, AMO_CAPTIONS, CREDITS } = require("./strings.js");
 const { PALETTES } = require("./palettes.js");
 const youtube = require("./youtube.js");
@@ -22,7 +22,7 @@ const { openComposer, composeScreenshot, composePromo } = require("./compose.js"
 //   promo/<set>/tile.png, marquee.png      the small promo tile, 440×280, and the marquee, 1400×560
 //                                          (Chrome takes one of each for every language: en's)
 //   capture/<set>/                         the frames from the player and the popup, for --compose-only
-// and the site's link preview, cut as the marquee, into docs/ (in git):
+// and the site's link preview, cut as the marquee, into site/ (in git):
 //   media/og.jpg                           1200×630, English only, as the site
 
 const ROOT = path.resolve(__dirname, "../..");
@@ -180,7 +180,7 @@ async function composePromos(page, setName) {
   for (const kind of ["tile", "marquee"]) {
     await composePromo(page, { ...options, kind, focus: PROMO_FOCUS, out: path.join(OUT, "promo", setName, `${kind}.png`) });
   }
-  if (setName === SITE_SET) await composePromo(page, { ...options, kind: "og", focus: OG_FOCUS, out: path.join(ROOT, "docs/media/og.jpg") });
+  if (setName === SITE_SET) await composePromo(page, { ...options, kind: "og", focus: OG_FOCUS, out: path.join(SITE_MEDIA, "og.jpg") });
 }
 
 async function compose(page, setName, shotName) {

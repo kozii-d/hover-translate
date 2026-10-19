@@ -21,10 +21,11 @@ function createSourceArchive() {
     // Only what git tracks, so nothing untracked or ignored reaches the reviewers. The files are
     // taken from the working tree, not HEAD: a release builds before it is committed, and the
     // archive has to match that build (the new version is not committed yet). Left out as not
-    // needed for the build: the README's GIFs, the store listing material and the agents' files.
+    // needed for the build: the website, the README's GIFs, the store listing material and the
+    // agents' files.
     const gitFiles = (options) =>
       execSync(
-        `git ls-files -z ${options} -- ':(exclude)docs' ':(exclude)store-assets' ':(exclude).claude' ':(exclude)CLAUDE.md'`,
+        `git ls-files -z ${options} -- ':(exclude)docs' ':(exclude)site' ':(exclude)store-assets' ':(exclude).claude' ':(exclude)CLAUDE.md'`,
         { encoding: "utf8" },
       )
         .split("\0")
