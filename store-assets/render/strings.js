@@ -96,8 +96,8 @@ const AUTOPAUSE_NOTES = {
 
 // AMO's caption under each screenshot, which there carries no headline: a
 // sentence that says what the shot shows, in the words of the store
-// description. AMO takes up to 280 characters. Pasted by hand from
-// amo/captions.txt.
+// description. AMO takes up to 280 characters. Sent with the screenshots by
+// `npm run update:amo -- --screenshots`.
 const AMO_CAPTIONS = {
   word: {
     en: "Hover over a word in YouTube subtitles, and its translation appears right above it.",

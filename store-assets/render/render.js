@@ -1,7 +1,7 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const { SETS, SHOTS, SHOT_ORDER, SITE_MEDIA, scene, storeShots } = require("./sets.js");
-const { HEADLINES, NOTES, AUTOPAUSE_NOTES, AMO_CAPTIONS, CREDITS } = require("./strings.js");
+const { HEADLINES, NOTES, AUTOPAUSE_NOTES, CREDITS } = require("./strings.js");
 const { PALETTES } = require("./palettes.js");
 const youtube = require("./youtube.js");
 const { withRetries, deeplKey } = youtube;
@@ -18,7 +18,8 @@ const { openComposer, composeScreenshot, composePromo } = require("./compose.js"
 // its own. Writes to store-assets/out/ (not in git), a folder per store:
 //   chrome/<set>/<palette>/<n>-<shot>.png  Chrome's five, numbered in the order of upload
 //   edge/<set>/<palette>/<n>-<shot>.png    Edge's six
-//   amo/<n>-<shot>.png, amo/captions.txt   AMO's seven (one set, English) and their captions by listing language
+//   amo/<n>-<shot>.png                     AMO's seven (one set, English), uploaded with their captions
+//                                          by `npm run update:amo -- --screenshots`
 //   promo/<set>/tile.png, marquee.png      the small promo tile, 440×280, and the marquee, 1400×560
 //                                          (Chrome takes one of each for every language: en's)
 //   capture/<set>/                         the frames from the player and the popup, for --compose-only
@@ -159,13 +160,6 @@ async function composeForStores(page, setName, palette, shotName, options) {
   }
 }
 
-/** AMO's caption of each screenshot in every listing language, to paste by hand. */
-function writeAmoCaptions() {
-  const sections = Object.keys(SETS).map((setName) => [`[${setName}]`, ...SHOT_ORDER.map((shotName) => `${composedName(shotName)}: ${AMO_CAPTIONS[shotName][setName]}`)].join("\n"));
-  fs.mkdirSync(path.join(OUT, "amo"), { recursive: true });
-  fs.writeFileSync(path.join(OUT, "amo", "captions.txt"), `${sections.join("\n\n")}\n`);
-}
-
 // The promo images are cut from the word shot around its tooltip, the girl's
 // face above it kept.
 const PROMO_FOCUS = [0.445, 0.6];
@@ -231,7 +225,6 @@ async function compose(page, setName, shotName) {
       for (const shot of shots) await compose(composer.page, set, shot);
       if (shots.includes("word")) await composePromos(composer.page, set);
     }
-    if (sets.includes(AMO_SET)) writeAmoCaptions();
   } finally {
     await composer.close();
   }

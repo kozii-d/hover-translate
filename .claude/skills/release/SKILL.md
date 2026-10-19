@@ -53,7 +53,7 @@ List every archive in `releases/$0/` (`unzip -l`):
 In Russian:
 
 1. **Manual check** in a browser with the store-installed extension, after updating to the new package: one video with manual captions and one with auto-generated ones — hover, a Shift phrase, a click, «Translation saved», the dictionary in the popup. It is the only check of an update over a real store install.
-2. **What goes where:** Chrome Web Store — `releases/$0/<chrome zip>`; Edge Add-ons — the Edge zip; AMO — the `.xpi` plus the source archive. If the listing changed: `npm run update:amo` (the user runs it — agents may not).
+2. **What goes where:** Chrome Web Store — `releases/$0/<chrome zip>`; Edge Add-ons — the Edge zip; AMO — the `.xpi` plus the source archive. If the listing changed: `npm run update:amo`; if the screenshots were made again: `npm run update:amo -- --screenshots` (the user runs both — agents may not).
 3. **A commit message** for the version and the changelog date, in the style of `git log` (English, imperative).
 4. After the stores publish it: the dates go into «Сейчас» in `work/backlog.md`.
 
