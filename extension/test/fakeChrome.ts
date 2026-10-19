@@ -69,6 +69,8 @@ export interface FakeChromeOptions {
    * `failingWrites`, the writes work again.
    */
   failingWrites?: Partial<FailingKeys>;
+  /** `true`: `runtime.setUninstallURL` rejects, as a browser may for any reason. */
+  refuseUninstallURL?: boolean;
 }
 
 export interface FakeChrome {
@@ -81,6 +83,8 @@ export interface FakeChrome {
   createdTabs: { url?: string; sync: Items }[];
   /** The origins of every `permissions.request` that reached a prompt. */
   permissionPrompts: string[][];
+  /** Every address `runtime.setUninstallURL` accepted, in order. */
+  uninstallURLs: string[];
   /** The keys whose reads fail, per area; empty a list to make them work again. */
   failingReads: FailingKeys;
   /** The keys whose writes fail, per area; empty a list to make them work again. */
@@ -252,6 +256,7 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
   const installedListeners: InstalledListener[] = [];
   const createdTabs: FakeChrome["createdTabs"] = [];
   const permissionPrompts: string[][] = [];
+  const uninstallURLs: string[] = [];
   const id = options.id ?? CHROME_WEB_STORE_ID;
   const scheme = options.scheme ?? "chrome-extension";
   const uiLanguage = options.uiLanguage ?? "en-US";
@@ -294,6 +299,12 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     sendMessage,
     onMessage: addRemove(messageListeners),
     onInstalled: addRemove(installedListeners),
+    // Chrome before 115 and Firefox before 116 take at most 255 characters; both only http(s), or "" for none.
+    setUninstallURL: async (url: string) => {
+      if (options.refuseUninstallURL) throw new Error("The browser refused the uninstall URL.");
+      if (url.length > 255 || (url !== "" && !/^https?:\/\//.test(url))) throw new Error(`Invalid URL: "${url}".`);
+      uninstallURLs.push(url);
+    },
   };
   const area = (name: AreaName) => createStorageArea(name, storage[name], changeListeners, failingReads, failingWrites, runtime);
 
@@ -339,6 +350,7 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     grantedOrigins,
     createdTabs,
     permissionPrompts,
+    uninstallURLs,
     failingReads,
     failingWrites,
     fireInstalled: (details) => installedListeners.forEach((listener) => listener(details)),

@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - The request to rate HoverTranslate on the video now comes back a month after "Not now", as the one in the settings does, and putting off either of them puts off the other too.
 
+### Added
+
+- After you remove HoverTranslate, a short page asks what didn't work — one optional question.
+
 ### Fixed
 
 - A word at the end of a subtitle line, or a phrase ending with "?" or "!", is translated and saved to the dictionary without the punctuation around it, which often changed the translation.

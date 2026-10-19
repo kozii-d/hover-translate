@@ -208,3 +208,99 @@ test("store links in JSON-LD unlike the README's, in a list or deeper in the dat
 test("og:image is the image's absolute address on the site", () => {
   assert.deepEqual(rules(index(`content="https://hovertranslate.app/media/og.jpg"`, `content="/media/og.jpg"`)), ["og"]);
 });
+
+// --- The page after the extension is removed: a form that sends to Web3Forms ---
+
+const FORM_CSP = CSP.replace("form-action 'none'", "form-action 'self' https://api.web3forms.com");
+const NOINDEX = `<meta name="robots" content="noindex">`;
+const form = ({ action = "https://api.web3forms.com/submit", redirect = "https://hovertranslate.app/uninstall/thanks/" } = {}) =>
+  `<form method="post" action="${action}"><input type="hidden" name="access_key" value="k"><input type="hidden" name="redirect" value="${redirect}"><label><input type="radio" name="reason" value="A" required> A</label><button>Send</button></form>`;
+// The site with /uninstall/ (noindex, the form and its policy) and /uninstall/thanks/; `change` as for site()
+const uninstallSite = (change = {}) => {
+  const pages = {
+    "site/uninstall/index.html": page({ url: "/uninstall/", head: NOINDEX, body: form() }).replace(CSP, FORM_CSP),
+    "site/uninstall/thanks/index.html": page({ url: "/uninstall/thanks/", head: NOINDEX, body: `<a href="/">Home</a>` }),
+  };
+  for (const [file, value] of Object.entries(change)) {
+    if (file in pages) pages[file] = typeof value === "function" ? value(pages[file]) : value;
+  }
+  return site({ ...change, ...pages });
+};
+const uninstall = (from, to) => uninstallSite({ "site/uninstall/index.html": edit(from, to) });
+
+test("the uninstall form: sending to Web3Forms from a page with noindex and the policy that lets it", () => {
+  assert.deepEqual(checkSite(uninstallSite()), []);
+});
+
+test("the uninstall form on a page search engines index, or sending anywhere else: refused", () => {
+  // On the home page, with the policy that lets it
+  const indexed = index("</body>", `${form({ redirect: "https://hovertranslate.app/" })}</body>`);
+  const html = fs.readFileSync(path.join(indexed, "site/index.html"), "utf8");
+  fs.writeFileSync(path.join(indexed, "site/index.html"), html.replace(CSP, FORM_CSP));
+  assert.deepEqual(rules(indexed), ["form"]);
+  assert.deepEqual(rules(uninstall("https://api.web3forms.com/submit", "https://example.com/submit")), ["form"]);
+  assert.deepEqual(rules(uninstall("https://api.web3forms.com/submit", "https://api.web3forms.com/other")), ["form"]);
+  assert.deepEqual(rules(uninstall("https://api.web3forms.com/submit", "/submit")), ["form"]);
+});
+
+test("the form's policy only with the form, and the form only with its policy", () => {
+  // The looser policy on a noindex page without a form
+  assert.deepEqual(rules(uninstallSite({ "site/uninstall/thanks/index.html": (html) => html.replace(CSP, FORM_CSP) })), ["csp"]);
+  // The form under the site's policy, which would block it
+  assert.deepEqual(rules(uninstall(FORM_CSP, CSP)), ["csp"]);
+});
+
+test("the uninstall form: its redirect leads to a page of the site that is there", () => {
+  const broken = (redirect) => checkSite(uninstall("https://hovertranslate.app/uninstall/thanks/", redirect)).map(({ rule, url }) => [rule, url]);
+  assert.deepEqual(broken("https://hovertranslate.app/uninstall/thank-you/"), [["link", "https://hovertranslate.app/uninstall/thank-you/"]]);
+  assert.deepEqual(broken("https://example.com/thanks/"), [["form", "https://example.com/thanks/"]]);
+});
+
+test("the uninstall pages, noindex, in sitemap.xml: refused", () => {
+  const listed = uninstallSite({ "site/sitemap.xml": edit("</urlset>", "<url><loc>https://hovertranslate.app/uninstall/</loc></url></urlset>") });
+  assert.deepEqual(rules(listed), ["sitemap"]);
+});
+
+// --- The strings of the uninstall pages in the extension's languages (site/uninstall.js) ---
+
+const { STRINGS, pickLocale } = require("../site/uninstall.js");
+const LOCALES = fs.readdirSync(path.join(__dirname, "..", "_locales")).sort();
+const UNINSTALL_PAGES = ["uninstall/index.html", "uninstall/thanks/index.html"]
+  .map((file) => fs.readFileSync(path.join(__dirname, "..", "site", file), "utf8"));
+// The English text of every element a page marks with data-i18n, as { key: text }
+const markedText = (html) => Object.fromEntries([...html.matchAll(/<(\w+)\b[^>]*\bdata-i18n="([^"]+)"[^>]*>([^<]*)<\/\1\s*>/g)]
+  .map(([, , key, text]) => [key, text.replace(/\s+/g, " ").trim().replace(/&#39;/g, "'").replace(/&amp;/g, "&")]));
+
+test("uninstall.js has every string in each of the extension's languages, and no other language", () => {
+  assert.equal(LOCALES.length, 24);
+  assert.deepEqual(Object.keys(STRINGS).sort(), LOCALES);
+  const keys = Object.keys(STRINGS.en).sort();
+  for (const locale of LOCALES) {
+    assert.deepEqual(Object.keys(STRINGS[locale]).sort(), keys, locale);
+    for (const key of keys) assert.ok(typeof STRINGS[locale][key] === "string" && STRINGS[locale][key].trim(), `${locale}.${key} is empty`);
+  }
+});
+
+test("the uninstall pages mark only keys of the table, all of them, with its English text", () => {
+  const marked = Object.assign({}, ...UNINSTALL_PAGES.map(markedText));
+  assert.deepEqual(Object.keys(marked).sort(), Object.keys(STRINGS.en).sort());
+  for (const [key, text] of Object.entries(marked)) assert.equal(text, STRINGS.en[key], key);
+});
+
+test("the language of the uninstall pages: the first of the browser's that matches, exactly or without the region", () => {
+  assert.equal(pickLocale(["ja-JP", "en-US"]), "ja");
+  assert.equal(pickLocale(["xx", "de-AT"]), "de");
+  assert.equal(pickLocale(["en-GB", "ru"]), "en");
+  assert.equal(pickLocale(["pt-BR"]), "pt_BR");
+  assert.equal(pickLocale(["pt-PT"]), "pt_PT");
+  assert.equal(pickLocale(["zh-TW"]), "zh_TW");
+  assert.equal(pickLocale(["zh-CN"]), "zh_CN");
+  // As in the popup (popup/src/app/config/i18n.ts): no locale is pt or zh alone
+  assert.equal(pickLocale(["pt"]), "pt_BR");
+  assert.equal(pickLocale(["zh"]), "zh_CN");
+  assert.equal(pickLocale(["zh-HK"]), "zh_TW");
+  assert.equal(pickLocale(["zh-Hant-HK"]), "zh_TW");
+  assert.equal(pickLocale(["es-419"]), "es");
+  assert.equal(pickLocale(["xx", "yy-ZZ"]), "en");
+  assert.equal(pickLocale([]), "en");
+});

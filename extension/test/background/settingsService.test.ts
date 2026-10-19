@@ -88,3 +88,37 @@ describe("SettingsService: update", () => {
     expect(fake.storage.sync.tooltipTheme).toEqual(defaultTooltipTheme);
   });
 });
+
+describe("SettingsService: the page opened after the extension is removed", () => {
+  it("every start of the worker sets it, the same address and nothing in it, whatever the start", async () => {
+    const fake = installFakeChrome();
+    new SettingsService();
+    expect(fake.uninstallURLs).toEqual(["https://hovertranslate.app/uninstall/"]);
+
+    // Not tied to onInstalled: an install or an update starts the worker once, and it is set once.
+    for (const reason of ["install", "update"] as const) {
+      const { fake } = await startBrowser(reason);
+      expect(fake.uninstallURLs).toEqual(["https://hovertranslate.app/uninstall/"]);
+    }
+  });
+
+  it("the browser refusing it is logged, and the worker goes on: no unhandled rejection, the install still runs", async () => {
+    const unhandled: unknown[] = [];
+    const onUnhandled = (reason: unknown) => unhandled.push(reason);
+    process.on("unhandledRejection", onUnhandled);
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const { fake } = await startBrowser("install", { refuseUninstallURL: true });
+
+      expect(fake.uninstallURLs).toEqual([]);
+      expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "en" });
+      expect(consoleError).toHaveBeenCalledWith("Failed to set the page opened on uninstall:", expect.any(Error));
+      // A rejection nobody handles is reported after the microtasks of its turn.
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      expect(unhandled).toEqual([]);
+    } finally {
+      process.off("unhandledRejection", onUnhandled);
+      consoleError.mockRestore();
+    }
+  });
+});

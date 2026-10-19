@@ -11,6 +11,8 @@ const path = require("node:path");
 //   catches it before it is published; links (<a>) may go anywhere;
 // - no script written into a page (the CSP would block it), JSON-LD that parses;
 // - internal links and files that exist, and anchors that do;
+// - a form only on a page with noindex (the page after the extension is
+//   removed), sending only to Web3Forms, under the policy that lets it;
 // - robots.txt pointing at the sitemap, the weight of pages and media, and the
 //   store links the same as the README's.
 // HTML is read with regular expressions: the pages are written by hand, in the
@@ -20,6 +22,11 @@ const ORIGIN = "https://hovertranslate.app";
 
 // Every page carries it as a <meta>: GitHub Pages sends no headers of its own.
 const CSP = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'";
+
+// A page with a form sends it to Web3Forms, which then sends the browser back to
+// the site: Chrome checks form-action on that redirect too, hence 'self'.
+const WEB3FORMS = "https://api.web3forms.com/submit";
+const FORM_CSP = CSP.replace("form-action 'none'", `form-action 'self' ${new URL(WEB3FORMS).origin}`);
 
 const OG_PROPERTIES = [
   "og:title", "og:description", "og:url", "og:type", "og:site_name",
@@ -69,6 +76,7 @@ function parsePage(html) {
 const cssUrls = (css) => [...css.matchAll(/url\(\s*(["']?)([^"')]*)\1\s*\)/g)].map((match) => match[2]);
 
 const meta = (page, key, name) => page.tags.find((tag) => tag.name === "meta" && tag.attributes[key]?.toLowerCase() === name)?.attributes.content;
+const isNoindex = (page) => /\bnoindex\b/i.test(meta(page, "name", "robots") ?? "");
 const hasRel = (tag, rel) => (tag.attributes.rel ?? "").toLowerCase().split(/\s+/).includes(rel);
 
 // Everything the page loads or has loaded (og:image), as { value, meta }; meta: from <meta content>
@@ -118,7 +126,14 @@ function checkPage(siteDir, file, page, pages, errors) {
   if (!meta(page, "name", "description")?.trim()) error("description", "has no <meta name=\"description\">");
   const h1 = page.tags.filter((tag) => tag.name === "h1").length;
   if (h1 !== 1) error("h1", `has ${h1} <h1>, one expected`);
-  if (meta(page, "http-equiv", "content-security-policy") !== CSP) error("csp", "has no <meta http-equiv=\"Content-Security-Policy\"> with the site's policy (CSP in check-site.js)");
+  const forms = page.tags.filter((tag) => tag.name === "form");
+  if (meta(page, "http-equiv", "content-security-policy") !== (forms.length > 0 ? FORM_CSP : CSP)) {
+    error("csp", `has no <meta http-equiv="Content-Security-Policy"> with the site's policy (${forms.length > 0 ? "FORM_CSP, for a page with a form" : "CSP"} in check-site.js)`);
+  }
+  for (const form of forms) {
+    if (form.attributes.action !== WEB3FORMS) error("form", `a form sends to ${form.attributes.action ?? "the page itself"}; the only one allowed sends to ${WEB3FORMS}`, { url: form.attributes.action });
+    if (!isNoindex(page)) error("form", "has a form but no <meta name=\"robots\" content=\"noindex\">: only the page after the extension is removed asks anything");
+  }
   for (const property of OG_PROPERTIES) {
     if (!meta(page, "property", property)?.trim()) error("og", `has no <meta property="${property}">`);
   }
@@ -171,6 +186,12 @@ function checkPage(siteDir, file, page, pages, errors) {
   for (const tag of page.tags) {
     const href = tag.name === "a" ? tag.attributes.href : undefined;
     if (href && new URL(href, address).origin === ORIGIN) exists(href);
+    // Web3Forms sends the browser there after the answer; it takes only an address on the same site
+    if (tag.name === "input" && tag.attributes.name === "redirect") {
+      const redirect = tag.attributes.value ?? "";
+      if (redirect.startsWith(`${ORIGIN}/`)) exists(redirect);
+      else error("form", `the form's redirect is ${redirect}; Web3Forms takes only an address on ${ORIGIN}`, { url: redirect });
+    }
   }
 }
 
@@ -229,7 +250,7 @@ function checkSitemap(siteDir, pages, errors) {
   const listed = sitemapUrls(xml);
   const indexable = new Map();
   for (const [file, page] of pages) {
-    if (!/\bnoindex\b/i.test(meta(page, "name", "robots") ?? "")) indexable.set(ORIGIN + addressOf(file), file);
+    if (!isNoindex(page)) indexable.set(ORIGIN + addressOf(file), file);
   }
   for (const url of listed) {
     if (!indexable.has(url)) errors.push({ rule: "sitemap", file: "sitemap.xml", url, message: `sitemap.xml: ${url} is not the canonical address of a page without noindex` });

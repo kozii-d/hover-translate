@@ -6,6 +6,11 @@ import type { Settings, TooltipTheme } from "../../common/types/settings.ts";
 import { TranslatorFactory } from "../../common/translators/TranslatorFactory.ts";
 import { findUserLanguage } from "../../common/translators/findClosestLanguage.ts";
 
+// The site's page that asks why the extension was removed. Nothing is added to
+// the address: no version, browser or language (in Firefox those would be data
+// the viewer has to be able to refuse).
+const UNINSTALL_PAGE_URL = "https://hovertranslate.app/uninstall/";
+
 export class SettingsService {
   static readonly SETTINGS_VERSION = 4;
   static readonly TOOLTIP_THEME_VERSION = 1;
@@ -16,7 +21,16 @@ export class SettingsService {
     private readonly tooltipThemeMigrationsService: TooltipThemeMigrationsService = new TooltipThemeMigrationsService(),
   ) {
     this.setUpChromeEventListeners();
+    this.setUninstallPage();
   }
+
+  /** On every start of the worker, so as not to rely on the browser keeping it across updates. */
+  private setUninstallPage() {
+    chrome.runtime.setUninstallURL(UNINSTALL_PAGE_URL).catch((error) => {
+      console.error("Failed to set the page opened on uninstall:", error);
+    });
+  }
+
   private setUpChromeEventListeners() {
     chrome.runtime.onInstalled.addListener((details) => {
       if (details.reason === "install") {

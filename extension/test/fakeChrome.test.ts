@@ -124,6 +124,34 @@ describe("the fake chrome.runtime messaging", () => {
   });
 });
 
+describe("the fake chrome.runtime.setUninstallURL", () => {
+  it("records every address it accepts, in order; \"\" (none) too", async () => {
+    const fake = installFakeChrome();
+
+    await chrome.runtime.setUninstallURL("https://example.com/a/");
+    await chrome.runtime.setUninstallURL("");
+
+    expect(fake.uninstallURLs).toEqual(["https://example.com/a/", ""]);
+  });
+
+  it("rejects what the oldest browsers reject: over 255 characters, not http(s)", async () => {
+    const fake = installFakeChrome();
+
+    await expect(chrome.runtime.setUninstallURL(`https://example.com/${"a".repeat(236)}`)).rejects.toThrow("Invalid URL");
+    await expect(chrome.runtime.setUninstallURL("chrome-extension://abc/page.html")).rejects.toThrow("Invalid URL");
+    await chrome.runtime.setUninstallURL(`https://example.com/${"a".repeat(235)}`);
+
+    expect(fake.uninstallURLs).toEqual([`https://example.com/${"a".repeat(235)}`]);
+  });
+
+  it("refuseUninstallURL: rejects, and nothing is recorded", async () => {
+    const fake = installFakeChrome({ refuseUninstallURL: true });
+
+    await expect(chrome.runtime.setUninstallURL("https://example.com/")).rejects.toThrow();
+    expect(fake.uninstallURLs).toEqual([]);
+  });
+});
+
 describe("the fake chrome.permissions", () => {
   const YOUTUBE = "*://*.youtube.com/*";
   const WWW_YOUTUBE = "https://www.youtube.com/*";

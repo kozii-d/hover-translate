@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self' https://api.web3forms.com"
+    />
+    <title data-i18n="heading">HoverTranslate has been removed</title>
+    <meta
+      name="description"
+      content="One optional question for people who removed the HoverTranslate extension: what did not work."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href="https://hovertranslate.app/uninstall/" />
+    <link rel="icon" href="/logo-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/logo-48.png" sizes="48x48" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="/theme.js"></script>
+    <script src="/uninstall.js" defer></script>
+    <meta property="og:title" content="HoverTranslate has been removed" />
+    <meta
+      property="og:description"
+      content="One optional question for people who removed the HoverTranslate extension: what did not work."
+    />
+    <meta property="og:url" content="https://hovertranslate.app/uninstall/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HoverTranslate" />
+    <meta
+      property="og:image"
+      content="https://hovertranslate.app/media/og.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A word in Spanish YouTube subtitles with its English translation above it"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #faf8f6;
+        --surface: #ffffff;
+        --ink: #1a1a1a;
+        --muted: #5f5a56;
+        --line: #e6e0da;
+        --accent: #d3180b;
+        --accent-hover: #b31409;
+        --link: #c4160a;
+        --sans:
+          system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif;
+      }
+      /* Dark: the system's unless the viewer picked light, or the viewer's pick */
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #141414;
+          --surface: #1c1b1a;
+          --ink: #f4f2f0;
+          --muted: #a8a29e;
+          --line: #2e2b29;
+          --link: #ff6b5e;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #141414;
+        --surface: #1c1b1a;
+        --ink: #f4f2f0;
+        --muted: #a8a29e;
+        --line: #2e2b29;
+        --link: #ff6b5e;
+        color-scheme: dark;
+      }
+      :root[data-theme="light"] {
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      /* The theme button (theme.js), the popup's icons: a moon offers the dark theme, a sun the light one */
+      .theme-toggle {
+        display: inline-grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .theme-toggle[hidden] {
+        display: none;
+      }
+      .theme-toggle:hover {
+        color: var(--ink);
+      }
+      .theme-toggle:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+      }
+      .theme-toggle svg {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+      .theme-toggle .sun {
+        display: none;
+      }
+      :root[data-theme="dark"] .theme-toggle .sun {
+        display: block;
+      }
+      :root[data-theme="dark"] .theme-toggle .moon {
+        display: none;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) .theme-toggle .sun {
+          display: block;
+        }
+        :root:not([data-theme="light"]) .theme-toggle .moon {
+          display: none;
+        }
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 17px/1.6 var(--sans);
+        padding-inline: max(16px, env(safe-area-inset-left))
+          max(16px, env(safe-area-inset-right));
+      }
+      .wrap {
+        max-width: 640px;
+        margin-inline: auto;
+      }
+      a {
+        color: var(--link);
+        text-underline-offset: 3px;
+        overflow-wrap: anywhere;
+      }
+      a:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-block: 18px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .brand img {
+        width: 32px;
+        height: 32px;
+      }
+      main {
+        padding-block: 24px 56px;
+      }
+      h1 {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+      .lede {
+        margin: 12px 0 0;
+        font-size: 1.1rem;
+        color: var(--muted);
+      }
+      form {
+        display: grid;
+        gap: 28px;
+        margin-top: 32px;
+      }
+      fieldset {
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+      legend,
+      .details label {
+        display: block;
+        padding: 0;
+        margin-bottom: 12px;
+        font-weight: 700;
+      }
+      .reasons {
+        display: grid;
+        gap: 8px;
+      }
+      .reason {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        cursor: pointer;
+      }
+      .reason:hover {
+        border-color: var(--muted);
+      }
+      .reason:has(input:checked) {
+        border-color: var(--accent);
+      }
+      .reason input {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin: 0.2em 0 0;
+        accent-color: var(--accent);
+      }
+      .reason:has(input:focus-visible),
+      textarea:focus-visible,
+      .send:focus-visible {
+        outline: 3px solid var(--link);
+        outline-offset: 2px;
+      }
+      .reason input:focus-visible {
+        outline: none;
+      }
+      textarea {
+        display: block;
+        width: 100%;
+        min-height: 120px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        color: var(--ink);
+        font: inherit;
+        resize: vertical;
+      }
+      .send {
+        justify-self: start;
+        min-height: 46px;
+        padding: 0 28px;
+        border: 2px solid var(--accent);
+        border-radius: 10px;
+        background: var(--accent);
+        color: #ffffff;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .send:hover {
+        background: var(--accent-hover);
+        border-color: var(--accent-hover);
+      }
+      .small {
+        display: grid;
+        gap: 10px;
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .small p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="/"
+          ><img
+            src="/apple-touch-icon.png"
+            alt=""
+            width="32"
+            height="32"
+          />HoverTranslate</a
+        >
+        <button
+          type="button"
+          class="theme-toggle"
+          hidden
+          aria-label="Switch theme"
+        >
+          <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M9.37 5.51c-.18.64-.27 1.31-.27 1.99 0 4.08 3.32 7.4 7.4 7.4.68 0 1.35-.09 1.99-.27C17.45 17.19 14.93 19 12 19c-3.86 0-7-3.14-7-7 0-2.93 1.81-5.45 4.37-6.49M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1"
+            /></svg
+          ><svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <main>
+        <h1 data-i18n="heading">HoverTranslate has been removed</h1>
+        <p class="lede" data-i18n="intro">
+          If you have a moment, tell us what didn't work — it's one question,
+          and it helps us fix it for others.
+        </p>
+
+        <form method="post" action="https://api.web3forms.com/submit">
+          <input
+            type="hidden"
+            name="access_key"
+            value="2c7d234f-c251-44ae-9a4b-b6d0296bc223"
+          />
+          <input
+            type="hidden"
+            name="subject"
+            value="Why HoverTranslate was removed"
+          />
+          <input
+            type="hidden"
+            name="redirect"
+            value="https://hovertranslate.app/uninstall/thanks/"
+          />
+          <!-- Web3Forms' trap for bots: a person never sees it, so never ticks it -->
+          <input
+            type="checkbox"
+            name="botcheck"
+            style="display: none"
+            tabindex="-1"
+            autocomplete="off"
+          />
+          <fieldset>
+            <legend data-i18n="question">What made you remove it?</legend>
+            <div class="reasons">
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="It didn't work on the videos I watched"
+                  required
+                /><span data-i18n="reasonVideos"
+                  >It didn't work on the videos I watched</span
+                ></label
+              >
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="The translations were wrong or slow"
+                  required
+                /><span data-i18n="reasonTranslations"
+                  >The translations were wrong or slow</span
+                ></label
+              >
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="It got in the way while watching"
+                  required
+                /><span data-i18n="reasonInTheWay"
+                  >It got in the way while watching</span
+                ></label
+              >
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="I wanted dual subtitles or the whole line translated"
+                  required
+                /><span data-i18n="reasonDual"
+                  >I wanted dual subtitles or the whole line translated</span
+                ></label
+              >
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="I need it on Netflix or other sites"
+                  required
+                /><span data-i18n="reasonSites"
+                  >I need it on Netflix or other sites</span
+                ></label
+              >
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="I was only trying it out"
+                  required
+                /><span data-i18n="reasonTrying"
+                  >I was only trying it out</span
+                ></label
+              >
+              <label class="reason"
+                ><input
+                  type="radio"
+                  name="reason"
+                  value="Something else"
+                  required
+                /><span data-i18n="reasonOther">Something else</span></label
+              >
+            </div>
+          </fieldset>
+          <div class="details">
+            <label for="details" data-i18n="details"
+              >Anything else we should know? (optional)</label
+            >
+            <textarea
+              id="details"
+              name="details"
+              rows="4"
+              maxlength="1000"
+            ></textarea>
+          </div>
+          <button type="submit" class="send" data-i18n="send">Send</button>
+        </form>
+
+        <div class="small">
+          <p>
+            <span data-i18n="sentNote"
+              >Your answer goes through Web3Forms, which emails it to us. As
+              with any web request, Web3Forms also sees your IP address and
+              browser.</span
+            >
+            <a href="/privacy/#uninstall" data-i18n="privacyLink"
+              >Privacy policy</a
+            >
+          </p>
+          <p>
+            <span data-i18n="mindChanged"
+              >Changed your mind? Install it again:</span
+            >
+            <a
+              href="https://chromewebstore.google.com/detail/jbddomeagbjjdoaehkdffdhifdhnmfic"
+              >Chrome</a
+            >
+            ·
+            <a href="https://addons.mozilla.org/firefox/addon/hovertranslate/"
+              >Firefox</a
+            >
+            ·
+            <a
+              href="https://microsoftedge.microsoft.com/addons/detail/emnbmkhbohfjmbkdipkppnbdlhgnhmhm"
+              >Edge</a
+            >
+          </p>
+          <p>
+            <span data-i18n="bug">Found a bug?</span>
+            <a
+              href="https://github.com/kozii-d/hover-translate/issues"
+              data-i18n="bugLink"
+              >Tell us on GitHub</a
+            >
+          </p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
