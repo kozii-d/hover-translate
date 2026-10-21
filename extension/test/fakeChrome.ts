@@ -71,6 +71,23 @@ export interface FakeChromeOptions {
   failingWrites?: Partial<FailingKeys>;
   /** `true`: `runtime.setUninstallURL` rejects, as a browser may for any reason. */
   refuseUninstallURL?: boolean;
+  /** `true`: `tabs.create` rejects and opens nothing, as a browser may for any reason. */
+  refuseTabs?: boolean;
+  /**
+   * `action.openPopup`: `"opens"` (the default, Chrome 127+ and Firefox from a
+   * click), `"refuses"` (it rejects, as Chrome 118–126 for an extension not
+   * installed by policy), `"missing"` (Chrome 102–117 have none).
+   */
+  openPopup?: "opens" | "refuses" | "missing";
+  /** Whether the toolbar icon is pinned, as `action.getUserSettings()` tells; off, as after an install in Chrome. */
+  isOnToolbar?: boolean;
+  /**
+   * `action.getUserSettings` and `onUserSettingsChanged`: both by default
+   * (Chrome 130+); `"no-event"` without the event (Chrome 91–129);
+   * `"refuses"`: the getter rejects; `"missing"`: neither; `"held"`: the
+   * getter answers only once `answerUserSettings()` is called.
+   */
+  userSettings?: "no-event" | "refuses" | "missing" | "held";
 }
 
 export interface FakeChrome {
@@ -79,12 +96,18 @@ export interface FakeChrome {
   storage: { sync: Items; local: Items; session: Items };
   /** Granted host patterns; `permissions.contains` asks whether one of them covers each origin. */
   grantedOrigins: Set<string>;
-  /** Every `tabs.create`, with the synced storage as it was at that moment. */
+  /** Every tab `tabs.create` opened, with the synced storage as it was at that moment. */
   createdTabs: { url?: string; sync: Items }[];
   /** The origins of every `permissions.request` that reached a prompt. */
   permissionPrompts: string[][];
   /** Every address `runtime.setUninstallURL` accepted, in order. */
   uninstallURLs: string[];
+  /** How many times `action.openPopup` opened the popup. */
+  popupsOpened: () => number;
+  /** The viewer pins (`true`) or unpins the toolbar icon: `onUserSettingsChanged` fires where it exists. */
+  pinIcon: (isOnToolbar: boolean) => void;
+  /** With `userSettings: "held"`: `action.getUserSettings()` calls made so far answer now. */
+  answerUserSettings: () => void;
   /** The keys whose reads fail, per area; empty a list to make them work again. */
   failingReads: FailingKeys;
   /** The keys whose writes fail, per area; empty a list to make them work again. */
@@ -257,6 +280,10 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
   const createdTabs: FakeChrome["createdTabs"] = [];
   const permissionPrompts: string[][] = [];
   const uninstallURLs: string[] = [];
+  let popupsOpened = 0;
+  let isOnToolbar = options.isOnToolbar ?? false;
+  const userSettingsListeners: ((change: { isOnToolbar: boolean }) => void)[] = [];
+  const heldUserSettings: (() => void)[] = [];
   const id = options.id ?? CHROME_WEB_STORE_ID;
   const scheme = options.scheme ?? "chrome-extension";
   const uiLanguage = options.uiLanguage ?? "en-US";
@@ -335,12 +362,26 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     },
     tabs: {
       create: async ({ url }: { url?: string }) => {
+        if (options.refuseTabs) throw new Error("The browser refused to open a tab.");
         createdTabs.push({ url, sync: clone(storage.sync) });
         return { id: createdTabs.length };
       },
     },
     action: {
-      openPopup: async () => {},
+      ...(options.openPopup === "missing" ? {} : {
+        openPopup: async () => {
+          if (options.openPopup === "refuses") throw new Error("Could not find an active browser window.");
+          popupsOpened++;
+        },
+      }),
+      ...(options.userSettings === "missing" ? {} : {
+        getUserSettings: async () => {
+          if (options.userSettings === "refuses") throw new Error("The user settings could not be read.");
+          if (options.userSettings === "held") await new Promise<void>((resolve) => heldUserSettings.push(resolve));
+          return { isOnToolbar };
+        },
+      }),
+      ...(options.userSettings && options.userSettings !== "held" ? {} : { onUserSettingsChanged: addRemove(userSettingsListeners) }),
     },
   };
 
@@ -351,6 +392,12 @@ export function createFakeChrome(options: FakeChromeOptions = {}): FakeChrome {
     createdTabs,
     permissionPrompts,
     uninstallURLs,
+    popupsOpened: () => popupsOpened,
+    answerUserSettings: () => heldUserSettings.splice(0).forEach((answer) => answer()),
+    pinIcon: (value) => {
+      isOnToolbar = value;
+      userSettingsListeners.forEach((listener) => listener({ isOnToolbar: value }));
+    },
     failingReads,
     failingWrites,
     fireInstalled: (details) => installedListeners.forEach((listener) => listener(details)),

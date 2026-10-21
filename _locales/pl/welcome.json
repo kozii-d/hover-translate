@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Witamy w HoverTranslate",
+  "language": {
+    "hint": "Napisy są tłumaczone na ten język. Możesz go później zmienić w Ustawieniach."
+  },
+  "try": {
+    "hover": "Najedź kursorem na słowo, aby zobaczyć jego tłumaczenie.",
+    "shift": "Przytrzymaj Shift i przesuń kursor po słowach, aby przetłumaczyć wyrażenie.",
+    "click": "Kliknij słowo, aby zapisać je w Słówkach."
+  },
+  "deepl": {
+    "where": "Połączysz go w Ustawieniach: ikona HoverTranslate → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Otwórz Ustawienia",
+  "more": {
+    "title": "Więcej w HoverTranslate",
+    "settings": "Tłumacz (Google, Bing lub DeepL), automatyczna pauza i co robi kliknięcie słowa.",
+    "customize": "Wygląd tłumaczeń: czcionka, rozmiar, kolory i tło albo jak Twoje napisy w YouTube.",
+    "dictionary": "Zapisane słowa według dni, z eksportem do CSV lub JSON."
+  },
+  "start": {
+    "openYouTube": "Otwórz YouTube",
+    "captions": "Włącz napisy przyciskiem CC („Napisy”) w odtwarzaczu.",
+    "pin": "Przypnij ikonę HoverTranslate do paska narzędzi, aby mieć ją zawsze pod ręką."
+  },
+  "demo": {
+    "playing": "Odtwarzanie",
+    "paused": "Wstrzymano, gdy czytasz"
+  }
+}

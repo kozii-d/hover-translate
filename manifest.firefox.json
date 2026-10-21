@@ -29,7 +29,8 @@
     "scripts": ["extension/dist/background.bundle.js"]
   },
   "action": {
-    "default_popup": "popup/dist/index.html"
+    "default_popup": "popup/dist/index.html",
+    "default_area": "navbar"
   },
   "icons": {
     "16": "assets/icons/logo-16.png",

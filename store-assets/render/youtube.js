@@ -1,7 +1,7 @@
 const path = require("node:path");
 const fs = require("node:fs");
 const { chromium } = require("@playwright/test");
-const { copyExtension, closeWelcomePopup } = require("../../e2e/extension.js");
+const { copyExtension, closeWelcomePage } = require("../../e2e/extension.js");
 
 // The built extension (`npm run build`) on the live YouTube, in Playwright's
 // Chromium, as `e2e/youtube-dom/capture.js` opens it.
@@ -45,7 +45,7 @@ function deeplKey() {
 
 /**
  * A browser with the extension in `uiLanguage` (Chrome's `--lang`, which the
- * popup follows), the extension's settings written, the welcome popup closed.
+ * popup follows), the extension's settings written, the welcome page closed.
  * Its pages are `viewport` large, at `deviceScaleFactor`.
  */
 async function launch({ uiLanguage, settings, apiKeys, viewport = { width: 1280, height: 720 }, deviceScaleFactor = 2, headless = !process.env.HEADED }) {
@@ -63,7 +63,7 @@ async function launch({ uiLanguage, settings, apiKeys, viewport = { width: 1280,
     env: { ...process.env, LANGUAGE: uiLanguage.replace("-", "_") },
   });
   const worker = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
-  await closeWelcomePopup(context, worker);
+  await closeWelcomePage(context);
   await worker.evaluate(async ({ settings, apiKeys }) => {
     const { settings: installed } = await chrome.storage.sync.get("settings");
     // No rating card, no tips: they cover what the shot shows.

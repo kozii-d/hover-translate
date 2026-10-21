@@ -83,29 +83,30 @@ async function answer(route, network) {
   return route.abort("blockedbyclient");
 }
 
-/**
- * The popup the extension opens once installed (`openPopupOnInstall`), which
- * is when the install has written the settings. Left open, its Settings page
- * reads them and may rewrite them — it moves a viewer whose DeepL it cannot
- * reach back to Google — in the middle of a test that has just set them.
- * Playwright does not list an action popup among the pages; it is closed as
- * a target over CDP.
- */
-async function closeWelcomePopup(context, worker) {
-  const popups = () => worker.evaluate(() => chrome.runtime.getContexts({ contextTypes: ["POPUP"] }).then((found) => found.length));
-  await expect.poll(popups, { message: "the popup opened on install" }).toBe(1);
+const WELCOME_PAGE = "/popup/dist/welcome.html";
 
-  const cdp = await context.newCDPSession(context.pages()[0]);
-  const { targetInfos } = await cdp.send("Target.getTargets");
-  const popup = targetInfos.find((target) => target.url.endsWith("/popup/dist/index.html"));
-  await cdp.send("Target.closeTarget", { targetId: popup.targetId });
-  await cdp.detach();
-  await expect.poll(popups).toBe(0);
+/**
+ * The welcome page the extension opens in a tab once installed
+ * (`SettingsService`), which is when the install has written the settings.
+ * It runs the content script on its demo player, and its language field
+ * rewrites the settings: left open, it would act in the middle of a test.
+ */
+async function waitForWelcomePage(context) {
+  const find = () => context.pages().find((page) => page.url().endsWith(WELCOME_PAGE));
+  await expect.poll(() => Boolean(find()), { message: "the welcome page opened on install" }).toBe(true);
+  return find();
+}
+
+async function closeWelcomePage(context) {
+  await (await waitForWelcomePage(context)).close();
 }
 
 const test = base.extend({
   /** Hosts of optional permissions the extension is loaded with, granted (see `copyExtension`). */
   grantedHosts: [[], { option: true }],
+
+  /** `true`: the welcome page opened on install stays, as `welcomePage`. */
+  keepWelcomePage: [false, { option: true }],
 
   network: async ({}, use) => {
     await use(createFakeTranslators());
@@ -134,10 +135,30 @@ const test = base.extend({
     fs.rmSync(extension, { recursive: true, force: true });
   },
 
-  serviceWorker: async ({ context }, use) => {
+  serviceWorker: async ({ context, keepWelcomePage }, use) => {
     const worker = context.serviceWorkers()[0] ?? await context.waitForEvent("serviceworker");
-    await closeWelcomePopup(context, worker);
+    if (!keepWelcomePage) await closeWelcomePage(context);
     await use(worker);
+  },
+
+  /**
+   * With `keepWelcomePage`: the welcome page, and its demo player as a
+   * `Player`. The tab the install opened has to show the language field (its
+   * list comes from the service worker), and is then shown again in a page of
+   * Playwright's: some requests of the install's own tab went past
+   * `context.route`, to no host (1 run in ~30, even after a reload).
+   */
+  welcomePage: async ({ context, serviceWorker }, use) => {
+    const opened = await waitForWelcomePage(context);
+    await expect(opened.getByRole("combobox", { name: /Translate to/ }), { message: "the install's tab drew its field" }).toBeVisible();
+    const page = await context.newPage();
+    await page.goto(opened.url());
+    await opened.close();
+    await use(page);
+  },
+
+  welcomePlayer: async ({ welcomePage }, use) => {
+    await use(new Player(welcomePage, welcomePage.mainFrame(), ".html5-video-player video"));
   },
 
   extensionId: async ({ serviceWorker }, use) => {
@@ -206,11 +227,15 @@ async function untilFrameTakesPointer(page, frame) {
   }, { message: "the embedded player gets the mouse" }).toBe(true);
 }
 
-/** The player page (or frame) and what a test does with it. */
+/**
+ * The player page (or frame) and what a test does with it. `video`: the
+ * player's video, which the fixtures tell from a preview's by YouTube's id.
+ */
 class Player {
-  constructor(page, frame) {
+  constructor(page, frame, video = "#movie_player video") {
     this.page = page;
     this.frame = frame;
+    this.video = video;
   }
 
   /** Shows captions (`window.fixture.captions`) and waits until the content script has split them into words. */
@@ -247,16 +272,16 @@ class Player {
   }
 
   isPaused() {
-    return this.frame.evaluate(() => document.querySelector("#movie_player video").paused);
+    return this.frame.evaluate((video) => document.querySelector(video).paused, this.video);
   }
 
   /** From now on, records the video's `play` and `pause` events for `videoEvents()`. */
   recordVideoEvents() {
-    return this.frame.evaluate(() => {
+    return this.frame.evaluate((selector) => {
       window.videoEvents = [];
-      const video = document.querySelector("#movie_player video");
+      const video = document.querySelector(selector);
       for (const type of ["play", "pause"]) video.addEventListener(type, () => window.videoEvents.push(type));
-    });
+    }, this.video);
   }
 
   /** The video's `play` and `pause` events since `recordVideoEvents()`, in order. */
@@ -271,9 +296,9 @@ class Player {
 
   /** Moves the mouse onto the video, by its left edge: away from captions, which are centred. */
   async moveAway() {
-    const box = await this.frame.locator("#movie_player video").boundingBox();
+    const box = await this.frame.locator(this.video).boundingBox();
     await this.page.mouse.move(box.x + 30, box.y + box.height / 2, { steps: 5 });
   }
 }
 
-module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePopup };
+module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePage };

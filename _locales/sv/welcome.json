@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Välkommen till HoverTranslate",
+  "language": {
+    "hint": "Undertexterna översätts till det här språket. Du kan ändra det senare i inställningarna."
+  },
+  "try": {
+    "hover": "Håll muspekaren över ett ord för att se översättningen.",
+    "shift": "Håll ned Skift och för muspekaren över orden för att översätta en fras.",
+    "click": "Klicka på ett ord för att spara det bland Mina glosor."
+  },
+  "deepl": {
+    "where": "Anslut den i inställningarna: HoverTranslate-ikonen → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Öppna inställningarna",
+  "more": {
+    "title": "Mer i HoverTranslate",
+    "settings": "Översättaren (Google, Bing eller DeepL), automatisk paus och vad ett klick på ett ord gör.",
+    "customize": "Hur översättningarna ser ut: typsnitt, storlek, färger och bakgrund – eller som dina YouTube-undertexter.",
+    "dictionary": "Orden du har sparat, per dag, att exportera som CSV eller JSON."
+  },
+  "start": {
+    "openYouTube": "Öppna YouTube",
+    "captions": "Aktivera undertexter med CC-knappen (”Undertexter/textning”) i spelaren.",
+    "pin": "Fäst HoverTranslate-ikonen i verktygsfältet så har du den nära till hands."
+  },
+  "demo": {
+    "playing": "Spelas upp",
+    "paused": "Pausad medan du läser"
+  }
+}

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { installFakeChrome } from "./fakeChrome.ts";
 
 // The fake has to behave like the browser where the extension's code depends
@@ -149,6 +149,84 @@ describe("the fake chrome.runtime.setUninstallURL", () => {
 
     await expect(chrome.runtime.setUninstallURL("https://example.com/")).rejects.toThrow();
     expect(fake.uninstallURLs).toEqual([]);
+  });
+});
+
+describe("the fake chrome.tabs.create", () => {
+  it("records every tab with the synced storage of that moment, not of later", async () => {
+    const fake = installFakeChrome({ sync: { installedAt: 1 } });
+
+    expect(await chrome.tabs.create({ url: "chrome-extension://abc/page.html" })).toEqual({ id: 1 });
+    await chrome.storage.sync.set({ installedAt: 2 });
+
+    expect(fake.createdTabs).toEqual([{ url: "chrome-extension://abc/page.html", sync: { installedAt: 1 } }]);
+  });
+
+  it("refuseTabs: rejects, and no tab is recorded", async () => {
+    const fake = installFakeChrome({ refuseTabs: true });
+
+    await expect(chrome.tabs.create({ url: "chrome-extension://abc/page.html" })).rejects.toThrow();
+    expect(fake.createdTabs).toEqual([]);
+  });
+});
+
+describe("the fake chrome.action.openPopup", () => {
+  it("opens by default, and counts each opening", async () => {
+    const fake = installFakeChrome();
+
+    await chrome.action.openPopup();
+    await chrome.action.openPopup();
+
+    expect(fake.popupsOpened()).toBe(2);
+  });
+
+  it("\"refuses\": rejects and opens nothing; \"missing\": there is no such function, as before Chrome 118", async () => {
+    const refusing = installFakeChrome({ openPopup: "refuses" });
+    await expect(chrome.action.openPopup()).rejects.toThrow();
+    expect(refusing.popupsOpened()).toBe(0);
+
+    installFakeChrome({ openPopup: "missing" });
+    expect(chrome.action.openPopup).toBeUndefined();
+  });
+});
+
+describe("the fake chrome.action user settings", () => {
+  it("getUserSettings tells whether the icon is pinned; pinning it changes that and fires onUserSettingsChanged", async () => {
+    const fake = installFakeChrome();
+    const changes: unknown[] = [];
+    chrome.action.onUserSettingsChanged.addListener((change) => changes.push(change));
+    expect(await chrome.action.getUserSettings()).toEqual({ isOnToolbar: false });
+
+    fake.pinIcon(true);
+
+    expect(changes).toEqual([{ isOnToolbar: true }]);
+    expect(await chrome.action.getUserSettings()).toEqual({ isOnToolbar: true });
+  });
+
+  it("\"no-event\": the getter only, as before Chrome 130; \"refuses\": it rejects; \"missing\": neither", async () => {
+    const getterOnly = installFakeChrome({ userSettings: "no-event", isOnToolbar: true });
+    expect(chrome.action.onUserSettingsChanged).toBeUndefined();
+    getterOnly.pinIcon(false);
+    expect(await chrome.action.getUserSettings()).toEqual({ isOnToolbar: false });
+
+    installFakeChrome({ userSettings: "refuses" });
+    await expect(chrome.action.getUserSettings()).rejects.toThrow();
+
+    installFakeChrome({ userSettings: "missing" });
+    expect(chrome.action.getUserSettings).toBeUndefined();
+    expect(chrome.action.onUserSettingsChanged).toBeUndefined();
+  });
+
+  it("\"held\": the getter answers only when told to", async () => {
+    const fake = installFakeChrome({ userSettings: "held", isOnToolbar: true });
+    let answered: unknown;
+    void chrome.action.getUserSettings().then((settings) => { answered = settings; });
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    expect(answered).toBeUndefined();
+
+    fake.answerUserSettings();
+
+    await vi.waitFor(() => expect(answered).toEqual({ isOnToolbar: true }));
   });
 });
 

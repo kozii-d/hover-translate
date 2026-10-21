@@ -18,10 +18,15 @@ export default defineConfig({
     // Firefox 115): Vite 6's default, which Vite 7 raised to Chrome 107.
     target: ["es2020", "edge88", "firefox78", "chrome87", "safari14"],
     // The popup is read from the extension's own files, never downloaded: one
-    // large chunk costs nothing, so it is not split. The limit sits about
-    // 85 kB above the main chunk (~565 kB) to flag real growth, such as a new
-    // library.
-    chunkSizeWarningLimit: 650,
+    // large chunk costs nothing, so it is not split further than into what the
+    // popup and the welcome page share (~495 kB: React, MUI, i18next) and what
+    // each has of its own. The limit sits about 85 kB above the shared chunk
+    // to flag real growth, such as a new library.
+    chunkSizeWarningLimit: 580,
+    rollupOptions: {
+      // The popup, and the page opened in a tab on install.
+      input: [resolve(__dirname, "index.html"), resolve(__dirname, "welcome.html")],
+    },
   },
   resolve: {
     alias: {

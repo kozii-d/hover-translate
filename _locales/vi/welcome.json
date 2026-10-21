@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Chào mừng bạn đến với HoverTranslate",
+  "language": {
+    "hint": "Phụ đề sẽ được dịch sang ngôn ngữ này. Bạn có thể đổi lại sau trong phần Cài đặt."
+  },
+  "try": {
+    "hover": "Di chuột vào một từ để xem bản dịch.",
+    "shift": "Giữ Shift và di chuột qua các từ để dịch cả cụm từ.",
+    "click": "Nhấp vào một từ để lưu vào Sổ từ vựng."
+  },
+  "deepl": {
+    "where": "Kết nối trong phần Cài đặt: biểu tượng HoverTranslate → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Mở Cài đặt",
+  "more": {
+    "title": "Các tính năng khác của HoverTranslate",
+    "settings": "Công cụ dịch (Google, Bing hoặc DeepL), tự động tạm dừng và điều xảy ra khi nhấp vào một từ.",
+    "customize": "Giao diện bản dịch: phông chữ, cỡ chữ, màu sắc và nền, hoặc giống phụ đề YouTube của bạn.",
+    "dictionary": "Những từ bạn đã lưu, theo ngày, có thể xuất ra CSV hoặc JSON."
+  },
+  "start": {
+    "openYouTube": "Mở YouTube",
+    "captions": "Bật phụ đề bằng nút CC (\"Phụ đề\") trong trình phát.",
+    "pin": "Ghim biểu tượng HoverTranslate lên thanh công cụ để luôn trong tầm tay."
+  },
+  "demo": {
+    "playing": "Đang phát",
+    "paused": "Tạm dừng trong khi bạn đọc"
+  }
+}

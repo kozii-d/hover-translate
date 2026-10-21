@@ -1,0 +1,30 @@
+{
+  "pageTitle": "HoverTranslate에 오신 것을 환영합니다",
+  "language": {
+    "hint": "자막이 이 언어로 번역됩니다. 나중에 설정에서 바꿀 수 있습니다."
+  },
+  "try": {
+    "hover": "단어에 마우스를 올리면 번역이 표시됩니다.",
+    "shift": "Shift 키를 누른 채 여러 단어 위로 마우스를 움직이면 구문을 번역할 수 있습니다.",
+    "click": "단어를 클릭하면 단어장에 저장됩니다."
+  },
+  "deepl": {
+    "where": "설정에서 연결하세요: HoverTranslate 아이콘 → {{translatorField}} → DeepL."
+  },
+  "openSettings": "설정 열기",
+  "more": {
+    "title": "HoverTranslate의 다른 기능",
+    "settings": "번역기(Google, Bing, DeepL), 자동 일시중지, 단어를 클릭했을 때의 동작.",
+    "customize": "번역 표시 방식: 글꼴, 크기, 색상, 배경. YouTube 자막과 같게 할 수도 있습니다.",
+    "dictionary": "저장한 단어를 날짜별로 보고 CSV나 JSON으로 내보낼 수 있습니다."
+  },
+  "start": {
+    "openYouTube": "YouTube 열기",
+    "captions": "플레이어의 CC(자막) 버튼으로 자막을 켜세요.",
+    "pin": "HoverTranslate 아이콘을 툴바에 고정하면 바로 열 수 있습니다."
+  },
+  "demo": {
+    "playing": "재생 중",
+    "paused": "읽는 동안 일시중지됨"
+  }
+}

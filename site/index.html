@@ -370,7 +370,7 @@
          tooltip (extension/src/content/styles.css, utils/tooltipTheme.ts): a solid background per
          line, the selected words in #808080 with the space after them, the tooltip in the
          subtitles' own font, size and background, 5 px above the subtitle block, from the first
-         selected word. Without JavaScript it shows "playa" selected; site.js does the rest the way
+         selected word. Without JavaScript it shows "montaña" selected; site.js does the rest the way
          tooltipService.ts and videoController.ts do. */
       .demo {
         margin: 0;
@@ -410,17 +410,42 @@
         box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.55);
         --caption-size: clamp(14px, 3.4cqi, 26px);
       }
-      /* Top right: the top left is where the extension says "Translation saved" */
+      /* Top right: the top left is where the extension says "Translation saved". The icons are
+         drawn: the characters ▶ ❚❚ came from another font, which made the line taller above the
+         text than below it. The welcome page of the extension shows the same badge
+         (popup/src/pages/WelcomePage/ui/DemoPlayer.tsx). */
+      /* Whole pixels everywhere, the font size and the place included, and the text's line one font
+         size high, centred like the icon: with sizes in em or a share of the frame, the text sat
+         nearer the top at some zoom levels and nearer the bottom at others. */
       .status {
         position: absolute;
-        top: 4%;
-        right: 3%;
-        padding: 0.3em 0.8em;
-        border-radius: 999px;
+        top: 12px;
+        right: 16px;
+        box-sizing: border-box;
+        height: 24px;
+        padding: 0 10px;
+        border-radius: 12px;
         background: rgba(0, 0, 0, 0.55);
         color: #ffffff;
-        font: 600 12px/1.4 var(--sans);
-        font-size: clamp(10px, 2.2cqi, 13px);
+        display: flex;
+        align-items: center;
+        font: 600 12px/1 var(--sans);
+        white-space: nowrap;
+      }
+      .status > span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .status svg {
+        flex: none;
+        width: 12px;
+        height: 12px;
+        fill: currentColor;
+      }
+      .status[data-state="playing"] .paused,
+      .status[data-state="paused"] .playing {
+        display: none;
       }
       .bar {
         position: absolute;
@@ -453,10 +478,11 @@
       .caption-visual-line {
         display: block;
       }
-      /* YouTube's own is pre-wrap; nowrap keeps the line whole if a formatter breaks the markup */
+      /* YouTube's own is pre-wrap, which shows the space the extension leaves after the last word
+         of a line; pre also keeps the line whole. So no line break inside a segment's markup */
       .segment {
         display: inline-block;
-        white-space: nowrap;
+        white-space: pre;
         background: rgba(8, 8, 8, 0.75);
       }
       .w {
@@ -502,7 +528,7 @@
         pointer-events: none;
         z-index: 1;
       }
-      /* The pointer resting on "playa" until the viewer's own comes */
+      /* The pointer resting on "montaña" until the viewer's own comes */
       .cursor {
         position: absolute;
         width: 0.8em;
@@ -979,23 +1005,31 @@
 
           <div class="demo" data-nosnippet>
             <p class="visually-hidden">
-              A video frame with the Spanish subtitles “Mañana vamos a la playa
-              si hace buen tiempo.” The word under the pointer, playa, shows its
-              English translation, beach, above the subtitles, and the video is
-              paused while you read.
+              A video frame with the Spanish subtitles “Caminaremos por la
+              montaña cuando haga buen tiempo.” The word under the pointer,
+              montaña, shows its English translation, mountain, above the
+              subtitles, and the video is paused while you read.
             </p>
             <div class="frame">
-              <span class="status">❚❚ Paused while you read</span>
+              <span class="status" data-state="paused"
+                ><span class="playing"
+                  ><svg viewBox="4 4 16 16" aria-hidden="true">
+                    <path d="M8.5 6v12l10-6z" /></svg
+                  >Playing</span
+                ><span class="paused"
+                  ><svg viewBox="4 4 16 16" aria-hidden="true">
+                    <path d="M7.5 6.5h3v11h-3zM13.5 6.5h3v11h-3z" /></svg
+                  >Paused while you read</span
+                ></span
+              >
               <div class="caption-window">
                 <span class="caption-visual-line"
                   ><span class="segment"
-                    ><span class="w" tabindex="0">Mañana </span
-                    ><span class="w" tabindex="0">vamos </span
-                    ><span class="w" tabindex="0">a </span
+                    ><span class="w" tabindex="0">Caminaremos </span
+                    ><span class="w" tabindex="0">por </span
                     ><span class="w" tabindex="0">la </span
                     ><span class="w sel" tabindex="0"
-                      ><span class="tip">beach</span>playa
-                      <svg
+                      ><span class="tip">mountain</span>montaña <svg
                         class="cursor"
                         viewBox="0 0 16 24"
                         aria-hidden="true"
@@ -1010,10 +1044,10 @@
                 ></span>
                 <span class="caption-visual-line"
                   ><span class="segment"
-                    ><span class="w" tabindex="0">si </span
-                    ><span class="w" tabindex="0">hace </span
+                    ><span class="w" tabindex="0">cuando </span
+                    ><span class="w" tabindex="0">haga </span
                     ><span class="w" tabindex="0">buen </span
-                    ><span class="w" tabindex="0">tiempo. </span></span
+                    ><span class="w" tabindex="0">tiempo </span></span
                   ></span
                 >
               </div>
@@ -1064,9 +1098,9 @@
                 aria-label="Spanish subtitles with a second, English line under them"
               >
                 <div class="cap">
-                  <span class="line">Mañana vamos a la playa</span><br /><span
+                  <span class="line">Caminaremos por la montaña</span><br /><span
                     class="line second"
-                    >Tomorrow we go to the beach</span
+                    >We will walk through the mountains</span
                   >
                 </div>
               </div>
@@ -1082,12 +1116,12 @@
               <div
                 class="mini ours"
                 role="img"
-                aria-label="Spanish subtitles with one word, playa, translated above them as beach"
+                aria-label="Spanish subtitles with one word, montaña, translated above them as mountain"
               >
                 <div class="cap">
                   <span class="line"
-                    >Mañana vamos a la
-                    <span class="on"><span>beach</span>playa</span></span
+                    >Caminaremos por la
+                    <span class="on"><span>mountain</span>montaña</span></span
                   >
                 </div>
               </div>

@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Tervetuloa käyttämään HoverTranslatea",
+  "language": {
+    "hint": "Tekstitykset käännetään tälle kielelle. Voit vaihtaa sen myöhemmin asetuksista."
+  },
+  "try": {
+    "hover": "Vie hiiri sanan päälle, niin näet sen käännöksen.",
+    "shift": "Pidä Vaihto-näppäintä painettuna ja vie hiiri sanojen yli, niin koko fraasi käännetään.",
+    "click": "Klikkaa sanaa, niin se tallentuu Sanalistaan."
+  },
+  "deepl": {
+    "where": "Yhdistä se asetuksista: HoverTranslate-kuvake → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Avaa asetukset",
+  "more": {
+    "title": "HoverTranslaten muut toiminnot",
+    "settings": "Kääntäjä (Google, Bing tai DeepL), automaattinen pysäytys ja mitä sanan klikkaus tekee.",
+    "customize": "Käännösten ulkoasu: fontti, koko, värit ja tausta – tai samanlainen kuin YouTuben tekstityksissäsi.",
+    "dictionary": "Tallentamasi sanat päivän mukaan ryhmiteltyinä, vietävissä CSV- tai JSON-muodossa."
+  },
+  "start": {
+    "openYouTube": "Avaa YouTube",
+    "captions": "Laita tekstitys päälle soittimen CC-painikkeesta (”Tekstitykset”).",
+    "pin": "Kiinnitä HoverTranslate-kuvake työkalupalkkiin, niin se on aina käden ulottuvilla."
+  },
+  "demo": {
+    "playing": "Toistetaan",
+    "paused": "Tauolla, kun luet"
+  }
+}

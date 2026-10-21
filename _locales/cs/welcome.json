@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Vítejte v HoverTranslate",
+  "language": {
+    "hint": "Do tohoto jazyka se překládají titulky. Později ho můžete změnit v nastavení."
+  },
+  "try": {
+    "hover": "Najeďte myší na slovo a uvidíte jeho překlad.",
+    "shift": "Podržte Shift a přejeďte myší přes slova – přeloží se celá fráze.",
+    "click": "Kliknutím na slovo si ho uložíte mezi Slovíčka."
+  },
+  "deepl": {
+    "where": "Připojíte ho v nastavení: ikona HoverTranslate → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Otevřít nastavení",
+  "more": {
+    "title": "Co dalšího najdete v HoverTranslate",
+    "settings": "Překladač (Google, Bing nebo DeepL), automatické pozastavení a co udělá kliknutí na slovo.",
+    "customize": "Vzhled překladů: písmo, velikost, barvy a pozadí, nebo stejně jako titulky na YouTube.",
+    "dictionary": "Uložená slova podle dnů, s exportem do CSV nebo JSON."
+  },
+  "start": {
+    "openYouTube": "Otevřít YouTube",
+    "captions": "Titulky zapnete v přehrávači tlačítkem CC („Titulky“).",
+    "pin": "Připněte si ikonu HoverTranslate na lištu, ať ji máte po ruce."
+  },
+  "demo": {
+    "playing": "Přehrává se",
+    "paused": "Pozastaveno, zatímco čtete"
+  }
+}

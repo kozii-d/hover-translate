@@ -1,0 +1,30 @@
+{
+  "pageTitle": "欢迎使用 HoverTranslate",
+  "language": {
+    "hint": "字幕会翻译成这种语言。之后可以在设置中更改。"
+  },
+  "try": {
+    "hover": "把鼠标移到单词上，即可看到译文。",
+    "shift": "按住 Shift 键并在单词上依次移动鼠标，即可翻译短语。",
+    "click": "点击单词即可将其保存到生词本。"
+  },
+  "deepl": {
+    "where": "可在设置中连接：HoverTranslate 图标 → {{translatorField}} → DeepL。"
+  },
+  "openSettings": "打开设置",
+  "more": {
+    "title": "HoverTranslate 的更多功能",
+    "settings": "翻译引擎（Google、Bing 或 DeepL）、自动暂停，以及点击单词时的操作。",
+    "customize": "译文的外观：字体、字号、颜色和背景，也可以与 YouTube 字幕相同。",
+    "dictionary": "你保存的单词，按日期排列，可导出为 CSV 或 JSON。"
+  },
+  "start": {
+    "openYouTube": "打开 YouTube",
+    "captions": "用播放器中的 CC（字幕）按钮开启字幕。",
+    "pin": "将 HoverTranslate 图标固定到工具栏，随时都能打开。"
+  },
+  "demo": {
+    "playing": "正在播放",
+    "paused": "阅读时暂停"
+  }
+}

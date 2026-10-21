@@ -4,16 +4,16 @@ import { defaultSettings, defaultTooltipTheme } from "../../src/common/consts/de
 import { FakeChromeOptions, installFakeChrome } from "../fakeChrome.ts";
 
 const DAY = 24 * 60 * 60 * 1000;
+const WELCOME_PAGE = "chrome-extension://jbddomeagbjjdoaehkdffdhifdhnmfic/popup/dist/welcome.html";
 
 /** Starts the background's settings service in a profile, and fires `onInstalled`. */
 const startBrowser = async (reason: "install" | "update", options: FakeChromeOptions = {}) => {
   const fake = installFakeChrome(options);
-  const openPopup = vi.spyOn(chrome.action, "openPopup");
   new SettingsService();
   fake.fireInstalled({ reason });
   // Settled once the last key it writes is there.
   await vi.waitFor(() => expect(fake.storage.sync.updatedAt).not.toBe(options.sync?.updatedAt));
-  return { fake, openPopup };
+  return { fake };
 };
 
 describe("SettingsService: install", () => {
@@ -21,7 +21,7 @@ describe("SettingsService: install", () => {
     ["pt-BR", "pt"], ["pt-PT", "pt-PT"], ["es-419", "es"], ["nn-NO", "no"], ["he", "iw"], ["ar", "ar"], ["en-US", "en"], ["xx", "en"],
   ])(
     "UI %j → target language %j, defaults for the rest", async (uiLanguage, target) => {
-      const { fake, openPopup } = await startBrowser("install", { uiLanguage });
+      const { fake } = await startBrowser("install", { uiLanguage });
 
       expect(fake.storage.sync).toMatchObject({
         settings: { ...defaultSettings, targetLanguageCode: target },
@@ -30,8 +30,50 @@ describe("SettingsService: install", () => {
         tooltipThemeVersion: SettingsService.TOOLTIP_THEME_VERSION,
       });
       expect(fake.storage.sync.installedAt).toBe(fake.storage.sync.updatedAt);
-      expect(openPopup).toHaveBeenCalledOnce();
     });
+
+  it("opens the welcome page in a tab once, after the settings with the viewer's language are written", async () => {
+    const { fake } = await startBrowser("install", { uiLanguage: "uk" });
+
+    await vi.waitFor(() => expect(fake.createdTabs).toHaveLength(1));
+    const [tab] = fake.createdTabs;
+    expect(tab.url).toBe(WELCOME_PAGE);
+    expect(tab.sync).toMatchObject({ settings: { ...defaultSettings, targetLanguageCode: "uk" }, tooltipTheme: defaultTooltipTheme });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(fake.createdTabs).toHaveLength(1);
+  });
+
+  it("the settings that could not be written still open the page, which shows its error screen", async () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const fake = installFakeChrome({ failingWrites: { sync: ["settings"] } });
+    new SettingsService();
+
+    fake.fireInstalled({ reason: "install" });
+
+    await vi.waitFor(() => expect(fake.createdTabs.map(({ url }) => url)).toEqual([WELCOME_PAGE]));
+    expect(fake.createdTabs[0].sync).toEqual({});
+    expect(consoleError).toHaveBeenCalledWith("Failed to set up the extension on install:", expect.any(Error));
+  });
+
+  it("the browser refusing the tab is logged: no unhandled rejection, the install is complete", async () => {
+    const unhandled: unknown[] = [];
+    const onUnhandled = (reason: unknown) => unhandled.push(reason);
+    process.on("unhandledRejection", onUnhandled);
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      const { fake } = await startBrowser("install", { refuseTabs: true });
+
+      await vi.waitFor(() => expect(consoleError).toHaveBeenCalledWith("Failed to open the welcome page:", expect.any(Error)));
+      expect(fake.createdTabs).toEqual([]);
+      expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "en" });
+      // A rejection nobody handles is reported after the microtasks of its turn.
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      expect(unhandled).toEqual([]);
+    } finally {
+      process.off("unhandledRejection", onUnhandled);
+      consoleError.mockRestore();
+    }
+  });
 
   it("a profile that has installedAt already (sync from another device) is not set up again", async () => {
     const sync = { installedAt: 1, settings: { ...defaultSettings, translator: "bing" } };
@@ -42,6 +84,8 @@ describe("SettingsService: install", () => {
     await new Promise((resolve) => setTimeout(resolve, 20));
 
     expect(fake.storage.sync).toEqual(sync);
+    // The viewer knows the extension already: no welcome page.
+    expect(fake.createdTabs).toEqual([]);
   });
 });
 
@@ -72,6 +116,7 @@ describe("SettingsService: update", () => {
     expect(fake.storage.sync.tooltipTheme).toEqual({ ...defaultTooltipTheme, fontSize: "150%" });
     expect(fake.storage.sync.installedAt).toBe(installedAt);
     expect(fake.storage.sync.updatedAt).toBeGreaterThan(installedAt);
+    expect(fake.createdTabs).toEqual([]);
   });
 
   it("current settings that arrived without their version keep the chosen translator", async () => {

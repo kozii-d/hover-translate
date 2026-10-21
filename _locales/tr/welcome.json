@@ -1,0 +1,30 @@
+{
+  "pageTitle": "HoverTranslate'e hoş geldiniz",
+  "language": {
+    "hint": "Altyazılar bu dile çevrilir. Dili daha sonra Ayarlar'dan değiştirebilirsiniz."
+  },
+  "try": {
+    "hover": "Çevirisini görmek için bir kelimenin üzerine gelin.",
+    "shift": "Bir ifadeyi çevirmek için Üst Karakter tuşunu basılı tutup kelimelerin üzerinden geçin.",
+    "click": "Bir kelimeyi Kelime defterinize kaydetmek için üzerine tıklayın."
+  },
+  "deepl": {
+    "where": "Ayarlar'dan bağlayabilirsiniz: HoverTranslate simgesi → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Ayarlar'ı aç",
+  "more": {
+    "title": "HoverTranslate'te daha fazlası",
+    "settings": "Çevirmen (Google, Bing veya DeepL), otomatik duraklatma ve bir kelimeye tıklayınca ne olacağı.",
+    "customize": "Çevirilerin görünümü: yazı tipi, boyut, renkler ve arka plan ya da YouTube altyazılarınızla aynı.",
+    "dictionary": "Kaydettiğiniz kelimeler, günlere göre; CSV veya JSON olarak dışa aktarılabilir."
+  },
+  "start": {
+    "openYouTube": "YouTube'u aç",
+    "captions": "Altyazıları oynatıcıdaki CC (\"Altyazılar\") düğmesiyle açın.",
+    "pin": "HoverTranslate simgesini araç çubuğuna sabitleyin, her zaman elinizin altında olsun."
+  },
+  "demo": {
+    "playing": "Oynatılıyor",
+    "paused": "Okurken duraklatıldı"
+  }
+}

@@ -11,6 +11,9 @@ import { findUserLanguage } from "../../common/translators/findClosestLanguage.t
 // the viewer has to be able to refuse).
 const UNINSTALL_PAGE_URL = "https://hovertranslate.app/uninstall/";
 
+// The page that shows a new viewer what to do (`popup/welcome.html`, built by the popup).
+const WELCOME_PAGE = "popup/dist/welcome.html";
+
 export class SettingsService {
   static readonly SETTINGS_VERSION = 4;
   static readonly TOOLTIP_THEME_VERSION = 1;
@@ -60,21 +63,16 @@ export class SettingsService {
       console.error("Failed to set up the extension on install:", error);
     }
 
-    this.openPopupOnInstall();
+    // Also when the settings could not be written: the page then shows its
+    // error screen, which is still more than nothing.
+    this.openWelcomePage();
   }
 
-  /**
-   * Shows the popup once, as a welcome screen.
-   *
-   * Firefox MV3 and some Chrome builds only allow this from a user gesture and
-   * reject; older ones do not expose `action.openPopup` at all and throw. Neither
-   * is worth failing the install over, and neither is worth a console error the
-   * viewer can do nothing about.
-   */
-  private openPopupOnInstall(): void {
-    try {
-      chrome.action?.openPopup?.()?.catch(() => { /* the browser declined to open it */ });
-    } catch { /* the browser has no openPopup at all */ }
+  /** In a tab: an action popup opens without a click only in Chrome 127 and later. */
+  private openWelcomePage() {
+    chrome.tabs.create({ url: chrome.runtime.getURL(WELCOME_PAGE) }).catch((error) => {
+      console.error("Failed to open the welcome page:", error);
+    });
   }
 
   private async handleExtensionUpdate() {

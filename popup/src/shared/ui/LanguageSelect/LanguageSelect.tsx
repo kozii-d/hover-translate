@@ -30,13 +30,18 @@ interface LanguageSelectProps {
   label: string;
   tooltip?: string;
   options: LanguageOption[];
+  /**
+   * `false`: the panel is a dialog of its own size, centred, for a page wider
+   * than the popup (the welcome page in a tab). The popup's is full screen.
+   */
+  fullScreen?: boolean;
 }
 
 /**
  * A language field: it looks like the other settings fields, and opens a
  * panel over the whole popup with a search and the languages in two columns.
  */
-export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, label, tooltip, options }) => {
+export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, label, tooltip, options, fullScreen = true }) => {
   const [open, setOpen] = useState(false);
   const titleId = `${id}-panel-title`;
 
@@ -62,7 +67,9 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, l
         onOpen={() => setOpen(true)}
       />
       <Dialog
-        fullScreen
+        fullScreen={fullScreen}
+        // Otherwise as wide as MUI's default `maxWidth`, 600 px.
+        fullWidth={!fullScreen}
         open={open}
         onClose={() => setOpen(false)}
         // MUI closes the panel on Escape without `preventDefault`, and Chrome
@@ -74,7 +81,11 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, l
         }}
         aria-labelledby={titleId}
         slots={{ transition: Slide }}
-        slotProps={{ transition: { direction: "up", onEntered: scrollToSelected } }}
+        slotProps={{
+          transition: { direction: "up", onEntered: scrollToSelected },
+          // A height of its own, so that the list scrolls inside it.
+          paper: fullScreen ? undefined : { sx: { height: "min(640px, calc(100% - 64px))" } },
+        }}
       >
         <LanguagePanel
           titleId={titleId}

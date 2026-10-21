@@ -35,7 +35,7 @@ import {
   getTranslatorLabel,
 } from "../model/consts/translators.ts";
 import { ensureTranslatorPermissions } from "@/shared/lib/helpers/permissions.ts";
-import { languageNamesIn, toTag } from "@/shared/lib/helpers/languageNames.ts";
+import { useLanguageOptions } from "@/shared/lib/hooks/useLanguageOptions.ts";
 import {
   requestApiKeyRemoval,
   requestApiKeySave,
@@ -90,8 +90,7 @@ export const SettingsForm: FC<SettingsFormProps> = ({
   fellBack,
   loading,
 }) => {
-  // `languages`: Google Translate's names of the languages, loaded with the strings.
-  const { t, i18n } = useTranslation(["settings", "languages"]);
+  const { t } = useTranslation("settings");
   const { control, handleSubmit, setValue, getValues, watch, reset } = useForm<SettingsFormValues>({
     defaultValues: initialValues,
   });
@@ -140,31 +139,10 @@ export const SettingsForm: FC<SettingsFormProps> = ({
     }
   }, [apiKeyPrompt]);
 
-  const popupLanguage = i18n.language;
-
-  // In English the translators' own names stay: Google's are the ones its site
-  // shows, and Bing's and DeepL's are already English.
-  const languageNames = useMemo(() => popupLanguage === "en"
-    ? undefined
-    : languageNamesIn(popupLanguage, i18n.getResourceBundle(popupLanguage, "languages")), [i18n, popupLanguage]);
-
-  /** `translator`: the one whose language this is — a code can mean another language elsewhere. */
-  const getLanguageLabel = useCallback((language: Language, translator: Translator) =>
-    languageNames?.(language.code, translator) || language.name || language.code, [languageNames]);
-
   // The lists are the selected translator's. While a switch waits for the
   // permission prompt they are still the previous one's, and a code of
   // `GOOGLE_CODES` may be named for the new one until its lists arrive.
-  const toSortedOptions = useCallback((languages: Language[]): LanguageOption[] => {
-    const collator = new Intl.Collator(toTag(popupLanguage));
-    return languages
-      .map((language) => ({
-        value: language.code,
-        label: getLanguageLabel(language, currentTranslator),
-        englishName: language.name,
-      }))
-      .sort((a, b) => collator.compare(a.label, b.label));
-  }, [currentTranslator, getLanguageLabel, popupLanguage]);
+  const { getLanguageLabel, toSortedOptions } = useLanguageOptions(currentTranslator);
 
   const detectLanguageLabel = t("fields.sourceLanguageCode.auto");
 

@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Welcome to HoverTranslate",
+  "language": {
+    "hint": "Subtitles are translated into this language. You can change it later in the settings."
+  },
+  "try": {
+    "hover": "Point at a word to see its translation.",
+    "shift": "Hold Shift and move across the words to translate a phrase.",
+    "click": "Click a word to save it to your Dictionary."
+  },
+  "deepl": {
+    "where": "Connect it in the settings: the HoverTranslate icon → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Open settings",
+  "more": {
+    "title": "More in HoverTranslate",
+    "settings": "The translator (Google, Bing or DeepL), auto-pause, what a click on a word does.",
+    "customize": "How translations look: font, size, colors and background, or as your YouTube subtitles.",
+    "dictionary": "The words you saved, by day, to export as CSV or JSON."
+  },
+  "start": {
+    "openYouTube": "Open YouTube",
+    "captions": "Turn on subtitles with the CC button in the player.",
+    "pin": "Pin the HoverTranslate icon to the toolbar to keep it at hand."
+  },
+  "demo": {
+    "playing": "Playing",
+    "paused": "Paused while you read"
+  }
+}

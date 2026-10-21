@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Selamat datang di HoverTranslate",
+  "language": {
+    "hint": "Subtitle diterjemahkan ke bahasa ini. Anda dapat mengubahnya nanti di Setelan."
+  },
+  "try": {
+    "hover": "Arahkan kursor ke sebuah kata untuk melihat terjemahannya.",
+    "shift": "Tahan Shift dan arahkan kursor ke beberapa kata untuk menerjemahkan frasa.",
+    "click": "Klik kata untuk menyimpannya ke Kamus Anda."
+  },
+  "deepl": {
+    "where": "Hubungkan di Setelan: ikon HoverTranslate → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Buka Setelan",
+  "more": {
+    "title": "Lainnya di HoverTranslate",
+    "settings": "Penerjemah (Google, Bing, atau DeepL), jeda otomatis, dan apa yang terjadi saat kata diklik.",
+    "customize": "Tampilan terjemahan: font, ukuran, warna, dan latar, atau sama dengan subtitle YouTube Anda.",
+    "dictionary": "Kata yang Anda simpan, per hari, untuk diekspor sebagai CSV atau JSON."
+  },
+  "start": {
+    "openYouTube": "Buka YouTube",
+    "captions": "Aktifkan subtitle dengan tombol CC (\"Subtitel/CC\") di pemutar.",
+    "pin": "Sematkan ikon HoverTranslate ke toolbar agar selalu mudah dijangkau."
+  },
+  "demo": {
+    "playing": "Diputar",
+    "paused": "Dijeda selagi Anda membaca"
+  }
+}

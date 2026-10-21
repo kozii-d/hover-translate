@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Boas-vindas ao HoverTranslate",
+  "language": {
+    "hint": "As legendas são traduzidas para este idioma. Você pode mudá-lo depois nas Configurações."
+  },
+  "try": {
+    "hover": "Passe o mouse sobre uma palavra para ver a tradução.",
+    "shift": "Segure Shift e passe o mouse pelas palavras para traduzir uma frase.",
+    "click": "Clique em uma palavra para salvá-la no seu Vocabulário."
+  },
+  "deepl": {
+    "where": "Conecte-o nas Configurações: ícone do HoverTranslate → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Abrir as Configurações",
+  "more": {
+    "title": "Mais no HoverTranslate",
+    "settings": "O tradutor (Google, Bing ou DeepL), a pausa automática e o que um clique numa palavra faz.",
+    "customize": "A aparência das traduções: fonte, tamanho, cores e fundo, ou igual às suas legendas do YouTube.",
+    "dictionary": "As palavras que você salvou, por dia, para exportar em CSV ou JSON."
+  },
+  "start": {
+    "openYouTube": "Abrir o YouTube",
+    "captions": "Ative as legendas com o botão CC (\"Legendas/legendas ocultas\") do player.",
+    "pin": "Fixe o ícone do HoverTranslate na barra de ferramentas para tê-lo sempre à mão."
+  },
+  "demo": {
+    "playing": "Reproduzindo",
+    "paused": "Pausado enquanto você lê"
+  }
+}

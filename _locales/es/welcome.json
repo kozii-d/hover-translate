@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Te damos la bienvenida a HoverTranslate",
+  "language": {
+    "hint": "Los subtítulos se traducen a este idioma. Puedes cambiarlo más tarde en Configuración."
+  },
+  "try": {
+    "hover": "Pasa el cursor sobre una palabra para ver su traducción.",
+    "shift": "Mantén presionada la tecla Shift y pasa el cursor por las palabras para traducir una frase.",
+    "click": "Haz clic en una palabra para guardarla en tu Vocabulario."
+  },
+  "deepl": {
+    "where": "Conéctalo en Configuración: icono de HoverTranslate → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Abrir Configuración",
+  "more": {
+    "title": "Más en HoverTranslate",
+    "settings": "El traductor (Google, Bing o DeepL), la pausa automática y qué hace un clic en una palabra.",
+    "customize": "El aspecto de las traducciones: fuente, tamaño, colores y fondo, o igual que tus subtítulos de YouTube.",
+    "dictionary": "Las palabras que guardaste, por día, para exportarlas en CSV o JSON."
+  },
+  "start": {
+    "openYouTube": "Abrir YouTube",
+    "captions": "Activa los subtítulos con el botón CC («Subtítulos») del reproductor.",
+    "pin": "Fija el icono de HoverTranslate en la barra de herramientas para tenerlo siempre a mano."
+  },
+  "demo": {
+    "playing": "Reproduciendo",
+    "paused": "En pausa mientras lees"
+  }
+}

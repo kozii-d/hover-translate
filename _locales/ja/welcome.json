@@ -1,0 +1,30 @@
+{
+  "pageTitle": "HoverTranslate へようこそ",
+  "language": {
+    "hint": "字幕はこの言語に翻訳されます。あとから設定で変更できます。"
+  },
+  "try": {
+    "hover": "単語にマウスを重ねると、翻訳が表示されます。",
+    "shift": "Shift キーを押しながら単語の上をなぞると、フレーズを翻訳できます。",
+    "click": "単語をクリックすると、単語帳に保存されます。"
+  },
+  "deepl": {
+    "where": "設定で接続できます: HoverTranslate のアイコン → {{translatorField}} → DeepL。"
+  },
+  "openSettings": "設定を開く",
+  "more": {
+    "title": "HoverTranslate のその他の機能",
+    "settings": "翻訳エンジン（Google、Bing、DeepL）、自動一時停止、単語をクリックしたときの動作。",
+    "customize": "翻訳の見た目：フォント、サイズ、色、背景。YouTube の字幕と同じにもできます。",
+    "dictionary": "保存した単語を日付ごとに表示。CSV または JSON で書き出せます。"
+  },
+  "start": {
+    "openYouTube": "YouTube を開く",
+    "captions": "プレーヤーの CC（字幕）ボタンで字幕をオンにしてください。",
+    "pin": "HoverTranslate のアイコンをツールバーに固定しておくと、すぐに開けます。"
+  },
+  "demo": {
+    "playing": "再生中",
+    "paused": "読んでいる間は一時停止中"
+  }
+}

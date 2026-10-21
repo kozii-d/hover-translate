@@ -152,8 +152,8 @@ i18n
     supportedLngs: supportedLanguages,
     nonExplicitSupportedLngs: false,
     // `languages`: Google Translate's names of the languages in this one
-    // (`npm run update:language-names`).
-    ns: ["messages", "modals", "settings", "customize", "dictionary", "about", "common", "languages"],
+    // (`npm run update:language-names`). `welcome`: the page opened on install.
+    ns: ["messages", "modals", "settings", "customize", "dictionary", "about", "common", "languages", "welcome"],
     backend: {
       loadPath: `${baseUrl}_locales/{{lng}}/{{ns}}.json`,
     },

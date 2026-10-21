@@ -96,7 +96,8 @@ After running the build commands, the following files are generated:
 - `extension/dist/content.bundle.js` - Content script
 - `extension/dist/styles.css` - Content styles
 - `popup/dist/index.html` - Popup HTML
-- `popup/dist/assets/` - Popup JavaScript and CSS files
+- `popup/dist/welcome.html` - The welcome page the extension opens in a tab on install
+- `popup/dist/assets/` - JavaScript, CSS and the demo video of the popup and the welcome page
 
 ## Source to Output Mapping
 
@@ -107,9 +108,12 @@ After running the build commands, the following files are generated:
 | `extension/src/content/styles.css`                            | `extension/dist/styles.css`                                               |
 | `popup/index.html`                                            | `popup/dist/index.html`                                                   |
 | `popup/src/main.tsx` (and dependencies)                       | `popup/dist/assets/index-[hash].js`, `popup/dist/assets/index-[hash].css` |
+| `popup/welcome.html`                                          | `popup/dist/welcome.html`                                                 |
+| `popup/src/welcome.tsx` (and dependencies)                    | `popup/dist/assets/welcome-[hash].js`                                     |
+| `popup/src/pages/WelcomePage/assets/demo.webm`                | `popup/dist/assets/demo-[hash].webm` (copied as is)                       |
 | `popup/src/pages/*/ui/*.async.tsx` (and code the pages share) | the other `popup/dist/assets/*-[hash].js`                                 |
 
-Vite splits the popup into chunks: each page is loaded lazily and gets its own, and code several pages use goes into shared ones. `popup/dist/index.html` loads only `index-[hash].js` and `index-[hash].css`; that script loads the other chunks when they are needed.
+Vite splits the popup into chunks: each page is loaded lazily and gets its own, and code several pages use goes into shared ones; what the popup and the welcome page share (React, MUI, i18next) is one more chunk, `i18n-[hash].js`. `popup/dist/index.html` loads `index-[hash].js` and `index-[hash].css` and preloads the shared chunks they import (`<link rel="modulepreload">`); the script loads the other chunks when they are needed. `popup/dist/welcome.html` loads `welcome-[hash].js` and its shared chunks the same way, and also the content script's own built files, `../../extension/dist/content.bundle.js` and `../../extension/dist/styles.css` (not rebuilt by Vite: the page runs them on its demo player).
 
 ## Build Tools Used
 

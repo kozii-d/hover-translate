@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Üdvözöl a HoverTranslate",
+  "language": {
+    "hint": "A HoverTranslate erre a nyelvre fordítja a feliratokat. Később a beállításokban módosíthatod."
+  },
+  "try": {
+    "hover": "Vidd az egeret egy szóra, és megjelenik a fordítása.",
+    "shift": "Tartsd lenyomva a Shiftet, és húzd végig az egeret a szavakon egy kifejezés fordításához.",
+    "click": "Kattints egy szóra, és bekerül a Szótáradba."
+  },
+  "deepl": {
+    "where": "A beállításokban csatlakoztathatod: HoverTranslate ikon → {{translatorField}} → DeepL."
+  },
+  "openSettings": "Beállítások megnyitása",
+  "more": {
+    "title": "Még több a HoverTranslate-ben",
+    "settings": "A fordító (Google, Bing vagy DeepL), az automatikus szüneteltetés, és hogy mit tesz egy kattintás a szóra.",
+    "customize": "A fordítások megjelenése: betűtípus, méret, színek és háttér – vagy olyan, mint a YouTube-feliratod.",
+    "dictionary": "A mentett szavaid naponként, CSV vagy JSON exportálással."
+  },
+  "start": {
+    "openYouTube": "YouTube megnyitása",
+    "captions": "Kapcsold be a feliratot a lejátszó CC („Feliratok”) gombjával.",
+    "pin": "Tűzd ki a HoverTranslate ikonját az eszköztárra, hogy mindig kéznél legyen."
+  },
+  "demo": {
+    "playing": "Lejátszás",
+    "paused": "Szünetel, amíg olvasol"
+  }
+}

@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- After installing, a welcome page lets you pick the language to translate into and try hovering over subtitles right there.
+- In Firefox, the HoverTranslate button is on the toolbar right after installing.
 - After you remove HoverTranslate, a short page asks what didn't work — one optional question.
 
 ### Fixed

@@ -12,61 +12,54 @@
   //   (handleWordMouseLeave, updateSelectedWords);
   // - the video pauses while the pointer is on the subtitles and plays on when it leaves
   //   (videoController.ts).
-  // Until the viewer's pointer comes, it shows "playa" selected under a drawn one, as the page
+  // Until the viewer's pointer comes, it shows "montaña" selected under a drawn one, as the page
   // shows it without JavaScript. A tap selects (touch sends no hover, and lifting the finger
   // "leaves"); the Shift button holds Shift for a touch screen.
   function liveSubtitleLine(demo) {
     if (!demo) return;
-    // Google Translate, es → en, for every run of words: "first-last". Asked as the extension asks
-    // (google.ts), without the punctuation at the edges, which it trims (translationCore.ts).
+    // Google Translate into English for every run of words: "first-last". Asked as the extension
+    // asks (google.ts), with the source language detected, the extension's default; every word of
+    // the line is one Google takes for Spanish on its own (21.10.2026). The welcome page of the
+    // extension shows the same line (popup/src/pages/WelcomePage/ui/DemoPlayer.tsx).
     var TRANSLATIONS = {
-      "0-0": "Tomorrow",
-      "0-1": "Tomorrow we go",
-      "0-2": "Tomorrow we will",
-      "0-3": "Tomorrow we go to the",
-      "0-4": "Tomorrow we go to the beach",
-      "0-5": "Tomorrow we are going to the beach yes",
-      "0-6": "Tomorrow we will go to the beach if it is",
-      "0-7": "Tomorrow we will go to the beach if it's nice",
-      "0-8": "Tomorrow we will go to the beach if the weather is good",
-      "1-1": "come on",
-      "1-2": "let's go",
-      "1-3": "let's go to the",
-      "1-4": "let's go to the beach",
-      "1-5": "let's go to the beach yeah",
-      "1-6": "let's go to the beach if it does",
-      "1-7": "let's go to the beach if it's nice",
-      "1-8": "let's go to the beach if the weather is good",
-      "2-2": "to",
-      "2-3": "to the",
-      "2-4": "to the beach",
-      "2-5": "to the beach yes",
-      "2-6": "to the beach if it does",
-      "2-7": "to the beach if the weather is good",
-      "2-8": "to the beach if the weather is good",
-      "3-3": "the",
-      "3-4": "the beach",
-      "3-5": "the beach yes",
-      "3-6": "the beach does",
-      "3-7": "the beach is good",
-      "3-8": "the beach if the weather is good",
-      "4-4": "beach",
-      "4-5": "beach yes",
-      "4-6": "beach if it does",
-      "4-7": "beach if it's good",
-      "4-8": "beach if the weather is good",
-      "5-5": "Yeah",
-      "5-6": "if it does",
-      "5-7": "if it's good",
-      "5-8": "if the weather is good",
-      "6-6": "does",
-      "6-7": "it's good",
-      "6-8": "the weather is good",
-      "7-7": "good",
-      "7-8": "good time",
-      "8-8": "time",
+      "0-0": "we will walk",
+      "0-1": "We will walk through",
+      "0-2": "We will walk through the",
+      "0-3": "We will walk through the mountains",
+      "0-4": "We will walk through the mountains when",
+      "0-5": "We will walk on the mountain when it is",
+      "0-6": "We will walk in the mountains when the weather is good",
+      "0-7": "We will walk in the mountains when the weather is good",
+      "1-1": "by",
+      "1-2": "for the",
+      "1-3": "through the mountain",
+      "1-4": "through the mountains when",
+      "1-5": "through the mountains when it does",
+      "1-6": "through the mountains when the weather is good",
+      "1-7": "through the mountains when the weather is good",
+      "2-2": "the",
+      "2-3": "the mountain",
+      "2-4": "the mountain when",
+      "2-5": "the mountain when it does",
+      "2-6": "the mountain when the weather is good",
+      "2-7": "the mountains when the weather is good",
+      "3-3": "mountain",
+      "3-4": "mountain when",
+      "3-5": "mountain when it does",
+      "3-6": "mountain when the weather is good",
+      "3-7": "mountain when the weather is good",
+      "4-4": "when",
+      "4-5": "when do",
+      "4-6": "when it's good",
+      "4-7": "when the weather is good",
+      "5-5": "do",
+      "5-6": "do good",
+      "5-7": "have good weather",
+      "6-6": "good",
+      "6-7": "good time",
+      "7-7": "time",
     };
-    var RESTING_WORD = 4; // "playa"
+    var RESTING_WORD = 3; // "montaña"
     var MARGIN = 10;
     var GAP = 5;
     var NOTIFICATION_SIDE = 65;
@@ -162,7 +155,7 @@
     function setPlaying(on) {
       var start = on && !playing; // one frame loop at a time
       playing = on;
-      status.textContent = on ? "▶ Playing" : "❚❚ Paused while you read";
+      status.setAttribute("data-state", on ? "playing" : "paused");
       if (start) requestAnimationFrame(tick);
     }
 
