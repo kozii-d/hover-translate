@@ -1,8 +1,7 @@
 ---
 name: task
-description: Research an idea for HoverTranslate and write it up as a task file in work/tasks/ for the implementer agent. Changes no code.
+description: Research an idea for HoverTranslate and write it up as a task file in work/tasks/ for the implementer agent. Changes no code. An agent invokes it only after the user agreed to that very task in this conversation — propose it and ask first, never on its own judgement.
 argument-hint: <idea>
-disable-model-invocation: true
 ---
 
 Turn this idea into a task: $ARGUMENTS

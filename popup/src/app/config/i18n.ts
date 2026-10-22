@@ -173,4 +173,14 @@ i18n.on("languageChanged", (lang) => {
   document.documentElement.lang = toTag(lang);
 });
 
+// The popup and the welcome page can be open at once and share `localStorage`:
+// a language picked in one reaches the other through the `storage` event, which
+// the page that wrote it does not get. A removed key (`null`) changes nothing,
+// nor does an event the key has been overwritten since: the detector writes the
+// language back, so applying a stale one would start the pages trading two.
+window.addEventListener("storage", ({ key, newValue }) => {
+  if (key !== LANGUAGE_STORAGE_KEY || !newValue || newValue !== localStorage.getItem(LANGUAGE_STORAGE_KEY)) return;
+  if (supportedLanguages.includes(newValue) && newValue !== i18n.language) i18n.changeLanguage(newValue);
+});
+
 export default i18n;

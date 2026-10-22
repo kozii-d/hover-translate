@@ -221,6 +221,63 @@ test("in another popup language: the page's own strings load next to the content
   expect(errors).toEqual([]);
 });
 
+test("a popup language picked in the popup applies on the open welcome page at once, and the other way round", async ({ welcomePage, context, extensionId }) => {
+  const popup = await context.newPage();
+  const errors = [];
+  for (const page of [welcomePage, popup]) page.on("pageerror", (error) => errors.push(error.message));
+  await popup.goto(`chrome-extension://${extensionId}/popup/dist/index.html`);
+  const pickPopupLanguage = async (page, from, name) => {
+    await page.getByRole("button", { name: readLocale(from, "common").tooltips.languageSelector }).click();
+    await page.getByRole("menuitem", { name, exact: true }).click();
+  };
+
+  await pickPopupLanguage(popup, "en", "العربية");
+  await expect(popup.getByRole("tab", { name: readLocale("ar", "settings").tabLabel, exact: true })).toBeVisible();
+
+  await expect(welcomePage.getByRole("heading", { level: 1 })).toHaveText(readLocale("ar", "welcome").pageTitle);
+  await expect(welcomePage.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect(welcomePage.locator("html")).toHaveAttribute("lang", "ar");
+
+  await pickPopupLanguage(welcomePage, "ar", "Русский");
+  await expect(welcomePage.getByRole("heading", { level: 1 })).toHaveText(readLocale("ru", "welcome").pageTitle);
+  await expect(welcomePage).toHaveTitle(readLocale("ru", "welcome").pageTitle);
+
+  await expect(popup.getByRole("tab", { name: readLocale("ru", "settings").tabLabel, exact: true })).toBeVisible();
+  await expect(popup.locator("html")).toHaveAttribute("dir", "ltr");
+
+  // A removed key or a language the popup does not have changes nothing: the
+  // welcome page's language goes from Russian straight to the next real one.
+  const recordLanguages = (page) => page.evaluate(() => {
+    if (!window.langs) {
+      new MutationObserver(() => window.langs.push(document.documentElement.lang))
+        .observe(document.documentElement, { attributeFilter: ["lang"] });
+    }
+    window.langs = [];
+  });
+  await recordLanguages(welcomePage);
+  await popup.evaluate(() => {
+    localStorage.removeItem("hoverTranslatePopupLanguage");
+    localStorage.setItem("hoverTranslatePopupLanguage", "xx");
+    localStorage.setItem("hoverTranslatePopupLanguage", "uk");
+  });
+  await expect(welcomePage.getByRole("heading", { level: 1 })).toHaveText(readLocale("uk", "welcome").pageTitle);
+  expect(await welcomePage.evaluate(() => window.langs)).toEqual(["uk"]);
+
+  // Two writes in a row: only the value the key holds now applies. An event
+  // already overwritten, applied and written back, would set the pages
+  // trading the two languages for as long as both are open.
+  await recordLanguages(welcomePage);
+  await recordLanguages(popup);
+  await popup.evaluate(() => {
+    localStorage.setItem("hoverTranslatePopupLanguage", "ar");
+    localStorage.setItem("hoverTranslatePopupLanguage", "ru");
+  });
+  await expect(welcomePage.getByRole("heading", { level: 1 })).toHaveText(readLocale("ru", "welcome").pageTitle);
+  expect(await welcomePage.evaluate(() => window.langs)).toEqual(["ru"]);
+  expect(await popup.evaluate(() => window.langs)).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
 // Text at least 4.5 times lighter or darker than what is behind it (WCAG AA),
 // "Allow access" too; the keyboard focus an outline at least 3 times so.
 for (const colorScheme of ["light", "dark"]) {

@@ -50,7 +50,7 @@ Live YouTube, a real browser, an old browser version. Two browsers are installed
 
 **LibreWolf (Firefox family)** — `/usr/bin/librewolf`, a current Firefox with every locale built in (`user_pref("intl.locale.requested", "es-MX")` in a new profile's `user.js`):
 - headless over WebDriver BiDi (`--headless --remote-debugging-port <p>`); the extension is a temporary add-on, `webExtension.install` with `type: "path"`, a folder with `manifest.firefox.json` as `manifest.json`;
-- BiDi does not open `moz-extension://` pages: read `storage.sync` from the profile's `storage-sync-v2.sqlite` (table `storage_sync_data`, keyed by the gecko id) with `node:sqlite`; with `--remote-allow-system-access`, `browsingContext.getTree({ "moz:scope": "chrome" })` gives a chrome context for `Services.*`;
+- BiDi opens `moz-extension://` pages (LibreWolf 158): `browsingContext.navigate` to the popup or the welcome page, then `script.evaluate` in it, `chrome.storage` included; with `--remote-allow-system-access`, `browsingContext.getTree({ "moz:scope": "chrome" })` gives a chrome context for `Services.*`;
 - LibreWolf's defaults differ from Mozilla's Firefox (`resistFingerprinting` and others) — say so when that can affect the result.
 
 **Old browsers** (Chromium 102, Firefox 115) — only by the recipe in `CLAUDE.md` → «Dependencies», downloaded into `work/runs/NN/`.
