@@ -3,6 +3,7 @@ import { TooltipService } from "../services/tooltipService.ts";
 import { state } from "../state/stateManager.ts";
 import { CaptionWord, renderWord, splitIntoWords } from "../utils/wordSegmenter.ts";
 import { isShiftHeld } from "../utils/shiftKey.ts";
+import { findVisibleCaptionSegment } from "../utils/domUtils.ts";
 
 export class SubtitleCore {
   /**
@@ -263,6 +264,22 @@ export class SubtitleCore {
       if (captionWindow instanceof HTMLElement && width > 0) {
         captionWindow.style.width = `${width}px`;
       }
+    });
+  }
+
+  /**
+   * A window without visible text lets the pointer through to the one under
+   * it (styles.css): a styled track draws some lines twice, a transparent copy
+   * in another font over the visible line, and the pointer took the copy's
+   * words. An attribute rather than the window's inline style, which may set
+   * `pointer-events` itself (the welcome page's demo); YouTube makes the
+   * window anew when the player changes size (live, 2026-10-22), and the new
+   * one comes through the observer. A window without segments yet waits for
+   * them the same way.
+   */
+  public updateCaptionWindowPointerEvents(): void {
+    document.querySelectorAll(`.${CAPTION_WINDOW}`).forEach((captionWindow) => {
+      captionWindow.toggleAttribute(DATA_ATTRIBUTES.NO_VISIBLE_TEXT, !findVisibleCaptionSegment(captionWindow));
     });
   }
 

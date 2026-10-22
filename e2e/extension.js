@@ -241,7 +241,8 @@ class Player {
   /** Shows captions (`window.fixture.captions`) and waits until the content script has split them into words. */
   async captions(windows) {
     await this.frame.evaluate((windows) => window.fixture.captions(windows), windows);
-    await expect(this.frame.locator(".ytp-caption-segment .custom-tooltip-word").first()).toBeVisible();
+    // Visible: a word of nothing but U+200B, which styled tracks pad their lines with, has no width.
+    await expect(this.frame.locator(".ytp-caption-segment .custom-tooltip-word").filter({ visible: true }).first()).toBeVisible();
   }
 
   /** Puts another player before this one in the document (`window.fixture.preview`). */
@@ -257,6 +258,20 @@ class Player {
   word(text) {
     const literal = text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     return this.frame.locator(".custom-tooltip-word").filter({ hasText: new RegExp(`^\\s*${literal}\\s*$`) }).first();
+  }
+
+  /** The index of the caption window `locator` is in, in the document. */
+  windowIndexOf(locator) {
+    return locator.evaluate((node) => Array.from(document.querySelectorAll(".caption-window")).indexOf(node.closest(".caption-window")));
+  }
+
+  /**
+   * Moves the pointer to the middle of `word`'s box, whatever is over it:
+   * the point, not the element (a transparent copy of the line on top).
+   */
+  async pointAt(word) {
+    const box = await word.boundingBox();
+    await this.page.mouse.move(box.x + box.width / 2, box.y + box.height / 2, { steps: 3 });
   }
 
   get tooltip() {
@@ -436,4 +451,16 @@ function focusOutline(page) {
   }, null);
 }
 
-module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePage, withoutYouTubeAccess, lowContrast, focusOutline };
+// A track with colours and fonts of its own, made with an editor such as
+// YTSubConverter (issue #3, live on I6xwMIUPHss, 2026-10-21): YouTube starts
+// and ends every line with a transparent segment of U+200B and puts one in
+// the default theme after the first; some lines it draws twice, a copy with
+// transparent text, laid out in another font, over the visible one.
+const PAD = { text: "\u200b", style: "color: rgba(160, 170, 180, 0); fill: rgba(160, 170, 180, 0); background: rgba(8, 8, 8, 0);" };
+const BLACK_ON_WHITE = "color: rgba(0, 0, 0, 0.996); fill: rgba(0, 0, 0, 0.996); background: rgba(255, 255, 255, 0.996);";
+// Letter spacing in place of the copy's other font: its words lie off the visible ones.
+const TRANSPARENT_COPY = "color: rgba(255, 255, 255, 0); fill: rgba(255, 255, 255, 0); background: rgba(8, 8, 8, 0); letter-spacing: 4px;";
+/** A line of such a track, for `fixture.captions`: `text` in `style`, padded as YouTube pads it. */
+const styledLine = (text, style) => [PAD, { text: "\u200b" }, { text, style }, PAD];
+
+module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePage, withoutYouTubeAccess, lowContrast, focusOutline, styledLine, BLACK_ON_WHITE, TRANSPARENT_COPY };

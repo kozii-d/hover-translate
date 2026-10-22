@@ -77,11 +77,13 @@ const normalizeContext = (text: string, context?: string): string | undefined =>
 };
 
 /**
- * Whitespace and punctuation, except the marks that belong to a word: the
- * apostrophes (`goin'`, `'cause`) and `% ‰ # @ & *` (`100%`, `#tag`, `f***`).
- * A lookahead rather than the `v` flag's set difference, which Chrome 102 lacks.
+ * Whitespace, format characters (U+200B that styled tracks pad their lines
+ * with, LRM, RLM; a ZWNJ inside a word stays) and punctuation, except the
+ * marks that belong to a word: the apostrophes (`goin'`, `'cause`) and
+ * `% ‰ # @ & *` (`100%`, `#tag`, `f***`). A lookahead rather than the `v`
+ * flag's set difference, which Chrome 102 lacks.
  */
-const EDGE_MARK = String.raw`(?:\s|(?!['’%‰#@&*])\p{P})`;
+const EDGE_MARK = String.raw`(?:[\s\p{Cf}]|(?!['’%‰#@&*])\p{P})`;
 const LEADING_MARKS = new RegExp(`^${EDGE_MARK}+`, "u");
 const TRAILING_MARKS = new RegExp(`${EDGE_MARK}+$`, "u");
 

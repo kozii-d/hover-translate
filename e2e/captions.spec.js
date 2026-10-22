@@ -1,4 +1,4 @@
-const { test, expect } = require("./extension.js");
+const { test, expect, styledLine, BLACK_ON_WHITE, TRANSPARENT_COPY } = require("./extension.js");
 
 const selectedWords = (player) => player.frame.locator(".custom-tooltip-word-selected");
 
@@ -442,6 +442,83 @@ test.describe("into Russian", () => {
     await expect(segments.nth(1)).toBeVisible();
     const [shown, other] = await Promise.all([1, 0].map((index) => segments.nth(index).boundingBox()));
     expect(Math.abs(shown.height - other.height)).toBeLessThanOrEqual(1);
+  });
+});
+
+test.describe("a track styled by its author", () => {
+  test.beforeEach(async ({ storage }) => {
+    await storage.updateSettings({ sourceLanguageCode: "auto", targetLanguageCode: "ru" });
+  });
+
+  const themes = {
+    "YouTube's theme": {},
+    // The theme of the issue's author: a font of the viewer's, the rest from the captions.
+    "a font of the viewer's, the rest from the captions": { useYouTubeSettings: false, fontFamily: "proportional-serif" },
+  };
+  for (const [name, theme] of Object.entries(themes)) {
+    test(`the tooltip and the notification take the colours of the visible text, not of the transparent padding (${name})`, async ({ openPlayer, network, storage }) => {
+      await expect.poll(() => storage.get("sync", "tooltipTheme"), { message: "theme written on install" }).toBeTruthy();
+      await storage.set("sync", { tooltipTheme: { ...(await storage.get("sync", "tooltipTheme")), ...theme } });
+      const player = await openPlayer();
+      await player.captions([{ lines: [styledLine("\u200b \u200b“Living next to you", BLACK_ON_WHITE)] }]);
+
+      await player.word("next").hover();
+      await expect(player.tooltip).toHaveText("[ru] next");
+      await expect(player.tooltip).toHaveCSS("color", "rgba(0, 0, 0, 0.996)");
+      await expect(player.tooltip).toHaveCSS("background-color", "rgba(255, 255, 255, 0.996)");
+      if (theme.fontFamily) {
+        await expect(player.tooltip).toHaveCSS("font-family", "\"Times New Roman\", Times, Georgia, Cambria, \"PT Serif Caption\", serif");
+      }
+
+      await player.word("next").click();
+      await expect(player.notification).toHaveText("Translation saved");
+      await expect(player.notification).toHaveCSS("color", "rgba(0, 0, 0, 0.996)");
+      await expect(player.notification).toHaveCSS("background-color", "rgba(255, 255, 255, 0.996)");
+
+      // The U+200B before the quote is no part of the word either.
+      await player.word("\u200b“Living").hover();
+      await expect(player.tooltip).toHaveText("[ru] Living");
+      expect(network.to("translate.googleapis.com").at(-1).url.searchParams.get("q")).toBe("Living");
+    });
+  }
+
+  test("the tooltip takes the colours of the visible text, not of a line still fading in before it", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([
+      { lines: [[{ text: "fading in", style: "color: rgba(255, 255, 0, 0.2); fill: rgba(255, 255, 0, 0.2);" }]], position: "top" },
+      { lines: [styledLine("Living next to you", BLACK_ON_WHITE)] },
+    ]);
+
+    await player.word("next").hover();
+    await expect(player.tooltip).toHaveText("[ru] next");
+    await expect(player.tooltip).toHaveCSS("color", "rgba(0, 0, 0, 0.996)");
+  });
+
+  test("a transparent copy of the line over the visible one lets the pointer through to the visible words, until it has visible text of its own", async ({ openPlayer }) => {
+    const player = await openPlayer();
+    await player.captions([
+      { lines: [styledLine("Living next to you", BLACK_ON_WHITE)] },
+      { lines: [styledLine("Living next to you", TRANSPARENT_COPY)] },
+    ]);
+
+    for (const text of ["Living", "you"]) {
+      const word = player.word(text);
+      expect(await player.windowIndexOf(word)).toBe(0);
+      await player.pointAt(word);
+      await expect(player.tooltip).toHaveText(`[ru] ${text}`);
+      await expect(selectedWords(player)).toHaveCount(1);
+      expect(await player.windowIndexOf(selectedWords(player))).toBe(0);
+      await expect.poll(() => player.isPaused()).toBe(true);
+    }
+    const copy = player.frame.locator(".caption-window").nth(1);
+    await expect(copy).toHaveCSS("pointer-events", "none");
+    await expect(player.frame.locator(".caption-window").nth(0)).toHaveCSS("pointer-events", "auto");
+
+    // Text shown in the copy: it takes the pointer again.
+    await player.fixture("appendLine", "later");
+    await expect(copy).toHaveCSS("pointer-events", "auto");
+    await player.word("later").hover();
+    await expect(player.tooltip).toHaveText("[ru] later");
   });
 });
 

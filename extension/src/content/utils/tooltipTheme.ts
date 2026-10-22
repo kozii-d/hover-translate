@@ -1,18 +1,21 @@
 import rgba from "color-rgba";
 import alpha from "color-alpha";
 
-import { CAPTION_SEGMENT, TOOLTIP_SETTINGS } from "../consts/consts.ts";
+import { TOOLTIP_SETTINGS } from "../consts/consts.ts";
 import { state } from "../state/stateManager.ts";
+import { findVisibleCaptionSegment } from "./domUtils.ts";
 
 /**
  * Dresses a tooltip, a notification or the rating card in the viewer's
- * subtitle theme: the one set on the Customize page, or YouTube's own.
+ * subtitle theme: the one set on the Customize page, or YouTube's own, taken
+ * from the first segment with visible text — not simply the first one, which
+ * in a styled track is a transparent padding of U+200B.
  */
 export function styleTooltip(tooltip: HTMLElement): void {
-  const captionSegment = document.querySelector<HTMLElement>(`.${CAPTION_SEGMENT}`);
+  const captionSegment = findVisibleCaptionSegment(document);
   if (!captionSegment) return;
 
-  const youtubeSubtitleContainerStyles = window.getComputedStyle(captionSegment);
+  const segmentStyle = window.getComputedStyle(captionSegment);
 
   const {
     useYouTubeSettings,
@@ -26,12 +29,12 @@ export function styleTooltip(tooltip: HTMLElement): void {
   } = state.tooltipTheme;
 
   if (useYouTubeSettings) {
-    tooltip.style.fontFamily = youtubeSubtitleContainerStyles.fontFamily;
-    tooltip.style.color = youtubeSubtitleContainerStyles.color;
-    tooltip.style.fontSize = youtubeSubtitleContainerStyles.fontSize;
-    tooltip.style.fontVariant = youtubeSubtitleContainerStyles.fontVariant;
-    tooltip.style.background = youtubeSubtitleContainerStyles.background;
-    tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
+    tooltip.style.fontFamily = segmentStyle.fontFamily;
+    tooltip.style.color = segmentStyle.color;
+    tooltip.style.fontSize = segmentStyle.fontSize;
+    tooltip.style.fontVariant = segmentStyle.fontVariant;
+    tooltip.style.background = segmentStyle.background;
+    tooltip.style.textShadow = segmentStyle.textShadow;
     return;
   }
 
@@ -39,35 +42,35 @@ export function styleTooltip(tooltip: HTMLElement): void {
     tooltip.style.fontFamily = TOOLTIP_SETTINGS.fontFamily[fontFamily];
     tooltip.style.fontVariant = "small-caps";
   } else if (fontFamily === "auto") {
-    tooltip.style.fontFamily = youtubeSubtitleContainerStyles.fontFamily;
+    tooltip.style.fontFamily = segmentStyle.fontFamily;
   } else {
     tooltip.style.fontFamily = TOOLTIP_SETTINGS.fontFamily[fontFamily];
   }
 
-  const newFontColor = fontColor === "auto" ? youtubeSubtitleContainerStyles.color : TOOLTIP_SETTINGS.fontColor[fontColor];
-  const ytSubtitleContainerColor = rgba(youtubeSubtitleContainerStyles.color);
+  const newFontColor = fontColor === "auto" ? segmentStyle.color : TOOLTIP_SETTINGS.fontColor[fontColor];
+  const ytSubtitleContainerColor = rgba(segmentStyle.color);
   if (ytSubtitleContainerColor.length) {
     const [, , , ytAlpha] = ytSubtitleContainerColor;
     tooltip.style.color = fontOpacity === "auto" ? alpha(newFontColor, ytAlpha) : alpha(newFontColor, TOOLTIP_SETTINGS.fontOpacity[fontOpacity]);
   }
 
   if (fontSize === "auto") {
-    tooltip.style.fontSize = youtubeSubtitleContainerStyles.fontSize;
+    tooltip.style.fontSize = segmentStyle.fontSize;
   } else {
     tooltip.style.fontSize = TOOLTIP_SETTINGS.fontSize[fontSize];
   }
 
-  const newBackgroundColor = backgroundColor === "auto" ? youtubeSubtitleContainerStyles.backgroundColor : TOOLTIP_SETTINGS.backgroundColor[backgroundColor];
-  const ytSubtitleContainerBackground = rgba(youtubeSubtitleContainerStyles.background);
-  
+  const newBackgroundColor = backgroundColor === "auto" ? segmentStyle.backgroundColor : TOOLTIP_SETTINGS.backgroundColor[backgroundColor];
+  const ytSubtitleContainerBackground = rgba(segmentStyle.background);
+
   if (ytSubtitleContainerBackground.length) {
     const [, , , ytBackgroundAlpha] = ytSubtitleContainerBackground;
-    tooltip.style.background = youtubeSubtitleContainerStyles.background;
+    tooltip.style.background = segmentStyle.background;
     tooltip.style.backgroundColor = backgroundOpacity === "auto" ? alpha(newBackgroundColor, ytBackgroundAlpha) : alpha(newBackgroundColor, TOOLTIP_SETTINGS.backgroundOpacity[backgroundOpacity]);
   }
 
   if (characterEdgeStyle === "auto") {
-    tooltip.style.textShadow = youtubeSubtitleContainerStyles.textShadow;
+    tooltip.style.textShadow = segmentStyle.textShadow;
   } else {
     tooltip.style.textShadow = TOOLTIP_SETTINGS.characterEdgeStyle[characterEdgeStyle];
   }

@@ -19,6 +19,8 @@ export const PLAYER_CONTROLS_LAYER = "ytPlayerControlsContainerHost";
 // Data attributes keys
 export const DATA_ATTRIBUTES = {
   INDEX: "data-index",
+  // On a caption window without visible text, which lets the pointer through (styles.css).
+  NO_VISIBLE_TEXT: "data-ht-no-visible-text",
 };
 
 interface TooltipSettings {

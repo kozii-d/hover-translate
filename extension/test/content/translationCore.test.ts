@@ -188,6 +188,13 @@ describe("punctuation at the edges of a selection", () => {
     ["…", ""],
     [" ¿? ", ""],
     ["", ""],
+    // Format characters: YouTube pads the lines of styled tracks with U+200B,
+    // and LRM/RLM come with right-to-left text. ZWNJ inside a word is spelling.
+    ["\u200b“Living", "Living"],
+    ["\u200b", ""],
+    ["\u200ehello\u200f", "hello"],
+    ["می\u200cخواهم", "می\u200cخواهم"],
+    ["\u200bمی\u200cخواهم", "می\u200cخواهم"],
   ])("%j → %j", (text, expected) => {
     expect(trimEdgePunctuation(text)).toBe(expected);
   });
@@ -225,6 +232,7 @@ describe("punctuation at the edges of a selection", () => {
     expect(core.hasCachedTranslation("!")).toBe(false);
     expect(await core.translateText("!")).toBeNull();
     expect(await core.translateText(" … ")).toBeNull();
+    expect(await core.translateText("\u200b")).toBeNull();
     expect(translator.calls).toEqual([]);
     expect(core.cachedTranslationsCount).toBe(0);
   });

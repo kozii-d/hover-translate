@@ -136,6 +136,10 @@ export class MutationObserverService {
       });
     });
 
+    // Every window, whatever changed: a window added before its segments
+    // has no words to change, and lets the pointer through until they come.
+    this.subtitleCore.updateCaptionWindowPointerEvents();
+
     if (!wordsChanged) return;
 
     // 3. Reindex first — the selection is expressed in those indexes, so it can
@@ -271,6 +275,7 @@ export class MutationObserverService {
 
     this.subtitleCore.setWordsIndexes();
     this.subtitleCore.updateCaptionWindowSize();
+    this.subtitleCore.updateCaptionWindowPointerEvents();
   }
 
   /**

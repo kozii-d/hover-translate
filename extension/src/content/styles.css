@@ -27,6 +27,11 @@
     background-color: #707070;
 }
 
+/* A caption window without visible text lets the pointer through (subtitleCore.ts); important over a window's inline style. */
+.caption-window[data-ht-no-visible-text] {
+    pointer-events: none !important;
+}
+
 /* The rating card on the video: colours and font come from the subtitle theme (inline). */
 .custom-rating-card {
     position: absolute;

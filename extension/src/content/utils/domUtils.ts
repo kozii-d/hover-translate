@@ -1,4 +1,28 @@
-import { CAPTION_WINDOW_CONTAINER, VIDEO_PLAYER } from "../consts/consts.ts";
+import rgba from "color-rgba";
+
+import { CAPTION_SEGMENT, CAPTION_WINDOW_CONTAINER, VIDEO_PLAYER } from "../consts/consts.ts";
+
+/**
+ * The faintest text YouTube's caption settings offer (font opacity 25 %).
+ * Fainter text is not there to be read: a line of a styled track fading in.
+ */
+const MIN_VISIBLE_TEXT_ALPHA = 0.25;
+
+/**
+ * The first caption segment in `root` with text the viewer can see: a
+ * character other than whitespace and format characters, in a colour not
+ * fainter than YouTube lets text be. Tracks styled by their authors (editors
+ * such as YTSubConverter) start and end every line with a transparent segment
+ * of U+200B, and draw some lines twice, the copy on top transparent.
+ */
+export function findVisibleCaptionSegment(root: ParentNode): HTMLElement | null {
+  return Array.from(root.querySelectorAll<HTMLElement>(`.${CAPTION_SEGMENT}`)).find((segment) => {
+    if (!/[^\s\p{Cf}]/u.test(segment.textContent ?? "")) return false;
+    // A colour `color-rgba` cannot parse counts as visible.
+    const [, , , alpha = 1] = rgba(window.getComputedStyle(segment).color);
+    return alpha >= MIN_VISIBLE_TEXT_ALPHA;
+  }) ?? null;
+}
 
 /**
  * The video of the player `element` sits in. Not simply the first video of

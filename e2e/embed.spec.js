@@ -1,4 +1,4 @@
-const { test, expect } = require("./extension.js");
+const { test, expect, styledLine, BLACK_ON_WHITE, TRANSPARENT_COPY } = require("./extension.js");
 
 // The embedded player of 2026 draws its controls layer over the captions, so
 // the words get no pointer events of their own: the extension hands them over
@@ -142,4 +142,22 @@ test("a covered word the pointer crosses with the button held neither pauses nor
   // Without the button, the covered word pauses it again.
   await player.word("for").hover({ force: true });
   await expect.poll(() => player.isPaused()).toBe(true);
+});
+
+// A track styled by its author draws some lines twice, a transparent copy over
+// the visible line (see `styledLine`): the word handed over is the visible one.
+test("a covered word under a transparent copy of its line: the visible word is translated", async ({ openPlayer }) => {
+  const player = await openPlayer("embed");
+  await player.captions([
+    { lines: [styledLine("Living next to you", BLACK_ON_WHITE)] },
+    { lines: [styledLine("Living next to you", TRANSPARENT_COPY)] },
+  ]);
+  for (const text of ["Living", "you"]) {
+    const word = player.word(text);
+    expect(await player.windowIndexOf(word)).toBe(0);
+    await player.pointAt(word);
+    await expect(player.tooltip).toHaveText(`[ru] ${text}`);
+    await expect(player.frame.locator(".custom-tooltip-word-selected")).toHaveCount(1);
+    expect(await player.windowIndexOf(player.frame.locator(".custom-tooltip-word-selected"))).toBe(0);
+  }
 });

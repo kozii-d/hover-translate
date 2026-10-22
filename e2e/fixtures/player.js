@@ -24,12 +24,19 @@
     return node;
   };
 
-  const visualLine = (text) => {
-    const line = element("span", "caption-visual-line", "display: block;");
-    const segment = element("span", "ytp-caption-segment", SEGMENT_STYLE);
-    segment.append(document.createTextNode(text));
-    line.append(segment);
-    return line;
+  // `line`: its text, one segment in the default theme, or its segments
+  // `{ text, style }`, each `style` added to the default one — a track with
+  // colours and fonts of its own, whose every line YouTube starts and ends
+  // with a transparent segment of U+200B (issue #3, live on 2026-10-21).
+  const visualLine = (line) => {
+    const node = element("span", "caption-visual-line", "display: block;");
+    const segments = typeof line === "string" ? [{ text: line }] : line;
+    segments.forEach(({ text, style = "" }) => {
+      const segment = element("span", "ytp-caption-segment", `${SEGMENT_STYLE} ${style}`.trim());
+      segment.append(document.createTextNode(text));
+      node.append(segment);
+    });
+    return node;
   };
 
   // YouTube sizes the window to its longest line and centres it, unless the
@@ -44,10 +51,11 @@
     captionWindow.style.marginLeft = `${-width / 2}px`;
   };
 
-  // `lines`: one string per visual line. `position`: "bottom" (lifted over the
-  // control bar on the watch page, as YouTube does while the bar shows) or
-  // "top". `dir` and `lang` as YouTube sets them on a track (`dir="rtl"` for
-  // Arabic). `style`: more inline style, to put the window somewhere else.
+  // `lines`: one per visual line (see `visualLine`). `position`: "bottom"
+  // (lifted over the control bar on the watch page, as YouTube does while the
+  // bar shows) or "top". `dir` and `lang` as YouTube sets them on a track
+  // (`dir="rtl"` for Arabic). `style`: more inline style, to put the window
+  // somewhere else.
   const captionWindow = ({ lines, position = "bottom", dir = "ltr", lang = "en", style = "" }) => {
     const bottom = document.body.classList.contains("watch") ? "80px" : "2%";
     const place = position === "top" ? "top: 2%;" : `bottom: ${bottom};`;
