@@ -7,7 +7,7 @@ import googleLanguages from "@extension/common/translators/google/availableLangu
 import { CHROME_WEB_STORE_ID, UNPACKED_ID } from "@extension-test/fakeChrome.ts";
 import { json } from "@extension-test/fakeNetwork.ts";
 import { apiKeyService } from "@/shared/lib/helpers/apiKeys.ts";
-import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
+import { pressEscapeIn, recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -692,6 +692,52 @@ describe("an open list or dialog leaves the page's style alone", () => {
     await screen.findByRole("menuitem", { name: "Русский" });
 
     expectNoScrollLock();
+  });
+});
+
+// Chrome closes the whole popup on an Escape the page leaves unhandled, and
+// MUI closes its dialogs and lists without `preventDefault`.
+describe("Escape closes only the open dialog or list, and the popup is left open", () => {
+  it("the confirmation of \"Reset to default\": nothing is reset, the focus is back on the button", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: { ...defaultSettings, targetLanguageCode: "ru" } } });
+    const reset = await screen.findByRole("button", { name: "Reset to default" });
+
+    await user.click(reset);
+    const dialog = await screen.findByRole("dialog", { name: "Reset to default settings?" });
+
+    expect(await pressEscapeIn(dialog)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(document.activeElement).toBe(reset);
+    expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "ru" });
+  });
+
+  it("the translator list: the translator stays", async () => {
+    const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    await user.click(await translatorSelect());
+    const list = await screen.findByRole("listbox");
+
+    expect(await pressEscapeIn(list)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("listbox")).toBeNull());
+    expect((await translatorSelect()).textContent).toBe("Google");
+    expect(fake.storage.sync.settings).toEqual(defaultSettings);
+  });
+
+  it("the confirmation of removing the DeepL key: the key and DeepL stay", async () => {
+    const settings = { ...defaultSettings, translator: "deepl" as const, targetLanguageCode: "ru" };
+    const { fake, user } = await renderPopup({
+      sync: { settings },
+      local: { apiKeys: { deepl: "deepl-key:fx" } },
+      grantedOrigins: [`${DEEPL_FREE_API_URL}/*`],
+    });
+
+    await user.click(await screen.findByRole("button", { name: "Remove key" }));
+    const dialog = await screen.findByRole("dialog", { name: "Remove the DeepL API key?" });
+
+    expect(await pressEscapeIn(dialog)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(fake.storage.local.apiKeys).toEqual({ deepl: "deepl-key:fx" });
+    expect(fake.storage.sync.settings).toEqual(settings);
   });
 });
 

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { screen, waitFor, within } from "@testing-library/react";
 import { REPO_ROOT } from "@extension-test/fakeChrome.ts";
-import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
+import { pressEscapeIn, recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const EMPTY = "Dictionary is empty";
 
@@ -85,6 +85,22 @@ describe("the saved words' buttons", () => {
     expect(await screen.findByText(EMPTY)).toBeTruthy();
     expect(fake.storage.local.savedTranslations).toEqual([]);
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  // Chrome closes the whole popup on an Escape the page leaves unhandled, and
+  // MUI closes its dialogs without `preventDefault`.
+  it("Escape in the Clear all dialog closes only the dialog: the words stay, the focus is back on the button", async () => {
+    const { fake, user } = await renderPopup({ route: "/dictionary", local: { savedTranslations: SAVED } });
+    const clearAll = await screen.findByRole("button", { name: "Clear all" });
+
+    await user.click(clearAll);
+    const dialog = await screen.findByRole("dialog", { name: "Clear all translations?" });
+
+    expect(await pressEscapeIn(dialog)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(document.activeElement).toBe(clearAll);
+    expect(screen.getByText("riverbank")).toBeTruthy();
+    expect(fake.storage.local.savedTranslations).toEqual(SAVED);
   });
 
   it("a word that cannot be removed: a notification raised above the page, its close button named in the popup's language", async () => {

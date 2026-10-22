@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { FC, KeyboardEvent, ReactNode, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
@@ -34,6 +34,21 @@ const PRIMARY = { light: "#e41f0f", dark: "#ff4d40" } as const;
 const OUTLINED_TEXT_LIGHT = { info: "#01579b", warning: "#663c00" } as const;
 
 const SYSTEM_DARK_QUERY = "(prefers-color-scheme: dark)";
+
+/**
+ * Escape in an open dialog, menu or list closes only it. MUI closes them
+ * without `preventDefault`, and Chrome then closes the whole popup window
+ * too. Given to `Modal` as its `onKeyDown`, which MUI calls before its own
+ * handler, so Escape with nothing open still closes the popup; `Popover`
+ * (under `Menu` and `Select`) passes no `onKeyDown` of its own, and a dialog
+ * given one loses this. Firefox closes its popup itself, before the page sees
+ * the key.
+ */
+const keepEscapeInModal = (event: KeyboardEvent<HTMLElement>) => {
+  if (event.key === "Escape") {
+    event.preventDefault();
+  }
+};
 
 /**
  * MUI writes its styles left to right. For a language written right to left
@@ -101,7 +116,7 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
         // place widens the popup window. `Popover` (under `Menu` and `Select`)
         // passes its own `false` to `Modal`, so it needs the default too.
         MuiModal: {
-          defaultProps: { disableScrollLock: true },
+          defaultProps: { disableScrollLock: true, onKeyDown: keepEscapeInModal },
         },
         MuiPopover: {
           defaultProps: { disableScrollLock: true },

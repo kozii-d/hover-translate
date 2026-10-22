@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { screen, waitFor } from "@testing-library/react";
-import { renderPopup } from "./renderPopup.tsx";
+import { pressEscapeIn, renderPopup } from "./renderPopup.tsx";
 
 const saved = (originalText: string, translatedText: string, extra = {}) => ({
   id: originalText,
@@ -80,4 +80,18 @@ describe("exporting the dictionary", () => {
       Dictionary: "",
     });
   });
+});
+
+// Chrome closes the whole popup on an Escape the page leaves unhandled, and
+// MUI closes its menus without `preventDefault`.
+it("Escape closes only the export menu: nothing is downloaded", async () => {
+  const { user } = await renderPopup({ route: "/dictionary", local: { savedTranslations: SAVED } });
+  await screen.findByText("riverbank");
+
+  await user.click(screen.getByRole("button", { name: "Export translations" }));
+  const menu = await screen.findByRole("menu");
+
+  expect(await pressEscapeIn(menu)).toBe(false);
+  await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
+  expect(downloads).toEqual([]);
 });

@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 
 - A word at the end of a subtitle line, or a phrase ending with "?" or "!", is translated and saved to the dictionary without the punctuation around it, which often changed the translation.
 - On some videos with styled subtitles the translation was invisible, and hovering a quote highlighted the wrong place.
+- In Chrome and Edge, Escape in a confirmation or a menu of the settings closes only it, not the whole settings window.
 
 ## [1.2.0] - 2026-10-05
 

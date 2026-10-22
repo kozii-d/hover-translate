@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { HashRouter } from "react-router";
-import { render } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "@/app/App.tsx";
 import { WelcomeApp } from "@/app/WelcomeApp.tsx";
@@ -79,4 +79,17 @@ export function recordFieldTexts(selector: string) {
     observer.disconnect();
     return [...shown, document.querySelector(selector)?.textContent ?? ""];
   };
+}
+
+/**
+ * Escape pressed on the element that has the focus inside `opened` (an open
+ * dialog, menu or list), as the keyboard sends it. Returns whether the page
+ * left the key unhandled (`fireEvent`'s answer): Chrome then closes the whole
+ * popup window, not only what was open in it.
+ */
+export async function pressEscapeIn(opened: HTMLElement) {
+  await waitFor(() => {
+    if (!opened.contains(document.activeElement)) throw new Error("The focus is not inside the open dialog or menu");
+  });
+  return fireEvent.keyDown(document.activeElement!, { key: "Escape" });
 }

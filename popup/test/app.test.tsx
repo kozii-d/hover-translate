@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { screen, waitFor, within } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { REPO_ROOT } from "@extension-test/fakeChrome.ts";
 import i18n from "@/app/config/i18n.ts";
-import { renderPopup } from "./renderPopup.tsx";
+import { pressEscapeIn, renderPopup } from "./renderPopup.tsx";
 
 const NAMESPACES = ["messages", "modals", "settings", "customize", "dictionary", "about", "common"];
 const PAGES = [
@@ -194,4 +194,45 @@ it("the menu of popup languages marks the current one as selected, and picking i
   await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
   expect(changeLanguage).not.toHaveBeenCalled();
   expect(i18n.language).toBe("ru");
+});
+
+// Chrome closes the whole popup on an Escape the page leaves unhandled, and
+// MUI closes its dialogs and menus without `preventDefault`.
+describe("Escape closes only the open dialog or menu, and the popup is left open", () => {
+  it("the menu of popup languages: the language stays", async () => {
+    const { user } = await renderPopup({ language: "ru" });
+    const changeLanguage = vi.spyOn(i18n, "changeLanguage");
+
+    await user.click(await screen.findByRole("button", { name: readLocale("ru", "common").tooltips.languageSelector }));
+    const menu = await screen.findByRole("menu");
+
+    expect(await pressEscapeIn(menu)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
+    expect(changeLanguage).not.toHaveBeenCalled();
+    expect(i18n.language).toBe("ru");
+  });
+
+  it("/about: the support dialog", async () => {
+    const { user } = await renderPopup({ route: "/about" });
+
+    await user.click(await screen.findByRole("button", { name: readLocale("en", "about").blocks.support.actions.donate.text }));
+    const dialog = await screen.findByRole("dialog", { name: readLocale("en", "modals").support.title });
+
+    expect(await pressEscapeIn(dialog)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("with nothing open, Escape is left to the browser, which closes the popup as before", async () => {
+    const { user } = await renderPopup();
+    const button = await screen.findByRole("button", { name: readLocale("en", "common").tooltips.languageSelector });
+    button.focus();
+
+    expect(fireEvent.keyDown(document.activeElement!, { key: "Escape" })).toBe(true);
+    // Nor after a menu was opened and closed: the rule belongs to the menu, not to the page.
+    await user.click(button);
+    const menu = await screen.findByRole("menu");
+    await user.click(within(menu).getByRole("menuitem", { name: "English" }));
+    await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
+    expect(fireEvent.keyDown(document.activeElement!, { key: "Escape" })).toBe(true);
+  });
 });

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { act, screen, waitFor } from "@testing-library/react";
 import i18n from "@/app/config/i18n.ts";
-import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
+import { pressEscapeIn, recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const AUTO_THEME = {
   useYouTubeSettings: false,
@@ -122,5 +122,34 @@ describe("the Customize page's menus are in the popup's language, named as in Yo
     await user.click(screen.getByRole("option", { name: "Синий" }));
 
     await waitFor(() => expect(fake.storage.sync.tooltipTheme).toEqual({ ...AUTO_THEME, fontColor: "blue" }));
+  });
+});
+
+// Chrome closes the whole popup on an Escape the page leaves unhandled, and
+// MUI closes its dialogs and lists without `preventDefault`.
+describe("Escape closes only the open dialog or list, and the popup is left open", () => {
+  it("the confirmation of Reset: the theme is not reset", async () => {
+    const theme = { ...AUTO_THEME, fontSize: "50%" };
+    const { fake, user } = await renderPopup({ route: "/customize", sync: { tooltipTheme: theme } });
+
+    await user.click(await screen.findByRole("button", { name: "Reset" }));
+    const dialog = await screen.findByRole("dialog", { name: "Reset to default customization settings?" });
+
+    expect(await pressEscapeIn(dialog)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(fake.storage.sync.tooltipTheme).toEqual(theme);
+  });
+
+  it("a list: the value stays", async () => {
+    const theme = { ...AUTO_THEME, fontSize: "50%" };
+    const { fake, user } = await renderPopup({ route: "/customize", sync: { tooltipTheme: theme } });
+
+    await user.click(await field("Font size"));
+    const list = await screen.findByRole("listbox");
+
+    expect(await pressEscapeIn(list)).toBe(false);
+    await waitFor(() => expect(screen.queryByRole("listbox")).toBeNull());
+    expect((await field("Font size")).textContent).toBe("50%");
+    expect(fake.storage.sync.tooltipTheme).toEqual(theme);
   });
 });

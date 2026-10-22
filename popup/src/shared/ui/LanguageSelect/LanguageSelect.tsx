@@ -73,13 +73,6 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, l
         fullWidth={!fullScreen}
         open={open}
         onClose={() => setOpen(false)}
-        // MUI closes the panel on Escape without `preventDefault`, and Chrome
-        // then closes the whole popup too. Called before MUI's own handler.
-        onKeyDown={(event) => {
-          if (event.key === "Escape") {
-            event.preventDefault();
-          }
-        }}
         aria-labelledby={titleId}
         // Up from the bottom over the popup; a window in the middle of a wide
         // page fades in, as MUI's dialogs do.
