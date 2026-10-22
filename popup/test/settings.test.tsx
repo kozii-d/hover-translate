@@ -7,7 +7,7 @@ import googleLanguages from "@extension/common/translators/google/availableLangu
 import { CHROME_WEB_STORE_ID, UNPACKED_ID } from "@extension-test/fakeChrome.ts";
 import { json } from "@extension-test/fakeNetwork.ts";
 import { apiKeyService } from "@/shared/lib/helpers/apiKeys.ts";
-import { pressEscapeIn, recordFieldTexts, renderPopup } from "./renderPopup.tsx";
+import { languageOption, languageOptions, openLanguagePanel, pressEscapeIn, recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -206,10 +206,8 @@ describe("the language lists are named in the popup's language", () => {
   const sourceSelect = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
 
   /** Opens a list, as a viewer does, and reads its items in order. */
-  const openList = async (user: Awaited<ReturnType<typeof renderPopup>>["user"], label: string) => {
-    await user.click(await sourceSelect(label));
-    return (await screen.findAllByRole("option")).map((option) => option.textContent);
-  };
+  const openList = async (user: Awaited<ReturnType<typeof renderPopup>>["user"], label: string) =>
+    languageOptions(await openLanguagePanel(user, label)).map((option) => option.textContent);
 
   it("in Russian: Google Translate's names, capitalised, in the Russian alphabet, detection first", async () => {
     const { user } = await renderPopup({ language: "ru", uiLanguage: "ru", sync: { settings: defaultSettings } });
@@ -250,9 +248,10 @@ describe("the language lists are named in the popup's language", () => {
     expect((await sourceSelect("Translate from")).querySelector(sparkles)).not.toBeNull();
     expect((await sourceSelect("Translate to")).querySelector(sparkles)).toBeNull();
 
-    await openList(user, "Translate from");
-    const [detect, ...languages] = screen.getAllByRole("option");
-    expect(detect).toBe(screen.getByRole("option", { name: "Detect language" }));
+    const panel = await openLanguagePanel(user, "Translate from");
+    const [detect, ...languages] = languageOptions(panel);
+    // Its accessible name, the icon left out. Asked of the selected one alone: the names of all 249 take jsdom half a second.
+    expect(detect).toBe(within(panel).getByRole("option", { name: "Detect language", selected: true, hidden: true }));
     expect(detect.querySelector(sparkles)).not.toBeNull();
     expect(languages.filter((option) => option.querySelector(sparkles))).toEqual([]);
   });
@@ -361,32 +360,22 @@ describe("the language lists are named in the popup's language", () => {
 describe("Google's lists have one entry per language", () => {
   const languageField = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
 
-  /** The names in a language field's panel, read as a viewer opens it, and the panel closed again. */
-  const panelNames = async (user: Awaited<ReturnType<typeof renderPopup>>["user"], label: string) => {
-    await user.click(await languageField(label));
-    const panel = await screen.findByRole("dialog", { name: label });
-    const names = within(panel).getAllByRole("option").map((option) => option.textContent);
-    await user.keyboard("{Escape}");
-    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
-    return names;
-  };
-
   const duplicates = (names: (string | null)[]) => names.filter((name, index) => names.indexOf(name) !== index);
 
+  // One list a test: both panels in one test, opened one after the other, came near Vitest's 5 s on a slow CI machine.
   it.each([
-    ["en", "Translate from", "Translate to", "Hebrew"],
-    ["ru", "Перевести с", "Перевести на", "Иврит"],
-  ])("in %j no two languages share a name", async (language, sourceLabel, targetLabel, hebrew) => {
+    ["en", "Translate from", "Hebrew"],
+    ["en", "Translate to", "Hebrew"],
+    ["ru", "Перевести с", "Иврит"],
+    ["ru", "Перевести на", "Иврит"],
+  ])("in %j no two languages of %j share a name", async (language, label, hebrew) => {
     const { user } = await renderPopup({ language, uiLanguage: language, sync: { settings: defaultSettings } });
 
-    const sources = await panelNames(user, sourceLabel);
-    const targets = await panelNames(user, targetLabel);
+    const names = languageOptions(await openLanguagePanel(user, label)).map((option) => option.textContent);
 
-    expect(duplicates(sources)).toEqual([]);
-    expect(duplicates(targets)).toEqual([]);
-    expect(targets).toContain(hebrew);
-    expect(sources.length).toBeGreaterThan(240);
-    expect(targets.length).toBeGreaterThan(240);
+    expect(duplicates(names)).toEqual([]);
+    expect(names).toContain(hebrew);
+    expect(names.length).toBeGreaterThan(240);
   });
 
   it("a language stored in a spelling Google no longer lists is saved as Google spells it, silently", async () => {
@@ -754,24 +743,16 @@ it("\"Reset to default\" asks in a dialog named by its title, its button red", a
 });
 
 describe("the language fields open a panel with a search", () => {
-  type User = Awaited<ReturnType<typeof renderPopup>>["user"];
-
   const languageField = (label: string) => screen.findByRole("combobox", { name: new RegExp(label) });
 
-  /** Opens the panel of a language field, as a viewer does. */
-  const openPanel = async (user: User, label: string) => {
-    await user.click(await languageField(label));
-    return screen.findByRole("dialog", { name: label });
-  };
-
-  const optionNames = (panel: HTMLElement) => within(panel).queryAllByRole("option").map((option) => option.textContent);
+  const optionNames = (panel: HTMLElement) => languageOptions(panel).map((option) => option.textContent);
 
   const closed = () => waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
 
   it("in the popup the panel fills it and goes back with an arrow", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     const back = within(panel).getByRole("button", { name: "Back" });
 
     expect(back.querySelector("[data-testid='ArrowBackIcon']")).not.toBeNull();
@@ -783,13 +764,13 @@ describe("the language fields open a panel with a search", () => {
     const errors = vi.spyOn(console, "error");
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
 
     expect(document.activeElement).toBe(within(panel).getByRole("textbox", { name: "Search languages" }));
     expect(within(panel).getByRole("listbox", { name: "Translate to" })).toBeTruthy();
-    const selected = within(panel).getByRole("option", { selected: true });
+    const [selected, ...alsoSelected] = languageOptions(panel, { selected: true });
     expect(selected.textContent).toBe("English");
-    expect(within(panel).getAllByRole("option", { selected: true })).toHaveLength(1);
+    expect(alsoSelected).toEqual([]);
     await waitFor(() => expect(scrolls.mock.contexts).toContain(selected));
     expect(scrolls).toHaveBeenCalledWith({ block: "center" });
     expect(errors).not.toHaveBeenCalled();
@@ -800,7 +781,7 @@ describe("the language fields open a panel with a search", () => {
   it("leaves the page's style alone: no scroll lock, no padding in place of the scrollbar", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    await openPanel(user, "Translate to");
+    await openLanguagePanel(user, "Translate to");
 
     expect(document.body.style.overflow).toBe("");
     expect(document.body.style.paddingRight).toBe("");
@@ -810,8 +791,8 @@ describe("the language fields open a panel with a search", () => {
   it("the selected language is marked for the theme to show, and only it", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
-    const options = within(panel).getAllByRole("option");
+    const panel = await openLanguagePanel(user, "Translate to");
+    const options = languageOptions(panel);
 
     expect(options.filter((option) => option.classList.contains("Mui-selected")).map((option) => option.textContent)).toEqual(["English"]);
   });
@@ -819,7 +800,7 @@ describe("the language fields open a panel with a search", () => {
   it("a part of the name finds the language, and Enter picks it: saved, the panel closed, the field shows it", async () => {
     const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     await user.keyboard("germ");
 
     expect(optionNames(within(panel).getByRole("listbox"))).toEqual(["German"]);
@@ -833,8 +814,8 @@ describe("the language fields open a panel with a search", () => {
   it("a click on a language picks it", async () => {
     const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate from");
-    await user.click(within(panel).getByRole("option", { name: "Japanese" }));
+    const panel = await openLanguagePanel(user, "Translate from");
+    await user.click(languageOption(panel, "Japanese"));
 
     await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, sourceLanguageCode: "ja" }));
     await closed();
@@ -844,7 +825,7 @@ describe("the language fields open a panel with a search", () => {
   it("the names that start with the search come first, then the alphabet", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     await user.keyboard("en");
 
     const names = optionNames(panel);
@@ -856,10 +837,10 @@ describe("the language fields open a panel with a search", () => {
   it("nothing found: no language, a line that says so, and Enter picks nothing", async () => {
     const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     await user.keyboard("zzz{Enter}");
 
-    expect(within(panel).queryAllByRole("option")).toEqual([]);
+    expect(languageOptions(panel)).toEqual([]);
     expect(within(panel).getByText("No languages found")).toBeTruthy();
     expect(screen.getByRole("dialog", { name: "Translate to" })).toBe(panel);
     expect(fake.storage.sync.settings).toEqual(defaultSettings);
@@ -868,14 +849,14 @@ describe("the language fields open a panel with a search", () => {
   it("Escape closes it without a change and gives the focus back to the field; the search starts empty again", async () => {
     const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    await openPanel(user, "Translate to");
+    await openLanguagePanel(user, "Translate to");
     await user.keyboard("zzz{Escape}");
 
     await closed();
     expect(document.activeElement).toBe(await languageField("Translate to"));
     expect(fake.storage.sync.settings).toEqual(defaultSettings);
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     expect(within(panel).getByRole("textbox", { name: "Search languages" })).toHaveProperty("value", "");
     expect(optionNames(panel)).toHaveLength(googleLanguages.targetLanguages.length);
   });
@@ -884,7 +865,7 @@ describe("the language fields open a panel with a search", () => {
   it("Escape is taken by the panel: it closes the panel, and the popup is left open", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     const notCancelled = fireEvent.keyDown(within(panel).getByRole("textbox", { name: "Search languages" }), { key: "Escape" });
 
     expect(notCancelled).toBe(false);
@@ -894,7 +875,7 @@ describe("the language fields open a panel with a search", () => {
   it("the back button closes it without a change", async () => {
     const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     await user.click(within(panel).getByRole("button", { name: "Back" }));
 
     await closed();
@@ -908,7 +889,7 @@ describe("the language fields open a panel with a search", () => {
     await user.keyboard("{Enter}");
     const panel = await screen.findByRole("dialog", { name: "Translate to" });
     const search = within(panel).getByRole("textbox", { name: "Search languages" });
-    const options = within(panel).getAllByRole("option");
+    const options = languageOptions(panel);
     expect(options.slice(0, 4).map((option) => option.textContent)).toEqual(["Abkhaz", "Acehnese", "Acholi", "Afar"]);
 
     const focused = () => document.activeElement;
@@ -935,10 +916,10 @@ describe("the language fields open a panel with a search", () => {
   it("Tab leaves the search for the selected language only, and a space picks the focused one", async () => {
     const { fake, user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     await user.tab();
-    expect(document.activeElement).toBe(within(panel).getByRole("option", { name: "English" }));
-    expect(within(panel).getAllByRole("option").filter((option) => option.tabIndex === 0)).toHaveLength(1);
+    expect(document.activeElement).toBe(languageOption(panel, "English"));
+    expect(languageOptions(panel).filter((option) => option.tabIndex === 0)).toHaveLength(1);
 
     await user.keyboard("{ArrowRight} ");
     await waitFor(() => expect(fake.storage.sync.settings).toEqual({ ...defaultSettings, targetLanguageCode: "eo" }));
@@ -948,19 +929,19 @@ describe("the language fields open a panel with a search", () => {
   it("with no selected language among those found, the first one is the one Tab reaches", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate to");
+    const panel = await openLanguagePanel(user, "Translate to");
     await user.keyboard("germ");
     await user.tab();
 
-    expect(document.activeElement).toBe(within(panel).getByRole("option", { name: "German" }));
+    expect(document.activeElement).toBe(languageOption(panel, "German"));
   });
 
   it("detection is the first language of \"Translate from\", and is found by its name", async () => {
     const { user } = await renderPopup({ sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Translate from");
+    const panel = await openLanguagePanel(user, "Translate from");
     expect(optionNames(panel)[0]).toBe("Detect language");
-    expect(within(panel).getByRole("option", { selected: true }).textContent).toBe("Detect language");
+    expect(languageOptions(panel, { selected: true }).map((option) => option.textContent)).toEqual(["Detect language"]);
 
     await user.keyboard("detect");
     expect(optionNames(panel)).toEqual(["Detect language"]);
@@ -969,7 +950,7 @@ describe("the language fields open a panel with a search", () => {
   it("in Russian: found by the Russian name and by the translator's English one", async () => {
     const { user } = await renderPopup({ language: "ru", uiLanguage: "ru", sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Перевести на");
+    const panel = await openLanguagePanel(user, "Перевести на");
     const search = within(panel).getByRole("textbox", { name: "Найти языки" });
     await user.keyboard("jap");
     expect(optionNames(panel)).toEqual(["Японский"]);
@@ -982,7 +963,7 @@ describe("the language fields open a panel with a search", () => {
   it("in Spanish: found without the accents", async () => {
     const { user } = await renderPopup({ language: "es", uiLanguage: "es", sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Traducir a");
+    const panel = await openLanguagePanel(user, "Traducir a");
     await user.keyboard("aleman");
 
     expect(optionNames(panel)).toEqual(["Alemán"]);
@@ -991,7 +972,7 @@ describe("the language fields open a panel with a search", () => {
   it("in Brazilian Portuguese, named after its folder `pt_BR`: found without the accents", async () => {
     const { user } = await renderPopup({ language: "pt_BR", uiLanguage: "pt-BR", sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Traduzir para");
+    const panel = await openLanguagePanel(user, "Traduzir para");
     await user.keyboard("arab");
 
     expect(optionNames(panel)).toEqual(["Árabe"]);
@@ -1000,7 +981,7 @@ describe("the language fields open a panel with a search", () => {
   it("in Turkish: a lowercase search finds the names that start with a dotted İ", async () => {
     const { user } = await renderPopup({ language: "tr", uiLanguage: "tr", sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "Şu dile çevir");
+    const panel = await openLanguagePanel(user, "Şu dile çevir");
     const search = within(panel).getByRole("textbox", { name: "Dil ara" });
     await user.keyboard("isp");
     expect(optionNames(panel)).toEqual(["İspanyolca"]);
@@ -1013,7 +994,7 @@ describe("the language fields open a panel with a search", () => {
   it("in Japanese: the voicing mark counts, \"ド\" is not \"ト\"", async () => {
     const { user } = await renderPopup({ language: "ja", uiLanguage: "ja", sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "翻訳先言語");
+    const panel = await openLanguagePanel(user, "翻訳先言語");
     await user.keyboard("ド");
 
     const names = optionNames(panel);
@@ -1025,8 +1006,8 @@ describe("the language fields open a panel with a search", () => {
   it("in Arabic the arrows follow the reading direction", async () => {
     const { user } = await renderPopup({ language: "ar", uiLanguage: "ar", sync: { settings: defaultSettings } });
 
-    const panel = await openPanel(user, "الترجمة إلى");
-    const options = within(panel).getAllByRole("option");
+    const panel = await openLanguagePanel(user, "الترجمة إلى");
+    const options = languageOptions(panel);
     await user.keyboard("{ArrowDown}{ArrowLeft}");
     expect(document.activeElement).toBe(options[1]);
     await user.keyboard("{ArrowRight}");

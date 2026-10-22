@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { HashRouter } from "react-router";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { ByRoleOptions, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "@/app/App.tsx";
 import { WelcomeApp } from "@/app/WelcomeApp.tsx";
@@ -92,4 +92,36 @@ export async function pressEscapeIn(opened: HTMLElement) {
     if (!opened.contains(document.activeElement)) throw new Error("The focus is not inside the open dialog or menu");
   });
   return fireEvent.keyDown(document.activeElement!, { key: "Escape" });
+}
+
+type User = ReturnType<typeof userEvent.setup>;
+
+/** Opens the panel of the language field named `label` (`LanguageSelect`), as a viewer does: a click on the field. */
+export async function openLanguagePanel(user: User, label: string) {
+  await user.click(await screen.findByRole("combobox", { name: new RegExp(label) }));
+  return screen.findByRole("dialog", { name: label });
+}
+
+/**
+ * The languages listed in an open language panel, in order, or those that
+ * match `filter`. `hidden: true`: the panel was found visible
+ * (`findByRole("dialog")`), and checking each of Google's 249 languages again
+ * (the computed style of it and its ancestors) takes jsdom 0.4 s a query —
+ * these tests reached Vitest's 5 s on a slow CI machine.
+ */
+export function languageOptions(panel: HTMLElement, filter: Pick<ByRoleOptions, "selected"> = {}) {
+  return within(panel).queryAllByRole("option", { ...filter, hidden: true });
+}
+
+/**
+ * The one language `name` in an open language panel. Found by its text, which
+ * is its accessible name too: `getByRole`'s `name` computes the names of all
+ * 249 languages, half a second in jsdom.
+ */
+export function languageOption(panel: HTMLElement, name: string) {
+  const found = languageOptions(panel).filter((option) => option.textContent === name);
+  if (found.length !== 1) {
+    throw new Error(`${found.length} languages "${name}" in the panel, not one`);
+  }
+  return found[0];
 }

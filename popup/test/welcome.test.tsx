@@ -8,7 +8,7 @@ import bingLanguages from "@extension-test/fixtures/bing-languages.json";
 import { DEEPL_TARGET_LANGUAGES } from "@extension-test/fakeNetwork.ts";
 import { DEEPL_FREE_API_URL } from "@extension/common/translators/deepl/consts.ts";
 import { REPO_ROOT } from "@extension-test/fakeChrome.ts";
-import { renderPopup } from "./renderPopup.tsx";
+import { languageOption, languageOptions, openLanguagePanel, renderPopup } from "./renderPopup.tsx";
 
 type User = Awaited<ReturnType<typeof renderPopup>>["user"];
 
@@ -31,17 +31,16 @@ const keyPaths = (() => {
 
 const languageField = (label = "Translate to") => screen.findByRole("combobox", { name: new RegExp(label) });
 
-/** Opens the language panel and picks `name`, as a viewer does. */
+/** Opens the language panel, looks `name` up in its search and picks it, as a viewer does. */
 const pickLanguage = async (user: User, name: string) => {
-  await user.click(await languageField());
-  const panel = await screen.findByRole("dialog", { name: "Translate to" });
-  await user.click(within(panel).getByRole("option", { name }));
+  const panel = await openLanguagePanel(user, "Translate to");
+  await user.type(within(panel).getByRole("textbox", { name: "Search languages" }), name);
+  await user.click(languageOption(panel, name));
 };
 
 const optionNames = async (user: User) => {
-  await user.click(await languageField());
-  const panel = await screen.findByRole("dialog", { name: "Translate to" });
-  return within(panel).getAllByRole("option").map((option) => option.textContent);
+  const panel = await openLanguagePanel(user, "Translate to");
+  return languageOptions(panel).map((option) => option.textContent);
 };
 
 /** The subtitle line in the demo player, as the page put it there. */
@@ -134,7 +133,7 @@ describe("the language to translate into", () => {
 
     expect((await languageField()).textContent).toBe("Russian");
     expect(await optionNames(user)).toHaveLength(googleLanguages.targetLanguages.length);
-    expect(within(screen.getByRole("dialog")).getByRole("option", { selected: true }).textContent).toBe("Russian");
+    expect(languageOptions(screen.getByRole("dialog"), { selected: true }).map((option) => option.textContent)).toEqual(["Russian"]);
   });
 
   it("another translator's list when it is the stored one (Bing)", async () => {
@@ -321,8 +320,7 @@ it("the HoverTranslate icon next to the title, left out by screen readers", asyn
 it("in a wide window the language panel closes with a cross, not an arrow back", async () => {
   const { user } = await renderPopup({ page: "welcome", sync: { settings: defaultSettings } });
 
-  await user.click(await languageField());
-  const panel = await screen.findByRole("dialog", { name: "Translate to" });
+  const panel = await openLanguagePanel(user, "Translate to");
   const close = within(panel).getByRole("button", { name: "Back" });
 
   expect(close.querySelector("[data-testid='CloseIcon']")).not.toBeNull();
