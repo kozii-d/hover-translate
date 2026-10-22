@@ -1,17 +1,17 @@
 {
-  "capturedAt": "2026-10-05",
+  "capturedAt": "2026-10-22",
   "video": {
     "tag": "video",
     "class": "video-stream html5-main-video",
-    "style": "width: 822px; height: 462px; left: 0px; top: 0px;",
+    "style": "width: 880px; height: 495px; left: 0px; top: 0px;",
     "position": "absolute",
     "zIndex": "auto",
     "pointerEvents": "auto",
     "box": [
       16,
       68,
-      822,
-      462
+      880,
+      495
     ]
   },
   "url": "https://www.youtube.com/watch",
@@ -19,15 +19,15 @@
     {
       "tag": "span",
       "class": "ytp-caption-segment",
-      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 20.55px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
+      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 22px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
       "position": "static",
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        362,
-        427,
-        131,
-        24
+        386,
+        458,
+        140,
+        25
       ]
     },
     {
@@ -38,10 +38,10 @@
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        361,
-        427,
-        132,
-        24
+        386,
+        458,
+        141,
+        25
       ]
     },
     {
@@ -52,25 +52,25 @@
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        361,
-        427,
-        132,
-        24
+        386,
+        458,
+        141,
+        25
       ]
     },
     {
       "tag": "div",
       "id": "caption-window-_0",
       "class": "caption-window ytp-caption-window-bottom",
-      "style": "touch-action: none; text-align: center; left: 50%; width: 132px; margin-left: -66px; bottom: 2%;",
+      "style": "touch-action: none; text-align: center; left: 50%; width: 141px; margin-left: -70.5px; bottom: 2%;",
       "position": "absolute",
       "zIndex": "41",
       "pointerEvents": "auto",
       "box": [
-        361,
-        427,
-        132,
-        24
+        386,
+        458,
+        141,
+        25
       ]
     },
     {
@@ -83,14 +83,14 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
       "tag": "div",
       "id": "movie_player",
-      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state playing-mode ytp-hide-fullscreen-title ytp-fullscreen-metadata-top ytp-heat-map",
+      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state ytp-hide-fullscreen-title ytp-fullscreen-metadata-top ytp-heat-map playing-mode",
       "style": "--yt-delhi-pill-height: 40px; --yt-delhi-pill-top-height: 8px; --yt-delhi-bottom-controls-height: 56px; --yt-delhi-bottom-controls-height-xsmall-width-mode: 56px; --yt-delhi-big-mode-pill-height: 48px; --yt-delhi-big-mode-pill-top-height: 12px; --yt-delhi-big-mode-bottom-controls-height: 72px; --yt-frosted-glass-backdrop-filter-override: none; --ytp-grid-scroll-percentage: 0; --ytp-grid-peek-height: 0px;",
       "position": "relative",
       "zIndex": "0",
@@ -98,8 +98,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -112,8 +112,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -126,8 +126,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -141,8 +141,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -155,8 +155,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -169,8 +169,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -183,8 +183,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -197,8 +197,8 @@
       "box": [
         16,
         68,
-        822,
-        4474
+        880,
+        4510
       ]
     },
     {
@@ -211,8 +211,8 @@
       "box": [
         16,
         56,
-        838,
-        4486
+        896,
+        4522
       ]
     },
     {
@@ -226,13 +226,13 @@
         0,
         56,
         1280,
-        4486
+        4522
       ]
     },
     {
       "tag": "ytd-watch-flexy",
       "class": "style-scope ytd-page-manager watch-root-element hide-skeleton",
-      "style": "--ytd-watch-flexy-space-below-player: 48px; --ytd-watch-flexy-center-column-below-player: 136px; --ytd-watch-flexy-scrollbar-width: 0px; --ytd-watch-flexy-horizontal-page-margin: 16px; --ytd-watch-flexy-top-padding: 12px; --ytd-watch-flexy-sidebar-width: 409.6px; --ytd-watch-compact-thumbnail-width: 62.5%; --ytd-watch-flexy-max-player-width-wide-screen: 2080px; --ytd-watch-flexy-sidebar-min-width: 320px; --ytd-watch-flexy-panel-max-height: 467px; --ytd-watch-flexy-chat-max-height: 467px; --ytd-watch-flexy-structured-description-max-height: 467px; --ytd-watch-flexy-comments-panel-max-height: 467px; --ytd-comments-engagement-panel-content-height: 467px;",
+      "style": "--ytd-watch-flexy-space-below-player: 48px; --ytd-watch-flexy-center-column-below-player: 136px; --ytd-watch-flexy-scrollbar-width: 0px; --ytd-watch-flexy-horizontal-page-margin: 16px; --ytd-watch-flexy-top-padding: 12px; --ytd-watch-flexy-sidebar-width: 352px; --ytd-watch-compact-thumbnail-width: 62.5%; --ytd-watch-flexy-max-player-width-wide-screen: 2080px; --ytd-watch-flexy-sidebar-min-width: 320px; --ytd-watch-flexy-panel-max-height: 467px; --ytd-watch-flexy-chat-max-height: 467px; --ytd-watch-flexy-structured-description-max-height: 467px; --ytd-watch-flexy-comments-panel-max-height: 467px; --ytd-comments-engagement-panel-content-height: 467px;",
       "position": "static",
       "zIndex": "auto",
       "pointerEvents": "auto",
@@ -240,7 +240,7 @@
         0,
         56,
         1280,
-        4486
+        4522
       ]
     },
     {
@@ -254,7 +254,7 @@
         0,
         56,
         1280,
-        4486
+        4522
       ]
     },
     {
@@ -268,7 +268,7 @@
         0,
         56,
         1280,
-        4486
+        4522
       ]
     },
     {
@@ -280,7 +280,7 @@
         0,
         0,
         1280,
-        4542
+        4578
       ]
     },
     {
@@ -296,7 +296,7 @@
       ]
     }
   ],
-  "captionWindowHtml": "<div class=\"caption-window ytp-caption-window-bottom\" id=\"caption-window-_0\" dir=\"ltr\" tabindex=\"0\" draggable=\"true\" style=\"touch-action: none; text-align: center; left: 50%; width: 132px; margin-left: -66px; bottom: 2%;\"><span class=\"captions-text\" style=\"overflow-wrap: normal; display: block;\"><span class=\"caption-visual-line\" style=\"display: block;\"><span class=\"ytp-caption-segment\" style=\"display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 20.55px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: &quot;YouTube Noto&quot;, Roboto, Arial, Helvetica, Verdana, &quot;PT Sans Caption&quot;, sans-serif;\">So in college,</span></span></span></div>",
+  "captionWindowHtml": "<div class=\"caption-window ytp-caption-window-bottom\" id=\"caption-window-_0\" dir=\"ltr\" tabindex=\"0\" draggable=\"true\" style=\"touch-action: none; text-align: center; left: 50%; width: 141px; margin-left: -70.5px; bottom: 2%;\"><span class=\"captions-text\" style=\"overflow-wrap: normal; display: block;\"><span class=\"caption-visual-line\" style=\"display: block;\"><span class=\"ytp-caption-segment\" style=\"display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 22px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: &quot;YouTube Noto&quot;, Roboto, Arial, Helvetica, Verdana, &quot;PT Sans Caption&quot;, sans-serif;\">So in college,</span></span></span></div>",
   "playerChildren": [
     {
       "tag": "div",
@@ -307,7 +307,7 @@
       "box": [
         16,
         68,
-        822,
+        880,
         0
       ]
     },
@@ -333,7 +333,7 @@
       "box": [
         28,
         68,
-        798,
+        856,
         0
       ]
     },
@@ -415,8 +415,8 @@
       "box": [
         28,
         76,
-        798,
-        375
+        856,
+        407
       ]
     },
     {
@@ -503,20 +503,6 @@
     },
     {
       "tag": "div",
-      "class": "ytp-miniplayer-ui",
-      "style": "display: none;",
-      "position": "absolute",
-      "zIndex": "67",
-      "pointerEvents": "auto",
-      "box": [
-        0,
-        0,
-        0,
-        0
-      ]
-    },
-    {
-      "tag": "div",
       "class": "ytp-autonav-endscreen-countdown-overlay",
       "style": "display: none;",
       "position": "static",
@@ -545,72 +531,16 @@
     },
     {
       "tag": "div",
-      "id": "ytp-caption-window-container",
-      "class": "ytp-caption-window-container",
+      "class": "ytp-miniplayer-ui",
+      "style": "display: none;",
       "position": "absolute",
-      "zIndex": "auto",
-      "pointerEvents": "none",
-      "box": [
-        16,
-        68,
-        822,
-        463
-      ]
-    },
-    {
-      "tag": "div",
-      "class": "ytp-ce-shadow",
-      "style": "display: none; outline-width: 822px;",
-      "position": "absolute",
-      "zIndex": "12",
+      "zIndex": "67",
       "pointerEvents": "auto",
       "box": [
         0,
         0,
         0,
         0
-      ]
-    },
-    {
-      "tag": "div",
-      "class": "ytp-ce-element ytp-ce-video ytp-ce-large-round ytp-ce-bottom-left-quad ytp-ce-size-853",
-      "style": "width: 265px; height: 149px; left: 19px; top: 243.312px;",
-      "position": "absolute",
-      "zIndex": "12",
-      "pointerEvents": "auto",
-      "box": [
-        34,
-        310,
-        267,
-        151
-      ]
-    },
-    {
-      "tag": "div",
-      "class": "ytp-ce-element ytp-ce-website ytp-ce-medium-round ytp-ce-bottom-right-quad ytp-ce-size-853",
-      "style": "width: 127px; height: 127px; left: 676px; top: 265.312px;",
-      "position": "absolute",
-      "zIndex": "12",
-      "pointerEvents": "auto",
-      "box": [
-        691,
-        332,
-        129,
-        129
-      ]
-    },
-    {
-      "tag": "div",
-      "class": "ytp-ce-element ytp-ce-video ytp-ce-large-round ytp-ce-top-left-quad ytp-ce-size-853",
-      "style": "width: 265px; height: 149px; left: 19px; top: 60.3125px;",
-      "position": "absolute",
-      "zIndex": "12",
-      "pointerEvents": "auto",
-      "box": [
-        34,
-        127,
-        267,
-        151
       ]
     },
     {
@@ -639,6 +569,76 @@
         0,
         0,
         0
+      ]
+    },
+    {
+      "tag": "div",
+      "id": "ytp-caption-window-container",
+      "class": "ytp-caption-window-container",
+      "position": "absolute",
+      "zIndex": "auto",
+      "pointerEvents": "none",
+      "box": [
+        16,
+        68,
+        880,
+        495
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-ce-shadow",
+      "style": "display: none; outline-width: 880px;",
+      "position": "absolute",
+      "zIndex": "12",
+      "pointerEvents": "auto",
+      "box": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-ce-element ytp-ce-video ytp-ce-large-round ytp-ce-bottom-left-quad ytp-ce-size-853",
+      "style": "width: 284px; height: 160px; left: 20px; top: 260px;",
+      "position": "absolute",
+      "zIndex": "12",
+      "pointerEvents": "auto",
+      "box": [
+        35,
+        327,
+        286,
+        162
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-ce-element ytp-ce-website ytp-ce-medium-round ytp-ce-bottom-right-quad ytp-ce-size-853",
+      "style": "width: 136px; height: 136px; left: 724px; top: 284px;",
+      "position": "absolute",
+      "zIndex": "12",
+      "pointerEvents": "auto",
+      "box": [
+        739,
+        351,
+        138,
+        138
+      ]
+    },
+    {
+      "tag": "div",
+      "class": "ytp-ce-element ytp-ce-video ytp-ce-large-round ytp-ce-top-left-quad ytp-ce-size-853",
+      "style": "width: 284px; height: 160px; left: 20px; top: 65px;",
+      "position": "absolute",
+      "zIndex": "12",
+      "pointerEvents": "auto",
+      "box": [
+        35,
+        132,
+        286,
+        162
       ]
     },
     {
@@ -731,14 +731,14 @@
     {
       "tag": "div",
       "class": "ytp-chrome-bottom",
-      "style": "width: 798px; left: 12px;",
+      "style": "width: 856px; left: 12px;",
       "position": "absolute",
       "zIndex": "59",
       "pointerEvents": "auto",
       "box": [
         28,
-        472,
-        798,
+        504,
+        856,
         59
       ]
     },
@@ -760,15 +760,15 @@
     {
       "tag": "span",
       "class": "ytp-caption-segment",
-      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 20.55px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
+      "style": "display: inline-block; white-space: pre-wrap; background: rgba(8, 8, 8, 0.75); font-size: 22px; color: rgb(255, 255, 255); fill: rgb(255, 255, 255); font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;",
       "position": "static",
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        362,
-        427,
-        131,
-        24
+        386,
+        458,
+        140,
+        25
       ]
     },
     {
@@ -779,10 +779,10 @@
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        361,
-        427,
-        132,
-        24
+        386,
+        458,
+        141,
+        25
       ]
     },
     {
@@ -793,45 +793,45 @@
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
-        361,
-        427,
-        132,
-        24
+        386,
+        458,
+        141,
+        25
       ]
     },
     {
       "tag": "div",
       "id": "caption-window-_0",
       "class": "caption-window ytp-caption-window-bottom",
-      "style": "touch-action: none; text-align: center; left: 50%; width: 132px; margin-left: -66px; bottom: 2%;",
+      "style": "touch-action: none; text-align: center; left: 50%; width: 141px; margin-left: -70.5px; bottom: 2%;",
       "position": "absolute",
       "zIndex": "41",
       "pointerEvents": "auto",
       "box": [
-        361,
-        427,
-        132,
-        24
+        386,
+        458,
+        141,
+        25
       ]
     },
     {
       "tag": "video",
       "class": "video-stream html5-main-video",
-      "style": "width: 822px; height: 462px; left: 0px; top: 0px;",
+      "style": "width: 880px; height: 495px; left: 0px; top: 0px;",
       "position": "absolute",
       "zIndex": "auto",
       "pointerEvents": "auto",
       "box": [
         16,
         68,
-        822,
-        462
+        880,
+        495
       ]
     },
     {
       "tag": "div",
       "id": "movie_player",
-      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state playing-mode ytp-hide-fullscreen-title ytp-fullscreen-metadata-top ytp-heat-map",
+      "class": "html5-video-player ytp-transparent ytp-exp-bottom-control-flexbox ytp-modern-caption ytp-exp-ppp-update ytp-livebadge-color ytp-grid-scrollable ytp-delhi-modern ytp-delhi-modern-icons ytp-delhi-horizontal-volume-controls ytp-delhi-modern-compact-controls ad-created ytp-fit-cover-video ytp-fine-scrubbing-exp ytp-cards-teaser-dismissible ytp-hide-info-bar ytp-large-width-mode ytp-disable-bottom-gradient ytp-autonav-endscreen-cancelled-state ytp-hide-fullscreen-title ytp-fullscreen-metadata-top ytp-heat-map playing-mode",
       "style": "--yt-delhi-pill-height: 40px; --yt-delhi-pill-top-height: 8px; --yt-delhi-bottom-controls-height: 56px; --yt-delhi-bottom-controls-height-xsmall-width-mode: 56px; --yt-delhi-big-mode-pill-height: 48px; --yt-delhi-big-mode-pill-top-height: 12px; --yt-delhi-big-mode-bottom-controls-height: 72px; --yt-frosted-glass-backdrop-filter-override: none; --ytp-grid-scroll-percentage: 0; --ytp-grid-peek-height: 0px;",
       "position": "relative",
       "zIndex": "0",
@@ -839,8 +839,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -853,8 +853,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     },
     {
@@ -867,8 +867,8 @@
       "box": [
         16,
         68,
-        822,
-        463
+        880,
+        495
       ]
     }
   ],
