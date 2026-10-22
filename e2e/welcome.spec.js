@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { test, expect } = require("./extension.js");
+const { test, expect, focusOutline, lowContrast, withoutYouTubeAccess } = require("./extension.js");
 
 // The page the extension opens on install. Its demo player runs the
 // extension's own content script (`welcome.html`), so these are the
@@ -41,6 +41,9 @@ test("the install opens the welcome page in a tab, once the settings are written
   expect(welcomePage.url()).toBe(`chrome-extension://${extensionId}/popup/dist/welcome.html`);
   await expect(welcomePage.getByRole("heading", { level: 1 })).toHaveText("Welcome to HoverTranslate");
   await expect(welcomePage).toHaveTitle("Welcome to HoverTranslate");
+  // The icon by the title, the extension's own file, found from the built page.
+  const icon = welcomePage.getByRole("heading", { level: 1 }).locator("xpath=preceding-sibling::img");
+  await expect.poll(() => icon.evaluate((image) => image.complete && image.naturalWidth)).toBeGreaterThan(0);
   // The browser is in English: so is the language to translate into.
   await expect(welcomePage.getByRole("combobox", { name: /Translate to/ })).toHaveText("English");
   expect(await storage.get("sync", "settings")).toMatchObject({ targetLanguageCode: "en" });
@@ -172,6 +175,23 @@ test("the language panel: no wider than the page's column in a wide window, its 
   await expect.poll(box).toMatchObject({ left: 0, top: 0, width: 360, height: 740 });
 });
 
+test("in the dark theme the language panel in a wide window is the page's own colour, with an edge, as the popup's", async ({ welcomePage }) => {
+  await welcomePage.setViewportSize({ width: 1440, height: 900 });
+  await welcomePage.emulateMedia({ colorScheme: "dark" });
+  await welcomePage.getByRole("combobox", { name: /Translate to/ }).click();
+  const panel = welcomePage.getByRole("dialog", { name: "Translate to" });
+  await expect(panel).toBeVisible();
+
+  const look = await panel.evaluate((paper) => {
+    const style = getComputedStyle(paper);
+    return { background: style.backgroundColor, image: style.backgroundImage, shadow: style.boxShadow, page: getComputedStyle(document.body).backgroundColor };
+  });
+  // No lighter overlay of a raised surface: the selected language's tint is the popup's.
+  expect(look.background).toBe(look.page);
+  expect(look.image).toBe("none");
+  expect(look.shadow).toMatch(/^rgba\(255, 255, 255, 0\.12\) 0px 0px 0px 1px/);
+});
+
 test("the DeepL card's button opens the popup, on its Settings page", async ({ welcomePage, serviceWorker }) => {
   const popups = () => serviceWorker.evaluate(() => chrome.runtime.getContexts({ contextTypes: ["POPUP"] })
     .then((found) => found.map(({ documentUrl }) => documentUrl)));
@@ -200,3 +220,54 @@ test("in another popup language: the page's own strings load next to the content
   await expect(welcomePage.locator(".custom-tooltip-word").first()).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+// Text at least 4.5 times lighter or darker than what is behind it (WCAG AA),
+// "Allow access" too; the keyboard focus an outline at least 3 times so.
+for (const colorScheme of ["light", "dark"]) {
+  test(`in the ${colorScheme} theme every button and link reads clearly, and the keyboard focus shows`, async ({ welcomePage }) => {
+    await welcomePage.emulateMedia({ colorScheme });
+    const openSettings = welcomePage.getByRole("note").getByRole("button", { name: "Open settings" });
+    await expect(openSettings).toBeVisible();
+    // The theme fades in.
+    await expect.poll(() => lowContrast(welcomePage)).toEqual([]);
+
+    for (let presses = 0; presses < 30 && !(await openSettings.evaluate((button) => button === document.activeElement)); presses++) {
+      await welcomePage.keyboard.press("Tab");
+    }
+    await expect(openSettings).toBeFocused();
+    const outline = await focusOutline(welcomePage);
+    expect(outline.style).toBe("solid");
+    expect(outline.width).toBeGreaterThan(0);
+    expect(outline.ratio).toBeGreaterThanOrEqual(3);
+    // Not cut off by the card's message box (`overflow`).
+    expect(outline.clippedBy).toEqual([]);
+
+    await withoutYouTubeAccess(welcomePage);
+    await welcomePage.reload();
+    await expect(welcomePage.getByRole("button", { name: "Allow access" })).toBeVisible();
+    await expect.poll(() => lowContrast(welcomePage)).toEqual([]);
+  });
+}
+
+// The title wraps between words, never inside the name, in a window as narrow
+// as a phone's: there the icon stands above it, taking none of its width.
+for (const language of ["en", "fi"]) {
+  test(`at 360 and 375 px the title in ${language} keeps "HoverTranslate" whole`, async ({ welcomePage }) => {
+    await welcomePage.evaluate((code) => localStorage.setItem("hoverTranslatePopupLanguage", code), language);
+    const title = welcomePage.getByRole("heading", { level: 1 });
+    for (const width of [360, 375]) {
+      await welcomePage.setViewportSize({ width, height: 740 });
+      await welcomePage.reload();
+      await expect(title).toHaveText(readLocale(language, "welcome").pageTitle);
+      const lines = await title.evaluate((heading) => {
+        const text = [...heading.childNodes].find((node) => node.nodeType === Node.TEXT_NODE && node.data.includes("HoverTranslate"));
+        const range = document.createRange();
+        const start = text.data.indexOf("HoverTranslate");
+        range.setStart(text, start);
+        range.setEnd(text, start + "HoverTranslate".length);
+        return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
+      });
+      expect(lines, `"HoverTranslate" at ${width} px`).toBe(1);
+    }
+  });
+}

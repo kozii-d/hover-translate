@@ -4,6 +4,7 @@ import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 import { NotificationOptions, NotificationsContext } from "@/shared/lib/notifications/notifications.ts";
 
 interface QueuedNotification {
@@ -23,6 +24,9 @@ interface NotificationProps {
 }
 
 const Notification: FC<NotificationProps> = ({ message, options, queued, onClose }) => {
+  const { t } = useTranslation("modals");
+  const closeText = t("confirmation.actions.close.text");
+
   const handleClose = (_event: Event | SyntheticEvent | null, reason?: SnackbarCloseReason) => {
     // A click elsewhere in the popup does not dismiss it: only the button or the timeout.
     if (reason === "clickaway") return;
@@ -32,11 +36,13 @@ const Notification: FC<NotificationProps> = ({ message, options, queued, onClose
   return (
     <Snackbar open autoHideDuration={options.autoHideDuration} onClose={handleClose}>
       <Badge badgeContent={queued > 1 ? String(queued) : null} color="primary" sx={{ width: "100%" }}>
+        {/* Raised: the tips on the page are alerts of the same colours. */}
         <Alert
+          elevation={6}
           severity={options.severity}
           sx={{ width: "100%" }}
           action={
-            <IconButton size="small" aria-label="Close" title="Close" color="inherit" onClick={handleClose}>
+            <IconButton size="small" aria-label={closeText} title={closeText} color="inherit" onClick={handleClose}>
               <CloseIcon fontSize="small" />
             </IconButton>
           }

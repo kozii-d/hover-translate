@@ -87,6 +87,7 @@
         --ink: #1a1a1a;
         --muted: #5f5a56;
         --line: #e6e0da;
+        --control-line: #8a847f;
         --accent: #d3180b;
         --accent-hover: #b31409;
         --link: #c4160a;
@@ -107,6 +108,7 @@
           --ink: #f4f2f0;
           --muted: #a8a29e;
           --line: #2e2b29;
+          --control-line: #6d6763;
           --link: #ff6b5e;
           --tint: #2a1714;
           color-scheme: dark;
@@ -118,6 +120,7 @@
         --ink: #f4f2f0;
         --muted: #a8a29e;
         --line: #2e2b29;
+        --control-line: #6d6763;
         --link: #ff6b5e;
         --tint: #2a1714;
         color-scheme: dark;
@@ -149,7 +152,7 @@
         color: var(--ink);
       }
       .theme-toggle:focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
       }
       .theme-toggle svg {
@@ -190,9 +193,13 @@
         color: var(--link);
         text-underline-offset: 3px;
       }
+      /* The text's colour, as in the extension's popup. The rounding only for links: a button
+         keeps its own shape */
       :is(a, summary, video, .key):focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
+      }
+      :is(a:not(.btn), summary, video):focus-visible {
         border-radius: 4px;
       }
       h1,
@@ -339,7 +346,7 @@
       .btn.ghost {
         background: transparent;
         color: var(--ink);
-        border-color: var(--line);
+        border-color: var(--control-line);
       }
       .btn.ghost:hover {
         border-color: var(--muted);
@@ -368,7 +375,7 @@
 
       /* The live subtitle line, drawn as YouTube draws captions and as the extension draws its
          tooltip (extension/src/content/styles.css, utils/tooltipTheme.ts): a solid background per
-         line, the selected words in #808080 with the space after them, the tooltip in the
+         line, the selected words in #707070 with the space after them, the tooltip in the
          subtitles' own font, size and background, 5 px above the subtitle block, from the first
          selected word. Without JavaScript it shows "montaña" selected; site.js does the rest the way
          tooltipService.ts and videoController.ts do. */
@@ -407,7 +414,10 @@
             transparent 70%
           ),
           linear-gradient(160deg, #26303a, #121212 70%);
-        box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.55);
+        /* The ring: in the dark theme the frame's dark bottom is the page's own colour */
+        box-shadow:
+          0 0 0 1px var(--line),
+          0 24px 60px -24px rgba(0, 0, 0, 0.55);
         --caption-size: clamp(14px, 3.4cqi, 26px);
       }
       /* Top right: the top left is where the extension says "Translation saved". The icons are
@@ -489,7 +499,7 @@
         cursor: default;
       }
       .w.sel {
-        background-color: #808080;
+        background-color: #707070;
       }
       .w:focus-visible {
         outline: 2px solid #ffffff;
@@ -585,6 +595,7 @@
         overflow: hidden;
         container-type: inline-size;
         background: linear-gradient(160deg, #2a2f36, #141414 75%);
+        box-shadow: 0 0 0 1px var(--line);
         font-family: var(--caption);
         color: #ffffff;
       }
@@ -606,7 +617,7 @@
       }
       .mini .on {
         position: relative;
-        background: #808080;
+        background: #707070;
       }
       .mini .on > span {
         position: absolute;
@@ -655,10 +666,11 @@
         height: auto;
         border-radius: 12px;
         background: #000000;
+        box-shadow: 0 0 0 1px var(--line);
       }
       /* The site's own pause and play button over each video (site.js, which drops the browser's
          controls): shown on a paused video, under the pointer and in focus; dressed like the
-         theme button, on the page's own colours so it reads on any frame */
+         theme button, white in both themes so it reads on any frame */
       .clip {
         position: relative;
       }
@@ -676,8 +688,8 @@
         padding: 0;
         border: 1px solid var(--line);
         border-radius: 50%;
-        background: var(--surface);
-        color: var(--ink);
+        background: #ffffff;
+        color: #1a1a1a;
         cursor: pointer;
         opacity: 0;
         transition: opacity 0.15s;
@@ -690,9 +702,12 @@
       .play:focus-visible {
         opacity: 1;
       }
+      /* The same in both themes, as the button: a dark ring right on it and a white one around
+         that, so it shows on a dark frame and on a light one */
       .play:focus-visible {
-        outline: 3px solid var(--link);
-        outline-offset: 2px;
+        outline: 2px solid #1a1a1a;
+        outline-offset: 0;
+        box-shadow: 0 0 0 4px #ffffff;
       }
       .play svg {
         width: 24px;

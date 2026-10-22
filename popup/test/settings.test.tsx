@@ -695,6 +695,18 @@ describe("an open list or dialog leaves the page's style alone", () => {
   });
 });
 
+it("\"Reset to default\" asks in a dialog named by its title, its button red", async () => {
+  const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+  await user.click(await screen.findByRole("button", { name: "Reset to default" }));
+  const dialog = await screen.findByRole("dialog", { name: "Reset to default settings?" });
+
+  expect(within(dialog).getByText("This will restore all settings to their default values.")).toBeTruthy();
+  expect(within(dialog).getByRole("button", { name: "Reset" }).classList).toContain("MuiButton-colorError");
+  await user.click(within(dialog).getByRole("button", { name: "Close" }));
+  await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+});
+
 describe("the language fields open a panel with a search", () => {
   type User = Awaited<ReturnType<typeof renderPopup>>["user"];
 
@@ -709,6 +721,16 @@ describe("the language fields open a panel with a search", () => {
   const optionNames = (panel: HTMLElement) => within(panel).queryAllByRole("option").map((option) => option.textContent);
 
   const closed = () => waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+
+  it("in the popup the panel fills it and goes back with an arrow", async () => {
+    const { user } = await renderPopup({ sync: { settings: defaultSettings } });
+
+    const panel = await openPanel(user, "Translate to");
+    const back = within(panel).getByRole("button", { name: "Back" });
+
+    expect(back.querySelector("[data-testid='ArrowBackIcon']")).not.toBeNull();
+    expect(panel.classList).toContain("MuiDialog-paperFullScreen");
+  });
 
   it("opens on the field, named after it: the focus in the search, the current language selected and scrolled to", async () => {
     const scrolls = vi.spyOn(Element.prototype, "scrollIntoView");

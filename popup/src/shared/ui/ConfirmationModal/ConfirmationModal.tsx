@@ -1,9 +1,10 @@
-import { FC, Fragment, useState, cloneElement, ReactElement } from "react";
-import Modal from "@mui/material/Modal";
-import Typography from "@mui/material/Typography";
+import { FC, Fragment, useId, useState, cloneElement, ReactElement } from "react";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import { useTranslation } from "react-i18next";
 
 interface ConfirmationModalProps {
@@ -14,13 +15,15 @@ interface ConfirmationModalProps {
   onConfirm: () => void;
 }
 
+/** Asks before something that cannot be undone (a reset, a removal): its button is red. */
 export const ConfirmationModal: FC<ConfirmationModalProps> = (props) => {
   const { title, description, actionText, trigger, onConfirm } = props;
-  
+
   const { t } = useTranslation("modals");
+  const titleId = useId();
 
   const [open, setOpen] = useState(false);
-  
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -36,34 +39,16 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = (props) => {
   return (
     <Fragment>
       {triggerElement}
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
-        <Box sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "80%",
-          bgcolor: "background.paper",
-          boxShadow: 24,
-          p: 4,
-        }}>
-          <Stack direction="column" spacing={2}>
-            <Typography variant="h6" component="h2">
-              {title}
-            </Typography>
-            <Typography>
-              {description}
-            </Typography>
-            <Stack direction="row" spacing={2} justifyContent="end">
-              <Button size="small" onClick={handleClose}>{t("confirmation.actions.close.text")}</Button>
-              <Button size="small" variant="contained" color="primary" onClick={handleConfirm}>{actionText || t("confirmation.actions.confirm.text")}</Button>
-            </Stack>
-          </Stack>
-        </Box>
-      </Modal>
+      <Dialog open={open} onClose={handleClose} aria-labelledby={titleId}>
+        <DialogTitle id={titleId}>{title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{description}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button size="small" onClick={handleClose}>{t("confirmation.actions.close.text")}</Button>
+          <Button size="small" variant="contained" color="error" onClick={handleConfirm}>{actionText || t("confirmation.actions.confirm.text")}</Button>
+        </DialogActions>
+      </Dialog>
     </Fragment>
   );
 };

@@ -1,6 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const { test, expect } = require("./extension.js");
+const { test, expect, focusOutline, lowContrast, withoutYouTubeAccess } = require("./extension.js");
 
 // A change in the popup reaches a YouTube page that is already open, without
 // reloading it: the content script follows `chrome.storage.onChanged`
@@ -164,3 +164,91 @@ test("every tab label fits its tab, in every language", async ({ context, extens
 
   expect(misfits).toEqual([]);
 });
+
+// Text at least 4.5 times lighter or darker than what is behind it (WCAG AA),
+// in both themes: the tabs, the links and the buttons of each card the
+// Settings page can show — the DeepL tip, the rating card, the line about
+// access to YouTube — the language panel, the confirmation of a reset and the
+// About page.
+for (const colorScheme of ["light", "dark"]) {
+  test(`every button, link and tab reads clearly in the ${colorScheme} theme`, async ({ context, extensionId, storage }) => {
+    const open = async (route = "", { youtubeAccess = true } = {}) => {
+      const popup = await context.newPage();
+      await popup.emulateMedia({ colorScheme });
+      if (!youtubeAccess) await withoutYouTubeAccess(popup);
+      await popup.goto(`chrome-extension://${extensionId}/popup/dist/index.html#${route}`);
+      await expect(popup.locator(".MuiSkeleton-root")).toHaveCount(0);
+      return popup;
+    };
+    const lowContrastOf = async (popup) => {
+      await expect.poll(() => lowContrast(popup)).toEqual([]);
+      // An outlined button's border is drawn in the colour of its text.
+      const outlined = await popup.locator(".MuiButton-outlined").evaluateAll((buttons) => buttons.map((button) => {
+        const style = getComputedStyle(button);
+        return { text: button.textContent, border: style.borderTopColor, color: style.color };
+      }));
+      for (const { border, color } of outlined) expect(border).toBe(color);
+    };
+
+    const tips = await open();
+    await expect(tips.getByRole("button", { name: "Connect DeepL" })).toBeVisible();
+    await lowContrastOf(tips);
+    await tips.getByRole("combobox", { name: /Translate to/ }).click();
+    await expect(tips.getByRole("option", { name: "Russian", selected: true })).toBeVisible();
+    await lowContrastOf(tips);
+    await tips.keyboard.press("Escape");
+    await tips.getByRole("button", { name: "Reset to default" }).click();
+    await expect(tips.getByRole("dialog", { name: "Reset to default settings?" })).toBeVisible();
+    await lowContrastOf(tips);
+
+    const about = await open("/about");
+    await expect(about.getByText("Changelog", { exact: true })).toBeVisible();
+    await lowContrastOf(about);
+
+    const noAccess = await open("", { youtubeAccess: false });
+    await expect(noAccess.getByRole("button", { name: "Allow access" })).toBeVisible();
+    await lowContrastOf(noAccess);
+
+    // Installed a month ago, with ten words saved.
+    const monthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    await storage.set("sync", { installedAt: monthAgo, updatedAt: monthAgo });
+    await storage.set("local", {
+      savedTranslations: Array.from({ length: 10 }, (_, index) => ({
+        id: `saved-${index}`,
+        originalText: `word${index}`,
+        translatedText: `слово${index}`,
+        sourceLanguageCode: "en",
+        targetLanguageCode: "ru",
+        translatorName: "Google",
+        timestamp: monthAgo + index,
+      })),
+    });
+    const rating = await open();
+    await expect(rating.getByRole("button", { name: "Rate" })).toBeVisible();
+    await lowContrastOf(rating);
+  });
+}
+
+// Tab through the Settings page: every stop but a field (whose focus is its
+// border) shows a solid outline at least 3:1 with what is around it, not cut
+// off by a box around it — a switch's, a tip's message.
+for (const colorScheme of ["light", "dark"]) {
+  test(`the keyboard focus shows whole on every control of Settings, in the ${colorScheme} theme`, async ({ context, extensionId }) => {
+    const popup = await context.newPage();
+    await popup.emulateMedia({ colorScheme });
+    await popup.goto(`chrome-extension://${extensionId}/popup/dist/index.html`);
+    await expect(popup.getByRole("button", { name: "Connect DeepL" })).toBeVisible();
+    await expect(popup.locator(".MuiSkeleton-root")).toHaveCount(0);
+
+    const stops = [];
+    for (let presses = 0; presses < 40; presses++) {
+      await popup.keyboard.press("Tab");
+      if (await popup.evaluate(() => document.activeElement === document.body)) break;
+      stops.push(await focusOutline(popup));
+    }
+
+    const shown = stops.filter((stop) => !stop.field);
+    expect(shown.map((stop) => stop.text)).toEqual(expect.arrayContaining(["Connect DeepL", "Reset to default"]));
+    expect(shown.filter((stop) => stop.style !== "solid" || stop.width < 2 || stop.ratio < 3 || stop.clippedBy.length)).toEqual([]);
+  });
+}

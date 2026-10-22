@@ -19,7 +19,7 @@ export const Page: FC<PageProps> = ({ children, title, additionalAction }) => {
     <Container>
       <Stack sx={{ my: 2 }} spacing={2}>
         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", gap: 2 }}>
-          <Typography variant="h4">{title}</Typography>
+          <Typography variant="h4" component="h1">{title}</Typography>
           <Stack direction="row" spacing={2} alignItems="center">
             {additionalAction ? additionalAction : null}
             <ThemeToggle />

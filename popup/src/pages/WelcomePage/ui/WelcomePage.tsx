@@ -19,6 +19,7 @@ import { DeepLCard } from "./DeepLCard.tsx";
 import { PopupTabsCard } from "./PopupTabsCard.tsx";
 
 const YOUTUBE_URL = "https://www.youtube.com/";
+const LOGO = "../../assets/icons/logo-48.png";
 
 /** `en`, `en-GB`… */
 const isEnglish = (code: string) => /^en(-|$)/i.test(code);
@@ -67,18 +68,25 @@ export const WelcomePage: FC = () => {
               breaks rather than pushing the buttons out. Korean breaks
               between words, not inside them (`<html lang>` is the page's
               language); Japanese and Chinese have no spaces and break anywhere. */}
-          <Typography
-            variant="h4"
-            component="h1"
-            sx={{
-              minWidth: 0,
-              overflowWrap: "anywhere",
-              fontSize: { xs: "1.75rem", sm: "2.125rem" },
-              "&:lang(ko)": { wordBreak: "keep-all" },
-            }}
-          >
-            {t("pageTitle")}
-          </Typography>
+          {/* The icon above the title in a window as narrow as a phone's: beside
+              it, it would leave too little width, and the name would break. */}
+          <Stack direction={{ xs: "column", sm: "row" }} alignItems="flex-start" sx={{ minWidth: 0 }}>
+            {/* The extension's own file, from the built page (popup/dist/welcome.html):
+                a string, so that Vite neither bundles nor rewrites it. */}
+            <Box component="img" src={LOGO} alt="" width={40} height={40} sx={{ flex: "none", mb: { xs: 1, sm: 0 }, mr: { sm: 1.5 } }}/>
+            <Typography
+              variant="h4"
+              component="h1"
+              sx={{
+                minWidth: 0,
+                overflowWrap: "anywhere",
+                fontSize: { xs: "1.75rem", sm: "2.125rem" },
+                "&:lang(ko)": { wordBreak: "keep-all" },
+              }}
+            >
+              {t("pageTitle")}
+            </Typography>
+          </Stack>
           <Stack direction="row" spacing={1} sx={{ flex: "none" }}>
             <ThemeToggle/>
             <LangSelector/>
@@ -99,12 +107,8 @@ export const WelcomePage: FC = () => {
           <DemoPlayer language={demoLanguage}/>
         </Stack>
 
-        {/* About switching to DeepL: not for a viewer on it already. */}
-        {!(state.status === "ready" && state.settings.translator === "deepl") && <DeepLCard/>}
-
-        <PopupTabsCard/>
-
-        {/* The tips first: the button leaves the page, in this tab. */}
+        {/* Right after the demo, where a wide window still shows it. The tips
+            first: the button leaves the page, in this tab. */}
         <Stack spacing={2} alignItems="flex-start">
           {/* The tip to pin the icon, only while it is known not to be pinned. */}
           <List items={iconOnToolbar === false ? [t("start.captions"), t("start.pin")] : [t("start.captions")]}/>
@@ -112,6 +116,11 @@ export const WelcomePage: FC = () => {
             {t("start.openYouTube")}
           </Button>
         </Stack>
+
+        {/* About switching to DeepL: not for a viewer on it already. */}
+        {!(state.status === "ready" && state.settings.translator === "deepl") && <DeepLCard/>}
+
+        <PopupTabsCard/>
       </Stack>
     </Box>
   );

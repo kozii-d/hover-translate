@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - The request to rate HoverTranslate on the video now comes back a month after "Not now", as the one in the settings does, and putting off either of them puts off the other too.
+- The settings are easier to read: buttons, links and tabs have stronger contrast, the keyboard focus is clearly visible, and the highlighted subtitle word is a darker grey, so white subtitles stay readable on it.
 
 ### Added
 

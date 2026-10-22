@@ -23,9 +23,12 @@ export const Footer: FC = () => {
         <Typography variant="body2" color="text.secondary">
           {t("footer.version")} {version} ·{" "}
           <Link
-            style={{ cursor: "pointer" }}
+            component="button"
+            type="button"
+            color="inherit"
+            underline="always"
             onClick={openChangelog}
-            underline="hover"
+            sx={{ verticalAlign: "baseline" }}
           >
             {t("footer.changelog")}
           </Link>

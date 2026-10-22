@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 import { toTag } from "@/shared/lib/helpers/languageNames.ts";
 import { MenuItemType } from "../../types/types.ts";
@@ -80,15 +81,30 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, l
           }
         }}
         aria-labelledby={titleId}
-        slots={{ transition: Slide }}
+        // Up from the bottom over the popup; a window in the middle of a wide
+        // page fades in, as MUI's dialogs do.
+        slots={fullScreen ? { transition: Slide } : undefined}
         slotProps={{
-          transition: { direction: "up", onEntered: scrollToSelected },
-          // A height of its own, so that the list scrolls inside it.
-          paper: fullScreen ? undefined : { sx: { height: "min(640px, calc(100% - 64px))" } },
+          transition: fullScreen ? { direction: "up", onEntered: scrollToSelected } : { onEntered: scrollToSelected },
+          // In the dark theme the page's own background, not a raised
+          // surface's lighter one, so the selected language has the same tint
+          // everywhere; a window in the middle of a wide page gets an edge
+          // instead, as the demo player's frame. It has a height of its own,
+          // so that the list scrolls inside it.
+          paper: fullScreen ? { elevation: 0 } : {
+            sx: (theme) => ({
+              height: "min(640px, calc(100% - 64px))",
+              ...(theme.palette.mode === "dark" && {
+                backgroundImage: "none",
+                boxShadow: `0 0 0 1px ${theme.palette.divider}, ${theme.shadows[24]}`,
+              }),
+            }),
+          },
         }}
       >
         <LanguagePanel
           titleId={titleId}
+          fullScreen={fullScreen}
           label={label}
           value={value}
           options={options}
@@ -102,6 +118,8 @@ export const LanguageSelect: FC<LanguageSelectProps> = ({ id, value, onChange, l
 
 interface LanguagePanelProps {
   titleId: string;
+  /** Over the whole popup: an arrow back to it; otherwise a window, closed with a cross. */
+  fullScreen: boolean;
   label: string;
   value: string;
   options: LanguageOption[];
@@ -110,7 +128,7 @@ interface LanguagePanelProps {
 }
 
 /** The panel's content, mounted for each opening: the search starts empty every time. */
-const LanguagePanel: FC<LanguagePanelProps> = ({ titleId, label, value, options, onPick, onClose }) => {
+const LanguagePanel: FC<LanguagePanelProps> = ({ titleId, fullScreen, label, value, options, onPick, onClose }) => {
   const { t, i18n } = useTranslation("settings");
   const { direction } = useTheme();
   const [query, setQuery] = useState("");
@@ -190,7 +208,7 @@ const LanguagePanel: FC<LanguagePanelProps> = ({ titleId, label, value, options,
       <Stack direction="row" alignItems="center" spacing={1} sx={{ px: 1, pt: 1 }}>
         <IconButton onClick={onClose} aria-label={backLabel} title={backLabel}>
           {/* Back is against the reading direction. */}
-          <ArrowBackIcon sx={{ transform: direction === "rtl" ? "scaleX(-1)" : undefined }} />
+          {fullScreen ? <ArrowBackIcon sx={{ transform: direction === "rtl" ? "scaleX(-1)" : undefined }} /> : <CloseIcon />}
         </IconButton>
         <Typography id={titleId} variant="h6" component="h2">{label}</Typography>
       </Stack>
@@ -241,7 +259,7 @@ const LanguagePanel: FC<LanguagePanelProps> = ({ titleId, label, value, options,
                       borderRadius: 1,
                       textAlign: "start",
                       fontWeight: selected ? 600 : 400,
-                      color: selected ? "primary.main" : "text.primary",
+                      color: "text.primary",
                     }}
                   >
                     <CheckIcon fontSize="small" sx={{ visibility: selected ? "visible" : "hidden" }} />

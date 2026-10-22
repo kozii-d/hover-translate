@@ -30,6 +30,25 @@ test("hovering a word shows its translation above it and pauses the video; leavi
   await expect.poll(() => player.isPaused()).toBe(false);
 });
 
+// #707070: white subtitles on it are 4.95 times lighter.
+test("the word under the pointer and the words Shift adds are highlighted in the same grey", async ({ openPlayer }) => {
+  const player = await openPlayer();
+  await player.captions("run for your life");
+  const background = (text) => player.word(text).evaluate((word) => getComputedStyle(word).backgroundColor);
+
+  await player.word("for").hover();
+  await expect(player.tooltip).toHaveText("[ru] for");
+  expect(await background("for")).toBe("rgb(112, 112, 112)");
+
+  await player.page.keyboard.down("Shift");
+  await player.word("life").hover();
+  await player.page.keyboard.up("Shift");
+
+  await expect(player.frame.locator(".custom-tooltip-word-selected")).toHaveText(["for ", "your ", "life"]);
+  expect(await Promise.all(["for", "your", "life"].map(background))).toEqual(Array(3).fill("rgb(112, 112, 112)"));
+  expect(await background("run")).toBe("rgba(0, 0, 0, 0)");
+});
+
 test("another player earlier in the page, such as a thumbnail preview, neither moves nor narrows the tooltip", async ({ openPlayer, network }) => {
   const player = await openPlayer();
   // Wider than the preview's video, and still fits right of the word in the

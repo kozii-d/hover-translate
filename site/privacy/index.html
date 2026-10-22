@@ -98,7 +98,7 @@
         color: var(--ink);
       }
       .theme-toggle:focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
       }
       .theme-toggle svg {
@@ -141,7 +141,7 @@
         overflow-wrap: anywhere;
       }
       a:focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
         border-radius: 4px;
       }
@@ -169,6 +169,13 @@
       header nav a,
       footer a {
         color: var(--muted);
+      }
+      header nav a {
+        text-decoration: none;
+      }
+      header nav a:hover {
+        color: var(--ink);
+        text-decoration: underline;
       }
       header nav {
         display: flex;

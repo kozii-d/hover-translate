@@ -50,6 +50,7 @@
         --ink: #1a1a1a;
         --muted: #5f5a56;
         --line: #e6e0da;
+        --control-line: #8a847f;
         --accent: #d3180b;
         --accent-hover: #b31409;
         --link: #c4160a;
@@ -65,6 +66,7 @@
           --ink: #f4f2f0;
           --muted: #a8a29e;
           --line: #2e2b29;
+          --control-line: #6d6763;
           --link: #ff6b5e;
           color-scheme: dark;
         }
@@ -75,6 +77,7 @@
         --ink: #f4f2f0;
         --muted: #a8a29e;
         --line: #2e2b29;
+        --control-line: #6d6763;
         --link: #ff6b5e;
         color-scheme: dark;
       }
@@ -105,7 +108,7 @@
         color: var(--ink);
       }
       .theme-toggle:focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
       }
       .theme-toggle svg {
@@ -148,7 +151,7 @@
         overflow-wrap: anywhere;
       }
       a:focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
         border-radius: 4px;
       }
@@ -213,7 +216,7 @@
         align-items: flex-start;
         gap: 12px;
         padding: 12px 14px;
-        border: 1px solid var(--line);
+        border: 1px solid var(--control-line);
         border-radius: 10px;
         background: var(--surface);
         cursor: pointer;
@@ -234,7 +237,7 @@
       .reason:has(input:focus-visible),
       textarea:focus-visible,
       .send:focus-visible {
-        outline: 3px solid var(--link);
+        outline: 2px solid var(--ink);
         outline-offset: 2px;
       }
       .reason input:focus-visible {
@@ -245,7 +248,7 @@
         width: 100%;
         min-height: 120px;
         padding: 10px 12px;
-        border: 1px solid var(--line);
+        border: 1px solid var(--control-line);
         border-radius: 10px;
         background: var(--surface);
         color: var(--ink);
@@ -255,12 +258,13 @@
       .send {
         justify-self: start;
         min-height: 46px;
-        padding: 0 28px;
+        padding: 0 20px;
         border: 2px solid var(--accent);
         border-radius: 10px;
         background: var(--accent);
         color: #ffffff;
         font: inherit;
+        font-size: 15px;
         font-weight: 700;
         cursor: pointer;
       }

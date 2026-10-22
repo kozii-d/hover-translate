@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import { REPO_ROOT } from "@extension-test/fakeChrome.ts";
+import i18n from "@/app/config/i18n.ts";
 import { renderPopup } from "./renderPopup.tsx";
 
 const NAMESPACES = ["messages", "modals", "settings", "customize", "dictionary", "about", "common"];
@@ -126,4 +127,71 @@ it("a page that fails to render: the error screen with the tabs, the other pages
   expect(await screen.findByRole("heading", { name: "Customize" })).toBeTruthy();
   expect(await screen.findByRole("combobox", { name: /^Font size/ })).toBeTruthy();
   expect(screen.queryByText("Couldn't load this page")).toBeNull();
+});
+
+it.each(PAGES)("$route: one heading of the first level, the page's title", async ({ route, ns }) => {
+  await renderPopup({ route, local: { savedTranslations: SAVED } });
+  const title = readLocale("en", ns).pageTitle;
+
+  await screen.findByRole("heading", { name: title });
+  await waitFor(() => expect(document.querySelector(".MuiSkeleton-root")).toBeNull());
+
+  expect(screen.getAllByRole("heading", { level: 1 }).map((heading) => heading.textContent)).toEqual([title]);
+});
+
+it("/about: its sentences are not headings, and Changelog is a button the keyboard reaches that opens the changelog", async () => {
+  const { fake, user } = await renderPopup({ route: "/about" });
+  const strings = readLocale("en", "about").blocks.description;
+
+  const changelog = await screen.findByRole("button", { name: "Changelog" });
+  expect(screen.queryByRole("heading", { name: strings.subtitle })).toBeNull();
+  expect(screen.queryByRole("heading", { name: new RegExp(strings["thank-you"]) })).toBeNull();
+
+  for (let presses = 0; presses < 30 && document.activeElement !== changelog; presses++) await user.tab();
+  expect(document.activeElement).toBe(changelog);
+  await user.keyboard("{Enter}");
+
+  expect(fake.createdTabs.map((tab) => tab.url)).toEqual(["https://github.com/kozii-d/hover-translate/blob/master/CHANGELOG.md"]);
+});
+
+it("/about in ru: the support dialog's title is one heading, with none inside it, and its close button is named in Russian", async () => {
+  const { user } = await renderPopup({ language: "ru", route: "/about" });
+  const about = readLocale("ru", "about");
+  const modals = readLocale("ru", "modals");
+
+  await user.click(await screen.findByRole("button", { name: about.blocks.support.actions.donate.text }));
+  const dialog = await screen.findByRole("dialog", { name: modals.support.title });
+
+  const title = within(dialog).getByRole("heading", { level: 2 });
+  expect(title.textContent).toBe(modals.support.title);
+  expect(title.querySelector("h1, h2, h3, h4, h5, h6")).toBeNull();
+  await user.click(within(dialog).getByRole("button", { name: modals.confirmation.actions.close.text }));
+  await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+});
+
+it("a button that cannot be used looks it: \"Rate us\" in a build that belongs to no store", async () => {
+  await renderPopup({ route: "/about", id: "unpackedbuildid" });
+
+  const rate = await screen.findByRole("button", { name: readLocale("en", "about").blocks.support.actions.review.text });
+
+  expect(rate).toHaveProperty("disabled", true);
+  // MUI's colours for a disabled contained button, not the enabled one's near black.
+  expect(getComputedStyle(rate).backgroundColor).toBe("rgba(0, 0, 0, 0.12)");
+  expect(getComputedStyle(rate).color).toBe("rgba(0, 0, 0, 0.26)");
+});
+
+it("the menu of popup languages marks the current one as selected, and picking it changes nothing", async () => {
+  const { user } = await renderPopup({ language: "ru" });
+  const changeLanguage = vi.spyOn(i18n, "changeLanguage");
+
+  await user.click(await screen.findByRole("button", { name: readLocale("ru", "common").tooltips.languageSelector }));
+  const current = await screen.findByRole("menuitem", { name: "Русский" });
+  expect(current.getAttribute("aria-disabled")).toBeNull();
+  expect(current.classList).toContain("Mui-selected");
+
+  await user.click(current);
+
+  await waitFor(() => expect(screen.queryByRole("menu")).toBeNull());
+  expect(changeLanguage).not.toHaveBeenCalled();
+  expect(i18n.language).toBe("ru");
 });

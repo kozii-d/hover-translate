@@ -297,6 +297,38 @@ it("the tips about subtitles and pinning come before \"Open YouTube\", which lea
   }
 });
 
+it("\"Open YouTube\" comes right after the demo, before the DeepL card and the block about the rest of the popup", async () => {
+  await renderPopup({ page: "welcome", sync: { settings: defaultSettings } });
+
+  const link = await screen.findByRole("link", { name: "Open YouTube" });
+  const more = await screen.findByRole("region", { name: readLocale("en", "welcome").more.title });
+  for (const after of [screen.getByRole("note"), more]) {
+    expect(link.compareDocumentPosition(after) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  }
+  expect(screen.getByTestId("demo-status").compareDocumentPosition(link) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+});
+
+it("the HoverTranslate icon next to the title, left out by screen readers", async () => {
+  await renderPopup({ page: "welcome", sync: { settings: defaultSettings } });
+
+  const heading = await screen.findByRole("heading", { level: 1 });
+  const icon = heading.parentElement?.querySelector("img");
+  expect(icon?.getAttribute("alt")).toBe("");
+  expect(icon?.getAttribute("src")).toBe("../../assets/icons/logo-48.png");
+  expect(icon?.compareDocumentPosition(heading)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+});
+
+it("in a wide window the language panel closes with a cross, not an arrow back", async () => {
+  const { user } = await renderPopup({ page: "welcome", sync: { settings: defaultSettings } });
+
+  await user.click(await languageField());
+  const panel = await screen.findByRole("dialog", { name: "Translate to" });
+  const close = within(panel).getByRole("button", { name: "Back" });
+
+  expect(close.querySelector("[data-testid='CloseIcon']")).not.toBeNull();
+  expect(close.querySelector("[data-testid='ArrowBackIcon']")).toBeNull();
+});
+
 it("\"Open YouTube\" leads to YouTube in this tab", async () => {
   await renderPopup({ page: "welcome", sync: { settings: defaultSettings } });
 
@@ -483,6 +515,15 @@ describe("the block about the rest of the popup", () => {
     await waitFor(() => expect(openButton(region)).toBeNull());
     expect(openButton(screen.getByRole("note"))).not.toBeNull();
     expect(region.textContent).toContain(readLocale("en", "welcome").more.settings);
+  });
+
+  it("its button is the page's plain one, not the DeepL card's blue", async () => {
+    await renderPopup({ page: "welcome", sync: { settings: defaultSettings } });
+
+    const button = openButton(await block())!;
+    expect(button.classList).toContain("MuiButton-colorPrimary");
+    expect(button.classList).not.toContain("MuiButton-colorInfo");
+    expect(openButton(screen.getByRole("note"))!.classList).toContain("MuiButton-colorInfo");
   });
 
   it("a click opens the popup", async () => {

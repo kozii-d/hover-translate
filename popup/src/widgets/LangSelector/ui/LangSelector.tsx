@@ -26,7 +26,7 @@ export const LangSelector: FC = () => {
   };
 
   const handleMenuItemClick = (lang: string) => {
-    i18n.changeLanguage(lang);
+    if (lang !== activeLang) i18n.changeLanguage(lang);
     handleClose();
   };
 
@@ -49,7 +49,7 @@ export const LangSelector: FC = () => {
           <MenuItem 
             key={lang} 
             onClick={() => handleMenuItemClick(lang)}
-            disabled={lang === activeLang}
+            selected={lang === activeLang}
           >
             {getLanguageName(lang)}
           </MenuItem>

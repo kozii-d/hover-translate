@@ -129,7 +129,11 @@ export const DemoPlayer: FC<DemoPlayerProps> = ({ language }) => {
           aspectRatio: "16 / 9",
           objectFit: "cover",
           borderRadius: "14px",
-          boxShadow: "0 24px 60px -24px rgba(0, 0, 0, 0.55)",
+          // In the dark theme a ring of the divider's colour: the frame's dark
+          // bottom is the page's own colour there.
+          boxShadow: (theme) => theme.palette.mode === "dark"
+            ? `0 0 0 1px ${theme.palette.divider}, 0 24px 60px -24px rgba(0, 0, 0, 0.55)`
+            : "0 24px 60px -24px rgba(0, 0, 0, 0.55)",
         }}
       />
       <Box

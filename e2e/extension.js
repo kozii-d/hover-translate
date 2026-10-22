@@ -301,4 +301,139 @@ class Player {
   }
 }
 
-module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePage };
+/**
+ * The extension's pages opened in `page` from now on are told they have no
+ * access to YouTube, as with Chrome's site access "On click". Chromium cannot
+ * be made to take it away: `permissions.remove` refuses the content scripts'
+ * hosts, which are required.
+ */
+function withoutYouTubeAccess(page) {
+  return page.addInitScript(() => {
+    if (!globalThis.chrome?.permissions) return;
+    const contains = chrome.permissions.contains.bind(chrome.permissions);
+    chrome.permissions.contains = (permissions) => (permissions.origins?.some((origin) => origin.includes("youtube.com"))
+      ? Promise.resolve(false)
+      : contains(permissions));
+  });
+}
+
+/**
+ * WCAG's contrast in the page: colours as `getComputedStyle` gives them, a
+ * half-transparent one laid over what is under it, up to the page's white.
+ * Background images count only as the even overlay MUI gives a raised surface
+ * in the dark theme (`linear-gradient(c, c)`).
+ */
+function contrastInPage() {
+  const parse = (value) => {
+    const match = /rgba?\(([^)]+)\)/.exec(value);
+    if (!match) return null;
+    const [r, g, b, a = 1] = match[1].split(/[\s,/]+/).filter(Boolean).map(Number);
+    return { r, g, b, a };
+  };
+  const over = (top, bottom) => ({
+    r: top.r * top.a + bottom.r * (1 - top.a),
+    g: top.g * top.a + bottom.g * (1 - top.a),
+    b: top.b * top.a + bottom.b * (1 - top.a),
+    a: 1,
+  });
+  const layers = (element) => {
+    const style = getComputedStyle(element);
+    const own = [parse(style.backgroundColor)];
+    const overlay = /^linear-gradient\((rgba?\([^)]+\)), (rgba?\([^)]+\))\)$/.exec(style.backgroundImage);
+    if (overlay && overlay[1] === overlay[2]) own.push(parse(overlay[1]));
+    return own.filter((color) => color && color.a > 0);
+  };
+  /** What is behind `element`'s own box: its ancestors' backgrounds, not its own. */
+  const behind = (element) => {
+    const chain = [];
+    for (let node = element.parentElement; node; node = node.parentElement) chain.unshift(node);
+    return chain.flatMap(layers).reduce((bottom, top) => over(top, bottom), { r: 255, g: 255, b: 255, a: 1 });
+  };
+  const background = (element) => layers(element).reduce((bottom, top) => over(top, bottom), behind(element));
+  const luminance = ({ r, g, b }) => {
+    const channel = (value) => {
+      const c = value / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    };
+    return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
+  };
+  const ratio = (foreground, back) => {
+    const [light, dark] = [luminance(over(foreground, back)), luminance(back)].sort((a, b) => b - a);
+    return Math.round(((light + 0.05) / (dark + 0.05)) * 100) / 100;
+  };
+  return { parse, background, behind, ratio };
+}
+
+/** Runs `fn(tools, arg)` in the page, `tools` being `contrastInPage()`'s: an expression, as the extension's CSP allows no `new Function`. */
+const inPage = (page, fn, arg) => page.evaluate(`(${fn})((${contrastInPage})(), ${JSON.stringify(arg)})`);
+
+/**
+ * Every button, link, tab, option and menu item on screen whose text has less
+ * than `min` contrast with what is behind it: `{ text, ratio }`. Icons alone
+ * and disabled controls are left out, as WCAG leaves them out of 4.5:1.
+ * While a transition runs (a dialog fading in, colours following the theme)
+ * it answers `[{ running }]` instead, for `expect.poll` to wait: halfway
+ * there a colour can pass where the final one would not.
+ */
+function lowContrast(page, min = 4.5) {
+  return inPage(page, ({ parse, background, ratio }, min) => {
+    const running = document.getAnimations().filter((animation) => animation.playState === "running"
+      && animation.effect?.getComputedTiming().endTime !== Infinity).length;
+    if (running) return [{ running }];
+    const controls = document.querySelectorAll("button, a, [role='button'], [role='link'], [role='tab'], [role='option'], [role='menuitem']");
+    const found = [];
+    for (const control of controls) {
+      if (!control.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) continue;
+      if (control.matches(":disabled, [aria-disabled='true'], .Mui-disabled")) continue;
+      const walker = document.createTreeWalker(control, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) => (node.data.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP),
+      });
+      const text = walker.nextNode();
+      if (!text) continue;
+      const holder = text.parentElement;
+      const contrast = ratio(parse(getComputedStyle(holder).color), background(holder));
+      if (contrast < min) found.push({ text: control.textContent.trim(), ratio: contrast });
+    }
+    return found;
+  }, min);
+}
+
+/**
+ * The keyboard focus where it shows: on the element that has it, or on the
+ * MUI control around it (a switch's input is inside the control MUI marks
+ * `Mui-focusVisible`). Its outline's style and width, the contrast of its
+ * colour with what is behind the element (the outline is drawn around it),
+ * `clippedBy`: the ancestors whose `overflow` cuts the outline off, and
+ * `field`: a text field or a list field, whose focus is its border instead.
+ */
+function focusOutline(page) {
+  return inPage(page, ({ parse, behind, ratio }) => {
+    const focused = document.activeElement;
+    const element = focused.closest(".Mui-focusVisible") ?? focused;
+    const style = getComputedStyle(element);
+    const width = parseFloat(style.outlineWidth) || 0;
+    const reach = style.outlineStyle === "none" ? 0 : width + (parseFloat(style.outlineOffset) || 0);
+    const box = element.getBoundingClientRect();
+    const clippedBy = [];
+    for (let node = element.parentElement; node && node !== document.body; node = node.parentElement) {
+      const { overflowX, overflowY } = getComputedStyle(node);
+      if (overflowX === "visible" && overflowY === "visible") continue;
+      const outer = node.getBoundingClientRect();
+      const left = outer.left + node.clientLeft;
+      const top = outer.top + node.clientTop;
+      const cut = Math.max(left - (box.left - reach), top - (box.top - reach),
+        (box.right + reach) - (left + node.clientWidth), (box.bottom + reach) - (top + node.clientHeight));
+      if (cut > 0.5) clippedBy.push(String(node.className).split(" ")[0] || node.tagName);
+    }
+    return {
+      text: (element.textContent || focused.labels?.[0]?.textContent || focused.getAttribute("aria-label") || focused.title || "").trim(),
+      field: focused.matches("input:not([type='checkbox'], [type='radio']), textarea, [role='combobox']"),
+      style: style.outlineStyle,
+      width,
+      ratio: ratio(parse(style.outlineColor), behind(element)),
+      clippedBy,
+    };
+  }, null);
+}
+
+module.exports = { test, expect, INVALID_DEEPL_KEY, copyExtension, closeWelcomePage, withoutYouTubeAccess, lowContrast, focusOutline };

@@ -11,10 +11,10 @@ export const Description: FC = () => {
       <Typography variant="h5" gutterBottom fontWeight="bold">
         {t("blocks.description.title")}
       </Typography>
-      <Typography variant="subtitle1" color={"text.secondary"}>
+      <Typography variant="subtitle1" component="p" color={"text.secondary"}>
         {t("blocks.description.subtitle")}
       </Typography>
-      <Typography variant="subtitle1" color={"text.secondary"}>
+      <Typography variant="subtitle1" component="p" color={"text.secondary"}>
         {t("blocks.description.thank-you")}
         {" "}
         <Box component="span" sx={{ color: "error.main" }}>❤️</Box>

@@ -66,10 +66,10 @@ export const RatingPromptCard: FC = () => {
       {/* Side by side when they fit, one under the other when not — with no
           separator left hanging at the end of a line. */}
       <Box mt={1} display="flex" flexWrap="wrap" columnGap={2} rowGap={0.5}>
-        <Link component="button" type="button" variant="body2" color="inherit" onClick={dontAskAgain}>
+        <Link component="button" type="button" variant="body2" color="inherit" onClick={dontAskAgain} sx={{ textAlign: "start" }}>
           {t("ratingPrompt.dontAskAgain")}
         </Link>
-        <Link component="button" type="button" variant="body2" color="inherit" onClick={() => chrome.tabs.create({ url: ISSUES_URL })}>
+        <Link component="button" type="button" variant="body2" color="inherit" onClick={() => chrome.tabs.create({ url: ISSUES_URL })} sx={{ textAlign: "start" }}>
           {t("ratingPrompt.reportProblem")}
         </Link>
       </Box>

@@ -40,12 +40,12 @@ export const SupportModal: FC<SupportModalProps> = (props) => {
       >
         <Stack direction="row" spacing={1} alignItems="center">
           <CoffeeIcon fontSize="large" />
-          <Typography variant="h5">
+          <Typography variant="h5" component="span">
             {t("support.title")}
           </Typography>
         </Stack>
         <IconButton
-          aria-label="close"
+          aria-label={t("confirmation.actions.close.text")}
           onClick={onClose}
           sx={{ color: "text.secondary" }}
         >

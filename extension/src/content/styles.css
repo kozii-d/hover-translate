@@ -20,11 +20,11 @@
 }
 
 .custom-tooltip-word:hover {
-    background-color: #808080;
+    background-color: #707070;
 }
 
 .custom-tooltip-word-selected {
-    background-color: #808080;
+    background-color: #707070;
 }
 
 /* The rating card on the video: colours and font come from the subtitle theme (inline). */

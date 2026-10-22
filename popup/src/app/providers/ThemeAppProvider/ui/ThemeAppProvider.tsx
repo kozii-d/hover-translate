@@ -16,50 +16,22 @@ import {
   writeCachedPopupTheme,
 } from "@/shared/lib/theme/popupTheme.ts";
 
+/** The near black and near white of `color="primary"` buttons: the page's text, not the red. */
 const BUTTONS_COLOR = {
-  contained: {
-    light: {
-      background: "rgb(15, 15, 15)",
-      text: "rgb(255, 255, 255)",
-      hoverText: "rgb(34, 34, 34)",
-      hoverBackground: "rgba(15, 15, 15, 0.8)",
-    },
-    dark: {
-      background: "rgb(241, 241, 241)",
-      text: "rgb(15, 15, 15)",
-      hoverText: "rgb(224, 224, 224)",
-      hoverBackground: "rgba(241, 241, 241, 0.8)",
-    },
-  },
-  outlined: {
-    light: {
-      background: "rgb(15, 15, 15)",
-      text: "rgb(255, 255, 255)",
-      hoverText: "rgb(34, 34, 34)",
-      hoverBackground: "rgba(15, 15, 15, 0.08)",
-    },
-    dark: {
-      background: "rgb(241, 241, 241)",
-      text: "rgb(15, 15, 15)",
-      hoverText: "rgb(224, 224, 224)",
-      hoverBackground: "rgba(241, 241, 241, 0.08)",
-    },
-  },
-  text: {
-    light: {
-      background: "rgb(15, 15, 15)",
-      text: "rgb(255, 255, 255)",
-      hoverText: "rgb(34, 34, 34)",
-      hoverBackground: "rgba(15, 15, 15, 0.08)",
-    },
-    dark: {
-      background: "rgb(241, 241, 241)",
-      text: "rgb(15, 15, 15)",
-      hoverText: "rgb(224, 224, 224)",
-      hoverBackground: "rgba(241, 241, 241, 0.08)",
-    },
-  },
+  light: { main: "rgb(15, 15, 15)", contained: "rgb(255, 255, 255)", hover: "rgba(15, 15, 15, 0.8)", tint: "rgba(15, 15, 15, 0.08)" },
+  dark: { main: "rgb(241, 241, 241)", contained: "rgb(15, 15, 15)", hover: "rgba(241, 241, 241, 0.8)", tint: "rgba(241, 241, 241, 0.08)" },
 } as const;
+
+/**
+ * The red of the HoverTranslate icon (#f61c0d), as dark or light as text
+ * needs: 4.66:1 on white, and white on it as much; 5.70:1 on MUI's dark
+ * background, with dark text on it (`contrastThreshold` below). The site has
+ * its own steps of the same hue.
+ */
+const PRIMARY = { light: "#e41f0f", dark: "#ff4d40" } as const;
+
+/** The dark text of `info` and `warning` outlined buttons in the light theme: MUI's own is under 4.5:1 on its alerts. */
+const OUTLINED_TEXT_LIGHT = { info: "#01579b", warning: "#663c00" } as const;
 
 const SYSTEM_DARK_QUERY = "(prefers-color-scheme: dark)";
 
@@ -110,82 +82,107 @@ export const ThemeAppProvider: FC<ThemeAppProviderProps> = ({ children }) => {
     writeCachedPopupTheme(theme);
   }, []);
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        direction,
-        palette: {
-          mode,
-          primary: {
-            main: "rgb(255, 0, 51)",
+  const theme = useMemo(() => {
+    const buttons = BUTTONS_COLOR[mode];
+
+    return createTheme({
+      direction,
+      palette: {
+        mode,
+        primary: { main: PRIMARY[mode] },
+        // The text on a coloured background (a red button, the badge) as
+        // readable as any other: MUI's default threshold of 3 puts white on
+        // the dark theme's red error button at 3.68:1.
+        contrastThreshold: 4.5,
+      },
+      components: {
+        // No scroll lock under lists and dialogs: Chrome keeps the popup's
+        // scrollbar under `overflow: hidden`, and the padding MUI adds in its
+        // place widens the popup window. `Popover` (under `Menu` and `Select`)
+        // passes its own `false` to `Modal`, so it needs the default too.
+        MuiModal: {
+          defaultProps: { disableScrollLock: true },
+        },
+        MuiPopover: {
+          defaultProps: { disableScrollLock: true },
+        },
+        // The keyboard focus: an outline of the text's colour around the
+        // control. Not `currentColor`: a contained button's is white on a
+        // white page.
+        MuiButtonBase: {
+          styleOverrides: {
+            root: ({ theme }) => ({
+              "&.Mui-focusVisible": { outline: `2px solid ${theme.palette.text.primary}`, outlineOffset: 2 },
+            }),
           },
         },
-        components: {
-          // No scroll lock under lists and dialogs: Chrome keeps the popup's
-          // scrollbar under `overflow: hidden`, and the padding MUI adds in its
-          // place widens the popup window. `Popover` (under `Menu` and `Select`)
-          // passes its own `false` to `Modal`, so it needs the default too.
-          MuiModal: {
-            defaultProps: { disableScrollLock: true },
+        // Links too, which are not ButtonBase (the browser's own ring otherwise).
+        MuiLink: {
+          styleOverrides: {
+            root: ({ theme }) => ({
+              "&:focus-visible, &.Mui-focusVisible": { outline: `2px solid ${theme.palette.text.primary}`, outlineOffset: 2 },
+            }),
           },
-          MuiPopover: {
-            defaultProps: { disableScrollLock: true },
+        },
+        // Inside the ones that sit edge to edge. `&&`: over ButtonBase's own rule.
+        MuiTab: { styleOverrides: { root: { "&&.Mui-focusVisible": { outlineOffset: -2 } } } },
+        MuiListItemButton: { styleOverrides: { root: { "&&.Mui-focusVisible": { outlineOffset: -2 } } } },
+        MuiMenuItem: { styleOverrides: { root: { "&&.Mui-focusVisible": { outlineOffset: -2 } } } },
+        // A switch cuts off what is outside its box (`overflow: hidden`): the
+        // outline goes round the thumb's halo, inside the box.
+        MuiSwitch: { styleOverrides: { switchBase: { "&&.Mui-focusVisible": { outlineOffset: -2 } } } },
+        // An alert's message box scrolls (`overflow: auto`) and would cut off
+        // the outline of a button at its edge. `minWidth: 0` keeps a long
+        // word from widening the alert, as the scroll box did.
+        MuiAlert: { styleOverrides: { message: { overflow: "visible", minWidth: 0 } } },
+        // Red is for an error alone: a focused field has the text's colour.
+        MuiOutlinedInput: {
+          styleOverrides: {
+            root: ({ theme }) => ({
+              "&.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline": { borderColor: theme.palette.text.primary },
+            }),
           },
-          MuiButton: {
-            styleOverrides: {
-              root: {
-                "&.MuiButton-contained.MuiButton-colorPrimary": {
-                  backgroundColor:
-                    mode === "light"
-                      ? BUTTONS_COLOR.contained.light.background
-                      : BUTTONS_COLOR.contained.dark.background,
-                  color:
-                    mode === "light"
-                      ? BUTTONS_COLOR.contained.light.text
-                      : BUTTONS_COLOR.contained.dark.text,
-                  "&:hover": {
-                    backgroundColor:
-                      mode === "light"
-                        ? BUTTONS_COLOR.contained.light.hoverBackground
-                        : BUTTONS_COLOR.contained.dark.hoverBackground,
-                  },
-                },
-                "&.MuiButton-outlined.MuiButton-colorPrimary": {
-                  borderColor:
-                    mode === "light"
-                      ? BUTTONS_COLOR.outlined.light.background
-                      : BUTTONS_COLOR.outlined.dark.background,
-                  color:
-                    mode === "light"
-                      ? BUTTONS_COLOR.outlined.light.background
-                      : BUTTONS_COLOR.outlined.dark.background,
-                  "&:hover": {
-                    backgroundColor:
-                      mode === "light"
-                        ? BUTTONS_COLOR.outlined.light.hoverBackground
-                        : BUTTONS_COLOR.outlined.dark.hoverBackground,
-                  },
-                },
-
-                "&.MuiButton-text.MuiButton-colorPrimary": {
-                  color:
-                    mode === "light"
-                      ? BUTTONS_COLOR.text.light.background
-                      : BUTTONS_COLOR.text.dark.background,
-                  "&:hover": {
-                    backgroundColor:
-                      mode === "light"
-                        ? BUTTONS_COLOR.text.light.hoverBackground
-                        : BUTTONS_COLOR.text.dark.hoverBackground,
-                  },
-                },
-              }
+        },
+        MuiInputLabel: {
+          styleOverrides: {
+            root: ({ theme }) => ({
+              "&.Mui-focused:not(.Mui-error)": { color: theme.palette.text.primary },
+            }),
+          },
+        },
+        MuiButton: {
+          styleOverrides: {
+            root: {
+              // Not on a disabled one, which keeps MUI's disabled colours.
+              "&.MuiButton-contained.MuiButton-colorPrimary:not(.Mui-disabled)": {
+                backgroundColor: buttons.main,
+                color: buttons.contained,
+                "&:hover": { backgroundColor: buttons.hover },
+              },
+              "&.MuiButton-outlined.MuiButton-colorPrimary:not(.Mui-disabled)": {
+                borderColor: buttons.main,
+                color: buttons.main,
+                "&:hover": { backgroundColor: buttons.tint },
+              },
+              "&.MuiButton-text.MuiButton-colorPrimary:not(.Mui-disabled)": {
+                color: buttons.main,
+                "&:hover": { backgroundColor: buttons.tint },
+              },
+              // An outlined button's border is the colour of its text.
+              "&.MuiButton-outlined:is(.MuiButton-colorInfo, .MuiButton-colorWarning):not(.Mui-disabled)": {
+                borderColor: "currentColor",
+              },
+              ...(mode === "light" && {
+                "&.MuiButton-outlined.MuiButton-colorInfo:not(.Mui-disabled)": { color: OUTLINED_TEXT_LIGHT.info },
+                "&.MuiButton-outlined.MuiButton-colorWarning:not(.Mui-disabled)": { color: OUTLINED_TEXT_LIGHT.warning },
+              }),
             },
           },
         },
-      }),
-    [mode, direction]
-  );
+      },
+    });
+  }, [mode, direction]);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia(SYSTEM_DARK_QUERY);
     const handleChange = () => {

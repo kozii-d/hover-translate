@@ -22,7 +22,8 @@ export const PopupTabsCard: FC = () => {
 
   return (
     <Paper component="section" variant="outlined" aria-labelledby={TITLE_ID} sx={{ p: 2 }}>
-      <Stack spacing={1.5}>
+      {/* `useFlexGap`: the spacing's margins would take the button's own. */}
+      <Stack spacing={1.5} useFlexGap>
         <Typography id={TITLE_ID} variant="h6" component="h2">{t("welcome:more.title")}</Typography>
         {items.map(({ icon, ns, text }) => (
           <Stack key={ns} direction="row" spacing={1.5} alignItems="flex-start">
@@ -33,7 +34,8 @@ export const PopupTabsCard: FC = () => {
             </div>
           </Stack>
         ))}
-        <OpenSettingsButton/>
+        {/* Under the text of the lines, past their icons' column (24 px and the gap). */}
+        <OpenSettingsButton color="primary" sx={{ ml: 4.5 }}/>
       </Stack>
     </Paper>
   );

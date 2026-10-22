@@ -31,7 +31,7 @@ export const TranslationRecord: FC<TranslationRecordProps> = (props) => {
         <Typography variant="body1" sx={{ flex: 1, overflowWrap: "anywhere" }} title={translation.targetLanguageCode} dir="auto">
           {translation.translatedText}
         </Typography>
-        <IconButton aria-label="delete" onClick={() => onRemove(translation.id)} title={t("actions.deleteTranslation.tooltip")}>
+        <IconButton onClick={() => onRemove(translation.id)} title={t("actions.deleteTranslation.tooltip")}>
           <DeleteIcon />
         </IconButton>
       </Stack>

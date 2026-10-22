@@ -1,8 +1,14 @@
 import { describe, expect, it, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import fs from "node:fs";
+import path from "node:path";
+import { screen, waitFor, within } from "@testing-library/react";
+import { REPO_ROOT } from "@extension-test/fakeChrome.ts";
 import { recordFieldTexts, renderPopup } from "./renderPopup.tsx";
 
 const EMPTY = "Dictionary is empty";
+
+const readLocale = (language: string, ns: string) =>
+  JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "_locales", language, `${ns}.json`), "utf8"));
 const ERROR_TITLE = "Couldn't load this page";
 
 const SAVED = [{
@@ -56,5 +62,46 @@ describe("the Dictionary page says \"empty\" only when it has read that there is
     expect(screen.getByRole("button", { name: "Export translations" })).toBeTruthy();
     expect(screen.queryByText(ERROR_TITLE)).toBeNull();
     expect(fake.storage.local.savedTranslations).toEqual(SAVED);
+  });
+});
+
+describe("the saved words' buttons", () => {
+  it("in ru, the delete button is named in Russian, by its title", async () => {
+    await renderPopup({ language: "ru", route: "/dictionary", local: { savedTranslations: SAVED } });
+
+    expect(await screen.findByRole("button", { name: readLocale("ru", "dictionary").actions.deleteTranslation.tooltip })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "delete" })).toBeNull();
+  });
+
+  it("Clear all asks in a dialog named by its title, its button red; confirmed, nothing is left", async () => {
+    const { fake, user } = await renderPopup({ route: "/dictionary", local: { savedTranslations: SAVED } });
+
+    await user.click(await screen.findByRole("button", { name: "Clear all" }));
+    const dialog = await screen.findByRole("dialog", { name: "Clear all translations?" });
+    const clear = within(dialog).getByRole("button", { name: "Clear" });
+    expect(clear.classList).toContain("MuiButton-colorError");
+    await user.click(clear);
+
+    expect(await screen.findByText(EMPTY)).toBeTruthy();
+    expect(fake.storage.local.savedTranslations).toEqual([]);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("a word that cannot be removed: a notification raised above the page, its close button named in the popup's language", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const { user } = await renderPopup({
+      language: "ru",
+      route: "/dictionary",
+      local: { savedTranslations: SAVED },
+      failingWrites: { local: ["savedTranslations"] },
+    });
+
+    await user.click(await screen.findByRole("button", { name: readLocale("ru", "dictionary").actions.deleteTranslation.tooltip }));
+
+    const notification = await screen.findByRole("alert");
+    expect(notification.textContent).toContain("Failed to remove translation");
+    expect(notification.classList).toContain("MuiPaper-elevation6");
+    const close = within(notification).getByRole("button", { name: readLocale("ru", "modals").confirmation.actions.close.text });
+    expect(close.getAttribute("title")).toBe(readLocale("ru", "modals").confirmation.actions.close.text);
   });
 });
