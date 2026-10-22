@@ -86,7 +86,7 @@ test("Shift across two words: one request with both", async ({ welcomePage, welc
   expect(network.to("translate.googleapis.com").map((request) => request.url.searchParams.get("q"))).toEqual(["the", "the beach"]);
 });
 
-test("as on YouTube: a selected word is highlighted the whole height of its line, and the tooltip stays inside the player", async ({ welcomePage, welcomePlayer, storage, network }) => {
+test("as on YouTube: a selected word is highlighted the whole height of its line in any font, and the tooltip stays inside the player", async ({ welcomePage, welcomePlayer, storage, network }) => {
   await translateIntoGerman(welcomePage, storage);
   // A long answer, as for a phrase across both lines.
   network.translate("de", "I'm going to the beach tomorrow if the weather", "Ich gehe morgen an den Strand, wenn das Wetter mitspielt und die Sonne scheint");
@@ -97,12 +97,25 @@ test("as on YouTube: a selected word is highlighted the whole height of its line
   await welcomePage.keyboard.up("Shift");
   await expect(welcomePlayer.tooltip).toHaveText("Ich gehe morgen an den Strand, wenn das Wetter mitspielt und die Sonne scheint");
 
-  const heights = await welcomePage.locator(".custom-tooltip-word-selected").evaluateAll((words) => words.map((word) => ({
-    word: word.getBoundingClientRect().height,
-    segment: word.closest(".ytp-caption-segment").getBoundingClientRect().height / word.closest(".ytp-caption-segment").getClientRects().length,
-  })));
+  // A segment is an `inline-block`, one rectangle however many lines it wraps
+  // to, so its lines are counted by the tops of its words.
+  const heights = await welcomePage.locator(".custom-tooltip-word-selected").evaluateAll((words) => words.map((word) => {
+    const segment = word.closest(".ytp-caption-segment");
+    const tops = new Set([...segment.querySelectorAll(".custom-tooltip-word")].map((each) => Math.round(each.getBoundingClientRect().top)));
+    return {
+      word: word.getBoundingClientRect().height,
+      line: segment.getBoundingClientRect().height / tops.size,
+      fontSize: parseFloat(getComputedStyle(segment).fontSize),
+    };
+  }));
   expect(heights).toHaveLength(9);
-  for (const { word, segment } of heights) expect(word).toBeCloseTo(segment, 0);
+  // With `line-height: normal` a line is taller than a word by the font's line
+  // gap: none in Roboto or DejaVu Sans, about 3 % of the size in Arial, 4 % in
+  // Times New Roman. Inheriting the page's `line-height: 1.5` adds about 30 %.
+  for (const { word, line, fontSize } of heights) {
+    expect(word).toBeLessThanOrEqual(line + 0.5);
+    expect(word).toBeGreaterThanOrEqual(line - 0.1 * fontSize);
+  }
 
   const video = await welcomePage.locator(".html5-video-player video").boundingBox();
   const tooltip = await welcomePlayer.tooltip.boundingBox();

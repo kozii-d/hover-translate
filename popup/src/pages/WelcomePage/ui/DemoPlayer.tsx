@@ -25,9 +25,9 @@ const SEGMENT_STYLE = "display: inline-block; white-space: pre-wrap; background:
   + "font-family: \"YouTube Noto\", Roboto, Arial, Helvetica, Verdana, \"PT Sans Caption\", sans-serif;";
 
 // `line-height: normal`, as YouTube's captions have (a segment of 20.55 px is
-// 24 px high in e2e/youtube-dom/captured/watch.json): inherited from the page,
-// the segment's line would be taller than its words, and a selected word's grey
-// would not fill it.
+// 24 px high in e2e/youtube-dom/captured/watch.json). The welcome page's body
+// sets it too; this keeps the demo right whatever the body has, since a taller
+// line than its words leaves a selected word's grey short of it.
 const CAPTION_WINDOW_STYLE = "position: absolute; left: 0; right: 0; bottom: 12%; margin: 0 auto; "
   + "width: max-content; max-width: 96%; text-align: center; line-height: normal; pointer-events: auto;";
 
